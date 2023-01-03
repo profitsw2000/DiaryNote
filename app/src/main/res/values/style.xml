@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ClassicThemeTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/purple_500</item>
+        <item name="helperTextTextColor">@color/purple_500</item>
+        <item name="startIconTint">@color/purple_500</item>
+        <item name="endIconTint">@color/purple_500</item>
+    </style>
+
+    <style name="ClassicThemeFABStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/purple_500</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="ClassicThemeTextViewStyle" parent="@android:style/TextAppearance.Material.Small">
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>
