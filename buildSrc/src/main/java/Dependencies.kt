@@ -18,6 +18,7 @@ object Modules {
     const val core = ":core"
     const val data = ":data"
     const val signinscreen = ":signInScreen"
+    const val registrationscreen = ":registrationScreen"
 }
 
 object Versions {

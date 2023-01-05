@@ -27,4 +27,5 @@ dependencies {
     implementation project(path: ":core")
     implementation project(path: ":data")
     implementation project(path: ":signInScreen")
+    implementation project(path: ":registrationScreen")
 }
