@@ -1,4 +1,4 @@
-package diarynote.registrationscreen
+package diarynote.registrationscreen.presentation.viewmodel
 
 import diarynote.core.viewmodel.CoreViewModel
 
