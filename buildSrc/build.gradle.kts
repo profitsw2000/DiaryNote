@@ -34,7 +34,7 @@ plugins {
     implementation(Room.roomRuntime)
     implementation(Room.roomKtx)
     implementation(Room.roomRxJava)
-    implementation(Room.roomCompiler)
+    kapt(Room.roomCompiler)
 
     //Test
     testImplementation(TestImpl.jUnit)

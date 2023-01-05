@@ -1,10 +1,11 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt") version "1.8.0"
 }
 
 android {
-    namespace = "ru.profitsw2000.signinscreen"
+    namespace = "diarynote.signinscreen"
 }
 
 dependencies {
@@ -34,10 +35,7 @@ dependencies {
     implementation(Room.roomRuntime)
     implementation(Room.roomKtx)
     implementation(Room.roomRxJava)
-    implementation(Room.roomCompiler)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    kapt(Room.roomCompiler)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

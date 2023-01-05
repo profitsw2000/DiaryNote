@@ -2,16 +2,25 @@ package ru.profitsw2000.diarynote.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.profitsw2000.app.databinding.ActivityMainBinding
+import diarynote.signinscreen.presentation.view.SignInFragment
+import ru.profitsw2000.app.R
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
+
+        val actionBar = supportActionBar
+        actionBar?.let {
+            it.hide()
+        }
+
+        supportFragmentManager.apply {
+            beginTransaction()
+                .replace(R.id.fragment_container, SignInFragment.newInstance())
+                .commitAllowingStateLoss()
+        }
     }
 }

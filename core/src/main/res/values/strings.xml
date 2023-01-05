@@ -5,4 +5,12 @@
     <string name="more_bottom_nav_title">Ещё</string>
     <string name="helper_text_text_input_layout">Поиск заметки по ключевым словам</string>
     <string name="search_field_hint_text_input_layout">Введите слово</string>
+    <string name="forgot_password_underline_text"><u>Забыли пароль?</u></string>
+    <string name="main_application_icon_text">main_application_icon</string>
+    <string name="input_title_text">ВХОД</string>
+    <string name="login_hint_text">Логин</string>
+    <string name="password_hint_text">Пароль</string>
+    <string name="login_button_text">ВОЙТИ</string>
+    <string name="or_delimeter_text">ИЛИ</string>
+    <string name="registration_button_text">ЗАРЕГИСТРИРОВАТЬСЯ</string>
 </resources>

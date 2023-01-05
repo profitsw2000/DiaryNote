@@ -3,4 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="main_fragment_search_note_input_margin">8dp</dimen>
+    <dimen name="standart_constraint_vertical_spacing_between_views">18dp</dimen>
+    <dimen name="small_constraint_vertical_spacing_between_views">12dp</dimen>
+    <dimen name="standart_constraint_vertical_padding">12dp</dimen>
+    <dimen name="standart_constraint_horizontal_padding">32dp</dimen>
+    <dimen name="medium_horizontal_spacing_between_views">16dp</dimen>
+    <dimen name="delimeter_line_height">3dp</dimen>
+    <dimen name="auth_input_field_corner_radius">16dp</dimen>
 </resources>

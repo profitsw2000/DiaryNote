@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ClassicThemeTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/purple_500</item>
-        <item name="helperTextTextColor">@color/purple_500</item>
-        <item name="startIconTint">@color/purple_500</item>
-        <item name="endIconTint">@color/purple_500</item>
+    <!--    Shape styles    -->
+
+
+    <!--Text styles-->
+    <style name="authorization_screens_title_text_style">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="ClassicThemeFABStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/purple_500</item>
-        <item name="tint">@color/white</item>
+    <style name="forgot_password_text_style">
+        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="ClassicThemeTextViewStyle" parent="@android:style/TextAppearance.Material.Small">
-        <item name="android:textColor">@color/black</item>
+    <!--Component styles-->
+    <style name="customTextInputOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">@dimen/auth_input_field_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/auth_input_field_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/auth_input_field_corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/auth_input_field_corner_radius</item>
     </style>
 </resources>
