@@ -16,4 +16,6 @@
     <string name="registration_title_text">РЕГИСТРАЦИЯ</string>
     <string name="email_hint_text">E-mail</string>
     <string name="confirm_password_hint_text">Подтвердить пароль</string>
+    <string name="send_password_title_text">Отправить пароль на почту</string>
+    <string name="send_button_text">ОТПРАВИТЬ</string>
 </resources>
