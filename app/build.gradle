@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-//    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -24,7 +23,8 @@ dependencies {
     androidTestImplementation TestImpl.extJUnit
     androidTestImplementation TestImpl.espresso
 
-    implementation project(path: ":core")
-    implementation project(path: ":data")
-    implementation project(path: ":signInScreen")
+    implementation project(path: Modules.core)
+    implementation project(path: Modules.data)
+    implementation project(path: Modules.signinscreen)
+    implementation project(path: Modules.registrationscreen)
 }

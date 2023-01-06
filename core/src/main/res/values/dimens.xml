@@ -10,4 +10,5 @@
     <dimen name="medium_horizontal_spacing_between_views">16dp</dimen>
     <dimen name="delimeter_line_height">3dp</dimen>
     <dimen name="auth_input_field_corner_radius">16dp</dimen>
+    <dimen name="registration_screen_top_padding">60dp</dimen>
 </resources>

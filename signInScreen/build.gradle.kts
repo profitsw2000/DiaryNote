@@ -10,8 +10,8 @@ android {
 
 dependencies {
     //Modules
-    implementation(project(":core"))
-    implementation(project(":data"))
+    implementation(project(Modules.core))
+    implementation(project(Modules.data))
 
     //Kotlin
     implementation(Kotlin.core)

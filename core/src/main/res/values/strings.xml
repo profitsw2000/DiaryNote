@@ -13,4 +13,7 @@
     <string name="login_button_text">ВОЙТИ</string>
     <string name="or_delimeter_text">ИЛИ</string>
     <string name="registration_button_text">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="registration_title_text">РЕГИСТРАЦИЯ</string>
+    <string name="email_hint_text">E-mail</string>
+    <string name="confirm_password_hint_text">Подтвердить пароль</string>
 </resources>

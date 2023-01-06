@@ -1,20 +1,17 @@
-package diarynote.registrationscreen
+package diarynote.registrationscreen.presentation.view
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import diarynote.core.view.CoreFragment
 import diarynote.registrationScreen.R
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
 
     companion object {
         fun newInstance() = RegistrationFragment()
     }
-
-    private lateinit var viewModel: RegistrationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,11 +19,4 @@ class RegistrationFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
