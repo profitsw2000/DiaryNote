@@ -27,4 +27,5 @@ dependencies {
     implementation project(path: Modules.data)
     implementation project(path: Modules.signinscreen)
     implementation project(path: Modules.registrationscreen)
+    implementation project(path: Modules.passwordrecovery)
 }

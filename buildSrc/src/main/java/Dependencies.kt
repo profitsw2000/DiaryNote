@@ -19,6 +19,7 @@ object Modules {
     const val data = ":data"
     const val signinscreen = ":signInScreen"
     const val registrationscreen = ":registrationScreen"
+    const val passwordrecovery = ":passwordRecovery"
 }
 
 object Versions {
