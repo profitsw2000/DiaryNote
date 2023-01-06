@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:paddingTop="60dp">
+        android:paddingTop="@dimen/registration_screen_top_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="РЕГИСТРАЦИЯ"/>
+            android:text="@string/registration_title_text"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/input_forms_constraint_layout"
@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/login_text_input_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:hint="E-mail">
+                android:hint="@string/email_hint_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/password_text_input_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:hint="Подтвердить пароль"
+                android:hint="@string/confirm_password_hint_text"
                 app:endIconMode="password_toggle"
                 app:endIconDrawable="@drawable/icon_password_eye_24">
 
@@ -140,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@id/input_forms_constraint_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="ЗАРЕГИСТРИРОВАТЬСЯ"/>
+            android:text="@string/registration_button_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
