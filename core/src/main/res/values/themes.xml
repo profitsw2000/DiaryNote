@@ -24,8 +24,8 @@
 
         <!-- Surface brand color. -->
         <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurface">@color/deep_purple_A400</item>
-        <item name="colorSurfaceVariant">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurfaceVariant">@color/grey_600</item>
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
         <item name="colorSurfaceInverse">@color/white</item>
         <item name="colorOnSurfaceInverse">@color/grey_600</item>

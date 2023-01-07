@@ -2,6 +2,8 @@ package ru.profitsw2000.diarynote.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import diarynote.passwordrecovery.presentation.view.PasswordRecoveryFragment
+import diarynote.registrationscreen.presentation.view.RegistrationFragment
 import diarynote.signinscreen.presentation.view.SignInFragment
 import ru.profitsw2000.app.R
 
