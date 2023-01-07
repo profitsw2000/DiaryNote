@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), Controller {
         supportFragmentManager.apply {
             beginTransaction()
                 .replace(R.id.fragment_container, RegistrationFragment.newInstance())
+                .addToBackStack("")
                 .commitAllowingStateLoss()
         }
     }
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity(), Controller {
         supportFragmentManager.apply {
             beginTransaction()
                 .replace(R.id.fragment_container, PasswordRecoveryFragment.newInstance())
+                .addToBackStack("")
                 .commitAllowingStateLoss()
         }
     }

@@ -37,6 +37,10 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
         binding.registrationButton.setOnClickListener {
             controller.openRegistrationFragment()
         }
+
+        binding.forgotPasswordTextView.setOnClickListener {
+            controller.openPasswordRecoveryFragment()
+        }
     }
 
     override fun onDestroy() {
