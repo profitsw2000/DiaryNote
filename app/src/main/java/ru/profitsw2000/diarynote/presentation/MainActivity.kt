@@ -10,6 +10,8 @@ import ru.profitsw2000.app.R
 
 class MainActivity : AppCompatActivity(), Controller {
 
+    private val fragmentManager by lazy { supportFragmentManager }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity(), Controller {
             it.hide()
         }
 
-        supportFragmentManager.apply {
+        fragmentManager.apply {
             beginTransaction()
                 .replace(R.id.fragment_container, SignInFragment.newInstance())
                 .commitAllowingStateLoss()
@@ -28,8 +30,14 @@ class MainActivity : AppCompatActivity(), Controller {
     }
 
     override fun openRegistrationFragment() {
-        supportFragmentManager.apply {
+        fragmentManager.apply {
             beginTransaction()
+                .setCustomAnimations(
+                    diarynote.core.R.anim.slide_in,
+                    diarynote.core.R.anim.fade_out,
+                    diarynote.core.R.anim.fade_in,
+                    diarynote.core.R.anim.slide_out
+                )
                 .replace(R.id.fragment_container, RegistrationFragment.newInstance())
                 .addToBackStack("")
                 .commitAllowingStateLoss()
@@ -37,8 +45,14 @@ class MainActivity : AppCompatActivity(), Controller {
     }
 
     override fun openPasswordRecoveryFragment() {
-        supportFragmentManager.apply {
+        fragmentManager.apply {
             beginTransaction()
+                .setCustomAnimations(
+                    diarynote.core.R.anim.slide_in,
+                    diarynote.core.R.anim.fade_out,
+                    diarynote.core.R.anim.fade_in,
+                    diarynote.core.R.anim.slide_out
+                )
                 .replace(R.id.fragment_container, PasswordRecoveryFragment.newInstance())
                 .addToBackStack("")
                 .commitAllowingStateLoss()
