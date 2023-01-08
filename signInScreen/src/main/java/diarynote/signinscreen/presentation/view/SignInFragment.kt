@@ -41,6 +41,21 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
         binding.forgotPasswordTextView.setOnClickListener {
             controller.openPasswordRecoveryFragment()
         }
+
+        binding.loginButton.setOnClickListener {
+            val login = binding.loginInputEditText.text
+            val password = binding.passwordInputEditText.text
+
+            val loginIsRight = !(login?.contains(Regex("[^A-Za-z0-9]")))!! && (login.length > 3)
+            val passwordIsRight = !(password?.contains(Regex("[^A-Za-z0-9]")))!! && (password.length > 7)
+
+            if (loginIsRight && passwordIsRight) {
+                binding.loginErrorTextTextView.visibility = View.GONE
+            } else {
+                binding.loginErrorTextTextView.visibility = View.VISIBLE
+                binding.loginErrorTextTextView.text = "Неверный логин или пароль."
+            }
+        }
     }
 
     override fun onDestroy() {

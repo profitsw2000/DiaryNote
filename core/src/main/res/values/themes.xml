@@ -31,10 +31,10 @@
         <item name="colorOnSurfaceInverse">@color/grey_600</item>
 
         <!-- Error brand color. -->
-        <!--        <item name="colorError">@color/red_A700</item>
-                <item name="colorOnError">@color/white</item>
-                <item name="colorErrorContainer">@color/red_A700</item>
-                <item name="colorOnErrorContainer">@color/white</item>-->
+        <item name="colorError">@color/red_A700</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorErrorContainer">@color/red_A700</item>
+        <item name="colorOnErrorContainer">@color/white</item>
 
         <!-- Outline brand color. -->
         <item name="colorOutline">@color/deep_purple_A400</item>

@@ -72,6 +72,7 @@
                 android:hint="@string/login_hint_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -94,13 +95,25 @@
                 app:endIconDrawable="@drawable/password_icon">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:maxLength="20"
                     android:maxLines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                style="@style/authorization_error_text_style"
+                android:id="@+id/login_error_text_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_constraint_vertical_spacing_between_views"
+                app:layout_constraintTop_toBottomOf="@id/password_text_input_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:visibility="gone"
+                android:text="Неверный логин и/или пароль"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
