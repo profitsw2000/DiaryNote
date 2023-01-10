@@ -6,15 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import diarynote.core.common.Controller
+import diarynote.core.utils.LOGIN_MIN_LENGTH
+import diarynote.core.utils.LOGIN_PATTERN
+import diarynote.core.utils.PASSWORD_MIN_LENGTH
+import diarynote.core.utils.PASSWORD_PATTERN
 import diarynote.core.view.CoreFragment
 import diarynote.signinscreen.R
 import diarynote.signinscreen.databinding.FragmentSignInBinding
+import diarynote.signinscreen.presentation.viewmodel.SignInViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
     private val controller by lazy { activity as Controller }
+    private val signInViewModel: SignInViewModel by viewModel()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,8 +53,13 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
             val login = binding.loginInputEditText.text
             val password = binding.passwordInputEditText.text
 
+            val loginIsRight = signInViewModel.checkInputIsValid(login.toString(), LOGIN_MIN_LENGTH, LOGIN_PATTERN)
+            val passwordIsRight = signInViewModel.checkInputIsValid(password.toString(), PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)
+
+/*
             val loginIsRight = !(login?.contains(Regex("[^A-Za-z0-9]")))!! && (login.length > 3)
             val passwordIsRight = !(password?.contains(Regex("[^A-Za-z0-9]")))!! && (password.length > 7)
+*/
 
             if (loginIsRight && passwordIsRight) {
                 binding.loginErrorTextTextView.visibility = View.GONE
