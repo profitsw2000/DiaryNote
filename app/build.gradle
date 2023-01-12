@@ -18,6 +18,8 @@ dependencies {
     implementation Navigation.navigationFragment
     implementation Navigation.navigationUI
     implementation Navigation.navigationRuntime
+    //Koin
+    implementation(Koin.koin)
     implementation Legacy.legacy
     testImplementation TestImpl.jUnit
     androidTestImplementation TestImpl.extJUnit
