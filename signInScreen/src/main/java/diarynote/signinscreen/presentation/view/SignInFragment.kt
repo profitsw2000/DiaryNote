@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
 import diarynote.core.utils.LOGIN_MIN_LENGTH
 import diarynote.core.utils.LOGIN_PATTERN
@@ -13,6 +14,7 @@ import diarynote.core.utils.PASSWORD_PATTERN
 import diarynote.core.view.CoreFragment
 import diarynote.signinscreen.R
 import diarynote.signinscreen.databinding.FragmentSignInBinding
+import diarynote.signinscreen.model.LoginState
 import diarynote.signinscreen.presentation.viewmodel.SignInViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,19 +52,27 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
         }
 
         binding.loginButton.setOnClickListener {
-            val login = binding.loginInputEditText.text
-            val password = binding.passwordInputEditText.text
+            val login = binding.loginInputEditText.text.toString()
+            val password = binding.passwordInputEditText.text.toString()
 
-            val loginIsRight = signInViewModel.checkInputIsValid(login.toString(), LOGIN_MIN_LENGTH, LOGIN_PATTERN)
-            val passwordIsRight = signInViewModel.checkInputIsValid(password.toString(), PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)
-
-            if (loginIsRight && passwordIsRight) {
-                binding.loginErrorTextTextView.visibility = View.GONE
-            } else {
-                binding.loginErrorTextTextView.visibility = View.VISIBLE
-                binding.loginErrorTextTextView.text = "Неверный логин или пароль."
-            }
+            signInViewModel.signIn(login, password)
         }
+
+        val observer = Observer<LoginState> { renderData(it) }
+        signInViewModel.loginResultLiveData.observe(this, observer)
+    }
+
+    private fun renderData(loginState: LoginState) {
+        when(loginState) {
+            is LoginState.Loading -> {}
+            is LoginState.LoginSuccess -> {binding.loginErrorTextTextView.visibility = View.GONE}
+            is LoginState.Error -> setErrorMessage(loginState.message)
+        }
+    }
+
+    private fun setErrorMessage(message: String) {
+        binding.loginErrorTextTextView.visibility = View.VISIBLE
+        binding.loginErrorTextTextView.text = message
     }
 
     override fun onDestroy() {
