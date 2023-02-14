@@ -1,6 +1,6 @@
 package diarynote.data.domain.model
 
-data class UserEntity(
+data class UserModel(
     val id: Int = 0,
     val login: String = "",
     val email: String = "",

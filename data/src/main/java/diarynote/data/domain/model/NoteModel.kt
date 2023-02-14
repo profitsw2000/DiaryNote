@@ -2,7 +2,7 @@ package diarynote.data.domain.model
 
 import java.util.Date
 
-data class NoteEntity(
+data class NoteModel(
     val id: Int = 0,
     val category: String = "",
     val title: String = "",

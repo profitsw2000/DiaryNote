@@ -7,12 +7,12 @@ import androidx.room.RoomDatabase
 import diarynote.data.room.dao.CategoryDao
 import diarynote.data.room.dao.NoteDao
 import diarynote.data.room.dao.UserDao
-import diarynote.data.room.model.CategoryModel
-import diarynote.data.room.model.NoteModel
-import diarynote.data.room.model.UserModel
+import diarynote.data.room.model.CategoryEntity
+import diarynote.data.room.model.NoteEntity
+import diarynote.data.room.model.UserEntity
 
 @Database(
-    entities = [CategoryModel::class, NoteModel::class, UserModel::class],
+    entities = [CategoryEntity::class, NoteEntity::class, UserEntity::class],
     version = 1,
     exportSchema = false
 )
