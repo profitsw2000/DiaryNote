@@ -56,11 +56,6 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
             val loginIsRight = signInViewModel.checkInputIsValid(login.toString(), LOGIN_MIN_LENGTH, LOGIN_PATTERN)
             val passwordIsRight = signInViewModel.checkInputIsValid(password.toString(), PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)
 
-/*
-            val loginIsRight = !(login?.contains(Regex("[^A-Za-z0-9]")))!! && (login.length > 3)
-            val passwordIsRight = !(password?.contains(Regex("[^A-Za-z0-9]")))!! && (password.length > 7)
-*/
-
             if (loginIsRight && passwordIsRight) {
                 binding.loginErrorTextTextView.visibility = View.GONE
             } else {
