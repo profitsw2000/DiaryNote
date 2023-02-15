@@ -8,7 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import diarynote.data.room.model.UserEntity
+import diarynote.data.room.entity.UserEntity
 
 @Dao
 interface UserDao {

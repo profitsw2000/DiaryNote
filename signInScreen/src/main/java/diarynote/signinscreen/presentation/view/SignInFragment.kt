@@ -43,6 +43,13 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
+
+        val observer = Observer<LoginState> { renderData(it) }
+        signInViewModel.loginResultLiveData.observe(this, observer)
+    }
+
+    private fun initViews() {
         binding.registrationButton.setOnClickListener {
             controller.openRegistrationFragment()
         }
@@ -57,9 +64,6 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
 
             signInViewModel.signIn(login, password)
         }
-
-        val observer = Observer<LoginState> { renderData(it) }
-        signInViewModel.loginResultLiveData.observe(this, observer)
     }
 
     private fun renderData(loginState: LoginState) {

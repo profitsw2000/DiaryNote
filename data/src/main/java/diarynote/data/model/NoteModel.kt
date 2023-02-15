@@ -1,4 +1,4 @@
-package diarynote.data.domain.model
+package diarynote.data.model
 
 import java.util.Date
 

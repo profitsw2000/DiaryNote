@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import diarynote.data.room.dao.CategoryDao
 import diarynote.data.room.dao.NoteDao
 import diarynote.data.room.dao.UserDao
-import diarynote.data.room.model.CategoryEntity
-import diarynote.data.room.model.NoteEntity
-import diarynote.data.room.model.UserEntity
+import diarynote.data.room.entity.CategoryEntity
+import diarynote.data.room.entity.NoteEntity
+import diarynote.data.room.entity.UserEntity
 
 @Database(
     entities = [CategoryEntity::class, NoteEntity::class, UserEntity::class],

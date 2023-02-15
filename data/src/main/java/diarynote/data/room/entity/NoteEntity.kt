@@ -1,4 +1,4 @@
-package diarynote.data.room.model
+package diarynote.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
