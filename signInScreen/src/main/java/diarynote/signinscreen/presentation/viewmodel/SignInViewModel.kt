@@ -1,13 +1,10 @@
 package diarynote.signinscreen.presentation.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import diarynote.core.R
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.signinscreen.model.LoginState
-import java.util.regex.Pattern
 
 private const val BASE_INVALID_INPUT_MESSAGE = "Неверный ввод:"
 private const val INVALID_PASSWORD_INPUT_MESSAGE = "пароль должен содержать от 7 до 20 цифровых и буквенных символов"
