@@ -12,6 +12,7 @@ import diarynote.core.utils.LOGIN_PATTERN
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.core.utils.PASSWORD_PATTERN
 import diarynote.core.view.CoreFragment
+import diarynote.data.model.UserModel
 import diarynote.signinscreen.R
 import diarynote.signinscreen.databinding.FragmentSignInBinding
 import diarynote.signinscreen.model.LoginState
@@ -68,15 +69,21 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
 
     private fun renderData(loginState: LoginState) {
         when(loginState) {
-            is LoginState.Loading -> {}
-            is LoginState.LoginSuccess -> {binding.loginErrorTextTextView.visibility = View.GONE}
+            is LoginState.Loading -> {binding.progressBar.visibility = View.VISIBLE}
+            is LoginState.LoginSuccess -> enterApp(loginState.userModel)
             is LoginState.Error -> setErrorMessage(loginState.message)
         }
     }
 
     private fun setErrorMessage(message: String) {
+        binding.progressBar.visibility = View.GONE
         binding.loginErrorTextTextView.visibility = View.VISIBLE
         binding.loginErrorTextTextView.text = message
+    }
+
+    private fun enterApp(userModel: UserModel) {
+        binding.progressBar.visibility = View.GONE
+        binding.loginErrorTextTextView.visibility = View.GONE
     }
 
     override fun onDestroy() {

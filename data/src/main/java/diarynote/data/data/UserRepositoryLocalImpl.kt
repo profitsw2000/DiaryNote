@@ -1,8 +1,6 @@
 package diarynote.data.data
 
 import diarynote.data.domain.local.UserRepositoryLocal
-import diarynote.data.interactor.UserInteractor
-import diarynote.data.mappers.UserMapper
 import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.entity.UserEntity
 import io.reactivex.rxjava3.core.Completable
