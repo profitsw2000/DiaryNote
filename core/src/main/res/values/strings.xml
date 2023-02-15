@@ -18,4 +18,9 @@
     <string name="confirm_password_hint_text">Подтвердить пароль</string>
     <string name="send_password_title_text">Отправить пароль на почту</string>
     <string name="send_button_text">ОТПРАВИТЬ</string>
+    <string name="sign_in_input_forms_error_text">Неверный логин и/или пароль</string>
+    <string name="invalid_input_error_text">Неверный ввод: %1$s%2$s%3$s</string>
+    <string name="comma_string">, </string>
+    <string name="invalid_login_input">логин должен содержать от 4 до 20 цифровых и буквенных символов</string>
+    <string name="invalid_password_input">пароль должен содержать от 7 до 20 цифровых и буквенных символов</string>
 </resources>

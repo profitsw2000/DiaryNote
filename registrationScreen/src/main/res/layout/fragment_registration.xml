@@ -105,7 +105,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:hint="@string/password_hint_text"
                 app:endIconMode="password_toggle"
-                app:endIconDrawable="@drawable/icon_password_eye_24">
+                app:endIconDrawable="@drawable/password_icon">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:hint="@string/confirm_password_hint_text"
                 app:endIconMode="password_toggle"
-                app:endIconDrawable="@drawable/icon_password_eye_24">
+                app:endIconDrawable="@drawable/password_icon">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
