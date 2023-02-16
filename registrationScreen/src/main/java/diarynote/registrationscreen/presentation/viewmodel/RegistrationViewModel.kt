@@ -5,10 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.interactor.UserInteractor
+import diarynote.data.mappers.UserMapper
+import diarynote.data.model.UserModel
 import diarynote.registrationscreen.model.RegState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RegistrationViewModel(
-    private val userInteractor: UserInteractor
+    private val userInteractor: UserInteractor,
+    private val userMapper: UserMapper
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -23,7 +28,7 @@ class RegistrationViewModel(
         val confirmed = (password == confirmPassword)
 
         if (loginIsValid && passwordIsValid && passwordIsValid && confirmed) {
-            addUser(login, email, password)
+            addUser(UserModel(null, login, email, password))
         } else {
             invalidInput(loginIsValid, emailIsValid, passwordIsValid, confirmed)
         }
@@ -38,10 +43,20 @@ class RegistrationViewModel(
         _registrationLiveData.value = RegState.Error(errorCode)
     }
 
-    private fun addUser(login: String, email: String, password: String) {
+    private fun addUser(userModel: UserModel) {
         _registrationLiveData.value = RegState.Loading
 
-        //userInteractor.
+        userInteractor.addUser(userMapper.map(userModel), false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                {
+                    _registrationLiveData.value = RegState.Success(userModel)
+                },
+                {
+                    _registrationLiveData.value = RegState.Error(ROOM_BIT_NUMBER shl 1)
+                }
+            )
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0
