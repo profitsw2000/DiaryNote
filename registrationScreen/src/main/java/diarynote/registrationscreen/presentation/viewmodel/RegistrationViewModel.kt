@@ -23,7 +23,7 @@ class RegistrationViewModel(
         val confirmed = (password == confirmPassword)
 
         if (loginIsValid && passwordIsValid && passwordIsValid && confirmed) {
-            registrateUser(login, email, password)
+            addUser(login, email, password)
         } else {
             invalidInput(loginIsValid, emailIsValid, passwordIsValid, confirmed)
         }
@@ -38,8 +38,10 @@ class RegistrationViewModel(
         _registrationLiveData.value = RegState.Error(errorCode)
     }
 
-    private fun registrateUser(login: String, email: String, password: String) {
+    private fun addUser(login: String, email: String, password: String) {
+        _registrationLiveData.value = RegState.Loading
 
+        //userInteractor.
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0
