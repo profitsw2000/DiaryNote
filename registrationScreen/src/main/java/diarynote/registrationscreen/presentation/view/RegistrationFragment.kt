@@ -31,18 +31,38 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+        observeData()
+    }
 
-        binding.loginButton.setOnClickListener {
+    private fun observeData() {
+        val observer = Observer<RegState> { renderData(it) }
+        registrationViewModel.registrationLiveData.observe(this, observer)
+    }
+
+    private fun initViews() = with(binding) {
+        loginButton.setOnClickListener {
             val login = binding.loginInputEditText.text.toString()
             val email = binding.emailInputEditText.text.toString()
             val password = binding.passwordInputEditText.text.toString()
             val confirmPassword = binding.confirmPasswordInputEditText.text.toString()
 
+            loginTextInputLayout.error = null
+            emailTextInputLayout.error = null
+            passwordTextInputLayout.error = null
+            confirmPasswordTextInputLayout.error = null
+
             registrationViewModel.registerUser(login, email, password, confirmPassword)
         }
 
-        val observer = Observer<RegState> { renderData(it) }
-        registrationViewModel.registrationLiveData.observe(this, observer)
+        passwordInputEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) passwordTextInputLayout.error = null
+        }
+
+        confirmPasswordInputEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) confirmPasswordTextInputLayout.error = null
+        }
+
     }
 
     private fun renderData(regState: RegState?) {
@@ -54,7 +74,8 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
         }
     }
 
-    private fun showSuccessMessage(userModel: UserModel) {
+    private fun showSuccessMessage(userModel: UserModel) = with(binding) {
+        progressBar.visibility = View.GONE
         Toast.makeText(
             requireContext(),
             "Пользователь ${userModel.login} был успешно создан.",
@@ -62,18 +83,22 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
             .show()
     }
 
-    private fun handleError(code: Int) {
-        when(code) {
-            (1 shl LOGIN_BIT_NUMBER) and code -> {}
-            (1 shl EMAIL_BIT_NUMBER) and code -> {}
-            (1 shl PASSWORD_BIT_NUMBER) and code -> {}
-            (1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code -> {}
-            (1 shl ROOM_BIT_NUMBER) and code -> {}
-        }
+    private fun handleError(code: Int) = with(binding) {
+        progressBar.visibility = View.GONE
+
+        if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = "Не менее 4 буквенных или цифровых символов"
+        if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = "Неверный email"
+        if((1 shl PASSWORD_BIT_NUMBER) and code != 0) passwordTextInputLayout.error = "Не менее 7 буквенных или цифровых символов"
+        if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = "Пароль не подтверждён"
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) Toast.makeText(
+            requireContext(),
+            "Ошибка добавления пользователя в базу данных.",
+            Toast.LENGTH_SHORT)
+            .show()
     }
 
-    private fun showProgreessBar() {
-        TODO("Not yet implemented")
+    private fun showProgreessBar() = with(binding) {
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

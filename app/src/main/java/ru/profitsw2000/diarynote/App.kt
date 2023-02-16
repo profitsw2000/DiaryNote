@@ -1,6 +1,7 @@
 package ru.profitsw2000.diarynote
 
 import android.app.Application
+import diarynote.registrationscreen.di.registrationModule
 import diarynote.signinscreen.di.signInModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +14,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule, signInModule)
+            modules(appModule, signInModule, registrationModule)
         }
     }
 }

@@ -25,20 +25,20 @@ class RegistrationViewModel(
         val loginIsValid = inputValidator.checkInputIsValid(login, LOGIN_MIN_LENGTH, LOGIN_PATTERN)
         val emailIsValid = inputValidator.checkInputIsValid(email, EMAIL_PATTERN)
         val passwordIsValid = inputValidator.checkInputIsValid(password, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)
-        val confirmed = (password == confirmPassword)
+        val confirmed = (password == confirmPassword) and password.isNotEmpty()
 
-        if (loginIsValid && passwordIsValid && passwordIsValid && confirmed) {
+        if (loginIsValid && emailIsValid && passwordIsValid && confirmed) {
             addUser(UserModel(null, login, email, password))
         } else {
-            invalidInput(loginIsValid, emailIsValid, passwordIsValid, confirmed)
+            invalidInput(!loginIsValid, !emailIsValid, !passwordIsValid, !confirmed)
         }
     }
 
     private fun invalidInput(loginIsValid: Boolean, emailIsValid: Boolean, passwordIsValid: Boolean, confirmed: Boolean) {
-        val errorCode = (loginIsValid.toInt() shl 0) or
-                (emailIsValid.toInt() shl 1) or
-                (passwordIsValid.toInt() shl 2) or
-                (confirmed.toInt() shl 3)
+        val errorCode = (loginIsValid.toInt() shl LOGIN_BIT_NUMBER) or
+                (emailIsValid.toInt() shl EMAIL_BIT_NUMBER) or
+                (passwordIsValid.toInt() shl PASSWORD_BIT_NUMBER) or
+                (confirmed.toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
 
         _registrationLiveData.value = RegState.Error(errorCode)
     }
@@ -54,7 +54,7 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Success(userModel)
                 },
                 {
-                    _registrationLiveData.value = RegState.Error(ROOM_BIT_NUMBER shl 1)
+                    _registrationLiveData.value = RegState.Error(1 shl ROOM_BIT_NUMBER)
                 }
             )
     }
