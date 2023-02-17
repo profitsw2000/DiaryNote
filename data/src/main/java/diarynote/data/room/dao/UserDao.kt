@@ -24,7 +24,7 @@ interface UserDao {
     @Query("SELECT * FROM UserEntity WHERE email LIKE :email")
     fun getUserByEmail(email: String): Single<UserEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(userEntity: UserEntity): Completable
 
     @Update

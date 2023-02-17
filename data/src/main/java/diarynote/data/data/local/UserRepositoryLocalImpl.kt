@@ -19,6 +19,6 @@ class UserRepositoryLocalImpl (
     }
 
     override fun getUserByEmail(email: String): Single<UserEntity> {
-        TODO("Not yet implemented")
+        return database.userDao.getUserByEmail(email)
     }
 }

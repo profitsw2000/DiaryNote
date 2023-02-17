@@ -95,6 +95,16 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
             "Ошибка добавления пользователя в базу данных.",
             Toast.LENGTH_SHORT)
             .show()
+        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) Toast.makeText(
+        requireContext(),
+        "Пользователь с таким login уже существует.",
+        Toast.LENGTH_SHORT)
+        .show()
+        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) Toast.makeText(
+            requireContext(),
+            "Пользователь с таким email уже существует.",
+            Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun showProgreessBar() = with(binding) {

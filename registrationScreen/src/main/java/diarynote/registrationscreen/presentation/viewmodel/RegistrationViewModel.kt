@@ -1,5 +1,6 @@
 package diarynote.registrationscreen.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
@@ -9,6 +10,7 @@ import diarynote.data.mappers.UserMapper
 import diarynote.data.model.UserModel
 import diarynote.registrationscreen.model.RegState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.zipWith
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RegistrationViewModel(
@@ -28,7 +30,7 @@ class RegistrationViewModel(
         val confirmed = (password == confirmPassword) and password.isNotEmpty()
 
         if (loginIsValid && emailIsValid && passwordIsValid && confirmed) {
-            addUser(UserModel(null, login, email, password))
+            addUser(UserModel(0, login, email, password))
         } else {
             invalidInput(!loginIsValid, !emailIsValid, !passwordIsValid, !confirmed)
         }
@@ -54,9 +56,18 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Success(userModel)
                 },
                 {
-                    _registrationLiveData.value = RegState.Error(1 shl ROOM_BIT_NUMBER)
+                    _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
+                    Log.d("VVV", it.message.toString())
                 }
             )
+    }
+
+    private fun getErrorCode(errorMessage: String) : Int {
+        return when(errorMessage) {
+            "UNIQUE constraint failed: UserEntity.login (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER)
+            "UNIQUE constraint failed: UserEntity.email (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER)
+            else -> (1 shl ROOM_BIT_NUMBER)
+        }
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0
