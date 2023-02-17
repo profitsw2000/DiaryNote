@@ -9,4 +9,6 @@ interface UserRepository {
     fun addUser(userEntity: UserEntity): Completable
 
     fun getUserByLogin(login: String): Single<UserEntity>
+
+    fun getUserByEmail(email: String): Single<UserEntity>
 }

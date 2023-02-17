@@ -11,6 +11,14 @@ class UserInteractor(
     private val userRepositoryRemote: UserRepositoryRemote
 ) {
 
+    fun addUser(userEntity: UserEntity, remote: Boolean): Completable {
+        return if (remote) {
+            userRepositoryRemote.addUser(userEntity)
+        } else {
+            userRepositoryLocal.addUser(userEntity)
+        }
+    }
+
     fun getUserByLogin(login: String, remote: Boolean): Single<UserEntity> {
         return if (remote) {
             userRepositoryRemote.getUserByLogin(login)
@@ -19,11 +27,11 @@ class UserInteractor(
         }
     }
 
-    fun addUser(userEntity: UserEntity, remote: Boolean): Completable {
+    fun getUserByEmail(email: String, remote: Boolean): Single<UserEntity> {
         return if (remote) {
-            userRepositoryRemote.addUser(userEntity)
+            userRepositoryRemote.getUserByEmail(email)
         } else {
-            userRepositoryLocal.addUser(userEntity)
+            userRepositoryLocal.getUserByEmail(email)
         }
     }
 
