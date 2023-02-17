@@ -10,14 +10,8 @@ import diarynote.signinscreen.model.LoginState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-private const val BASE_INVALID_INPUT_MESSAGE = "Неверный ввод:"
-private const val INVALID_PASSWORD_INPUT_MESSAGE = "пароль должен содержать от 7 до 20 цифровых и буквенных символов"
-private const val INVALID_LOGIN_INPUT_MESSAGE = "логин должен содержать от 4 до 20 цифровых и буквенных символов"
-private const val INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Неверный логин и/или пароль"
-
 class SignInViewModel(
-    private val userInteractor: UserInteractor,
-    private val userMapper: UserMapper
+    private val userInteractor: UserInteractor
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -33,7 +27,7 @@ class SignInViewModel(
         if (loginIsValid && passwordIsValid) {
             authenticateUser(login, password)
         } else {
-            invalidInput(loginIsValid, passwordIsValid)
+            invalidInput(!loginIsValid, !passwordIsValid)
         }
     }
 
@@ -44,7 +38,11 @@ class SignInViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _loginResultLiveData.value = LoginState.LoginSuccess(userMapper.map(it))
+                    if (it.password == password) {
+                        _loginResultLiveData.value = LoginState.LoginSuccess
+                    } else {
+                        _loginResultLiveData.value = LoginState.Error(1 shl INVALID_PASSWORD_BIT_NUMBER)
+                    }
                 },
                 {
                     _loginResultLiveData.value = LoginState.Error(1 shl ROOM_BIT_NUMBER)

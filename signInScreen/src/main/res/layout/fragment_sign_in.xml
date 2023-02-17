@@ -86,6 +86,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:errorEnabled="true"
                     android:hint="@string/login_hint_text">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -103,13 +104,13 @@
                     android:id="@+id/password_text_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_constraint_vertical_spacing_between_views"
                     app:layout_constraintTop_toBottomOf="@+id/login_text_input_layout"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:hint="@string/password_hint_text"
                     app:endIconMode="password_toggle"
-                    app:endIconDrawable="@drawable/password_icon">
+                    app:endIconDrawable="@drawable/password_icon"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password_input_edit_text"
@@ -138,7 +139,6 @@
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standart_constraint_vertical_spacing_between_views"
                 app:layout_constraintTop_toBottomOf="@id/input_forms_constraint_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
-import diarynote.core.utils.LOGIN_MIN_LENGTH
-import diarynote.core.utils.LOGIN_PATTERN
-import diarynote.core.utils.PASSWORD_MIN_LENGTH
-import diarynote.core.utils.PASSWORD_PATTERN
+import diarynote.core.utils.*
 import diarynote.core.view.CoreFragment
 import diarynote.data.model.UserModel
 import diarynote.signinscreen.R
@@ -47,22 +45,23 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
         initViews()
 
         val observer = Observer<LoginState> { renderData(it) }
-        signInViewModel.loginResultLiveData.observe(this, observer)
+        signInViewModel.loginResultLiveData.observe(viewLifecycleOwner, observer)
     }
 
-    private fun initViews() {
-        binding.registrationButton.setOnClickListener {
+    private fun initViews() = with(binding) {
+        registrationButton.setOnClickListener {
             controller.openRegistrationFragment()
         }
 
-        binding.forgotPasswordTextView.setOnClickListener {
+        forgotPasswordTextView.setOnClickListener {
             controller.openPasswordRecoveryFragment()
         }
 
-        binding.loginButton.setOnClickListener {
-            val login = binding.loginInputEditText.text.toString()
-            val password = binding.passwordInputEditText.text.toString()
-
+        loginButton.setOnClickListener {
+            val login = loginInputEditText.text.toString()
+            val password = passwordInputEditText.text.toString()
+            loginTextInputLayout.error = null
+            passwordTextInputLayout.error = null
             signInViewModel.signIn(login, password)
         }
     }
@@ -70,20 +69,27 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     private fun renderData(loginState: LoginState) {
         when(loginState) {
             is LoginState.Loading -> {binding.progressBar.visibility = View.VISIBLE}
-            is LoginState.LoginSuccess -> enterApp(loginState.userModel)
-            is LoginState.Error -> setErrorMessage(loginState.message)
+            is LoginState.LoginSuccess -> enterApp()
+            is LoginState.Error -> setErrorMessage(loginState.errorCode)
         }
     }
 
-    private fun setErrorMessage(message: String) {
-        binding.progressBar.visibility = View.GONE
-        binding.loginErrorTextTextView.visibility = View.VISIBLE
-        binding.loginErrorTextTextView.text = message
+    private fun setErrorMessage(errorCode: Int) = with(binding) {
+            if((1 shl LOGIN_BIT_NUMBER) and errorCode != 0) loginTextInputLayout.error = "Не менее 4 буквенных или цифровых символов"
+            if((1 shl INVALID_PASSWORD_BIT_NUMBER) and errorCode != 0) setSignInErrorMessage()
+            if((1 shl PASSWORD_BIT_NUMBER) and errorCode != 0) passwordTextInputLayout.error = "Не менее 8 буквенных или цифровых символов"
     }
 
-    private fun enterApp(userModel: UserModel) {
+    private fun setSignInErrorMessage() = with(binding) {
+        progressBar.visibility = View.GONE
+        loginErrorTextTextView.visibility = View.VISIBLE
+        loginErrorTextTextView.text = "Неверный логин и/или пароль"
+    }
+
+    private fun enterApp() {
         binding.progressBar.visibility = View.GONE
         binding.loginErrorTextTextView.visibility = View.GONE
+        Toast.makeText(context, "Успешный вход!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
