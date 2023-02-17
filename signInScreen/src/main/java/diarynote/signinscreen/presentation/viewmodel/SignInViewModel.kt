@@ -47,21 +47,18 @@ class SignInViewModel(
                     _loginResultLiveData.value = LoginState.LoginSuccess(userMapper.map(it))
                 },
                 {
-                    _loginResultLiveData.value = LoginState.Error(INVALID_LOGIN_OR_PASSWORD_MESSAGE)
+                    _loginResultLiveData.value = LoginState.Error(1 shl ROOM_BIT_NUMBER)
                 }
             )
     }
 
     private fun invalidInput(loginIsValid: Boolean, passwordIsValid: Boolean) {
-        var errorMessage = ""
 
-        if (loginIsValid) {
-            errorMessage = "$BASE_INVALID_INPUT_MESSAGE ${INVALID_PASSWORD_INPUT_MESSAGE}."
-        } else if (passwordIsValid) {
-            errorMessage = "$BASE_INVALID_INPUT_MESSAGE ${INVALID_LOGIN_INPUT_MESSAGE}."
-        } else {
-            errorMessage = "$BASE_INVALID_INPUT_MESSAGE ${INVALID_LOGIN_INPUT_MESSAGE}, ${INVALID_PASSWORD_INPUT_MESSAGE}."
-        }
-        _loginResultLiveData.value = LoginState.Error(errorMessage)
+        val errorCode = (loginIsValid.toInt() shl LOGIN_BIT_NUMBER) or
+                (passwordIsValid.toInt() shl PASSWORD_BIT_NUMBER)
+
+        _loginResultLiveData.value = LoginState.Error(errorCode)
     }
+
+    private fun Boolean.toInt() = if (this) 1 else 0
 }
