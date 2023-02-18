@@ -10,6 +10,7 @@ class UserRepositoryLocalImpl (
     private val database: AppDatabase
 ) : UserRepositoryLocal {
 
+    //Локальная база данных
     override fun addUser(userEntity: UserEntity): Completable {
         return database.userDao.insert(userEntity)
     }
