@@ -45,7 +45,7 @@ class SignInViewModel(
                     }
                 },
                 {
-                    _loginResultLiveData.value = LoginState.Error(1 shl ROOM_BIT_NUMBER)
+                    _loginResultLiveData.value = LoginState.Error(1 shl INVALID_PASSWORD_BIT_NUMBER)
                 }
             )
     }
