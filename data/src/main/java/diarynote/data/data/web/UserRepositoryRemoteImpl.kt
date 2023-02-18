@@ -6,11 +6,16 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 class UserRepositoryRemoteImpl : UserRepositoryRemote {
-    override fun saveUser(userEntity: UserEntity): Completable {
+
+    override fun addUser(userEntity: UserEntity): Completable {
         TODO("Not yet implemented")
     }
 
     override fun getUserByLogin(login: String): Single<UserEntity> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUserByEmail(email: String): Single<UserEntity> {
         TODO("Not yet implemented")
     }
 }

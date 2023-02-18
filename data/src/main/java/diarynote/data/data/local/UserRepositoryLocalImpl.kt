@@ -1,4 +1,4 @@
-package diarynote.data.data
+package diarynote.data.data.local
 
 import diarynote.data.domain.local.UserRepositoryLocal
 import diarynote.data.room.database.AppDatabase
@@ -10,11 +10,16 @@ class UserRepositoryLocalImpl (
     private val database: AppDatabase
 ) : UserRepositoryLocal {
 
-    override fun saveUser(userEntity: UserEntity): Completable {
+    //Локальная база данных
+    override fun addUser(userEntity: UserEntity): Completable {
         return database.userDao.insert(userEntity)
     }
 
     override fun getUserByLogin(login: String): Single<UserEntity> {
         return database.userDao.getUserByLogin(login)
+    }
+
+    override fun getUserByEmail(email: String): Single<UserEntity> {
+        return database.userDao.getUserByEmail(email)
     }
 }

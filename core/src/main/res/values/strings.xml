@@ -23,4 +23,12 @@
     <string name="comma_string">, </string>
     <string name="invalid_login_input">логин должен содержать от 4 до 20 цифровых и буквенных символов</string>
     <string name="invalid_password_input">пароль должен содержать от 7 до 20 цифровых и буквенных символов</string>
+    <string name="not_controller_activity_exception">Activity должна наследоваться от Controller</string>
+    <string name="login_input_error_message">Не менее %1$s буквенных или цифровых символов</string>
+    <string name="password_input_error_message">Не менее %1$s буквенных или цифровых символов</string>
+    <string name="invalid_email_input_message">Неверный email</string>
+    <string name="password_not_confirmed_error_message">Пароль не подтверждён</string>
+    <string name="user_registration_error_message">Ошибка добавления пользователя в базу данных.</string>
+    <string name="user_already_exist_error_message">Пользователь с таким именем уже существует.</string>
+    <string name="email_already_exist_error_message">Пользователь с таким email уже существует.</string>
 </resources>
