@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
 import diarynote.core.utils.*
 import diarynote.core.view.CoreFragment
-import diarynote.data.model.UserModel
 import diarynote.signinscreen.R
 import diarynote.signinscreen.databinding.FragmentSignInBinding
 import diarynote.signinscreen.model.LoginState
@@ -27,7 +26,7 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (activity !is Controller) {
-            throw IllegalStateException("Activity должна наследоваться от Controller")
+            throw IllegalStateException(getString(diarynote.core.R.string.not_controller_activity_exception))
         }
     }
 
@@ -57,6 +56,10 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
             controller.openPasswordRecoveryFragment()
         }
 
+        passwordInputEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) passwordTextInputLayout.error = null
+        }
+
         loginButton.setOnClickListener {
             val login = loginInputEditText.text.toString()
             val password = passwordInputEditText.text.toString()
@@ -75,20 +78,23 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     }
 
     private fun setErrorMessage(errorCode: Int) = with(binding) {
-            if((1 shl LOGIN_BIT_NUMBER) and errorCode != 0) loginTextInputLayout.error = "Не менее 4 буквенных или цифровых символов"
+            if((1 shl LOGIN_BIT_NUMBER) and errorCode != 0) loginTextInputLayout.error = getString(
+                diarynote.core.R.string.login_input_error_message, LOGIN_MIN_LENGTH.toString())
             if((1 shl INVALID_PASSWORD_BIT_NUMBER) and errorCode != 0) setSignInErrorMessage()
-            if((1 shl PASSWORD_BIT_NUMBER) and errorCode != 0) passwordTextInputLayout.error = "Не менее 8 буквенных или цифровых символов"
+            if((1 shl PASSWORD_BIT_NUMBER) and errorCode != 0) passwordTextInputLayout.error = getString(
+                            diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
     }
 
     private fun setSignInErrorMessage() = with(binding) {
         progressBar.visibility = View.GONE
         loginErrorTextTextView.visibility = View.VISIBLE
-        loginErrorTextTextView.text = "Неверный логин и/или пароль"
+        loginErrorTextTextView.text = getString(diarynote.core.R.string.sign_in_input_forms_error_text)
     }
 
     private fun enterApp() {
         binding.progressBar.visibility = View.GONE
         binding.loginErrorTextTextView.visibility = View.GONE
+        //Temp
         Toast.makeText(context, "Успешный вход!", Toast.LENGTH_SHORT).show()
     }
 

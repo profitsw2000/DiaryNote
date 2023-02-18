@@ -1,11 +1,13 @@
 package diarynote.registrationscreen.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import diarynote.core.common.Controller
 import diarynote.core.utils.*
 import diarynote.core.view.CoreFragment
 import diarynote.data.model.UserModel
@@ -20,6 +22,13 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
     private val registrationViewModel: RegistrationViewModel by viewModel()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (activity !is Controller) {
+            throw IllegalStateException(getString(diarynote.core.R.string.not_controller_activity_exception))
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +46,7 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
 
     private fun observeData() {
         val observer = Observer<RegState> { renderData(it) }
-        registrationViewModel.registrationLiveData.observe(this, observer)
+        registrationViewModel.registrationLiveData.observe(viewLifecycleOwner, observer)
     }
 
     private fun initViews() = with(binding) {
@@ -68,7 +77,7 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     private fun renderData(regState: RegState?) {
         when(regState) {
             is RegState.Success -> showSuccessMessage(regState.userModel)
-            is RegState.Loading -> showProgreessBar()
+            is RegState.Loading -> showProgressBar()
             is RegState.Error -> handleError(regState.code)
             else -> {}
         }
@@ -86,28 +95,31 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     private fun handleError(code: Int) = with(binding) {
         progressBar.visibility = View.GONE
 
-        if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = "Не менее 4 буквенных или цифровых символов"
-        if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = "Неверный email"
-        if((1 shl PASSWORD_BIT_NUMBER) and code != 0) passwordTextInputLayout.error = "Не менее 7 буквенных или цифровых символов"
-        if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = "Пароль не подтверждён"
+        if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = getString(
+            diarynote.core.R.string.login_input_error_message, LOGIN_MIN_LENGTH.toString())
+        if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = getString(diarynote.core.R.string.invalid_email_input_message)
+        if((1 shl PASSWORD_BIT_NUMBER) and code != 0) passwordTextInputLayout.error = getString(
+            diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
+        if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
+                    diarynote.core.R.string.password_not_confirmed_error_message)
         if((1 shl ROOM_BIT_NUMBER) and code != 0) Toast.makeText(
             requireContext(),
-            "Ошибка добавления пользователя в базу данных.",
+            getString(diarynote.core.R.string.user_registration_error_message),
             Toast.LENGTH_SHORT)
             .show()
         if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) Toast.makeText(
         requireContext(),
-        "Пользователь с таким login уже существует.",
+        getString(diarynote.core.R.string.user_already_exist_error_message),
         Toast.LENGTH_SHORT)
         .show()
         if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) Toast.makeText(
             requireContext(),
-            "Пользователь с таким email уже существует.",
+            getString(diarynote.core.R.string.email_already_exist_error_message),
             Toast.LENGTH_SHORT)
             .show()
     }
 
-    private fun showProgreessBar() = with(binding) {
+    private fun showProgressBar() = with(binding) {
         progressBar.visibility = View.VISIBLE
     }
 
