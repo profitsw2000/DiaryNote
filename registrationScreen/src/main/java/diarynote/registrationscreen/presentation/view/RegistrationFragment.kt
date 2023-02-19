@@ -88,7 +88,8 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
         val dialoger = Dialoger(requireActivity())
 
         progressBar.visibility = View.GONE
-        dialoger.showAlertDialog("Регистрация", "Пользователь ${userModel.login} был успешно создан.")
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
+            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login))
     }
 
     private fun handleError(code: Int) = with(binding) {
@@ -102,9 +103,9 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
             diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
         if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
                     diarynote.core.R.string.password_not_confirmed_error_message)
-        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка", getString(diarynote.core.R.string.user_registration_error_message))
-        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка", getString(diarynote.core.R.string.user_already_exist_error_message))
-        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка", getString(diarynote.core.R.string.email_already_exist_error_message))
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_registration_error_message))
+        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_already_exist_error_message))
+        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.email_already_exist_error_message))
     }
 
     private fun showProgressBar() = with(binding) {

@@ -68,7 +68,7 @@ class PasswordRecoveryFragment : CoreFragment(R.layout.fragment_password_recover
 
         if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = getString(
             diarynote.core.R.string.invalid_email_input_message)
-        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка",
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text),
             getString(diarynote.core.R.string.email_not_exist_in_db_error_message)
         )
 
@@ -82,7 +82,7 @@ class PasswordRecoveryFragment : CoreFragment(R.layout.fragment_password_recover
         val dialoger = Dialoger(requireActivity())
         progressBar.visibility = View.GONE
 
-        dialoger.showAlertDialog("Восстановление пароля",
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.password_recovery_success_dialog_title_text),
             getString(diarynote.core.R.string.email_with_password_was_send)
         )
         emailInputEditText.setText("")
