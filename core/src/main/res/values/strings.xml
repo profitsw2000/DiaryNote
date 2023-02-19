@@ -31,4 +31,10 @@
     <string name="user_registration_error_message">Ошибка добавления пользователя в базу данных.</string>
     <string name="user_already_exist_error_message">Пользователь с таким именем уже существует.</string>
     <string name="email_already_exist_error_message">Пользователь с таким email уже существует.</string>
+    <string name="email_not_exist_in_db_error_message">Пользователь с указанным email не существует.</string>
+    <string name="email_with_password_was_send">Пароль направлен на указанный email.</string>
+    <string name="error_dialog_title_text">Ошибка</string>
+    <string name="password_recovery_success_dialog_title_text">Восстановление пароля</string>
+    <string name="registration_successful_dialog_title_text">Регистрация</string>
+    <string name="registration_successful_dialog_text">Пользователь %1$s был успешно создан.</string>
 </resources>
