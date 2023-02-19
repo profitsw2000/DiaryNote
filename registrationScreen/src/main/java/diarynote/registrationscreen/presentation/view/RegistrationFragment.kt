@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
+import diarynote.core.common.view.Dialoger
 import diarynote.core.utils.*
 import diarynote.core.view.CoreFragment
 import diarynote.data.model.UserModel
@@ -84,15 +85,14 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     }
 
     private fun showSuccessMessage(userModel: UserModel) = with(binding) {
+        val dialoger = Dialoger(requireActivity())
+
         progressBar.visibility = View.GONE
-        Toast.makeText(
-            requireContext(),
-            "Пользователь ${userModel.login} был успешно создан.",
-            Toast.LENGTH_SHORT)
-            .show()
+        dialoger.showAlertDialog("Регистрация", "Пользователь ${userModel.login} был успешно создан.")
     }
 
     private fun handleError(code: Int) = with(binding) {
+        val dialoger = Dialoger(requireActivity())
         progressBar.visibility = View.GONE
 
         if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = getString(
@@ -102,21 +102,9 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
             diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
         if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
                     diarynote.core.R.string.password_not_confirmed_error_message)
-        if((1 shl ROOM_BIT_NUMBER) and code != 0) Toast.makeText(
-            requireContext(),
-            getString(diarynote.core.R.string.user_registration_error_message),
-            Toast.LENGTH_SHORT)
-            .show()
-        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) Toast.makeText(
-        requireContext(),
-        getString(diarynote.core.R.string.user_already_exist_error_message),
-        Toast.LENGTH_SHORT)
-        .show()
-        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) Toast.makeText(
-            requireContext(),
-            getString(diarynote.core.R.string.email_already_exist_error_message),
-            Toast.LENGTH_SHORT)
-            .show()
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка", getString(diarynote.core.R.string.user_registration_error_message))
+        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка", getString(diarynote.core.R.string.user_already_exist_error_message))
+        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog("Ошибка", getString(diarynote.core.R.string.email_already_exist_error_message))
     }
 
     private fun showProgressBar() = with(binding) {
