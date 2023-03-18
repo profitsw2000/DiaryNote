@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Shape styles    -->
+
+
+    <!--Text styles-->
+    <style name="authorization_screens_title_text_style">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="authorization_error_text_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorError</item>
+    </style>
+
+    <style name="forgot_password_text_style">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
+    <!--Component styles-->
+    <style name="customTextInputOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">@dimen/auth_input_field_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/auth_input_field_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/auth_input_field_corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/auth_input_field_corner_radius</item>
+    </style>
+</resources>
