@@ -1,8 +1,10 @@
 package ru.profitsw2000.diarynote.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import diarynote.core.common.Controller
+import diarynote.notesactivity.presentation.NoteActivity
 import diarynote.passwordrecovery.presentation.view.PasswordRecoveryFragment
 import diarynote.registrationscreen.presentation.view.RegistrationFragment
 import diarynote.signinscreen.presentation.view.SignInFragment
@@ -57,5 +59,10 @@ class MainActivity : AppCompatActivity(), Controller {
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
+    }
+
+    override fun startNotesActivity() {
+        val intent = Intent(this, NoteActivity::class.java)
+        startActivity(intent)
     }
 }

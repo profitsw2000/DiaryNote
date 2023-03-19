@@ -20,6 +20,7 @@ object Modules {
     const val signinscreen = ":signInScreen"
     const val registrationscreen = ":registrationScreen"
     const val passwordrecovery = ":passwordRecovery"
+    const val notesactivity = ":notesActivity"
 }
 
 object Versions {
