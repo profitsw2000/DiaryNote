@@ -96,6 +96,7 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
         binding.loginErrorTextTextView.visibility = View.GONE
         //Temp
         Toast.makeText(context, "Успешный вход!", Toast.LENGTH_SHORT).show()
+        controller.startNotesActivity()
     }
 
     override fun onDestroy() {

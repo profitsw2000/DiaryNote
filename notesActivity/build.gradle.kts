@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "diarynote.passwordrecovery"
+    namespace = "diarynote.notesactivity"
 }
 
 dependencies {
@@ -25,17 +25,8 @@ dependencies {
     implementation(ViewModel.viewModel)
     //Legacy
     implementation(Legacy.legacy)
-    //RxJava
-    implementation(RxJava.rxJava)
-    implementation(RxJava.rxAndroid)
-    implementation(RxJava.rxKotlin)
     //Koin
     implementation(Koin.koin)
-    //Room
-    implementation(Room.roomRuntime)
-    implementation(Room.roomKtx)
-    implementation(Room.roomRxJava)
-    kapt(Room.roomCompiler)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)
