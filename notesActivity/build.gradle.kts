@@ -20,6 +20,10 @@ dependencies {
     implementation(Design.material)
     implementation(Design.constraintLayout)
     implementation(Design.material)
+    //Navigation
+    implementation(Navigation.navigationRuntime)
+    implementation(Navigation.navigationFragment)
+    implementation(Navigation.navigationUI)
     //ViewModel
     implementation(ViewModel.liveData)
     implementation(ViewModel.viewModel)
