@@ -28,4 +28,12 @@
         <item name="boxCornerRadiusBottomStart">@dimen/auth_input_field_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/auth_input_field_corner_radius</item>
     </style>
+    
+    <style name="bottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
+<!--
+        <item name="labelVisibilityMode">labeled</item>
+-->
+        <item name="itemTextAppearanceActive">?attr/textAppearanceTitleMedium</item>
+        <item name="itemBackground">@color/white</item>
+    </style>
 </resources>

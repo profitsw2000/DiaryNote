@@ -37,4 +37,8 @@
     <string name="password_recovery_success_dialog_title_text">Восстановление пароля</string>
     <string name="registration_successful_dialog_title_text">Регистрация</string>
     <string name="registration_successful_dialog_text">Пользователь %1$s был успешно создан.</string>
+    <string name="bottom_nav_menu_main_title_text">Главная</string>
+    <string name="bottom_nav_menu_categories_title_text">Категории</string>
+    <string name="bottom_nav_menu_calendar_title_text">Календарь</string>
+    <string name="bottom_nav_menu_settings_title_text">Настройки</string>
 </resources>
