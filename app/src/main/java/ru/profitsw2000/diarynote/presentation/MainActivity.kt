@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import diarynote.core.common.Controller
-import diarynote.notesactivity.presentation.NoteActivity
+import diarynote.notesactivity.presentation.view.NoteActivity
 import diarynote.passwordrecovery.presentation.view.PasswordRecoveryFragment
 import diarynote.registrationscreen.presentation.view.RegistrationFragment
 import diarynote.signinscreen.presentation.view.SignInFragment

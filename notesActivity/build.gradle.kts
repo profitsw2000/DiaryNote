@@ -12,6 +12,7 @@ dependencies {
     //Modules
     implementation(project(Modules.core))
     implementation(project(Modules.data))
+    implementation(project(Modules.navigator))
 
     //Kotlin
     implementation(Kotlin.core)
@@ -19,7 +20,6 @@ dependencies {
     implementation(Design.appCompat)
     implementation(Design.material)
     implementation(Design.constraintLayout)
-    implementation(Design.material)
     //Navigation
     implementation(Navigation.navigationRuntime)
     implementation(Navigation.navigationFragment)

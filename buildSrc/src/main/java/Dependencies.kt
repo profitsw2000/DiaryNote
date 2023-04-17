@@ -21,6 +21,7 @@ object Modules {
     const val registrationscreen = ":registrationScreen"
     const val passwordrecovery = ":passwordRecovery"
     const val notesactivity = ":notesActivity"
+    const val navigator = ":navigator"
 }
 
 object Versions {

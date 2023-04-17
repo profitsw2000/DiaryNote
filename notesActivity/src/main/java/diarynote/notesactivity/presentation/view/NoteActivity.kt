@@ -1,4 +1,4 @@
-package diarynote.notesactivity.presentation
+package diarynote.notesactivity.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
