@@ -11,6 +11,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/navigator" />
+            <option value="$PROJECT_DIR$/notesActivity" />
+            <option value="$PROJECT_DIR$/passwordRecovery" />
+            <option value="$PROJECT_DIR$/registrationScreen" />
+            <option value="$PROJECT_DIR$/signInScreen" />
           </set>
         </option>
       </GradleProjectSettings>
