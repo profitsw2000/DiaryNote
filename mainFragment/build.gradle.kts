@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "diarynote.signinscreen"
+    namespace = "diarynote.mainfragment"
 }
 
 dependencies {
