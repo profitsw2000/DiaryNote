@@ -7,8 +7,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import diarynote.navigator.Navigator
 import diarynote.notesactivity.R
 import diarynote.notesactivity.databinding.ActivityNoteBinding
+import diarynote.notesactivity.navigation.NavigatorImpl
+import org.koin.core.context.loadKoinModules
+import org.koin.dsl.module
 
 class NoteActivity : AppCompatActivity() {
 
@@ -26,11 +30,24 @@ class NoteActivity : AppCompatActivity() {
         ) as NavHostFragment
 
         navController = navHostFragment.navController
+        loadKoinModules(module {single<Navigator> { NavigatorImpl(navController) }})
         binding.bottomNav.setupWithNavController(navController)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.main, R.id.categories, R.id.calendar, R.id.settings)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        val actionBar = supportActionBar
+        navController.addOnDestinationChangedListener{ _, destination, _ ->
+            if (destination.id == R.id.main ||
+                destination.id == R.id.categories ||
+                destination.id == R.id.calendar ||
+                destination.id == R.id.settings) {
+                actionBar?.let {
+                    it.hide()
+                }
+            }
+        }
     }
 }
