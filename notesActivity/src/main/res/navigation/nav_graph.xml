@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="diarynote.notesactivity.presentation.FirstFragment"
+        android:name="diarynote.mainfragment.presentation.view.MainFragment"
         android:label="Главная"
-        tools:layout="@layout/fragment_first"/>
+        tools:layout="@layout/fragment_main"/>
 
     <fragment
         android:id="@+id/categories"

@@ -22,6 +22,7 @@ object Modules {
     const val passwordrecovery = ":passwordRecovery"
     const val notesactivity = ":notesActivity"
     const val navigator = ":navigator"
+    const val mainfragment = ":mainFragment"
 }
 
 object Versions {

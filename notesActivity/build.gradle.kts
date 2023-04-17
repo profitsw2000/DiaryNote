@@ -13,6 +13,7 @@ dependencies {
     implementation(project(Modules.core))
     implementation(project(Modules.data))
     implementation(project(Modules.navigator))
+    implementation(project(Modules.mainfragment))
 
     //Kotlin
     implementation(Kotlin.core)
