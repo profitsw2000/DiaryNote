@@ -23,6 +23,7 @@ object Modules {
     const val notesactivity = ":notesActivity"
     const val navigator = ":navigator"
     const val mainfragment = ":mainFragment"
+    const val categoriesfragment = ":categoriesFragment"
 }
 
 object Versions {

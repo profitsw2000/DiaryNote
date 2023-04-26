@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/categories"
-        android:name="diarynote.notesactivity.presentation.CategoriesFragment"
+        android:name="diarynote.categoriesfragment.presentation.view.CategoriesFragment"
         android:label="Категории"
         tools:layout="@layout/fragment_categories"/>
 
