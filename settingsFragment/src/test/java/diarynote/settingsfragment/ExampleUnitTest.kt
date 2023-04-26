@@ -1,4 +1,4 @@
-package com.example.settingsfragment
+package diarynote.settingsfragment
 
 import org.junit.Test
 
