@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/notesActivity" />
             <option value="$PROJECT_DIR$/passwordRecovery" />
             <option value="$PROJECT_DIR$/registrationScreen" />
+            <option value="$PROJECT_DIR$/settingsFragment" />
             <option value="$PROJECT_DIR$/signInScreen" />
           </set>
         </option>
