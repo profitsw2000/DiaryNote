@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/calendar"
-        android:name="diarynote.notesactivity.presentation.CalendarFragment"
+        android:name="diarynote.calendarfragment.presentation.view.CalendarFragment"
         android:label="Календарь"
         tools:layout="@layout/fragment_calendar"/>
 
