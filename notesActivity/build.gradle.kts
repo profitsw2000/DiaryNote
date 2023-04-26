@@ -15,6 +15,7 @@ dependencies {
     implementation(project(Modules.navigator))
     implementation(project(Modules.mainfragment))
     implementation(project(Modules.categoriesfragment))
+    implementation(project(Modules.calendarfragment))
 
     //Kotlin
     implementation(Kotlin.core)
