@@ -25,6 +25,7 @@ object Modules {
     const val mainfragment = ":mainFragment"
     const val categoriesfragment = ":categoriesFragment"
     const val calendarfragment = ":calendarFragment"
+    const val settingsfragment = ":settingsFragment"
 }
 
 object Versions {

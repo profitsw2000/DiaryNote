@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/settings"
-        android:name="diarynote.notesactivity.presentation.SettingsFragment"
+        android:name="diarynote.settingsfragment.presentation.view.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings"/>
 
