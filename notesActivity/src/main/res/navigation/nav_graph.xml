@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="diarynote.notesactivity.presentation.FirstFragment"
+        android:name="diarynote.mainfragment.presentation.view.MainFragment"
         android:label="Главная"
-        tools:layout="@layout/fragment_first"/>
+        tools:layout="@layout/fragment_main"/>
 
     <fragment
         android:id="@+id/categories"
-        android:name="diarynote.notesactivity.presentation.CategoriesFragment"
+        android:name="diarynote.categoriesfragment.presentation.view.CategoriesFragment"
         android:label="Категории"
         tools:layout="@layout/fragment_categories"/>
 
     <fragment
         android:id="@+id/calendar"
-        android:name="diarynote.notesactivity.presentation.CalendarFragment"
+        android:name="diarynote.calendarfragment.presentation.view.CalendarFragment"
         android:label="Календарь"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/settings"
-        android:name="diarynote.notesactivity.presentation.SettingsFragment"
+        android:name="diarynote.settingsfragment.presentation.view.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings"/>
 

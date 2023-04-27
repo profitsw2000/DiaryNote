@@ -21,6 +21,11 @@ object Modules {
     const val registrationscreen = ":registrationScreen"
     const val passwordrecovery = ":passwordRecovery"
     const val notesactivity = ":notesActivity"
+    const val navigator = ":navigator"
+    const val mainfragment = ":mainFragment"
+    const val categoriesfragment = ":categoriesFragment"
+    const val calendarfragment = ":calendarFragment"
+    const val settingsfragment = ":settingsFragment"
 }
 
 object Versions {

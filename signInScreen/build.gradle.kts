@@ -19,7 +19,6 @@ dependencies {
     implementation(Design.appCompat)
     implementation(Design.material)
     implementation(Design.constraintLayout)
-    implementation(Design.material)
     //ViewModel
     implementation(ViewModel.liveData)
     implementation(ViewModel.viewModel)

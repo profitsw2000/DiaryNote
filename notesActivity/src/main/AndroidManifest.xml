@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".presentation.NoteActivity"
+            android:name=".presentation.view.NoteActivity"
             android:exported="false" />
     </application>
 
