@@ -2,6 +2,7 @@ package diarynote.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity
 data class NoteEntity(
@@ -10,10 +11,10 @@ data class NoteEntity(
     val category: String,
     val title: String,
     val text: String,
-    //val tags: List<String>,
+    val tags: List<String>,
     val image: String,
-    //val date: Date,
+    val date: Date,
     val edited: Boolean,
-    //val editDate: Date,
+    val editDate: Date,
     val userLogin: String
 )
