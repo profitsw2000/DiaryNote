@@ -13,4 +13,8 @@
     <dimen name="registration_screen_top_padding">30dp</dimen>
     <dimen name="notes_activity_fragments_standart_padding">30dp</dimen>
     <dimen name="fragment_title_margin_bottom">24dp</dimen>
+    <dimen name="categories_item_vertical_padding">16dp</dimen>
+    <dimen name="categories_item_horizontal_padding">8dp</dimen>
+    <dimen name="category_item_image_size">48dp</dimen>
+    <dimen name="category_item_views_vertical_interval">12dp</dimen>
 </resources>
