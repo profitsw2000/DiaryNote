@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import diarynote.data.room.Converter
 import diarynote.data.room.dao.CategoryDao
 import diarynote.data.room.dao.NoteDao
 import diarynote.data.room.dao.UserDao
@@ -16,6 +18,7 @@ import diarynote.data.room.entity.UserEntity
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract val categoryDao: CategoryDao
     abstract val noteDao: NoteDao

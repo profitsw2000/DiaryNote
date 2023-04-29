@@ -19,6 +19,8 @@ dependencies {
     implementation(Design.material)
     //Legacy
     implementation(Legacy.legacy)
+    //GSON
+    implementation(GSON.gson)
     //Room
     implementation(Room.roomRuntime)
     implementation(Room.roomKtx)
