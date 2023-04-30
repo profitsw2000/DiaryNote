@@ -13,6 +13,11 @@ class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHol
     private var data: List<CategoryModel> = arrayListOf()
     private lateinit var binding: CategoriesListItemBinding
 
+    fun setData(data: List<CategoryModel>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = CategoriesListItemBinding.inflate(LayoutInflater.from(parent.context),
                                                     parent,
@@ -38,6 +43,7 @@ class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHol
             with(binding) {
                 categoriesListItemRoot.background = categoryModel.color.toDrawable()
                 categoryIconImageView.setImageResource(categoryModel.categoryImage)
+                categoryTitleTextView.text = categoryModel.categoryName
             }
         }
     }
