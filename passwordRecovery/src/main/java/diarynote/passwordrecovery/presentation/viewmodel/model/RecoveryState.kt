@@ -1,4 +1,4 @@
-package diarynote.passwordrecovery.model
+package diarynote.passwordrecovery.presentation.viewmodel.model
 
 sealed class RecoveryState {
     object Success: RecoveryState()

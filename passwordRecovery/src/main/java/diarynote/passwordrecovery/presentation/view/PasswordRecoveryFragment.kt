@@ -17,7 +17,7 @@ import diarynote.core.view.CoreFragment
 import diarynote.passwordrecovery.presentation.viewmodel.PasswordRecoveryViewModel
 import diarynote.passwordrecovery.R
 import diarynote.passwordrecovery.databinding.FragmentPasswordRecoveryBinding
-import diarynote.passwordrecovery.model.RecoveryState
+import diarynote.passwordrecovery.presentation.viewmodel.model.RecoveryState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PasswordRecoveryFragment : CoreFragment(R.layout.fragment_password_recovery) {

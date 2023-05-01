@@ -1,7 +1,6 @@
 package diarynote.data.interactor
 
 import diarynote.data.domain.local.CategoryRepositoryLocal
-import diarynote.data.domain.local.UserRepositoryLocal
 import diarynote.data.domain.web.CategoryRepositoryRemote
 import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.related.UserWithCategories
@@ -13,11 +12,19 @@ class CategoryInteractor(
     private val categoryRepositoryRemote: CategoryRepositoryRemote
 ) {
 
-    fun getAllUserCategories(userId: Int): Single<UserWithCategories> {
-        return categoryRepositoryLocal.getAllUserCategories(userId)
+    fun getAllUserCategories(userId: Int, remote: Boolean): Single<UserWithCategories> {
+        return if (remote) {
+            categoryRepositoryRemote.getAllUserCategories(userId)
+        } else {
+            categoryRepositoryLocal.getAllUserCategories(userId)
+        }
     }
 
-    fun addCategory(categoryEntity: CategoryEntity): Completable {
-        return categoryRepositoryLocal.addCategory(categoryEntity)
+    fun addCategory(categoryEntity: CategoryEntity, remote: Boolean): Completable {
+        return if (remote) {
+            categoryRepositoryRemote.addCategory(categoryEntity)
+        } else {
+            categoryRepositoryLocal.addCategory(categoryEntity)
+        }
     }
 }
