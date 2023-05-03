@@ -10,7 +10,7 @@ import diarynote.signinscreen.presentation.viewmodel.SignInViewModel
 import org.koin.dsl.module
 
 val signInModule = module {
-    single { SignInViewModel(get()) }
+    single { SignInViewModel(get(), get()) }
     single<UserRepositoryLocal> { UserRepositoryLocalImpl(get()) }
     single<UserRepositoryRemote> { UserRepositoryRemoteImpl() }
     factory { UserInteractor(get(), get()) }

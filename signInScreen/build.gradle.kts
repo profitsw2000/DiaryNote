@@ -30,6 +30,8 @@ dependencies {
     implementation(RxJava.rxKotlin)
     //Koin
     implementation(Koin.koin)
+    //GSON
+    implementation(GSON.gson)
     //Room
     implementation(Room.roomRuntime)
     implementation(Room.roomKtx)
