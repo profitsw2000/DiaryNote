@@ -1,15 +1,12 @@
 package diarynote.categoriesfragment.presentation.view.adapter
 
 import android.content.res.Resources
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.RecyclerView
-import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.CategoriesListItemBinding
 import diarynote.data.model.CategoryModel
 
@@ -48,7 +45,7 @@ class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHol
             with(binding) {
                 categoriesListItemRoot.setBackgroundResource(categoryModel.color)
                 categoriesListItemRoot.layoutParams = getViewParams(position)
-                categoryIconImageView.setImageResource(categoryModel.categoryImage)
+                categoryIconImageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
                 categoryTitleTextView.text = categoryModel.categoryName
             }
         }
@@ -70,6 +67,18 @@ class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHol
                 dip.toFloat(),
                 r.displayMetrics
             ).toInt()
+        }
+
+        private fun getImageFromResources(imgId: Int) : Int {
+            return when(imgId) {
+                0 -> diarynote.core.R.drawable.bottom_nav_categories_icon
+                1 -> diarynote.core.R.drawable.work_icon_outline_24
+                2 -> diarynote.core.R.drawable.tech_icon_24
+                3 -> diarynote.core.R.drawable.auto_icon_24
+                4 -> diarynote.core.R.drawable.docs_icon_24
+                5 -> diarynote.core.R.drawable.android_icon_24
+                else -> diarynote.core.R.drawable.bottom_nav_categories_icon
+            }
         }
     }
 }

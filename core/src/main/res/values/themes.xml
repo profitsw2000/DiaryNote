@@ -7,7 +7,7 @@
         <item name="colorPrimary">@color/deep_purple_A400</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/deep_purple_A400</item>
-        <item name="colorOnPrimaryContainer">@color/deep_purple_A400</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
         <item name="colorPrimaryInverse">@color/white</item>
 
         <!-- Secondary brand color. -->
