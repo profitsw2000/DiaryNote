@@ -11,7 +11,7 @@ class UserInteractor(
     private val userRepositoryRemote: UserRepositoryRemote
 ) {
 
-    fun addUser(userEntity: UserEntity, remote: Boolean): Completable {
+    fun addUser(userEntity: UserEntity, remote: Boolean): Single<Long> {
         return if (remote) {
             userRepositoryRemote.addUser(userEntity)
         } else {

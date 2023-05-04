@@ -17,4 +17,8 @@ class CategoryRepositoryLocalImpl(
     override fun addCategory(categoryEntity: CategoryEntity): Completable {
         return database.categoryDao.insert(categoryEntity)
     }
+
+    override fun addCategoryList(categoryEntityList: List<CategoryEntity>): Completable {
+        return database.categoryDao.insert(categoryEntityList)
+    }
 }

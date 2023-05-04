@@ -11,7 +11,7 @@ class UserRepositoryLocalImpl (
 ) : UserRepositoryLocal {
 
     //Локальная база данных
-    override fun addUser(userEntity: UserEntity): Completable {
+    override fun addUser(userEntity: UserEntity): Single<Long> {
         return database.userDao.insert(userEntity)
     }
 

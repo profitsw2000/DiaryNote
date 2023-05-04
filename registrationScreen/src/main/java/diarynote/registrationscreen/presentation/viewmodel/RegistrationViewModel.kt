@@ -5,9 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.interactor.CategoryInteractor
 import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
+import diarynote.data.model.CategoryModel
 import diarynote.data.model.UserModel
+import diarynote.data.room.baseCategoriesList
+import diarynote.data.room.entity.CategoryEntity
 import diarynote.registrationscreen.model.RegState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.zipWith
@@ -15,6 +19,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RegistrationViewModel(
     private val userInteractor: UserInteractor,
+    private val categoryInteractor: CategoryInteractor,
     private val userMapper: UserMapper
 ) : CoreViewModel() {
 
@@ -53,11 +58,10 @@ class RegistrationViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (
                 {
-                    _registrationLiveData.value = RegState.Success(userModel)
+                    _registrationLiveData.value = RegState.Success(userModel.copy(id = it.toInt()))
                 },
                 {
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
-                    Log.d("VVV", it.message.toString())
                 }
             )
     }
@@ -68,6 +72,26 @@ class RegistrationViewModel(
             "UNIQUE constraint failed: UserEntity.email (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER)
             else -> (1 shl ROOM_BIT_NUMBER)
         }
+    }
+
+    private fun getDefaultCategoriesList(userId: Int) : List<CategoryEntity> {
+        return baseCategoriesList.map {
+            it.copy(userId = userId)
+        }
+    }
+
+    fun insertDefaultCategories(userModel: UserModel) {
+        categoryInteractor.addCategoryList(getDefaultCategoriesList(userModel.id), false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                {
+                    _registrationLiveData.value = RegState.Success(userModel)
+                },
+                {
+                    _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
+                }
+            )
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

@@ -31,4 +31,5 @@ dependencies {
     implementation project(path: Modules.registrationscreen)
     implementation project(path: Modules.passwordrecovery)
     implementation project(path: Modules.notesactivity)
+    implementation project(path: Modules.categoriesfragment)
 }

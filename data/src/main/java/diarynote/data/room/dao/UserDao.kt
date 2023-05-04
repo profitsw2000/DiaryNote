@@ -25,7 +25,7 @@ interface UserDao {
     fun getUserByEmail(email: String): Single<UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(userEntity: UserEntity): Completable
+    fun insert(userEntity: UserEntity): Single<Long>
 
     @Update
     fun update(userEntity: UserEntity): Completable

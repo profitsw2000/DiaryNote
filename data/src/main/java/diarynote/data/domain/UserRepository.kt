@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Single
 
 interface UserRepository {
 
-    fun addUser(userEntity: UserEntity): Completable
+    fun addUser(userEntity: UserEntity): Single<Long>
 
     fun getUserByLogin(login: String): Single<UserEntity>
 

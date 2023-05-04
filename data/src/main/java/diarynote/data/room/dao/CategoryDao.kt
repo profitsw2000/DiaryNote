@@ -15,6 +15,9 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(categoryEntity: CategoryEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insert(categoryEntityList: List<CategoryEntity>): Completable
+
     @Update
     fun update(categoryEntity: CategoryEntity): Completable
 
