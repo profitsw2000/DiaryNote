@@ -75,9 +75,12 @@ class RegistrationViewModel(
     }
 
     private fun getDefaultCategoriesList(userId: Int) : List<CategoryEntity> {
-        return baseCategoriesList.map {
+        val returnList = baseCategoriesList.map {
             it.copy(userId = userId)
         }
+        Log.d("VVV", "Write:")
+        Log.d("VVV", returnList.toString())
+        return returnList
     }
 
     fun insertDefaultCategories(userModel: UserModel) {

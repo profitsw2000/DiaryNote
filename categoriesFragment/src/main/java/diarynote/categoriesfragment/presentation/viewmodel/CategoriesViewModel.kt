@@ -1,6 +1,7 @@
 package diarynote.categoriesfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.categoriesfragment.model.CategoriesState
@@ -22,6 +23,7 @@ class CategoriesViewModel (
 
     fun getCategoriesList() {
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
+        //getAllCategories()
     }
 
     private fun getAllUserCategories(userId: Int) {
@@ -31,8 +33,29 @@ class CategoriesViewModel (
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    Log.d("VVV", "Read:")
+                    Log.d("VVV", it.toString())
                     _categoriesLiveData.value = CategoriesState.Success(
                         categoryMapper.map(it.categoryList)
+                    )
+                }, {
+                    val errorMessage = it.message ?: ""
+                    _categoriesLiveData.value = CategoriesState.Error(errorMessage)
+                }
+            )
+    }
+
+    private fun getAllCategories() {
+        _categoriesLiveData.value = CategoriesState.Loading
+        categoryInteractor.getAllCategories(false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    Log.d("VVV", "Read:")
+                    Log.d("VVV", it.toString())
+                    _categoriesLiveData.value = CategoriesState.Success(
+                        categoryMapper.map(it)
                     )
                 }, {
                     val errorMessage = it.message ?: ""

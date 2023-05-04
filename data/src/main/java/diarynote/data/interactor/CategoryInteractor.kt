@@ -20,6 +20,14 @@ class CategoryInteractor(
         }
     }
 
+    fun getAllCategories(remote: Boolean): Single<List<CategoryEntity>> {
+        return if (remote) {
+            categoryRepositoryRemote.getAllCategories()
+        } else {
+            categoryRepositoryLocal.getAllCategories()
+        }
+    }
+
     fun addCategory(categoryEntity: CategoryEntity, remote: Boolean): Completable {
         return if (remote) {
             categoryRepositoryRemote.addCategory(categoryEntity)

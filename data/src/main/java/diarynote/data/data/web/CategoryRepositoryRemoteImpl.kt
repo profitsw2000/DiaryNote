@@ -11,6 +11,10 @@ class CategoryRepositoryRemoteImpl : CategoryRepositoryRemote {
         TODO("Not yet implemented")
     }
 
+    override fun getAllCategories(): Single<List<CategoryEntity>> {
+        TODO("Not yet implemented")
+    }
+
     override fun addCategory(categoryEntity: CategoryEntity): Completable {
         TODO("Not yet implemented")
     }

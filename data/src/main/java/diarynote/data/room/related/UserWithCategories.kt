@@ -10,7 +10,7 @@ data class UserWithCategories(
     val user: UserEntity,
     @Relation(
         parentColumn = "id",
-        entityColumn = "id"
+        entityColumn = "user_id"
     )
     val categoryList: List<CategoryEntity>
 )

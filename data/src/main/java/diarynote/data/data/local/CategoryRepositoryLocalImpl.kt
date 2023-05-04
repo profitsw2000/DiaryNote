@@ -14,6 +14,10 @@ class CategoryRepositoryLocalImpl(
         return database.categoryDao.getUserWithCategories(userId)
     }
 
+    override fun getAllCategories(): Single<List<CategoryEntity>> {
+        return database.categoryDao.all()
+    }
+
     override fun addCategory(categoryEntity: CategoryEntity): Completable {
         return database.categoryDao.insert(categoryEntity)
     }
