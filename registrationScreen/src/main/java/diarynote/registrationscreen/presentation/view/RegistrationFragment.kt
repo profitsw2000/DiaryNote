@@ -90,6 +90,8 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
         progressBar.visibility = View.GONE
         dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
             getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login))
+        //записать категории по умолчанию в базу
+        registrationViewModel.insertDefaultCategories(userModel)
     }
 
     private fun handleError(code: Int) = with(binding) {

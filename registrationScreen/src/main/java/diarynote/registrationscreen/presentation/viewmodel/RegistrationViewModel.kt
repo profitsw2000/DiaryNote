@@ -86,7 +86,7 @@ class RegistrationViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (
                 {
-                    _registrationLiveData.value = RegState.Success(userModel)
+
                 },
                 {
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
