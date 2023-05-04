@@ -5,12 +5,10 @@
     android:id="@+id/categories_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/categories_list_margin"
     android:paddingBottom="@dimen/categories_item_vertical_padding"
     android:paddingTop="@dimen/categories_item_vertical_padding"
     android:paddingLeft="@dimen/categories_item_horizontal_padding"
-    android:paddingRight="@dimen/categories_item_horizontal_padding"
-    android:background="@color/purple_200">
+    android:paddingRight="@dimen/categories_item_horizontal_padding">
 
     <TextView
         android:id="@+id/category_title_text_view"

@@ -33,8 +33,6 @@ class CategoriesViewModel (
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Log.d("VVV", "Read:")
-                    Log.d("VVV", it.toString())
                     _categoriesLiveData.value = CategoriesState.Success(
                         categoryMapper.map(it.categoryList)
                     )
@@ -52,8 +50,6 @@ class CategoriesViewModel (
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Log.d("VVV", "Read:")
-                    Log.d("VVV", it.toString())
                     _categoriesLiveData.value = CategoriesState.Success(
                         categoryMapper.map(it)
                     )

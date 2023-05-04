@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoriesBinding
 import diarynote.categoriesfragment.model.CategoriesState
+import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +20,7 @@ class CategoriesFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
     private val categoriesViewModel: CategoriesViewModel by viewModel()
+    private val adapter = CategoriesListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +34,16 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         categoriesViewModel.getCategoriesList()
+        initViews()
         observeData()
     }
-    
+
+    private fun initViews() {
+        with(binding) {
+            categoriesListRecyclerView.adapter = adapter
+        }
+    }
+
     private fun observeData() {
         val observer = Observer<CategoriesState> { renderData(it)}
         categoriesViewModel.categoriesLiveData.observe(viewLifecycleOwner, observer)
@@ -42,7 +51,7 @@ class CategoriesFragment : Fragment() {
     
     fun renderData(categoriesState: CategoriesState) {
         when(categoriesState) {
-            is CategoriesState.Success -> Log.d("VVV", categoriesState.categoryModelList.toString())
+            is CategoriesState.Success -> adapter.setData(categoriesState.categoryModelList)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
             else -> {}
@@ -54,6 +63,7 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun showProgressBar() {
+
     }
 
     override fun onDestroyView() {
