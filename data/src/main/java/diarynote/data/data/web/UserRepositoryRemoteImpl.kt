@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Single
 
 class UserRepositoryRemoteImpl : UserRepositoryRemote {
 
-    override fun addUser(userEntity: UserEntity): Completable {
+    override fun addUser(userEntity: UserEntity): Single<Long> {
         TODO("Not yet implemented")
     }
 

@@ -94,8 +94,6 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     private fun enterApp() {
         binding.progressBar.visibility = View.GONE
         binding.loginErrorTextTextView.visibility = View.GONE
-        //Temp
-        Toast.makeText(context, "Успешный вход!", Toast.LENGTH_SHORT).show()
         controller.startNotesActivity()
     }
 

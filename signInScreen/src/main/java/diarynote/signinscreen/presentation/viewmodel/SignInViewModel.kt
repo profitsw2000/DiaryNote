@@ -1,17 +1,19 @@
 package diarynote.signinscreen.presentation.viewmodel
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.UserInteractor
-import diarynote.data.mappers.UserMapper
 import diarynote.signinscreen.model.LoginState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class SignInViewModel(
-    private val userInteractor: UserInteractor
+    private val userInteractor: UserInteractor,
+    private val sharedPreferences: SharedPreferences
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -39,6 +41,10 @@ class SignInViewModel(
             .subscribe(
                 {
                     if (it.password == password) {
+                        sharedPreferences
+                            .edit()
+                            .putInt(CURRENT_USER_ID, it.id)
+                            .apply()
                         _loginResultLiveData.value = LoginState.LoginSuccess
                     } else {
                         _loginResultLiveData.value = LoginState.Error(1 shl INVALID_PASSWORD_BIT_NUMBER)

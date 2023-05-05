@@ -19,6 +19,17 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="notes_activity_fragment_title_text">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="categories_list_item_title_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 
 
     <!--Component styles-->

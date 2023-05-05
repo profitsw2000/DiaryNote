@@ -8,7 +8,7 @@ import diarynote.core.utils.InputValidator
 import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.interactor.UserInteractor
-import diarynote.passwordrecovery.model.RecoveryState
+import diarynote.passwordrecovery.presentation.viewmodel.model.RecoveryState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
