@@ -46,7 +46,9 @@
         app:layout_constraintTop_toBottomOf="@+id/title_line_constraint_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="14sp"
-        tools:text="Светодиод (Light Emitting Diode, LED) - это полупроводниковый диод, способный излучать свет, когда к нему приложено напряжение в прямом направлении. По сути, это диод, преобразующий электрическую ..."/>
+        android:maxLines="5"
+        android:ellipsize="end"
+        tools:text="Каждый имеет право получить в доступной для него форме имеющуюся в медицинской организации информацию о состоянии своего здоровья, в том числе сведения о результатах медицинского обследования, наличии заболевания, об установленном диагнозе и о прогнозе развития заболевания, методах оказания медицинской помощи, связанном с ними риске, возможных видах медицинского вмешательства, его последствиях и результатах оказания медицинской помощи."/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_line_constraint_layout"
