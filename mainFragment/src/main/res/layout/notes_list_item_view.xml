@@ -69,7 +69,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/creation_date_text_view"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="@dimen/extra_small_constraint_horizontal_spacing_between_views"
+            android:layout_marginRight="@dimen/medium_horizontal_spacing_between_views"
             android:textSize="14sp"
             tools:text="#android #recyclerview #list #room #adapter #layout #entity"/>
 

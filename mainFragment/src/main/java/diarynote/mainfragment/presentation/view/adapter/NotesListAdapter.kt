@@ -1,5 +1,6 @@
 package diarynote.mainfragment.presentation.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,18 +40,10 @@ class NotesListAdapter : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
             with(binding) {
                 noteTitleTextView.text = noteModel.title
                 noteContentTextView.text = noteModel.text
-                tagsTextView.text = fromListToTagsString(noteModel.tags)
+                tagsTextView.text = noteModel.tags.joinToString(" #", "#", "")
                 creationDateTextView.text = SimpleDateFormat("dd.MM.yyyy").format(noteModel.date)
                 if (noteModel.edited) editedNoteSignImageView.setImageResource(diarynote.core.R.drawable.edit_icon_24)
             }
-        }
-
-        private fun fromListToTagsString(stringList: List<String>) : String {
-            var tags = ""
-            stringList.forEach {
-                tags.plus("#$it ")
-            }
-            return tags
         }
     }
 }

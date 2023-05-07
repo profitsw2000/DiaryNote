@@ -2,6 +2,7 @@ package ru.profitsw2000.diarynote
 
 import android.app.Application
 import diarynote.categoriesfragment.presentation.view.di.categoryModule
+import diarynote.mainfragment.di.homeModule
 import diarynote.passwordrecovery.di.recoveryModule
 import diarynote.registrationscreen.di.registrationModule
 import diarynote.signinscreen.di.signInModule
@@ -21,7 +22,8 @@ class App : Application() {
                 signInModule,
                 registrationModule,
                 recoveryModule,
-                categoryModule
+                categoryModule,
+                homeModule
             )
         }
     }

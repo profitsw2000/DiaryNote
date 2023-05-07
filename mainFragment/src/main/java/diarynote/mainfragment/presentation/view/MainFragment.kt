@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
 import diarynote.mainfragment.model.NotesState
+import diarynote.mainfragment.presentation.view.adapter.NotesListAdapter
 import diarynote.mainfragment.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,6 +19,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
+    private val adapter = NotesListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +32,15 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+        observeData()
+        homeViewModel.getNotesList()
+    }
 
+    private fun initViews() {
+        with(binding) {
+            mainNotesListRecyclerView.adapter = adapter
+        }
     }
 
     private fun observeData() {
@@ -40,10 +50,9 @@ class MainFragment : Fragment() {
 
     private fun renderData(notesState: NotesState) {
         when(notesState) {
-            is NotesState.Success -> Log.d("VVV", notesState.noteModelList.toString())
+            is NotesState.Success -> adapter.setData(notesState.noteModelList)
             is NotesState.Loading -> showProgressBar()
             is NotesState.Error -> handleError(notesState.message)
-            else -> {}
         }
     }
 

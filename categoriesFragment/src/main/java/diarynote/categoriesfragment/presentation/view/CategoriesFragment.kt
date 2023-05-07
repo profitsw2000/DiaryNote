@@ -33,9 +33,9 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoriesViewModel.getCategoriesList()
         initViews()
         observeData()
+        categoriesViewModel.getCategoriesList()
     }
 
     private fun initViews() {
@@ -49,12 +49,11 @@ class CategoriesFragment : Fragment() {
         categoriesViewModel.categoriesLiveData.observe(viewLifecycleOwner, observer)
     }
     
-    fun renderData(categoriesState: CategoriesState) {
+    private fun renderData(categoriesState: CategoriesState) {
         when(categoriesState) {
             is CategoriesState.Success -> adapter.setData(categoriesState.categoryModelList)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
-            else -> {}
         }
     }
 
@@ -72,6 +71,7 @@ class CategoriesFragment : Fragment() {
     }
 
     companion object {
+        @JvmStatic
         fun newInstance() = CategoriesFragment()
     }
 }
