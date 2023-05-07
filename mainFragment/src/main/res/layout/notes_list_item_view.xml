@@ -5,6 +5,7 @@
     android:id="@+id/notes_list_item_view_root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/standart_constraint_vertical_spacing_between_views"
     android:paddingHorizontal="@dimen/notes_item_horizontal_padding"
     android:paddingVertical="@dimen/notes_item_vertical_padding"
     android:background="@drawable/note_recyclerview_item_background">
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="14sp"
             tools:text="Порядок действий при создании списка с помощью RecyclerView"/>
@@ -46,6 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_line_constraint_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="14sp"
+        android:textColor="@color/black"
         android:maxLines="5"
         android:ellipsize="end"
         tools:text="Каждый имеет право получить в доступной для него форме имеющуюся в медицинской организации информацию о состоянии своего здоровья, в том числе сведения о результатах медицинского обследования, наличии заболевания, об установленном диагнозе и о прогнозе развития заболевания, методах оказания медицинской помощи, связанном с ними риске, возможных видах медицинского вмешательства, его последствиях и результатах оказания медицинской помощи."/>
