@@ -6,12 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.interactor.CategoryInteractor
+import diarynote.data.interactor.NoteInteractor
 import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.UserModel
 import diarynote.data.room.baseCategoriesList
+import diarynote.data.room.baseNotesList
 import diarynote.data.room.entity.CategoryEntity
+import diarynote.data.room.entity.NoteEntity
 import diarynote.registrationscreen.model.RegState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.zipWith
@@ -20,6 +23,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class RegistrationViewModel(
     private val userInteractor: UserInteractor,
     private val categoryInteractor: CategoryInteractor,
+    private val noteInteractor: NoteInteractor,
     private val userMapper: UserMapper
 ) : CoreViewModel() {
 
@@ -75,16 +79,33 @@ class RegistrationViewModel(
     }
 
     private fun getDefaultCategoriesList(userId: Int) : List<CategoryEntity> {
-        val returnList = baseCategoriesList.map {
+        return baseCategoriesList.map {
             it.copy(userId = userId)
         }
-        Log.d("VVV", "Write:")
-        Log.d("VVV", returnList.toString())
-        return returnList
     }
 
     fun insertDefaultCategories(userModel: UserModel) {
         categoryInteractor.addCategoryList(getDefaultCategoriesList(userModel.id), false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                {
+
+                },
+                {
+                    _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
+                }
+            )
+    }
+
+    private fun getDefaultNotesList(userId: Int) : List<NoteEntity> {
+        return baseNotesList.map {
+            it.copy(userId = userId)
+        }
+    }
+
+    fun insertDefaultNotes(userModel: UserModel) {
+        noteInteractor.addNoteList(getDefaultNotesList(userModel.id), false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (

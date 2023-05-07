@@ -15,6 +15,8 @@ interface NoteRepository {
 
     fun addNote(noteEntity: NoteEntity): Completable
 
+    fun addNoteList(noteEntityList: List<NoteEntity>): Completable
+
     fun updateNote(noteEntity: NoteEntity): Completable
 
     fun deleteNote(noteEntity: NoteEntity): Completable

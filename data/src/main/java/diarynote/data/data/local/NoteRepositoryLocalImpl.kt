@@ -26,6 +26,10 @@ class NoteRepositoryLocalImpl(
         return database.noteDao.insert(noteEntity)
     }
 
+    override fun addNoteList(noteEntityList: List<NoteEntity>): Completable {
+        return database.noteDao.insert(noteEntityList)
+    }
+
     override fun updateNote(noteEntity: NoteEntity): Completable {
         return database.noteDao.update(noteEntity)
     }

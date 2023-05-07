@@ -24,6 +24,10 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         TODO("Not yet implemented")
     }
 
+    override fun addNoteList(noteEntityList: List<NoteEntity>): Completable {
+        TODO("Not yet implemented")
+    }
+
     override fun updateNote(noteEntity: NoteEntity): Completable {
         TODO("Not yet implemented")
     }

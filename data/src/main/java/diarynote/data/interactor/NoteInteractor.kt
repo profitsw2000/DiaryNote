@@ -35,6 +35,14 @@ class NoteInteractor(
         }
     }
 
+    fun addNoteList(noteEntityList: List<NoteEntity>, remote: Boolean): Completable {
+        return if (remote) {
+            noteRepositoryRemote.addNoteList(noteEntityList)
+        } else {
+            noteRepositoryLocal.addNoteList(noteEntityList)
+        }
+    }
+
     fun updateNote(noteEntity: NoteEntity, remote: Boolean): Completable {
         return if (remote) {
             noteRepositoryRemote.updateNote(noteEntity)

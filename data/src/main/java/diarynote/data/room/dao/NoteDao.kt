@@ -20,6 +20,9 @@ interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(noteEntity: NoteEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun insert(noteEntityList: List<NoteEntity>): Completable
+
     @Update
     fun update(noteEntity: NoteEntity): Completable
 
