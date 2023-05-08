@@ -1,6 +1,5 @@
 package diarynote.registrationscreen.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
@@ -9,7 +8,6 @@ import diarynote.data.interactor.CategoryInteractor
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
-import diarynote.data.model.CategoryModel
 import diarynote.data.model.UserModel
 import diarynote.data.room.baseCategoriesList
 import diarynote.data.room.baseNotesList
@@ -17,7 +15,6 @@ import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.entity.NoteEntity
 import diarynote.registrationscreen.model.RegState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.kotlin.zipWith
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RegistrationViewModel(
