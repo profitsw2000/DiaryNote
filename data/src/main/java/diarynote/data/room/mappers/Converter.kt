@@ -1,4 +1,4 @@
-package diarynote.data.room
+package diarynote.data.room.mappers
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

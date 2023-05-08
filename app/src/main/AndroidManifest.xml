@@ -12,6 +12,7 @@
         android:theme="@style/Theme.DiaryNote">
         <activity
             android:name="ru.profitsw2000.diarynote.presentation.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:noHistory="true"
             android:exported="true">
             <intent-filter>

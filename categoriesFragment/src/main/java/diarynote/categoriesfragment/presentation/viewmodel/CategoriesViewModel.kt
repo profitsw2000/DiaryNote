@@ -23,7 +23,6 @@ class CategoriesViewModel (
 
     fun getCategoriesList() {
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
-        //getAllCategories()
     }
 
     private fun getAllUserCategories(userId: Int) {

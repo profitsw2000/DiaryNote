@@ -12,5 +12,5 @@ data class NoteModel(
     val date: Date,
     val edited: Boolean = false,
     val editDate: Date,
-    val userLogin: String = ""
+    val userId: Int = 0
 )

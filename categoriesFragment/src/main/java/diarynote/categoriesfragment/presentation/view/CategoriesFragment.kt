@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoriesBinding
 import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
+import diarynote.data.model.CategoryModel
+import diarynote.data.model.NoteModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -33,9 +36,9 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoriesViewModel.getCategoriesList()
         initViews()
         observeData()
+        categoriesViewModel.getCategoriesList()
     }
 
     private fun initViews() {
@@ -49,21 +52,31 @@ class CategoriesFragment : Fragment() {
         categoriesViewModel.categoriesLiveData.observe(viewLifecycleOwner, observer)
     }
     
-    fun renderData(categoriesState: CategoriesState) {
+    private fun renderData(categoriesState: CategoriesState) {
         when(categoriesState) {
-            is CategoriesState.Success -> adapter.setData(categoriesState.categoryModelList)
+            is CategoriesState.Success -> setList(categoriesState.categoryModelList)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
-            else -> {}
         }
     }
 
-    private fun handleError(message: String) {
-
+    private fun handleError(message: String) = with(binding) {
+        Snackbar.make(this.categoriesFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { categoriesViewModel.getCategoriesList() }
+            .show()
     }
 
-    private fun showProgressBar() {
+    private fun setList(categoryModelList: List<CategoryModel>) {
+        with(binding) {
+            categoriesListRecyclerView.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
+        adapter.setData(categoryModelList)
+    }
 
+    private fun showProgressBar() = with(binding) {
+        categoriesListRecyclerView.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
@@ -72,6 +85,7 @@ class CategoriesFragment : Fragment() {
     }
 
     companion object {
+        @JvmStatic
         fun newInstance() = CategoriesFragment()
     }
 }
