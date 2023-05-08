@@ -24,4 +24,5 @@
     <dimen name="category_item_image_size">48dp</dimen>
     <dimen name="category_item_views_vertical_interval">12dp</dimen>
     <dimen name="note_recyclerview_item_corner_radius">18dp</dimen>
+    <dimen name="edited_square_icon_image_size">12dp</dimen>
 </resources>

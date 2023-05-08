@@ -20,19 +20,17 @@
 
         <TextView
             android:id="@+id/note_title_text_view"
+            style="@style/notes_list_item_title_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="14sp"
             tools:text="Порядок действий при создании списка с помощью RecyclerView"/>
 
         <ImageView
             android:id="@+id/edited_note_sign_image_view"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="@dimen/edited_square_icon_image_size"
+            android:layout_height="@dimen/edited_square_icon_image_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:contentDescription="@string/note_was_edited_img_desription_text"
@@ -42,13 +40,12 @@
 
     <TextView
         android:id="@+id/note_content_text_view"
+        style="@style/notes_list_item_content_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/extra_small_constraint_vertical_spacing_between_views"
         app:layout_constraintTop_toBottomOf="@+id/title_line_constraint_layout"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="14sp"
-        android:textColor="@color/black"
         android:maxLines="5"
         android:ellipsize="end"
         tools:text="Каждый имеет право получить в доступной для него форме имеющуюся в медицинской организации информацию о состоянии своего здоровья, в том числе сведения о результатах медицинского обследования, наличии заболевания, об установленном диагнозе и о прогнозе развития заболевания, методах оказания медицинской помощи, связанном с ними риске, возможных видах медицинского вмешательства, его последствиях и результатах оказания медицинской помощи."/>
@@ -70,7 +67,6 @@
             app:layout_constraintRight_toLeftOf="@+id/creation_date_text_view"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginRight="@dimen/medium_horizontal_spacing_between_views"
-            android:textSize="14sp"
             tools:text="#android #recyclerview #list #room #adapter #layout #entity"/>
 
         <TextView
