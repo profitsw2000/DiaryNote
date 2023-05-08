@@ -44,4 +44,5 @@
     <string name="note_was_edited_img_desription_text">Note was edited</string>
     <string name="add_note_fab_description_text">Кнопка добавления заметки</string>
     <string name="add_category_fab_description_text">Кнопка добавления категории</string>
+    <string name="reload_notes_list_text">Перезагрузить</string>
 </resources>

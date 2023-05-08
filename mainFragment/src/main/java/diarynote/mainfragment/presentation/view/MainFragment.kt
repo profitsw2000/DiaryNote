@@ -1,12 +1,14 @@
 package diarynote.mainfragment.presentation.view
 
 import android.os.Bundle
-import android.util.Log
+import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
+import diarynote.data.model.NoteModel
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
 import diarynote.mainfragment.model.NotesState
@@ -24,7 +26,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentMainBinding.bind(inflater.inflate(R.layout.fragment_main, container, false))
         return binding.root
@@ -50,18 +52,31 @@ class MainFragment : Fragment() {
 
     private fun renderData(notesState: NotesState) {
         when(notesState) {
-            is NotesState.Success -> adapter.setData(notesState.noteModelList)
+            is NotesState.Success -> setList(notesState.noteModelList)
             is NotesState.Loading -> showProgressBar()
             is NotesState.Error -> handleError(notesState.message)
         }
     }
 
-    private fun handleError(message: String) {
+    private fun setList(noteModelList: List<NoteModel>) {
+        with(binding) {
+            mainNotesListRecyclerView.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
+        adapter.setData(noteModelList)
+    }
 
+    private fun handleError(message: String) = with(binding) {
+        Snackbar.make(this.mainFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { homeViewModel.getNotesList() }
+            .show()
     }
 
     private fun showProgressBar() {
-        
+        with(binding) {
+            mainNotesListRecyclerView.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroyView() {
