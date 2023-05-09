@@ -33,4 +33,5 @@ dependencies {
     implementation project(path: Modules.notesactivity)
     implementation project(path: Modules.categoriesfragment)
     implementation project(path: Modules.mainfragment)
+    implementation project(path: Modules.createnotescreen)
 }
