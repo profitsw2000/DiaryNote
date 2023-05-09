@@ -8,12 +8,14 @@ import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
 import diarynote.mainfragment.model.NotesState
+import diarynote.navigator.Navigator
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeViewModel(
     private val noteInteractor: NoteInteractor,
     private val sharedPreferences: SharedPreferences,
+    private val navigator: Navigator,
     private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
@@ -39,6 +41,10 @@ class HomeViewModel(
                     _notesLiveData.value = NotesState.Error(errorMessage)
                 }
             )
+    }
+
+    fun navigateToNoteCreation() {
+        navigator.navigateToNoteCreation()
     }
 
 }
