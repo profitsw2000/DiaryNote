@@ -60,6 +60,14 @@
         <item name="itemBackground">@color/white</item>
     </style>
 
+    <style name="appBarStyle" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/deep_purple_50</item>
+    </style>
+
+    <style name="MyDrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/grey_600</item>
+    </style>
+
     <!-- Shape -->
     <style name="searchInputShapeAppearance" parent="">
         <item name="cornerFamily">rounded</item>
