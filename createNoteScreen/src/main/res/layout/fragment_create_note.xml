@@ -44,6 +44,7 @@
             android:id="@+id/title_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/standard_edit_text_input_vertical_padding"
             android:inputType="text"
             android:maxLines="1"/>
 
@@ -75,7 +76,12 @@
             android:id="@+id/content_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"/>
+            android:gravity="top|start"
+            android:lines="10"
+            android:minLines="8"
+            android:maxLines="100"
+            android:scrollbars="vertical"
+            android:inputType="textMultiLine"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +94,7 @@
         android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:text="Название"/>
+        android:text="Тэги"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/customTextInputOutlinedStyle"
@@ -104,6 +110,7 @@
             android:id="@+id/tags_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/standard_edit_text_input_vertical_padding"
             android:inputType="text"
             android:maxLines="1"/>
 
