@@ -10,7 +10,7 @@ import diarynote.data.model.CategoryModel
 class HorizontalCategoryListAdapter : RecyclerView.Adapter<HorizontalCategoryListAdapter.ViewHolder>() {
 
     private lateinit var binding: HorizontalCategoryListItemRecyclerViewBinding
-    private lateinit var data: List<CategoryModel>
+    private var data: List<CategoryModel> = arrayListOf()
     private val addElement = CategoryModel(0, 0, "", 333, 0)
 
     fun setData(data: List<CategoryModel>) {
