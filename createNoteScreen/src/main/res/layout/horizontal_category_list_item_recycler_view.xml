@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/horizontal_category_list_item_root_layout"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="12dp"
-    android:layout_width="48dp"
-    android:layout_height="64dp">
+    android:layout_marginRight="@dimen/horizontal_categories_list_interval_size"
+    android:layout_marginBottom="@dimen/horizontal_categories_list_bottom_margin_size"
+    android:layout_width="@dimen/horizontal_categories_list_item_width"
+    android:layout_height="@dimen/horizontal_categories_list_item_height">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/image_constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/image_constraint_layout_height"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/category_image_view"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/categorylist_item_image_size"
+            android:layout_height="@dimen/categorylist_item_image_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

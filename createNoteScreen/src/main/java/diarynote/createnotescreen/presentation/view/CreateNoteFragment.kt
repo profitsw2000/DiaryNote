@@ -65,7 +65,7 @@ class CreateNoteFragment : Fragment() {
 
     private fun handleError(message: String) = with(binding) {
         progressBar.visibility = View.GONE
-        Toast.makeText(requireContext(), "Не удалось загрузить список категорий", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showProgressBar() = with(binding) {
