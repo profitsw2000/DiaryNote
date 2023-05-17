@@ -10,15 +10,22 @@ import diarynote.createnotescreen.R
 import diarynote.createnotescreen.databinding.FragmentCreateNoteBinding
 import diarynote.createnotescreen.model.CategoriesState
 import diarynote.createnotescreen.presentation.view.adapter.HorizontalCategoryListAdapter
+import diarynote.createnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.createnotescreen.presentation.viewmodel.CreateNoteViewModel
+import diarynote.data.model.CategoryModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateNoteFragment : Fragment() {
 
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding get() = _binding!!
+    private lateinit var data: List<CategoryModel>
     private val createNoteViewModel: CreateNoteViewModel by viewModel()
-    private val adapter = HorizontalCategoryListAdapter()
+    private val adapter = HorizontalCategoryListAdapter(object : OnItemClickListener {
+        override fun onItemClick(position: Int) {
+            updateListItem(position)
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +50,10 @@ class CreateNoteFragment : Fragment() {
 
     private fun renderData(categoriesState: CategoriesState) {
         when(categoriesState) {
-            is CategoriesState.Success -> adapter.setData(categoriesState.categoryModelList)
+            is CategoriesState.Success -> {
+                data = categoriesState.categoryModelList
+                adapter.setData(data)
+            }
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
         }
@@ -53,6 +63,15 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun showProgressBar() {
+    }
+
+    private fun updateListItem(position: Int) {
+        if(position < data.size) {
+            binding.horizontalCategoryListRecyclerView.removeAllViews()
+            adapter.updateData(data, position)
+        } else {
+
+        }
     }
 
     override fun onDestroyView() {

@@ -1,19 +1,32 @@
 package diarynote.createnotescreen.presentation.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.createnotescreen.databinding.HorizontalCategoryListItemRecyclerViewBinding
+import diarynote.createnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.data.model.CategoryModel
 
-class HorizontalCategoryListAdapter : RecyclerView.Adapter<HorizontalCategoryListAdapter.ViewHolder>() {
+class HorizontalCategoryListAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<HorizontalCategoryListAdapter.ViewHolder>() {
 
     private lateinit var binding: HorizontalCategoryListItemRecyclerViewBinding
+    private var lastClickedPosition = 0
     private var data: List<CategoryModel> = arrayListOf()
     private val addElement = CategoryModel(0, 0, "", 333, 0)
+    private lateinit var context: Context
 
     fun setData(data: List<CategoryModel>) {
+        this.data = data + addElement
+        notifyDataSetChanged()
+    }
+
+    fun updateData(data: List<CategoryModel>, selectedItemPosition: Int) {
+        lastClickedPosition = selectedItemPosition
         this.data = data + addElement
         notifyDataSetChanged()
     }
@@ -22,6 +35,7 @@ class HorizontalCategoryListAdapter : RecyclerView.Adapter<HorizontalCategoryLis
         binding = HorizontalCategoryListItemRecyclerViewBinding.inflate(LayoutInflater.from(parent.context),
                     parent,
         false)
+        context = parent.context
         return ViewHolder(binding.root)
     }
 
@@ -30,14 +44,29 @@ class HorizontalCategoryListAdapter : RecyclerView.Adapter<HorizontalCategoryLis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], position)
+        holder.bind(data[position])
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(categoryModel: CategoryModel, position: Int) = with(binding) {
+        fun bind(categoryModel: CategoryModel) = with(binding) {
             categoryImageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
             categoryNameTextView.text = categoryModel.categoryName
+
+            if (layoutPosition == lastClickedPosition) {
+                selectedItemView()
+            }
+
+            horizontalCategoryListItemRootLayout.setOnClickListener {
+                onItemClickListener.onItemClick(layoutPosition)
+            }
+
+        }
+
+        private fun selectedItemView() = with(binding) {
+            imageConstraintLayout.background = ContextCompat.getDrawable(context, diarynote.core.R.drawable.horizontal_category_list_selected_item_background)
+            categoryImageView.setColorFilter(ContextCompat.getColor(context, diarynote.core.R.color.black))
+            categoryNameTextView.setTextColor(ContextCompat.getColor(context, diarynote.core.R.color.black))
         }
 
         private fun getImageFromResources(imgId: Int) : Int {
