@@ -87,6 +87,7 @@
                     android:hint="@string/login_hint_text">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        style="@style/customEditTextInputOutlinedStyle"
                         android:id="@+id/login_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -107,6 +108,7 @@
                     android:hint="@string/email_hint_text">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        style="@style/customEditTextInputOutlinedStyle"
                         android:id="@+id/email_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -129,6 +131,7 @@
                     app:endIconDrawable="@drawable/password_icon">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        style="@style/customEditTextInputOutlinedStyle"
                         android:id="@+id/password_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -151,6 +154,7 @@
                     app:endIconDrawable="@drawable/password_icon">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        style="@style/customEditTextInputOutlinedStyle"
                         android:id="@+id/confirm_password_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

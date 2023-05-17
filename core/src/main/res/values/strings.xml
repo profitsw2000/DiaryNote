@@ -45,4 +45,5 @@
     <string name="add_note_fab_description_text">Кнопка добавления заметки</string>
     <string name="add_category_fab_description_text">Кнопка добавления категории</string>
     <string name="reload_notes_list_text">Перезагрузить</string>
+    <string name="add_note_button_text">ДОБАВИТЬ</string>
 </resources>

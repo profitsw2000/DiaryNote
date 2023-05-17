@@ -24,6 +24,7 @@
         app:endIconDrawable="@drawable/search_icon_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/customEditTextInputOutlinedStyle"
             android:id="@+id/search_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

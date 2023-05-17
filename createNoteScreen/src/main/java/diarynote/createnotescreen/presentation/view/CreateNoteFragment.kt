@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.createnotescreen.R
 import diarynote.createnotescreen.databinding.FragmentCreateNoteBinding
@@ -50,19 +51,25 @@ class CreateNoteFragment : Fragment() {
 
     private fun renderData(categoriesState: CategoriesState) {
         when(categoriesState) {
-            is CategoriesState.Success -> {
-                data = categoriesState.categoryModelList
-                adapter.setData(data)
-            }
+            is CategoriesState.Success -> loadingCategoriesSuccess(categoriesState)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
         }
     }
 
-    private fun handleError(message: String) {
+    private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {
+        progressBar.visibility = View.GONE
+        data = categoriesState.categoryModelList
+        adapter.setData(data)
     }
 
-    private fun showProgressBar() {
+    private fun handleError(message: String) = with(binding) {
+        progressBar.visibility = View.GONE
+        Toast.makeText(requireContext(), "Не удалось загрузить список категорий", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showProgressBar() = with(binding) {
+        progressBar.visibility = View.VISIBLE
     }
 
     private fun updateListItem(position: Int) {
