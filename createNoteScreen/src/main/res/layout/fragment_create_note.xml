@@ -53,6 +53,7 @@
             android:id="@+id/title_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="100"
             android:paddingVertical="@dimen/standard_edit_text_input_vertical_padding"
             android:inputType="text"
             android:maxLines="1"/>
@@ -119,6 +120,7 @@
             android:id="@+id/tags_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="100"
             android:paddingVertical="@dimen/standard_edit_text_input_vertical_padding"
             android:inputType="text"
             android:maxLines="1"/>

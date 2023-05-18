@@ -40,8 +40,21 @@ class CreateNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
-        binding.horizontalCategoryListRecyclerView.adapter = adapter
+        initViews()
         createNoteViewModel.getCategoriesList()
+    }
+
+    private fun initViews() = with(binding) {
+        horizontalCategoryListRecyclerView.adapter = adapter
+        addNoteButton.setOnClickListener {
+            val noteTitle = noteTitleInputLayout.editText.toString()
+            val noteContent = noteContentInputLayout.editText.toString()
+            val noteTags = noteTagsInputLayout.editText.toString()
+        }
+    }
+
+    private fun addNoteToDataBase() {
+
     }
 
     private fun observeData() {
