@@ -24,6 +24,7 @@ class CreateNoteFragment : Fragment() {
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding get() = _binding!!
     private lateinit var data: List<CategoryModel>
+    private var selectedCategoryIndex = 0
     private val createNoteViewModel: CreateNoteViewModel by viewModel()
     private val adapter = HorizontalCategoryListAdapter(object : OnItemClickListener {
         override fun onItemClick(position: Int) {
@@ -50,14 +51,25 @@ class CreateNoteFragment : Fragment() {
     private fun initViews() = with(binding) {
         horizontalCategoryListRecyclerView.adapter = adapter
         addNoteButton.setOnClickListener {
-            val noteTitle = noteTitleInputLayout.editText.toString()
-            val noteContent = noteContentInputLayout.editText.toString()
-            val noteTags = noteTagsInputLayout.editText.toString()
+            val noteTitle = noteTitleInputLayout.editText?.text.toString()
+            val noteContent = noteContentInputLayout.editText?.text.toString()
+            val noteTags = noteTagsInputLayout.editText?.text.toString()
+
+            clearInputErrors()
+
+            createNoteViewModel.getNotesData(
+                noteTitle,
+                noteContent,
+                noteTags,
+                data[selectedCategoryIndex].categoryName
+            )
         }
     }
 
-    private fun addNoteToDataBase() {
-
+    private fun clearInputErrors() = with(binding) {
+        noteTitleInputLayout.error = null
+        noteContentInputLayout.error= null
+        noteTagsInputLayout.error = null
     }
 
     private fun observeData() {
@@ -83,8 +95,13 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
-    private fun successfulNoteCreation() {
+    private fun successfulNoteCreation() = with(binding) {
+        progressBar.visibility = View.GONE
+        noteTitleInputLayout.editText?.setText("")
+        noteContentInputLayout.editText?.setText("")
+        noteTagsInputLayout.editText?.setText("")
 
+        Toast.makeText(requireContext(), "Заметка добавлена!", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {

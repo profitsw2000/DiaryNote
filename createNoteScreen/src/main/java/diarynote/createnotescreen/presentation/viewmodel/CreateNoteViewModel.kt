@@ -15,7 +15,6 @@ import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.time.LocalDate
 import java.util.Calendar
 
 class CreateNoteViewModel(
@@ -81,10 +80,10 @@ class CreateNoteViewModel(
                 userId = sharedPreferences.getInt(CURRENT_USER_ID,0)
             ))
         } else {
-            invalidInput(noteTitleIsValid,
-                noteContentIsValid,
-                noteTagsLengthIsValid,
-                noteTagsIsValid
+            invalidInput(!noteTitleIsValid,
+                !noteContentIsValid,
+                !noteTagsLengthIsValid,
+                !noteTagsIsValid
             )
         }
     }
@@ -116,7 +115,7 @@ class CreateNoteViewModel(
                 {
                     _notesLiveData.value = NotesState.Success(arrayListOf())
                 },{
-                    _notesLiveData.value = NotesState.Error(it.message!!, ROOM_BIT_NUMBER)
+                    _notesLiveData.value = NotesState.Error(it.message!!, (1 shl ROOM_BIT_NUMBER))
                 }
             )
     }
