@@ -26,6 +26,8 @@ class CreateNoteViewModel(
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
     val categoriesLiveData: LiveData<CategoriesState> by this::_categoriesLiveData
 
+
+
     fun getCategoriesList() {
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
     }
