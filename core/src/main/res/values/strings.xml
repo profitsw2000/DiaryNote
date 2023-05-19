@@ -29,6 +29,7 @@
     <string name="invalid_email_input_message">Неверный email</string>
     <string name="password_not_confirmed_error_message">Пароль не подтверждён</string>
     <string name="user_registration_error_message">Ошибка добавления пользователя в базу данных.</string>
+    <string name="room_note_adding_error_message">Ошибка добавления заметки в базу данных.</string>
     <string name="user_already_exist_error_message">Пользователь с таким именем уже существует.</string>
     <string name="email_already_exist_error_message">Пользователь с таким email уже существует.</string>
     <string name="email_not_exist_in_db_error_message">Пользователь с указанным email не существует.</string>

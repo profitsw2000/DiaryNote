@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.createnotescreen.model.CategoriesState
+import diarynote.createnotescreen.model.NotesState
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
+import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.CategoryMapper
+import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -17,8 +20,10 @@ import java.util.Calendar
 
 class CreateNoteViewModel(
     private val categoryInteractor: CategoryInteractor,
+    private val noteInteractor: NoteInteractor,
     private val sharedPreferences: SharedPreferences,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
+    private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -26,7 +31,8 @@ class CreateNoteViewModel(
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
     val categoriesLiveData: LiveData<CategoriesState> by this::_categoriesLiveData
 
-
+    private val _notesLiveData = MutableLiveData<NotesState>()
+    val notesLiveData: LiveData<NotesState> by this::_notesLiveData
 
     fun getCategoriesList() {
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
@@ -88,7 +94,7 @@ class CreateNoteViewModel(
                 (noteContentIsValid.toInt() shl NOTE_CONTENT_BIT_NUMBER) or
                 (noteTagsLengthIsValid.toInt() shl NOTE_TAGS_BIT_NUMBER) or
                 (noteTagsIsValid.toInt() shl NOTE_TAG_WORDS_BIT_NUMBER)
-
+        _notesLiveData.value = NotesState.Error("", errorCode)
     }
 
     private fun checkNoteTags(noteTags: String) : Boolean {
@@ -102,7 +108,17 @@ class CreateNoteViewModel(
     }
 
     private fun addNote(noteModel: NoteModel) {
-
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.addNote(noteMapper.map(noteModel), false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(arrayListOf())
+                },{
+                    _notesLiveData.value = NotesState.Error(it.message!!, ROOM_BIT_NUMBER)
+                }
+            )
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

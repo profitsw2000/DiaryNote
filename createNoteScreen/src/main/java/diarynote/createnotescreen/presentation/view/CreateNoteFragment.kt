@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import diarynote.core.common.view.Dialoger
+import diarynote.core.utils.*
 import diarynote.createnotescreen.R
 import diarynote.createnotescreen.databinding.FragmentCreateNoteBinding
 import diarynote.createnotescreen.model.CategoriesState
+import diarynote.createnotescreen.model.NotesState
 import diarynote.createnotescreen.presentation.view.adapter.HorizontalCategoryListAdapter
 import diarynote.createnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.createnotescreen.presentation.viewmodel.CreateNoteViewModel
@@ -58,11 +61,13 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun observeData() {
-        val observer = Observer<CategoriesState> { renderData(it)}
-        createNoteViewModel.categoriesLiveData.observe(viewLifecycleOwner, observer)
+        val registrationObserver = Observer<CategoriesState> { renderCategoriesData(it)}
+        createNoteViewModel.categoriesLiveData.observe(viewLifecycleOwner, registrationObserver)
+        val noteObserver = Observer<NotesState> { renderNotesData(it)}
+        createNoteViewModel.notesLiveData.observe(viewLifecycleOwner, noteObserver)
     }
 
-    private fun renderData(categoriesState: CategoriesState) {
+    private fun renderCategoriesData(categoriesState: CategoriesState) {
         when(categoriesState) {
             is CategoriesState.Success -> loadingCategoriesSuccess(categoriesState)
             is CategoriesState.Loading -> showProgressBar()
@@ -70,10 +75,33 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
+    private fun renderNotesData(notesState: NotesState) {
+        when(notesState) {
+            is NotesState.Success -> successfulNoteCreation()
+            is NotesState.Loading -> showProgressBar()
+            is NotesState.Error -> noteCreationError(notesState)
+        }
+    }
+
+    private fun successfulNoteCreation() {
+
+    }
+
     private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {
         progressBar.visibility = View.GONE
         data = categoriesState.categoryModelList
         adapter.setData(data)
+    }
+
+    private fun noteCreationError(notesState: NotesState.Error) = with(binding) {
+        val dialoger = Dialoger(requireActivity())
+        progressBar.visibility = View.GONE
+
+        if((1 shl NOTE_TITLE_BIT_NUMBER) and notesState.errorCode != 0) noteTitleInputLayout.error = "Заголовок не менее $NOTE_TITLE_MIN_LENGTH символов"
+        if((1 shl NOTE_CONTENT_BIT_NUMBER) and notesState.errorCode != 0) noteContentInputLayout.error = "Заметка не менее $NOTE_CONTENT_MIN_LENGTH символов"
+        if((1 shl NOTE_TAGS_BIT_NUMBER) and notesState.errorCode != 0) noteTagsInputLayout.error = "Строка тэгов не менее $NOTE_TAGS_MIN_LENGTH символов"
+        if((1 shl NOTE_TAG_WORDS_BIT_NUMBER) and notesState.errorCode != 0) noteTagsInputLayout.error = "Один тэг не более $NOTE_TAG_WORDS_LIMIT слов"
+        if((1 shl ROOM_BIT_NUMBER) and notesState.errorCode != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.room_note_adding_error_message))
     }
 
     private fun handleError(message: String) = with(binding) {
