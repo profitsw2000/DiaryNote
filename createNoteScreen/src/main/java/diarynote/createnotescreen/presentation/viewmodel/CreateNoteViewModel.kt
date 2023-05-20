@@ -13,6 +13,7 @@ import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.CategoryMapper
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
+import diarynote.navigator.Navigator
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.Calendar
@@ -22,7 +23,8 @@ class CreateNoteViewModel(
     private val noteInteractor: NoteInteractor,
     private val sharedPreferences: SharedPreferences,
     private val categoryMapper: CategoryMapper,
-    private val noteMapper: NoteMapper
+    private val noteMapper: NoteMapper,
+    private val navigator: Navigator
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -118,6 +120,10 @@ class CreateNoteViewModel(
                     _notesLiveData.value = NotesState.Error(it.message!!, (1 shl ROOM_BIT_NUMBER))
                 }
             )
+    }
+
+    fun navigateUp() {
+        navigator.navigateUp()
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

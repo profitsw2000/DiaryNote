@@ -66,6 +66,11 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        clearInputErrors()
+    }
+
     private fun clearInputErrors() = with(binding) {
         noteTitleInputLayout.error = null
         noteContentInputLayout.error= null
@@ -102,6 +107,7 @@ class CreateNoteFragment : Fragment() {
         noteTagsInputLayout.editText?.setText("")
 
         Toast.makeText(requireContext(), "Заметка добавлена!", Toast.LENGTH_SHORT).show()
+        createNoteViewModel.navigateUp()
     }
 
     private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {

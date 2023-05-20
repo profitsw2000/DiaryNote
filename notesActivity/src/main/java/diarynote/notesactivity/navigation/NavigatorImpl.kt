@@ -8,4 +8,8 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
     override fun navigateToNoteCreation() {
         navController.navigate(R.id.create_note)
     }
+
+    override fun navigateUp() {
+        navController.navigateUp()
+    }
 }
