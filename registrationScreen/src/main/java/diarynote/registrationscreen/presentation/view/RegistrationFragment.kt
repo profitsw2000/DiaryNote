@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
+import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.common.view.Dialoger
 import diarynote.core.utils.*
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.view.CoreFragment
 import diarynote.data.model.UserModel
 import diarynote.registrationScreen.R
@@ -85,11 +87,17 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     }
 
     private fun showSuccessMessage(userModel: UserModel) = with(binding) {
-        val dialoger = Dialoger(requireActivity())
+        val dialoger = DialogerImpl(requireActivity(),
+            object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    requireActivity().onBackPressed()
+                }
+            }
+        )
 
         progressBar.visibility = View.GONE
         dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
-            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login))
+            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login), "OK")
         //записать категории по умолчанию в базу
         registrationViewModel.insertDefaultCategories(userModel)
         registrationViewModel.insertDefaultNotes(userModel)

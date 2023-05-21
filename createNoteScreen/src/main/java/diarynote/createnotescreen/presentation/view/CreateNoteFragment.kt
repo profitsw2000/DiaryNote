@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.common.view.Dialoger
 import diarynote.core.utils.*
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.createnotescreen.R
 import diarynote.createnotescreen.databinding.FragmentCreateNoteBinding
 import diarynote.createnotescreen.model.CategoriesState
@@ -101,13 +103,20 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun successfulNoteCreation() = with(binding) {
+        val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+            override fun onClick() {
+                createNoteViewModel.navigateUp()
+            }
+        })
+
         progressBar.visibility = View.GONE
         noteTitleInputLayout.editText?.setText("")
         noteContentInputLayout.editText?.setText("")
         noteTagsInputLayout.editText?.setText("")
 
-        Toast.makeText(requireContext(), "Заметка добавлена!", Toast.LENGTH_SHORT).show()
-        createNoteViewModel.navigateUp()
+        dialoger.showAlertDialog("Создание заметки",
+            "Создание заметки завершено успешно", "OK"
+        )
     }
 
     private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {
