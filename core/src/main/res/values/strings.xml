@@ -47,4 +47,11 @@
     <string name="add_category_fab_description_text">Кнопка добавления категории</string>
     <string name="reload_notes_list_text">Перезагрузить</string>
     <string name="add_note_button_text">ДОБАВИТЬ</string>
+    <string name="dialog_button_ok_text">OK</string>
+    <string name="create_note_success_dialog_title_text">Создание заметки</string>
+    <string name="create_note_success_dialog_message_text">Создание заметки завершено успешно</string>
+    <string name="input_note_title_error_text">Заголовок не менее %1$s символов</string>
+    <string name="input_note_content_error_text">Заметка не менее %1$s символов</string>
+    <string name="input_note_tags_line_error_text">Строка тэгов не менее %1$s символов</string>
+    <string name="input_note_tags_words_error_text">Один тэг не более %1$s слов</string>
 </resources>

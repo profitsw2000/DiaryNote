@@ -114,8 +114,9 @@ class CreateNoteFragment : Fragment() {
         noteContentInputLayout.editText?.setText("")
         noteTagsInputLayout.editText?.setText("")
 
-        dialoger.showAlertDialog("Создание заметки",
-            "Создание заметки завершено успешно", "OK"
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.create_note_success_dialog_title_text),
+            getString(diarynote.core.R.string.create_note_success_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text)
         )
     }
 
@@ -126,14 +127,14 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun noteCreationError(notesState: NotesState.Error) = with(binding) {
-        val dialoger = Dialoger(requireActivity())
+        val dialoger = DialogerImpl(requireActivity())
         progressBar.visibility = View.GONE
 
-        if((1 shl NOTE_TITLE_BIT_NUMBER) and notesState.errorCode != 0) noteTitleInputLayout.error = "Заголовок не менее $NOTE_TITLE_MIN_LENGTH символов"
-        if((1 shl NOTE_CONTENT_BIT_NUMBER) and notesState.errorCode != 0) noteContentInputLayout.error = "Заметка не менее $NOTE_CONTENT_MIN_LENGTH символов"
-        if((1 shl NOTE_TAGS_BIT_NUMBER) and notesState.errorCode != 0) noteTagsInputLayout.error = "Строка тэгов не менее $NOTE_TAGS_MIN_LENGTH символов"
-        if((1 shl NOTE_TAG_WORDS_BIT_NUMBER) and notesState.errorCode != 0) noteTagsInputLayout.error = "Один тэг не более $NOTE_TAG_WORDS_LIMIT слов"
-        if((1 shl ROOM_BIT_NUMBER) and notesState.errorCode != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.room_note_adding_error_message))
+        if((1 shl NOTE_TITLE_BIT_NUMBER) and notesState.errorCode != 0) noteTitleInputLayout.error = getString(diarynote.core.R.string.input_note_title_error_text, NOTE_TITLE_MIN_LENGTH.toString())
+        if((1 shl NOTE_CONTENT_BIT_NUMBER) and notesState.errorCode != 0) noteContentInputLayout.error = getString(diarynote.core.R.string.input_note_content_error_text, NOTE_CONTENT_MIN_LENGTH.toString())
+        if((1 shl NOTE_TAGS_BIT_NUMBER) and notesState.errorCode != 0) noteTagsInputLayout.error = getString(diarynote.core.R.string.input_note_tags_line_error_text, NOTE_TAGS_MIN_LENGTH.toString())
+        if((1 shl NOTE_TAG_WORDS_BIT_NUMBER) and notesState.errorCode != 0) noteTagsInputLayout.error = getString(diarynote.core.R.string.input_note_tags_words_error_text, NOTE_TAG_WORDS_LIMIT.toString())
+        if((1 shl ROOM_BIT_NUMBER) and notesState.errorCode != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.room_note_adding_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
     }
 
     private fun handleError(message: String) = with(binding) {

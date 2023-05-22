@@ -18,8 +18,8 @@ class PasswordRecoveryViewModel(
 
     private val inputValidator = InputValidator()
 
-    private val _recoveryLiveData = MutableLiveData<RecoveryState>()
-    val recoveryState: LiveData<RecoveryState> by this::_recoveryLiveData
+    private val _recoveryLiveData = MutableLiveData<RecoveryState?>()
+    val recoveryState: LiveData<RecoveryState?> by this::_recoveryLiveData
 
     fun passwordRecovery(email: String) {
         val emailIsValid = inputValidator.checkInputIsValid(email, EMAIL_PATTERN)
@@ -45,5 +45,9 @@ class PasswordRecoveryViewModel(
                     _recoveryLiveData.value = RecoveryState.Error(1 shl ROOM_BIT_NUMBER)
                 }
             )
+    }
+
+    fun clear() {
+        _recoveryLiveData.value = null
     }
 }

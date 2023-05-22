@@ -26,8 +26,8 @@ class RegistrationViewModel(
 
     private val inputValidator = InputValidator()
 
-    private val _registrationLiveData = MutableLiveData<RegState>()
-    val registrationLiveData: LiveData<RegState> by this::_registrationLiveData
+    private val _registrationLiveData = MutableLiveData<RegState?>()
+    val registrationLiveData: LiveData<RegState?> by this::_registrationLiveData
 
     fun registerUser(login: String, email: String, password: String, confirmPassword: String) {
         val loginIsValid = inputValidator.checkInputIsValid(login, LOGIN_MIN_LENGTH, LOGIN_PATTERN)
@@ -113,6 +113,10 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
                 }
             )
+    }
+
+    fun clear() {
+        _registrationLiveData.value = null
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

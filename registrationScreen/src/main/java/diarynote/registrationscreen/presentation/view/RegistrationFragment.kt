@@ -48,7 +48,7 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     }
 
     private fun observeData() {
-        val observer = Observer<RegState> { renderData(it) }
+        val observer = Observer<RegState?> { renderData(it) }
         registrationViewModel.registrationLiveData.observe(viewLifecycleOwner, observer)
     }
 
@@ -90,17 +90,18 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
+                    registrationViewModel.clear()
+                    clearInputForms()
                     requireActivity().onBackPressed()
                 }
             }
         )
 
         progressBar.visibility = View.GONE
-        dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
-            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login), "OK")
         //записать категории по умолчанию в базу
         registrationViewModel.insertDefaultCategories(userModel)
-        registrationViewModel.insertDefaultNotes(userModel)
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
+            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login), getString(diarynote.core.R.string.dialog_button_ok_text))
     }
 
     private fun handleError(code: Int) = with(binding) {
@@ -121,6 +122,13 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
 
     private fun showProgressBar() = with(binding) {
         progressBar.visibility = View.VISIBLE
+    }
+
+    private fun clearInputForms() = with(binding) {
+        loginInputEditText.setText("")
+        emailInputEditText.setText("")
+        passwordInputEditText.setText("")
+        confirmPasswordInputEditText.setText("")
     }
 
     override fun onDestroy() {
