@@ -32,8 +32,8 @@ class CreateNoteViewModel(
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
     val categoriesLiveData: LiveData<CategoriesState> by this::_categoriesLiveData
 
-    private val _notesLiveData = MutableLiveData<NotesState>()
-    val notesLiveData: LiveData<NotesState> by this::_notesLiveData
+    private val _notesLiveData = MutableLiveData<NotesState?>()
+    val notesLiveData: LiveData<NotesState?> by this::_notesLiveData
 
     fun getCategoriesList() {
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
@@ -124,6 +124,10 @@ class CreateNoteViewModel(
 
     fun navigateUp() {
         navigator.navigateUp()
+    }
+
+    fun clear() {
+        _notesLiveData.value = null
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

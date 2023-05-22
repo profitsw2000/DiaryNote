@@ -3,9 +3,11 @@ package diarynote.createnotescreen.presentation.view
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.common.view.Dialoger
@@ -34,10 +36,41 @@ class CreateNoteFragment : Fragment() {
         }
     })
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+                    override fun onClick() {
+                        createNoteViewModel.navigateUp()
+                    }
+                })
+
+                dialoger.showTwoButtonDialog("Выход", "Прекратить создание заметки и выйти?", "Да", "Нет")
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    createNoteViewModel.navigateUp()
+                }
+            })
+
+            dialoger.showTwoButtonDialog("Выход", "Прекратить создание заметки и выйти?", "Да", "Нет")
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         _binding = FragmentCreateNoteBinding.bind(inflater.inflate(R.layout.fragment_create_note, container, false))
         return binding.root
@@ -82,7 +115,7 @@ class CreateNoteFragment : Fragment() {
     private fun observeData() {
         val registrationObserver = Observer<CategoriesState> { renderCategoriesData(it)}
         createNoteViewModel.categoriesLiveData.observe(viewLifecycleOwner, registrationObserver)
-        val noteObserver = Observer<NotesState> { renderNotesData(it)}
+        val noteObserver = Observer<NotesState?> { renderNotesData(it)}
         createNoteViewModel.notesLiveData.observe(viewLifecycleOwner, noteObserver)
     }
 
@@ -159,6 +192,7 @@ class CreateNoteFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
     companion object {
         @JvmStatic
