@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/main">
+
+    <fragment
+        android:id="@+id/main"
+        android:name="diarynote.mainfragment.presentation.view.MainFragment"
+        android:label="Главная"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_create_note"
+            app:destination="@+id/create_note" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categories"
+        android:name="diarynote.categoriesfragment.presentation.view.CategoriesFragment"
+        android:label="Категории"
+        tools:layout="@layout/fragment_categories"/>
+
+    <fragment
+        android:id="@+id/calendar"
+        android:name="diarynote.calendarfragment.presentation.view.CalendarFragment"
+        android:label="Календарь"
+        tools:layout="@layout/fragment_calendar"/>
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="diarynote.settingsfragment.presentation.view.SettingsFragment"
+        android:label="Настройки"
+        tools:layout="@layout/fragment_settings"/>
+
+<!--  Main end  -->
+
+    <fragment
+        android:id="@+id/create_note"
+        android:name="diarynote.createnotescreen.presentation.view.CreateNoteFragment"
+        android:label="Создание..."
+        tools:layout="@layout/fragment_create_note"/>
+
+</navigation>
