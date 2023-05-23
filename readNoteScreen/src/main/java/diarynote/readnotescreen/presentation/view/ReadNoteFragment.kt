@@ -5,18 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import diarynote.data.domain.NOTE_MODEL_BUNDLE
+import diarynote.data.model.NoteModel
 import diarynote.readnotescreen.R
 import diarynote.readnotescreen.databinding.FragmentReadNoteBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReadNoteFragment : Fragment() {
 
     private var _binding: FragmentReadNoteBinding? = null
     private val binding get() = _binding!!
+    private val noteModel: NoteModel? by lazy { arguments?.getParcelable(NOTE_MODEL_BUNDLE) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentReadNoteBinding.bind(inflater.inflate(R.layout.fragment_read_note, container, false))
         return binding.root
@@ -24,9 +29,27 @@ class ReadNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (noteModel != null) {
+            populateViews(noteModel!!)
+        } else {
+            handleError()
+        }
     }
 
-    private fun observeData() {
+    private fun populateViews(noteModel: NoteModel) = with(binding) {
+        noteTitleTextView.text = noteModel.title
+        noteContentTextView.text = noteModel.text
+        noteTagsTextView.text = noteModel.tags.joinToString(" #", "#", "")
+        noteCreateDateTextView.text = getDateString(noteModel.date)
+        if (noteModel.edited) noteEditDateTextView.text = "Изменено: ${getDateString(noteModel.editDate)}"
+    }
 
+    private fun getDateString(date: Date): String? {
+        return SimpleDateFormat("dd.MM.yyyy").format(date)
+    }
+
+    private fun handleError() = with(binding) {
+        noteTitleTextView.text = "Не удалось загрузить заметку. Попробуйте еще раз."
     }
 }

@@ -47,4 +47,8 @@ class HomeViewModel(
         navigator.navigateToNoteCreation()
     }
 
+    fun navigateToNoteDetails() {
+
+    }
+
 }

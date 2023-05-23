@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.data.model.NoteModel
 import diarynote.mainfragment.databinding.NotesListItemViewBinding
+import diarynote.mainfragment.presentation.view.utils.OnItemClickListener
 import java.text.SimpleDateFormat
 
-class NotesListAdapter : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+class NotesListAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
     private lateinit var binding: NotesListItemViewBinding
     private var data: List<NoteModel> = arrayListOf()
@@ -43,6 +46,10 @@ class NotesListAdapter : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
                 tagsTextView.text = noteModel.tags.joinToString(" #", "#", "")
                 creationDateTextView.text = SimpleDateFormat("dd.MM.yyyy").format(noteModel.date)
                 if (noteModel.edited) editedNoteSignImageView.setImageResource(diarynote.core.R.drawable.edit_icon_24)
+
+                notesListItemViewRootLayout.setOnClickListener {
+                    onItemClickListener.onItemClick(noteModel)
+                }
             }
         }
     }

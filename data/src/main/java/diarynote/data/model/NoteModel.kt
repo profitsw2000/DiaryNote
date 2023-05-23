@@ -1,7 +1,10 @@
 package diarynote.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.Date
 
+@Parcelize
 data class NoteModel(
     val id: Int = 0,
     val category: String = "",
@@ -13,4 +16,4 @@ data class NoteModel(
     val edited: Boolean = false,
     val editDate: Date,
     val userId: Int = 0
-)
+) : Parcelable
