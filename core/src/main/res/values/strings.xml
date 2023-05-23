@@ -54,4 +54,8 @@
     <string name="input_note_content_error_text">Заметка не менее %1$s символов</string>
     <string name="input_note_tags_line_error_text">Строка тэгов не менее %1$s символов</string>
     <string name="input_note_tags_words_error_text">Один тэг не более %1$s слов</string>
+    <string name="exit_note_creation_dialog_title_text">Выход</string>
+    <string name="exit_note_creation_dialog_message_text">Прекратить создание заметки и выйти?</string>
+    <string name="dialog_button_yes_text">Да</string>
+    <string name="dialog_button_no_text">Нет</string>
 </resources>

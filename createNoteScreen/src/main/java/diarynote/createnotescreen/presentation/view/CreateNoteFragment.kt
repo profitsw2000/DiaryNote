@@ -40,13 +40,7 @@ class CreateNoteFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
-                    override fun onClick() {
-                        createNoteViewModel.navigateUp()
-                    }
-                })
-
-                dialoger.showTwoButtonDialog("Выход", "Прекратить создание заметки и выйти?", "Да", "Нет")
+                exitNoteCreationDialog()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -54,16 +48,24 @@ class CreateNoteFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+            exitNoteCreationDialog()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun exitNoteCreationDialog() {
+        val dialoger =
+            DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
                     createNoteViewModel.navigateUp()
                 }
             })
 
-            dialoger.showTwoButtonDialog("Выход", "Прекратить создание заметки и выйти?", "Да", "Нет")
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.exit_note_creation_dialog_title_text), getString(
+                    diarynote.core.R.string.exit_note_creation_dialog_message_text), getString(
+            diarynote.core.R.string.dialog_button_yes_text), getString(
+                                diarynote.core.R.string.dialog_button_no_text))
     }
 
     override fun onCreateView(
@@ -127,11 +129,12 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
-    private fun renderNotesData(notesState: NotesState) {
+    private fun renderNotesData(notesState: NotesState?) {
         when(notesState) {
             is NotesState.Success -> successfulNoteCreation()
             is NotesState.Loading -> showProgressBar()
             is NotesState.Error -> noteCreationError(notesState)
+            else -> {}
         }
     }
 
@@ -139,18 +142,23 @@ class CreateNoteFragment : Fragment() {
         val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
             override fun onClick() {
                 createNoteViewModel.navigateUp()
+                clearInputForms()
+                createNoteViewModel.clear()
             }
         })
 
         progressBar.visibility = View.GONE
-        noteTitleInputLayout.editText?.setText("")
-        noteContentInputLayout.editText?.setText("")
-        noteTagsInputLayout.editText?.setText("")
 
         dialoger.showAlertDialog(getString(diarynote.core.R.string.create_note_success_dialog_title_text),
             getString(diarynote.core.R.string.create_note_success_dialog_message_text),
             getString(diarynote.core.R.string.dialog_button_ok_text)
         )
+    }
+
+    private fun FragmentCreateNoteBinding.clearInputForms() {
+        noteTitleInputLayout.editText?.setText("")
+        noteContentInputLayout.editText?.setText("")
+        noteTagsInputLayout.editText?.setText("")
     }
 
     private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {
