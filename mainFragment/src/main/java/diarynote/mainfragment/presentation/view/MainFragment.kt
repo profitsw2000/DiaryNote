@@ -42,6 +42,9 @@ class MainFragment : Fragment() {
     private fun initViews() {
         with(binding) {
             mainNotesListRecyclerView.adapter = adapter
+            addNoteFab.setOnClickListener {
+                homeViewModel.navigateToNoteCreation()
+            }
         }
     }
 

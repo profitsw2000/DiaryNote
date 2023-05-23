@@ -7,7 +7,7 @@ import diarynote.data.room.entity.NoteEntity
 
 class NoteMapper {
 
-    private fun map(noteModel: NoteModel): NoteEntity {
+    fun map(noteModel: NoteModel): NoteEntity {
         return NoteEntity(
             id = noteModel.id,
             category = noteModel.category,
@@ -22,7 +22,7 @@ class NoteMapper {
         )
     }
 
-    private fun map(noteEntity: NoteEntity): NoteModel {
+    fun map(noteEntity: NoteEntity): NoteModel {
         return NoteModel(
             id = noteEntity.id,
             category = noteEntity.category,

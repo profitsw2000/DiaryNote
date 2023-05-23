@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
-import diarynote.core.common.view.Dialoger
+import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.EMAIL_BIT_NUMBER
-import diarynote.core.utils.LOGIN_BIT_NUMBER
-import diarynote.core.utils.LOGIN_MIN_LENGTH
 import diarynote.core.utils.ROOM_BIT_NUMBER
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.view.CoreFragment
 import diarynote.passwordrecovery.presentation.viewmodel.PasswordRecoveryViewModel
 import diarynote.passwordrecovery.R
@@ -49,7 +47,7 @@ class PasswordRecoveryFragment : CoreFragment(R.layout.fragment_password_recover
     }
 
     private fun observeData() {
-        val observer = Observer<RecoveryState> { renderData(it) }
+        val observer = Observer<RecoveryState?> { renderData(it) }
         passwordRecoveryViewModel.recoveryState.observe(viewLifecycleOwner, observer)
     }
 
@@ -63,13 +61,13 @@ class PasswordRecoveryFragment : CoreFragment(R.layout.fragment_password_recover
     }
 
     private fun handleError(code: Int) = with(binding) {
-        val dialoger = Dialoger(requireActivity())
+        val dialoger = DialogerImpl(requireActivity())
         progressBar.visibility = View.GONE
 
         if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = getString(
             diarynote.core.R.string.invalid_email_input_message)
         if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text),
-            getString(diarynote.core.R.string.email_not_exist_in_db_error_message)
+            getString(diarynote.core.R.string.email_not_exist_in_db_error_message), getString(diarynote.core.R.string.dialog_button_ok_text)
         )
 
     }
@@ -79,11 +77,17 @@ class PasswordRecoveryFragment : CoreFragment(R.layout.fragment_password_recover
     }
 
     private fun showSuccessMessage() = with(binding) {
-        val dialoger = Dialoger(requireActivity())
+        val dialoger = DialogerImpl(requireActivity(), object :
+            OnDialogPositiveButtonClickListener {
+            override fun onClick() {
+                passwordRecoveryViewModel.clear()
+                requireActivity().onBackPressed()
+            }
+        })
         progressBar.visibility = View.GONE
 
         dialoger.showAlertDialog(getString(diarynote.core.R.string.password_recovery_success_dialog_title_text),
-            getString(diarynote.core.R.string.email_with_password_was_send)
+            getString(diarynote.core.R.string.email_with_password_was_send), getString(diarynote.core.R.string.dialog_button_ok_text)
         )
         emailInputEditText.setText("")
     }

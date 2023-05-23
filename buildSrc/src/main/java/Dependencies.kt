@@ -26,6 +26,7 @@ object Modules {
     const val categoriesfragment = ":categoriesFragment"
     const val calendarfragment = ":calendarFragment"
     const val settingsfragment = ":settingsFragment"
+    const val createnotescreen = ":createNoteScreen"
 }
 
 object Versions {

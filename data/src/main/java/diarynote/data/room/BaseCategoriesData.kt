@@ -10,8 +10,8 @@ val baseCategoriesList = listOf(
         categoryName = "Без категории",
         categoryImage = 0,
         0
-    ),
-    CategoryEntity(
+    )
+/*    CategoryEntity(
         id = 0,
         color = diarynote.core.R.color.violet,
         categoryName = "Работа",
@@ -45,5 +45,5 @@ val baseCategoriesList = listOf(
         categoryName = "Android",
         categoryImage = 5,
         0
-    )
+    )*/
 )

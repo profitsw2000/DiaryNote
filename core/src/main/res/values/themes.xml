@@ -49,6 +49,10 @@
         <!--Стили для отдельных компонентов -->
         <item name="textInputOutlinedStyle">@style/customTextInputOutlinedStyle</item>
         <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
+
+        <!-- Action Bar -->
+        <item name="toolbarStyle">@style/appBarStyle</item>
+        <item name="drawerArrowStyle">@style/MyDrawerArrowToggleStyle</item>
     </style>
 
 </resources>

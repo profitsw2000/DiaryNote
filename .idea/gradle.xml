@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/calendarFragment" />
             <option value="$PROJECT_DIR$/categoriesFragment" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/createNoteScreen" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/mainFragment" />
             <option value="$PROJECT_DIR$/navigator" />

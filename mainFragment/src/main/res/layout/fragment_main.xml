@@ -9,9 +9,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.MainFragment">
 
-    <!--    android:paddingHorizontal="@dimen/standart_constraint_horizontal_padding"
-    android:paddingTop="@dimen/standart_constraint_vertical_padding"-->
-
     <com.google.android.material.textfield.TextInputLayout
         style="@style/searchFieldTextInputOutlinedStyle"
         android:id="@+id/search_note_text_input_layout"
@@ -27,6 +24,7 @@
         app:endIconDrawable="@drawable/search_icon_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/customEditTextInputOutlinedStyle"
             android:id="@+id/search_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

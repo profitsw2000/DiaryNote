@@ -29,6 +29,7 @@
     <string name="invalid_email_input_message">Неверный email</string>
     <string name="password_not_confirmed_error_message">Пароль не подтверждён</string>
     <string name="user_registration_error_message">Ошибка добавления пользователя в базу данных.</string>
+    <string name="room_note_adding_error_message">Ошибка добавления заметки в базу данных.</string>
     <string name="user_already_exist_error_message">Пользователь с таким именем уже существует.</string>
     <string name="email_already_exist_error_message">Пользователь с таким email уже существует.</string>
     <string name="email_not_exist_in_db_error_message">Пользователь с указанным email не существует.</string>
@@ -45,4 +46,16 @@
     <string name="add_note_fab_description_text">Кнопка добавления заметки</string>
     <string name="add_category_fab_description_text">Кнопка добавления категории</string>
     <string name="reload_notes_list_text">Перезагрузить</string>
+    <string name="add_note_button_text">ДОБАВИТЬ</string>
+    <string name="dialog_button_ok_text">OK</string>
+    <string name="create_note_success_dialog_title_text">Создание заметки</string>
+    <string name="create_note_success_dialog_message_text">Создание заметки завершено успешно</string>
+    <string name="input_note_title_error_text">Заголовок не менее %1$s символов</string>
+    <string name="input_note_content_error_text">Заметка не менее %1$s символов</string>
+    <string name="input_note_tags_line_error_text">Строка тэгов не менее %1$s символов</string>
+    <string name="input_note_tags_words_error_text">Один тэг не более %1$s слов</string>
+    <string name="exit_note_creation_dialog_title_text">Выход</string>
+    <string name="exit_note_creation_dialog_message_text">Прекратить создание заметки и выйти?</string>
+    <string name="dialog_button_yes_text">Да</string>
+    <string name="dialog_button_no_text">Нет</string>
 </resources>

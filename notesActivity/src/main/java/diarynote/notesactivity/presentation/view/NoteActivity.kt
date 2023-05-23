@@ -2,9 +2,12 @@ package diarynote.notesactivity.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import diarynote.navigator.Navigator
@@ -40,20 +43,27 @@ class NoteActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(false)
+
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             if (destination.id == R.id.main ||
                 destination.id == R.id.categories ||
                 destination.id == R.id.calendar ||
                 destination.id == R.id.settings) {
+                binding.bottomNav.visibility = View.VISIBLE
                 actionBar?.let {
                     it.hide()
+                }
+            } else {
+                binding.bottomNav.visibility = View.GONE
+                actionBar?.let {
+                    it.show()
                 }
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 }

@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.core.common.Controller
-import diarynote.core.common.view.Dialoger
+import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.*
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.view.CoreFragment
 import diarynote.data.model.UserModel
 import diarynote.registrationScreen.R
@@ -46,7 +46,7 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     }
 
     private fun observeData() {
-        val observer = Observer<RegState> { renderData(it) }
+        val observer = Observer<RegState?> { renderData(it) }
         registrationViewModel.registrationLiveData.observe(viewLifecycleOwner, observer)
     }
 
@@ -85,18 +85,25 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
     }
 
     private fun showSuccessMessage(userModel: UserModel) = with(binding) {
-        val dialoger = Dialoger(requireActivity())
+        val dialoger = DialogerImpl(requireActivity(),
+            object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    registrationViewModel.clear()
+                    clearInputForms()
+                    requireActivity().onBackPressed()
+                }
+            }
+        )
 
         progressBar.visibility = View.GONE
-        dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
-            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login))
         //записать категории по умолчанию в базу
         registrationViewModel.insertDefaultCategories(userModel)
-        registrationViewModel.insertDefaultNotes(userModel)
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.registration_successful_dialog_title_text),
+            getString(diarynote.core.R.string.registration_successful_dialog_text,userModel.login), getString(diarynote.core.R.string.dialog_button_ok_text))
     }
 
     private fun handleError(code: Int) = with(binding) {
-        val dialoger = Dialoger(requireActivity())
+        val dialoger = DialogerImpl(requireActivity())
         progressBar.visibility = View.GONE
 
         if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = getString(
@@ -106,13 +113,20 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
             diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
         if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
                     diarynote.core.R.string.password_not_confirmed_error_message)
-        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_registration_error_message))
-        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_already_exist_error_message))
-        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.email_already_exist_error_message))
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_registration_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
+        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_already_exist_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
+        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.email_already_exist_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
     }
 
     private fun showProgressBar() = with(binding) {
         progressBar.visibility = View.VISIBLE
+    }
+
+    private fun clearInputForms() = with(binding) {
+        loginInputEditText.setText("")
+        emailInputEditText.setText("")
+        passwordInputEditText.setText("")
+        confirmPasswordInputEditText.setText("")
     }
 
     override fun onDestroy() {

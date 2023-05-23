@@ -17,6 +17,7 @@ dependencies {
     implementation(project(Modules.categoriesfragment))
     implementation(project(Modules.calendarfragment))
     implementation(project(Modules.settingsfragment))
+    implementation(project(Modules.createnotescreen))
 
     //Kotlin
     implementation(Kotlin.core)

@@ -24,5 +24,11 @@
     <dimen name="category_item_image_size">48dp</dimen>
     <dimen name="category_item_views_vertical_interval">12dp</dimen>
     <dimen name="note_recyclerview_item_corner_radius">18dp</dimen>
+    <dimen name="category_horizontal_recyclerview_item_corner_radius">8dp</dimen>
     <dimen name="edited_square_icon_image_size">12dp</dimen>
+    <dimen name="standard_edit_text_input_vertical_padding">8dp</dimen>
+    <dimen name="horizontal_categories_list_interval_size">8dp</dimen>
+    <dimen name="horizontal_categories_list_bottom_margin_size">12dp</dimen>
+    <dimen name="horizontal_categories_list_item_width">48dp</dimen>
+    <dimen name="horizontal_categories_list_item_height">64dp</dimen>
 </resources>
