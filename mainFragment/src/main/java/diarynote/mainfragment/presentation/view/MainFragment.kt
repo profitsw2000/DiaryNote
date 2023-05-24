@@ -28,9 +28,9 @@ class MainFragment : Fragment() {
             val bundle = Bundle().apply {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
             }
-
+            this@MainFragment.arguments = bundle
+            homeViewModel.navigateToNoteDetails(bundle)
         }
-
     })
 
     override fun onCreateView(

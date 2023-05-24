@@ -16,13 +16,18 @@ class ReadNoteFragment : Fragment() {
 
     private var _binding: FragmentReadNoteBinding? = null
     private val binding get() = _binding!!
-    private val noteModel: NoteModel? by lazy { arguments?.getParcelable(NOTE_MODEL_BUNDLE) }
+    private var noteModel: NoteModel? = null
+    private var title: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+        arguments?.let {
+            noteModel = it.getParcelable(NOTE_MODEL_BUNDLE)
+            //title = it.getParcelable(NOTE_MODEL_BUNDLE)
+        }
         _binding = FragmentReadNoteBinding.bind(inflater.inflate(R.layout.fragment_read_note, container, false))
         return binding.root
     }
@@ -30,6 +35,7 @@ class ReadNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //binding.noteTitleTextView.text = title
         if (noteModel != null) {
             populateViews(noteModel!!)
         } else {
