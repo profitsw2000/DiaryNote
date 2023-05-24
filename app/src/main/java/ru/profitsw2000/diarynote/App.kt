@@ -5,6 +5,7 @@ import diarynote.categoriesfragment.di.categoryModule
 import diarynote.createnotescreen.di.createNoteModule
 import diarynote.mainfragment.di.homeModule
 import diarynote.passwordrecovery.di.recoveryModule
+import diarynote.readnotescreen.di.readNoteModule
 import diarynote.registrationscreen.di.registrationModule
 import diarynote.signinscreen.di.signInModule
 import org.koin.android.ext.koin.androidContext
@@ -25,7 +26,8 @@ class App : Application() {
                 recoveryModule,
                 categoryModule,
                 homeModule,
-                createNoteModule
+                createNoteModule,
+                readNoteModule
             )
         }
     }
