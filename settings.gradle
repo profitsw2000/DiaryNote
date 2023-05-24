@@ -14,3 +14,17 @@ dependencyResolutionManagement {
 }
 rootProject.name = "DiaryNote"
 include ':app'
+include ':core'
+include ':data'
+include ':signInScreen'
+include ':registrationScreen'
+include ':passwordRecovery'
+include ':notesActivity'
+include ':navigator'
+include ':mainFragment'
+include ':categoriesFragment'
+include ':calendarFragment'
+include ':settingsFragment'
+include ':createNoteScreen'
+include ':readNoteScreen'
+include ':editNoteScreen'
