@@ -87,7 +87,7 @@ class ReadNoteFragment : Fragment() {
         noteContentTextView.text = noteModel.text
         noteTagsTextView.text = noteModel.tags.joinToString(" #", "#", "")
         noteCreateDateTextView.text = getDateString(noteModel.date)
-        if (noteModel.edited) noteEditDateTextView.text = "Изменено: ${getDateString(noteModel.editDate)}"
+        if (noteModel.edited) noteEditDateTextView.text = getString(R.string.edit_note_date_text, getDateString(noteModel.editDate))
     }
 
     private fun getDateString(date: Date): String? {
@@ -95,7 +95,7 @@ class ReadNoteFragment : Fragment() {
     }
 
     private fun handleError() = with(binding) {
-        noteTitleTextView.text = "Не удалось загрузить заметку. Попробуйте еще раз."
+        noteTitleTextView.text = getString(R.string.read_note_error_text)
     }
 
     private fun deleteNotePressed() {
@@ -108,8 +108,8 @@ class ReadNoteFragment : Fragment() {
             }
         )
 
-        dialoger.showTwoButtonDialog("Удаление заметки",
-            "Вы действительно хотите удалить данную заметку?",
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.delete_note_dialog_title_text),
+            getString(diarynote.core.R.string.delete_note_dialog_message_text),
             getString(diarynote.core.R.string.dialog_button_yes_text),
             getString(diarynote.core.R.string.dialog_button_no_text)
         )
