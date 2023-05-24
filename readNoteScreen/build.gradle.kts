@@ -5,20 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "diarynote.notesactivity"
+    namespace = "diarynote.readnotescreen"
 }
 
 dependencies {
+
     //Modules
     implementation(project(Modules.core))
     implementation(project(Modules.data))
     implementation(project(Modules.navigator))
-    implementation(project(Modules.mainfragment))
-    implementation(project(Modules.categoriesfragment))
-    implementation(project(Modules.calendarfragment))
-    implementation(project(Modules.settingsfragment))
-    implementation(project(Modules.createnotescreen))
-    implementation(project(Modules.readnotescreen))
 
     //Kotlin
     implementation(Kotlin.core)
@@ -26,17 +21,22 @@ dependencies {
     implementation(Design.appCompat)
     implementation(Design.material)
     implementation(Design.constraintLayout)
-    //Navigation
-    implementation(Navigation.navigationRuntime)
-    implementation(Navigation.navigationFragment)
-    implementation(Navigation.navigationUI)
     //ViewModel
     implementation(ViewModel.liveData)
     implementation(ViewModel.viewModel)
     //Legacy
     implementation(Legacy.legacy)
+    //RxJava
+    implementation(RxJava.rxJava)
+    implementation(RxJava.rxAndroid)
+    implementation(RxJava.rxKotlin)
     //Koin
     implementation(Koin.koin)
+    //Room
+    implementation(Room.roomRuntime)
+    implementation(Room.roomKtx)
+    implementation(Room.roomRxJava)
+    kapt(Room.roomCompiler)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

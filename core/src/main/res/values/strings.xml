@@ -58,4 +58,6 @@
     <string name="exit_note_creation_dialog_message_text">Прекратить создание заметки и выйти?</string>
     <string name="dialog_button_yes_text">Да</string>
     <string name="dialog_button_no_text">Нет</string>
+    <string name="delete_note_dialog_title_text">Удаление заметки</string>
+    <string name="delete_note_dialog_message_text">Вы действительно хотите удалить данную заметку?</string>
 </resources>

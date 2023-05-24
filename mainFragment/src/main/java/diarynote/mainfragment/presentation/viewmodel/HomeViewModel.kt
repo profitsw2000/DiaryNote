@@ -1,6 +1,7 @@
 package diarynote.mainfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
@@ -45,6 +46,10 @@ class HomeViewModel(
 
     fun navigateToNoteCreation() {
         navigator.navigateToNoteCreation()
+    }
+
+    fun navigateToNoteDetails(bundle: Bundle) {
+        navigator.navigateToNoteRead(bundle)
     }
 
 }

@@ -15,7 +15,7 @@ class NoteRepositoryLocalImpl(
     }
 
     override fun getNoteById(id: Int): Single<NoteEntity> {
-        TODO("Not yet implemented")
+        return database.noteDao.getNoteById(id)
     }
 
     override fun getAllUserNotes(id: Int): Single<UserWithNotes> {

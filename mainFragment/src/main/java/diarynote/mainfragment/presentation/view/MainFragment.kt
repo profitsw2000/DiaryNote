@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
 import diarynote.mainfragment.model.NotesState
 import diarynote.mainfragment.presentation.view.adapter.NotesListAdapter
+import diarynote.mainfragment.presentation.view.utils.OnItemClickListener
 import diarynote.mainfragment.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,7 +23,15 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
-    private val adapter = NotesListAdapter()
+    private val adapter = NotesListAdapter(object : OnItemClickListener{
+        override fun onItemClick(noteModel: NoteModel) {
+            val bundle = Bundle().apply {
+                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
+            }
+            this@MainFragment.arguments = bundle
+            homeViewModel.navigateToNoteDetails(bundle)
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_main_to_create_note"
             app:destination="@+id/create_note" />
+        <action
+            android:id="@+id/action_main_to_read_note"
+            app:destination="@+id/read_note" />
     </fragment>
 
     <fragment
@@ -40,5 +43,11 @@
         android:name="diarynote.createnotescreen.presentation.view.CreateNoteFragment"
         android:label="Создание..."
         tools:layout="@layout/fragment_create_note"/>
+
+    <fragment
+        android:id="@+id/read_note"
+        android:name="diarynote.readnotescreen.presentation.view.ReadNoteFragment"
+        android:label="Заметка..."
+        tools:layout="@layout/fragment_read_note"/>
 
 </navigation>

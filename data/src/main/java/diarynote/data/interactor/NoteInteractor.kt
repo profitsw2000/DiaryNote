@@ -27,6 +27,14 @@ class NoteInteractor(
         }
     }
 
+    fun getNoteById(id: Int, remote: Boolean) : Single<NoteEntity> {
+        return if (remote) {
+            noteRepositoryRemote.getNoteById(id)
+        } else {
+            noteRepositoryLocal.getNoteById(id)
+        }
+    }
+
     fun addNote(noteEntity: NoteEntity, remote: Boolean): Completable {
         return if (remote) {
             noteRepositoryRemote.addNote(noteEntity)

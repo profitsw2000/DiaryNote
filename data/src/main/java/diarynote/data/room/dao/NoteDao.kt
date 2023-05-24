@@ -13,6 +13,9 @@ interface NoteDao {
     @Query("SELECT * FROM NoteEntity")
     fun all(): Single<List<NoteEntity>>
 
+    @Query("SELECT * FROM NoteEntity WHERE id LIKE :id")
+    fun getNoteById(id: Int): Single<NoteEntity>
+
     @Transaction
     @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
     fun getUserWithNotes(id: Int): Single<UserWithNotes>
