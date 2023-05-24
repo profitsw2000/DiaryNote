@@ -1,10 +1,8 @@
 package diarynote.readnotescreen.presentation.view
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.readnotescreen.R
@@ -16,26 +14,41 @@ class ReadNoteFragment : Fragment() {
 
     private var _binding: FragmentReadNoteBinding? = null
     private val binding get() = _binding!!
-    private var noteModel: NoteModel? = null
-    private var title: String = ""
+    private val noteModel: NoteModel? by lazy { arguments?.getParcelable(NOTE_MODEL_BUNDLE) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        arguments?.let {
-            noteModel = it.getParcelable(NOTE_MODEL_BUNDLE)
-            //title = it.getParcelable(NOTE_MODEL_BUNDLE)
-        }
         _binding = FragmentReadNoteBinding.bind(inflater.inflate(R.layout.fragment_read_note, container, false))
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.delete -> {
+                true
+            }
+            R.id.edit -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.noteTitleTextView.text = title
         if (noteModel != null) {
             populateViews(noteModel!!)
         } else {
