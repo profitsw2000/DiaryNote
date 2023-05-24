@@ -66,13 +66,16 @@ class ReadNoteFragment : Fragment() {
     }
 
     private fun observeData() {
-        val observer = androidx.lifecycle.Observer<NotesState> { renderData(it) }
+        val observer = androidx.lifecycle.Observer<NotesState?> { renderData(it) }
         readNoteViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
     }
 
     private fun renderData(notesState: NotesState?) {
         when (notesState) {
-            is NotesState.Success -> requireActivity().onBackPressed()
+            is NotesState.Success -> {
+                readNoteViewModel.clear()
+                requireActivity().onBackPressed()
+            }
             is NotesState.Loading -> {}
             is NotesState.Error -> Toast.makeText(requireActivity(), notesState.message, Toast.LENGTH_SHORT).show()
             else -> {}
@@ -119,5 +122,9 @@ class ReadNoteFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance() = ReadNoteFragment()
     }
 }

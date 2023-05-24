@@ -16,8 +16,8 @@ class ReadNoteViewModel(
     private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
-    private val _notesLiveData = MutableLiveData<NotesState>()
-    val notesLiveData: LiveData<NotesState> by this::_notesLiveData
+    private val _notesLiveData = MutableLiveData<NotesState?>()
+    val notesLiveData: LiveData<NotesState?> by this::_notesLiveData
 
     fun getNoteDetails(noteId: Int) {
         _notesLiveData.value = NotesState.Loading
@@ -49,6 +49,10 @@ class ReadNoteViewModel(
                     _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1, 0) }
                 }
             )
+    }
+
+    fun clear() {
+        _notesLiveData.value = null
     }
 
 }
