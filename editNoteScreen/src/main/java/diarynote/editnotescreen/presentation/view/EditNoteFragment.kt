@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.CategoryModel
@@ -64,14 +65,40 @@ class EditNoteFragment : Fragment() {
         createNoteViewModel.notesLiveData.observe(viewLifecycleOwner, noteObserver)*/
     }
 
-    private fun renderCategoriesData(categoriesState: CategoriesState?) {
+    private fun renderCategoriesData(categoriesState: CategoriesState) {
+        when(categoriesState) {
+            is CategoriesState.Success -> loadingCategoriesSuccess(categoriesState)
+            is CategoriesState.Loading -> showProgressBar()
+            is CategoriesState.Error -> handleError(categoriesState.message)
+        }
+    }
 
+    private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {
+        progressBar.visibility = View.GONE
+        data = categoriesState.categoryModelList
+        adapter.setData(data)
+    }
+
+    private fun handleError(message: String) = with(binding) {
+        progressBar.visibility = View.GONE
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showProgressBar() = with(binding) {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun getEditedNoteCategoryIndex() : Int {
+        data.forEachIndexed { index, element ->
+            if (element.categoryName == noteModel?.category) return index
+        }
+        return 0
     }
 
     private fun updateListItem(position: Int) {
         if(position < data.size) {
             binding.horizontalCategoryListRecyclerView.removeAllViews()
-            adapter.updateData(data, position)
+            adapter.setData(data, position)
         } else {
 
         }

@@ -25,7 +25,7 @@ class HorizontalCategoryListAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateData(data: List<CategoryModel>, selectedItemPosition: Int) {
+    fun setData(data: List<CategoryModel>, selectedItemPosition: Int) {
         lastClickedPosition = selectedItemPosition
         this.data = data + addElement
         notifyDataSetChanged()
