@@ -48,9 +48,20 @@ class ReadNoteFragment : Fragment() {
                 true
             }
             R.id.edit -> {
+                editNotePressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun editNotePressed() {
+        if (noteModel != null){
+            val bundle = Bundle().apply {
+                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
+            }
+            this@ReadNoteFragment.arguments = bundle
+            readNoteViewModel.navigateToEditNoteFragment(bundle)
         }
     }
 

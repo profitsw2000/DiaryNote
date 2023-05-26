@@ -19,6 +19,7 @@ dependencies {
     implementation(project(Modules.settingsfragment))
     implementation(project(Modules.createnotescreen))
     implementation(project(Modules.readnotescreen))
+    implementation(project(Modules.editnotescreen))
 
     //Kotlin
     implementation(Kotlin.core)
