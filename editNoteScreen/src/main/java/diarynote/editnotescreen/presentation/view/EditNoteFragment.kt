@@ -71,7 +71,7 @@ class EditNoteFragment : Fragment() {
                         category = data[selectedCategoryIndex].categoryName,
                         title = noteTitleInputLayout.editText?.text.toString(),
                         text = noteContentInputLayout.editText?.text.toString(),
-                        tags = noteTagsInputLayout.editText?.text.toString().split(",").toList(),
+                        tags = getNoteTagsList(noteTagsInputLayout.editText?.text.toString()),
                         edited = true,
                         editDate = Calendar.getInstance().time
                     )
@@ -155,6 +155,16 @@ class EditNoteFragment : Fragment() {
             if (element.categoryName == noteModel?.category) return index
         }
         return 0
+    }
+
+    private fun getNoteTagsList(tags: String): List<String> {
+        var tagsList = tags.split(",").toList()
+        val newTagsList = mutableListOf<String>()
+
+        tagsList.forEach {
+            newTagsList.add(it.trimStart())
+        }
+        return newTagsList
     }
 
     private fun updateListItem(position: Int) {

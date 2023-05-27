@@ -74,7 +74,7 @@ class CreateNoteViewModel(
                 category = category,
                 title = noteTitle,
                 text = noteContent,
-                tags = noteTags.split(",").toList(),
+                tags = getNoteTagsList(noteTags),
                 image = "",
                 date = Calendar.getInstance().time,
                 edited = false,
@@ -88,6 +88,16 @@ class CreateNoteViewModel(
                 !noteTagsIsValid
             )
         }
+    }
+
+    private fun getNoteTagsList(tags: String): List<String> {
+        var tagsList = tags.split(",").toList()
+        val newTagsList = mutableListOf<String>()
+
+        tagsList.forEach {
+            newTagsList.add(it.trimStart())
+        }
+        return newTagsList
     }
 
     private fun invalidInput(noteTitleIsValid: Boolean, noteContentIsValid: Boolean, noteTagsLengthIsValid: Boolean, noteTagsIsValid: Boolean) {
