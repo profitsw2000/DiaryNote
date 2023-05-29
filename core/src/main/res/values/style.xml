@@ -85,6 +85,10 @@
         <item name="itemBackground">@color/white</item>
     </style>
 
+    <style name="dialogStyle" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+
+    </style>
+
     <style name="appBarStyle" parent="Widget.Material3.Toolbar">
         <item name="android:background">@color/deep_purple_50</item>
     </style>
