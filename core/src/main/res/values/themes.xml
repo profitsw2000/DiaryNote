@@ -23,7 +23,7 @@
         <item name="colorOnTertiaryContainer">@color/white</item>
 
         <!-- Surface brand color. -->
-        <item name="colorSurface">@color/white</item>
+        <item name="colorSurface">@color/deep_purple_100</item>
         <item name="colorOnSurface">@color/deep_purple_A400</item>
         <item name="colorSurfaceVariant">@color/grey_600</item>
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
@@ -49,6 +49,7 @@
         <!--Стили для отдельных компонентов -->
         <item name="textInputOutlinedStyle">@style/customTextInputOutlinedStyle</item>
         <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
+<!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
 
         <!-- Action Bar -->
         <item name="toolbarStyle">@style/appBarStyle</item>

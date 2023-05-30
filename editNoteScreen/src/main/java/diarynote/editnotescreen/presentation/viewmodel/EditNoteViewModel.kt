@@ -1,28 +1,28 @@
-package diarynote.createnotescreen.presentation.viewmodel
+package diarynote.editnotescreen.presentation.viewmodel
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
-import diarynote.createnotescreen.model.CategoriesState
-import diarynote.createnotescreen.model.NotesState
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.CategoryMapper
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.CategoriesState
+import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.Calendar
+import java.util.*
 
-class CreateNoteViewModel(
+class EditNoteViewModel(
     private val categoryInteractor: CategoryInteractor,
-    private val noteInteractor: NoteInteractor,
-    private val sharedPreferences: SharedPreferences,
     private val categoryMapper: CategoryMapper,
+    private val sharedPreferences: SharedPreferences,
+    private val noteInteractor: NoteInteractor,
     private val noteMapper: NoteMapper,
     private val navigator: Navigator
 ) : CoreViewModel() {
@@ -56,31 +56,17 @@ class CreateNoteViewModel(
             )
     }
 
-    fun getNotesData(noteTitle: String,
-                    noteContent: String,
-                     noteTags: String,
-                     category: String) {
-        val noteTitleIsValid = inputValidator.checkInputIsValid(noteTitle, NOTE_TITLE_MIN_LENGTH)
-        val noteContentIsValid = inputValidator.checkInputIsValid(noteContent, NOTE_CONTENT_MIN_LENGTH)
-        val noteTagsLengthIsValid = inputValidator.checkInputIsValid(noteTags, NOTE_TAGS_MIN_LENGTH)
-        val noteTagsIsValid = checkNoteTags(noteTags)
+    fun getNotesData(noteModel: NoteModel) {
+        val noteTitleIsValid = inputValidator.checkInputIsValid(noteModel.title, NOTE_TITLE_MIN_LENGTH)
+        val noteContentIsValid = inputValidator.checkInputIsValid(noteModel.text, NOTE_CONTENT_MIN_LENGTH)
+        val noteTagsLengthIsValid = inputValidator.checkInputIsValid(noteModel.tags.joinToString { "," }, NOTE_TAGS_MIN_LENGTH)
+        val noteTagsIsValid = checkNoteTags(noteModel.tags)
 
         if (noteTitleIsValid &&
-                noteContentIsValid &&
-                noteTagsLengthIsValid &&
-                noteTagsIsValid) {
-            addNote(NoteModel(
-                id = 0,
-                category = category,
-                title = noteTitle,
-                text = noteContent,
-                tags = getNoteTagsList(noteTags),
-                image = "",
-                date = Calendar.getInstance().time,
-                edited = false,
-                editDate = Calendar.getInstance().time,
-                userId = sharedPreferences.getInt(CURRENT_USER_ID,0)
-            ))
+            noteContentIsValid &&
+            noteTagsLengthIsValid &&
+            noteTagsIsValid) {
+            updateNote(noteModel)
         } else {
             invalidInput(!noteTitleIsValid,
                 !noteContentIsValid,
@@ -88,16 +74,6 @@ class CreateNoteViewModel(
                 !noteTagsIsValid
             )
         }
-    }
-
-    private fun getNoteTagsList(tags: String): List<String> {
-        var tagsList = tags.split(",").toList()
-        val newTagsList = mutableListOf<String>()
-
-        tagsList.forEach {
-            newTagsList.add(it.trimStart())
-        }
-        return newTagsList
     }
 
     private fun invalidInput(noteTitleIsValid: Boolean, noteContentIsValid: Boolean, noteTagsLengthIsValid: Boolean, noteTagsIsValid: Boolean) {
@@ -108,19 +84,18 @@ class CreateNoteViewModel(
         _notesLiveData.value = NotesState.Error("", errorCode)
     }
 
-    private fun checkNoteTags(noteTags: String) : Boolean {
-        val tagsList: List<String> = noteTags.split(",").toList()
-        if (tagsList.size >= 10) return false
-        tagsList.forEach {
+    private fun checkNoteTags(noteTags: List<String>) : Boolean {
+        if (noteTags.size >= 10) return false
+        noteTags.forEach {
             val wordList = it.split(" ").toList()
             if (wordList.size > NOTE_TAG_WORDS_LIMIT) return false
         }
         return true
     }
 
-    private fun addNote(noteModel: NoteModel) {
+    private fun updateNote(noteModel: NoteModel) {
         _notesLiveData.value = NotesState.Loading
-        noteInteractor.addNote(noteMapper.map(noteModel), false)
+        noteInteractor.updateNote(noteMapper.map(noteModel), false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

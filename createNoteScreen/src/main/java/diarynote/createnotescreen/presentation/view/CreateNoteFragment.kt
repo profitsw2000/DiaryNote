@@ -190,6 +190,7 @@ class CreateNoteFragment : Fragment() {
         if(position < data.size) {
             binding.horizontalCategoryListRecyclerView.removeAllViews()
             adapter.updateData(data, position)
+            selectedCategoryIndex = position
         } else {
 
         }

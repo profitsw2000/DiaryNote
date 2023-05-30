@@ -31,4 +31,6 @@
     <dimen name="horizontal_categories_list_bottom_margin_size">12dp</dimen>
     <dimen name="horizontal_categories_list_item_width">48dp</dimen>
     <dimen name="horizontal_categories_list_item_height">64dp</dimen>
+    <dimen name="image_constraint_layout_height">48dp</dimen>
+    <dimen name="categorylist_item_image_size">24dp</dimen>
 </resources>

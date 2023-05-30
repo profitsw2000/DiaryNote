@@ -2,6 +2,7 @@ package diarynote.core.common.dialog.data
 
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import diarynote.core.common.dialog.domain.Dialoger
 import diarynote.core.utils.listener.OnDialogNeutralButtonClickListener
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
@@ -21,7 +22,7 @@ class DialogerImpl(private val activity: Activity,
     ) : this(activity, null, null)
 
     override fun showAlertDialog(title: String, message: String, positiveButtonText: String) {
-        AlertDialog.Builder(activity)
+        MaterialAlertDialogBuilder(activity)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveButtonText) { dialog, _ ->
@@ -37,7 +38,7 @@ class DialogerImpl(private val activity: Activity,
         positiveButtonText: String,
         negativeButtonText: String
     ) {
-        AlertDialog.Builder(activity)
+        MaterialAlertDialogBuilder(activity)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveButtonText) {
@@ -55,7 +56,7 @@ class DialogerImpl(private val activity: Activity,
         neutralButtonText: String,
         negativeButtonText: String
     ) {
-        AlertDialog.Builder(activity)
+        MaterialAlertDialogBuilder(activity)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveButtonText) { _, _ -> onDialogPositiveButtonClickListener?.onClick() }

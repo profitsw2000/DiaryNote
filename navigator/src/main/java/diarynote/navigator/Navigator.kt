@@ -8,5 +8,7 @@ interface Navigator {
 
     fun navigateToNoteRead(bundle: Bundle)
 
+    fun navigateToNoteEdit(bundle: Bundle)
+
     fun navigateUp()
 }

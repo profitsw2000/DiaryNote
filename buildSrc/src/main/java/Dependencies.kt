@@ -28,6 +28,7 @@ object Modules {
     const val settingsfragment = ":settingsFragment"
     const val createnotescreen = ":createNoteScreen"
     const val readnotescreen = ":readNoteScreen"
+    const val editnotescreen = ":editNoteScreen"
 }
 
 object Versions {

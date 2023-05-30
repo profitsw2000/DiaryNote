@@ -48,9 +48,16 @@ class ReadNoteFragment : Fragment() {
                 true
             }
             R.id.edit -> {
+                editNotePressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun editNotePressed() {
+        if (noteModel != null){
+            editNoteRequested()
         }
     }
 
@@ -116,7 +123,24 @@ class ReadNoteFragment : Fragment() {
     }
 
     private fun editNoteRequested() {
+        val dialoger = DialogerImpl(
+            requireActivity(),
+            onDialogPositiveButtonClickListener = object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    val bundle = Bundle().apply {
+                        putParcelable(NOTE_MODEL_BUNDLE, noteModel)
+                    }
+                    this@ReadNoteFragment.arguments = bundle
+                    readNoteViewModel.navigateToEditNoteFragment(bundle)
+                }
+            }
+        )
 
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.edit_note_dialog_title_text),
+            getString(diarynote.core.R.string.edit_note_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_yes_text),
+            getString(diarynote.core.R.string.dialog_button_no_text)
+        )
     }
 
     override fun onDestroy() {

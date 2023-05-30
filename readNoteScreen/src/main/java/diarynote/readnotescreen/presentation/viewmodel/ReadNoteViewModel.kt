@@ -1,5 +1,6 @@
 package diarynote.readnotescreen.presentation.viewmodel
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
@@ -14,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class ReadNoteViewModel(
     private val noteInteractor: NoteInteractor,
     private val noteMapper: NoteMapper,
-    navigator: Navigator
+    private val navigator: Navigator
 ) : CoreViewModel() {
 
     private val _notesLiveData = MutableLiveData<NotesState?>()
@@ -52,8 +53,8 @@ class ReadNoteViewModel(
             )
     }
 
-    fun navigateToEditNoteFragment() {
-
+    fun navigateToEditNoteFragment(bundle: Bundle) {
+        navigator.navigateToNoteEdit(bundle)
     }
 
     fun clear() {

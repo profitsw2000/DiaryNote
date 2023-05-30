@@ -3,6 +3,7 @@ package ru.profitsw2000.diarynote
 import android.app.Application
 import diarynote.categoriesfragment.di.categoryModule
 import diarynote.createnotescreen.di.createNoteModule
+import diarynote.editnotescreen.di.editNoteModule
 import diarynote.mainfragment.di.homeModule
 import diarynote.passwordrecovery.di.recoveryModule
 import diarynote.readnotescreen.di.readNoteModule
@@ -27,7 +28,8 @@ class App : Application() {
                 categoryModule,
                 homeModule,
                 createNoteModule,
-                readNoteModule
+                readNoteModule,
+                editNoteModule
             )
         }
     }

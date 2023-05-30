@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/createNoteScreen" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/editNoteScreen" />
             <option value="$PROJECT_DIR$/mainFragment" />
             <option value="$PROJECT_DIR$/navigator" />
             <option value="$PROJECT_DIR$/notesActivity" />
