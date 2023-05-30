@@ -33,4 +33,7 @@
     <dimen name="horizontal_categories_list_item_height">64dp</dimen>
     <dimen name="image_constraint_layout_height">48dp</dimen>
     <dimen name="categorylist_item_image_size">24dp</dimen>
+    <dimen name="item_picker_recycler_view_size">48dp</dimen>
+    <dimen name="item_picker_recycler_view_corner_radius">8dp</dimen>
+    <dimen name="picked_item_stroke_width">2dp</dimen>
 </resources>
