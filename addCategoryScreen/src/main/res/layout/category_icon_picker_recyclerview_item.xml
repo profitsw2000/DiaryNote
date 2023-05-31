@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/color_picker_recycler_view_item_card_view"
+    android:id="@+id/icon_picker_recycler_view_item_card_view"
     android:layout_width="@dimen/item_picker_recycler_view_size"
     android:layout_height="@dimen/item_picker_recycler_view_size"
     app:cardCornerRadius="@dimen/item_picker_recycler_view_corner_radius"
