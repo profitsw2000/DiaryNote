@@ -36,5 +36,5 @@
     <dimen name="item_picker_recycler_view_size">48dp</dimen>
     <dimen name="item_picker_recycler_view_corner_radius">8dp</dimen>
     <dimen name="picked_item_stroke_width">2dp</dimen>
-    <dimen name="icon_picer_item_stroke_width">1dp</dimen>
+    <dimen name="icon_picker_item_stroke_width">1dp</dimen>
 </resources>
