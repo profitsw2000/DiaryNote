@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color_picker_recycler_view_item_card_view"
+    android:layout_width="@dimen/item_picker_recycler_view_size"
+    android:layout_height="@dimen/item_picker_recycler_view_size"
+    app:cardCornerRadius="@dimen/item_picker_recycler_view_corner_radius"
+    android:backgroundTint="?attr/colorOnPrimary"
+    app:strokeWidth="@dimen/icon_picer_item_stroke_width">
+
+    <ImageView
+        android:id="@+id/icon_picker_item_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:contentDescription="@string/icon_picker_item_image_content_description"
+        tools:src="@drawable/bottom_nav_categories_icon"/>
+
+
+
+</com.google.android.material.card.MaterialCardView>
