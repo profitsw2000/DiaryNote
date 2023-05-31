@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
 import diarynote.data.mappers.CategoryMapper
 import diarynote.data.model.CategoryModel
@@ -30,7 +31,8 @@ class AddCategoryViewModel(
 
     private fun insertCategory(categoryModel: CategoryModel) {
         _categoryLiveData.value = CategoriesState.Loading
-        categoryInteractor.addCategory(categoryMapper.map(categoryModel), false)
+        categoryInteractor.addCategory(categoryMapper.map(categoryModel.copy(userId = sharedPreferences.getInt(
+            CURRENT_USER_ID, 0))), false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
