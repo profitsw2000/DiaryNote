@@ -43,7 +43,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/customTextInputOutlinedStyle"
-                android:id="@+id/note_title_input_layout"
+                android:id="@+id/category_title_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
@@ -54,7 +54,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/customEditTextInputOutlinedStyle"
-                    android:id="@+id/title_input_edit_text"
+                    android:id="@+id/category_input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="100"
@@ -125,6 +125,16 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_category_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/category_icon_constraint_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginVertical="@dimen/extra_large_constraint_vertical_padding"
+            android:text="@string/add_note_button_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,6 +28,12 @@ class ColorListAdapter (
         notifyDataSetChanged()
     }
 
+    fun setData(data: List<ColorModel>, selectedItemPosition: Int, lastSelectedItemPosition: Int) {
+        this.data = data + addElement
+        notifyItemChanged(selectedItemPosition)
+        notifyItemChanged(lastSelectedItemPosition)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = CategoryColorPickerRecyclerviewItemBinding.inflate(
             LayoutInflater.from(parent.context),
