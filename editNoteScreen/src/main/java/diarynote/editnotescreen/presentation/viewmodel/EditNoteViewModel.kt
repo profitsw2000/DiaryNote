@@ -111,6 +111,10 @@ class EditNoteViewModel(
         navigator.navigateUp()
     }
 
+    fun navigateToAddCategoryFragment() {
+        navigator.navigateToCategoryCreation()
+    }
+
     fun clear() {
         _notesLiveData.value = null
     }

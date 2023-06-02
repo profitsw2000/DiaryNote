@@ -44,6 +44,9 @@ class CategoriesFragment : Fragment() {
     private fun initViews() {
         with(binding) {
             categoriesListRecyclerView.adapter = adapter
+            addCategoryFab.setOnClickListener {
+                categoriesViewModel.navigateToAddCategoryFragment()
+            }
         }
     }
 
