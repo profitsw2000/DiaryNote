@@ -6,7 +6,7 @@
     android:layout_width="@dimen/item_picker_recycler_view_size"
     android:layout_height="@dimen/item_picker_recycler_view_size"
     app:cardCornerRadius="@dimen/item_picker_recycler_view_corner_radius"
-    android:backgroundTint="?attr/colorOnPrimary"
+    android:layout_marginRight="@dimen/horizontal_categories_list_interval_size"
     app:strokeWidth="@dimen/icon_picker_item_stroke_width">
 
     <ImageView

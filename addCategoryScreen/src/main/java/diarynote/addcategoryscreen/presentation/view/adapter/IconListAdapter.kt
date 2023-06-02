@@ -1,5 +1,6 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,18 +20,18 @@ class IconListAdapter (
     private val addElement = IconModel(0, false)
 
     fun setData(data: List<IconModel>) {
-        this.data = data + addElement
+        this.data = data    // + addElement
         notifyDataSetChanged()
     }
 
     fun setData(data: List<IconModel>, selectedItemPosition: Int) {
         lastClickedPosition = selectedItemPosition
-        this.data = data + addElement
+        this.data = data    // + addElement
         notifyDataSetChanged()
     }
 
     fun setData(data: List<IconModel>, selectedItemPosition: Int, lastSelectedItemPosition: Int) {
-        this.data = data + addElement
+        this.data = data    // + addElement
         notifyItemChanged(selectedItemPosition)
         notifyItemChanged(lastSelectedItemPosition)
     }
@@ -48,6 +49,7 @@ class IconListAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("VVV", "bind, position $position")
         holder.bind(data[position])
     }
 
@@ -55,7 +57,7 @@ class IconListAdapter (
 
         fun bind(iconModel: IconModel) = with(binding) {
             iconPickerItemImageView.setImageResource(getImageFromResources(iconModel.icon))
-            if (iconModel.isSelected) iconPickerRecyclerViewItemCardView.setBackgroundColor(MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnSurfaceVariant))
+            if (iconModel.isSelected) iconPickerRecyclerViewItemCardView.setCardBackgroundColor(0xFF555555.toInt())//MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnSurfaceVariant))
 
             iconPickerRecyclerViewItemCardView.setOnClickListener {
                 onItemClickListener.onItemClick(layoutPosition)

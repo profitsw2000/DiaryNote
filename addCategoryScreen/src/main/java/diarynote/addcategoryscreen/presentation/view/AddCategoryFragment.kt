@@ -1,6 +1,7 @@
 package diarynote.addcategoryscreen.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.addcategoryscreen.R
+import diarynote.addcategoryscreen.data.colorList
+import diarynote.addcategoryscreen.data.iconList
 import diarynote.addcategoryscreen.databinding.FragmentAddCategoryBinding
-import diarynote.addcategoryscreen.model.ColorModel
-import diarynote.addcategoryscreen.model.IconModel
 import diarynote.addcategoryscreen.presentation.view.adapter.ColorListAdapter
 import diarynote.addcategoryscreen.presentation.view.adapter.IconListAdapter
 import diarynote.addcategoryscreen.presentation.viewmodel.AddCategoryViewModel
+import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.listener.OnItemClickListener
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
@@ -24,8 +26,8 @@ class AddCategoryFragment : Fragment() {
     private var _binding: FragmentAddCategoryBinding? = null
     private val binding get() = _binding!!
     private val addCategoryViewModel: AddCategoryViewModel by viewModel()
-    private lateinit var colorData: List<ColorModel>
-    private lateinit var iconData: List<IconModel>
+    private val colorData = colorList
+    private val iconData = iconList
     private var lastSelectedColorItem = 0
     private var lastSelectedIconItem = 0
     private val colorListAdapter = ColorListAdapter(object : OnItemClickListener {
@@ -35,7 +37,10 @@ class AddCategoryFragment : Fragment() {
     })
     private val iconListAdapter = IconListAdapter(object : OnItemClickListener {
         override fun onItemClick(position: Int) {
+            Log.d("VVV", "lastSelectedIconItem = $lastSelectedIconItem")
             updateIconList(position)
+            Log.d("VVV", "lastSelectedIconItem = $lastSelectedIconItem")
+            Log.d("VVV", "iconData = $iconData")
         }
     })
 
@@ -56,7 +61,9 @@ class AddCategoryFragment : Fragment() {
 
     private fun initViews() = with(binding) {
         colorPickerRecyclerView.adapter = colorListAdapter
+        colorListAdapter.setData(colorData)
         iconPickerRecyclerView.adapter = iconListAdapter
+        iconListAdapter.setData(iconData)
         addCategoryButton.setOnClickListener {
             val categoryModel = CategoryModel(
                 0,
@@ -83,8 +90,14 @@ class AddCategoryFragment : Fragment() {
     }
 
     private fun addCategorySuccess() = with(binding) {
+        val dialoger = DialogerImpl(requireActivity())
         progressBar.visibility = View.GONE
-        Toast.makeText(requireContext(), "Создано успешно!!!", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Создано успешно!!!", Toast.LENGTH_SHORT).show()
+
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.add_category_success_dialog_title_text),
+            getString(diarynote.core.R.string.add_category_success_dialog_content_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text)
+        )
     }
 
     private fun handleError(message: String) = with(binding) {

@@ -1,5 +1,6 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,18 +19,18 @@ class ColorListAdapter (
     private val addElement = ColorModel(0, false)
 
     fun setData(data: List<ColorModel>) {
-        this.data = data + addElement
+        this.data = data    // + addElement
         notifyDataSetChanged()
     }
 
     fun setData(data: List<ColorModel>, selectedItemPosition: Int) {
         lastClickedPosition = selectedItemPosition
-        this.data = data + addElement
+        this.data = data    // + addElement
         notifyDataSetChanged()
     }
 
     fun setData(data: List<ColorModel>, selectedItemPosition: Int, lastSelectedItemPosition: Int) {
-        this.data = data + addElement
+        this.data = data //+ addElement
         notifyItemChanged(selectedItemPosition)
         notifyItemChanged(lastSelectedItemPosition)
     }
@@ -53,7 +54,7 @@ class ColorListAdapter (
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(colorModel: ColorModel) = with(binding) {
             colorPickerRecyclerViewItemCardView.setCardBackgroundColor(colorModel.color)
-            if (colorModel.isSelected) colorPickerRecyclerViewItemCardView.strokeWidth = 2
+            if (colorModel.isSelected) colorPickerRecyclerViewItemCardView.strokeWidth = 10
 
             colorPickerRecyclerViewItemCardView.setOnClickListener {
                 onItemClickListener.onItemClick(layoutPosition)
