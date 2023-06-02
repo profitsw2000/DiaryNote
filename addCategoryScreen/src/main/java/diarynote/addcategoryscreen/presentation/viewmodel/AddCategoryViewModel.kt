@@ -9,13 +9,15 @@ import diarynote.data.interactor.CategoryInteractor
 import diarynote.data.mappers.CategoryMapper
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
+import diarynote.navigator.Navigator
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class AddCategoryViewModel(
     private val categoryInteractor: CategoryInteractor,
     private val categoryMapper: CategoryMapper,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val navigator: Navigator
 ) : CoreViewModel() {
 
     private val _categoryLiveData = MutableLiveData<CategoriesState>()
@@ -43,6 +45,10 @@ class AddCategoryViewModel(
                     _categoryLiveData.value = CategoriesState.Error(message)
                 }
             )
+    }
+
+    fun navigateUp() {
+        navigator.navigateUp()
     }
 
 }
