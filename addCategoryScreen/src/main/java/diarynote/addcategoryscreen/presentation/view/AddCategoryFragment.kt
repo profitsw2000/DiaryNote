@@ -30,19 +30,8 @@ class AddCategoryFragment : Fragment() {
     private val iconData = iconList
     private var lastSelectedColorItem = 0
     private var lastSelectedIconItem = 0
-    private val colorListAdapter = ColorListAdapter(object : OnItemClickListener {
-        override fun onItemClick(position: Int) {
-            updateColorList(position)
-        }
-    })
-    private val iconListAdapter = IconListAdapter(object : OnItemClickListener {
-        override fun onItemClick(position: Int) {
-            Log.d("VVV", "lastSelectedIconItem = $lastSelectedIconItem")
-            updateIconList(position)
-            Log.d("VVV", "lastSelectedIconItem = $lastSelectedIconItem")
-            Log.d("VVV", "iconData = $iconData")
-        }
-    })
+    private val colorListAdapter = ColorListAdapter()
+    private val iconListAdapter = IconListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,20 +97,6 @@ class AddCategoryFragment : Fragment() {
 
     private fun showProgressBar() = with(binding)  {
         progressBar.visibility = View.VISIBLE
-    }
-
-    private fun updateColorList(position: Int) {
-        colorData[position].isSelected = true
-        if (position != lastSelectedColorItem) colorData[lastSelectedColorItem].isSelected = false
-        colorListAdapter.setData(colorData, position, lastSelectedColorItem)
-        lastSelectedColorItem = position
-    }
-
-    private fun updateIconList(position: Int) {
-        iconData[position].isSelected = true
-        if (position != lastSelectedIconItem) iconData[lastSelectedIconItem].isSelected = false
-        iconListAdapter.setData(iconData, position, lastSelectedIconItem)
-        lastSelectedIconItem = position
     }
 
     override fun onDestroyView() {

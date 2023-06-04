@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 
 val categoryModule = module {
-    single { CategoriesViewModel(get(), get(), get(), get()) }
+    single { CategoriesViewModel(get(), get(), get()) }
     single<CategoryRepositoryLocal> { CategoryRepositoryLocalImpl(get()) }
     single<CategoryRepositoryRemote> { CategoryRepositoryRemoteImpl() }
     factory { CategoryInteractor(get(), get()) }

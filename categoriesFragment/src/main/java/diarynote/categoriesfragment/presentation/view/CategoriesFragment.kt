@@ -15,6 +15,8 @@ import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdap
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.NoteModel
+import diarynote.navigator.Navigator
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -24,6 +26,7 @@ class CategoriesFragment : Fragment() {
     private val binding get() = _binding!!
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val adapter = CategoriesListAdapter()
+    private val navigator: Navigator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +48,8 @@ class CategoriesFragment : Fragment() {
         with(binding) {
             categoriesListRecyclerView.adapter = adapter
             addCategoryFab.setOnClickListener {
-                categoriesViewModel.navigateToAddCategoryFragment()
+                navigator.navigateToCategoryCreation()
+                //categoriesViewModel.navigateToAddCategoryFragment()
             }
         }
     }
