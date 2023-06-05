@@ -24,6 +24,10 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun getClickedPosition(): Int {
+        return lastClickedPosition
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = CategoryIconPickerRecyclerviewItemBinding.inflate(
             LayoutInflater.from(parent.context),

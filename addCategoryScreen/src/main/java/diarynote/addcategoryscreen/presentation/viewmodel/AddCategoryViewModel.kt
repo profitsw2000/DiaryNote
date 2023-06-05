@@ -20,8 +20,8 @@ class AddCategoryViewModel(
     private val navigator: Navigator
 ) : CoreViewModel() {
 
-    private val _categoryLiveData = MutableLiveData<CategoriesState>()
-    val categoryLiveData: LiveData<CategoriesState> by this::_categoryLiveData
+    private val _categoryLiveData = MutableLiveData<CategoriesState?>()
+    val categoryLiveData: LiveData<CategoriesState?> by this::_categoryLiveData
 
     fun addCategory(categoryModel: CategoryModel) {
         if (categoryModel.categoryName.length < 2) {
@@ -45,6 +45,10 @@ class AddCategoryViewModel(
                     _categoryLiveData.value = CategoriesState.Error(message)
                 }
             )
+    }
+
+    fun clear() {
+        _categoryLiveData.value = null
     }
 
     fun navigateUp() {

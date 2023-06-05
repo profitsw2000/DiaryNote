@@ -19,6 +19,10 @@ class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() 
         notifyDataSetChanged()
     }
 
+    fun getClickedPosition(): Int {
+        return lastClickedPosition
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val binding = CategoryColorPickerRecyclerviewItemBinding.inflate(

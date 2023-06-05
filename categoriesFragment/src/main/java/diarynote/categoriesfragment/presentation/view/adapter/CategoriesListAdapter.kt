@@ -43,7 +43,7 @@ class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHol
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(categoryModel: CategoryModel, position: Int) {
             with(binding) {
-                categoriesListItemRoot.setBackgroundResource(categoryModel.color)
+                categoriesListItemRoot.setBackgroundColor(categoryModel.color)
                 categoriesListItemRoot.layoutParams = getViewParams(position)
                 categoryIconImageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
                 categoryTitleTextView.text = categoryModel.categoryName
