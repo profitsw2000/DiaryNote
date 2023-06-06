@@ -20,6 +20,9 @@ class AddCategoryViewModel(
     private val navigator: Navigator
 ) : CoreViewModel() {
 
+    var selectedColorPosition = 0
+    var selectedIconPosition = 0
+
     private val _categoryLiveData = MutableLiveData<CategoriesState?>()
     val categoryLiveData: LiveData<CategoriesState?> by this::_categoryLiveData
 

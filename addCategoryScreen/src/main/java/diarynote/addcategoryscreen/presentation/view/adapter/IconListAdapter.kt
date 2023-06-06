@@ -15,17 +15,14 @@ import diarynote.core.utils.listener.OnItemClickListener
 class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
 
     private lateinit var binding: CategoryIconPickerRecyclerviewItemBinding
-    private var data: List<IconModel> = arrayListOf()
-    private var lastClickedPosition = 0
+    private var data: List<Int> = arrayListOf()
     private lateinit var context: Context
+    var clickedPosition = 0
 
-    fun setData(data: List<IconModel>) {
+    fun setData(data: List<Int>, clickedPosition: Int) {
         this.data = data
+        this.clickedPosition = clickedPosition
         notifyDataSetChanged()
-    }
-
-    fun getClickedPosition(): Int {
-        return lastClickedPosition
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,12 +35,11 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
 
         binding.root.setOnClickListener {
             val position = iconViewHolder.adapterPosition
-            if (position != lastClickedPosition) {
-                data[position].isSelected = true
-                data[lastClickedPosition].isSelected = false
+            val oldPosition = clickedPosition
+            if (position != clickedPosition) {
+                clickedPosition = position
                 notifyItemChanged(position)
-                notifyItemChanged(lastClickedPosition)
-                lastClickedPosition = position
+                notifyItemChanged(oldPosition)
             }
         }
         return iconViewHolder
@@ -54,8 +50,8 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.imageView.setImageResource(getImageFromResources(data[position].icon))
-        if (data[position].isSelected) {
+        holder.imageView.setImageResource(getImageFromResources(data[position]))
+        if (clickedPosition == position) {
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.deep_purple_100))
         } else {
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.white))

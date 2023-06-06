@@ -11,17 +11,18 @@ import diarynote.core.utils.listener.OnItemClickListener
 
 class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() {
 
-    private var data: List<ColorModel> = arrayListOf()
-    private var lastClickedPosition = 0
+    private var data: List<Int> = arrayListOf()
+    var clickedPosition = 0
 
-    fun setData(data: List<ColorModel>) {
+    fun setData(data: List<Int>, clickedPosition: Int) {
         this.data = data
+        this.clickedPosition = clickedPosition
         notifyDataSetChanged()
     }
 
-    fun getClickedPosition(): Int {
-        return lastClickedPosition
-    }
+/*    fun getClickedPosition(): Int {
+        return clickedPosition
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -33,12 +34,10 @@ class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() 
 
         binding.root.setOnClickListener {
             val position = colorViewHolder.adapterPosition
-            if (position != lastClickedPosition) {
-                data[position].isSelected = true
-                data[lastClickedPosition].isSelected = false
+            if (position != clickedPosition) {
                 notifyItemChanged(position)
-                notifyItemChanged(lastClickedPosition)
-                lastClickedPosition = position
+                notifyItemChanged(clickedPosition)
+                clickedPosition = position
             }
         }
         return colorViewHolder
@@ -54,8 +53,8 @@ class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.cardView.setCardBackgroundColor(data[position].color)
-        if (data[position].isSelected) {
+        holder.cardView.setCardBackgroundColor(data[position])
+        if (clickedPosition == position) {
             holder.cardView.strokeWidth = 10
         } else {
             holder.cardView.strokeWidth = 0
