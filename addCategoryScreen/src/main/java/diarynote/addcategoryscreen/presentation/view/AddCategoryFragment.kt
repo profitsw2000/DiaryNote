@@ -20,6 +20,8 @@ import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
+import diarynote.navigator.Navigator
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddCategoryFragment : Fragment() {
@@ -27,6 +29,7 @@ class AddCategoryFragment : Fragment() {
     private var _binding: FragmentAddCategoryBinding? = null
     private val binding get() = _binding!!
     private val addCategoryViewModel: AddCategoryViewModel by viewModel()
+    private val navigator: Navigator by inject()
     private val colorData = colorCodeList
     private val iconData = iconCodeList
     private val colorListAdapter = ColorListAdapter()
@@ -153,7 +156,7 @@ class AddCategoryFragment : Fragment() {
     private fun clearData() {
         colorListAdapter.clickedPosition = 0
         iconListAdapter.clickedPosition = 0
-        addCategoryViewModel.navigateUp()
+        navigator.navigateUp()
     }
 
     override fun onStop() {

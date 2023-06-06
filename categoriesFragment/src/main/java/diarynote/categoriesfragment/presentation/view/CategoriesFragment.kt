@@ -49,7 +49,6 @@ class CategoriesFragment : Fragment() {
             categoriesListRecyclerView.adapter = adapter
             addCategoryFab.setOnClickListener {
                 navigator.navigateToCategoryCreation()
-                //categoriesViewModel.navigateToAddCategoryFragment()
             }
         }
     }

@@ -16,8 +16,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class AddCategoryViewModel(
     private val categoryInteractor: CategoryInteractor,
     private val categoryMapper: CategoryMapper,
-    private val sharedPreferences: SharedPreferences,
-    private val navigator: Navigator
+    private val sharedPreferences: SharedPreferences
 ) : CoreViewModel() {
 
     var selectedColorPosition = 0
@@ -54,8 +53,8 @@ class AddCategoryViewModel(
         _categoryLiveData.value = null
     }
 
-    fun navigateUp() {
+/*    fun navigateUp() {
         navigator.navigateUp()
-    }
+    }*/
 
 }
