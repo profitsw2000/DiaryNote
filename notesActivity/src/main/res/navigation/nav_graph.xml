@@ -22,7 +22,11 @@
         android:id="@+id/categories"
         android:name="diarynote.categoriesfragment.presentation.view.CategoriesFragment"
         android:label="Категории"
-        tools:layout="@layout/fragment_categories"/>
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_categories_to_create_category"
+            app:destination="@+id/add_category" />
+    </fragment>
 
     <fragment
         android:id="@+id/calendar"
@@ -42,7 +46,11 @@
         android:id="@+id/create_note"
         android:name="diarynote.createnotescreen.presentation.view.CreateNoteFragment"
         android:label="Создание..."
-        tools:layout="@layout/fragment_create_note"/>
+        tools:layout="@layout/fragment_create_note">
+        <action
+            android:id="@+id/action_create_note_to_create_category"
+            app:destination="@+id/add_category" />
+    </fragment>
 
     <fragment
         android:id="@+id/read_note"
@@ -61,6 +69,16 @@
         android:id="@+id/edit_note"
         android:name="diarynote.editnotescreen.presentation.view.EditNoteFragment"
         android:label="Редактирование..."
-        tools:layout="@layout/fragment_edit_note"/>
+        tools:layout="@layout/fragment_edit_note">
+        <action
+            android:id="@+id/action_edit_note_to_create_category"
+            app:destination="@+id/add_category" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_category"
+        android:name="diarynote.addcategoryscreen.presentation.view.AddCategoryFragment"
+        android:label="Добавить категорию..."
+        tools:layout="@layout/fragment_add_category"/>
 
 </navigation>

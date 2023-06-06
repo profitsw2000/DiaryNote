@@ -58,6 +58,7 @@ class NoteActivity : AppCompatActivity() {
                 binding.bottomNav.visibility = View.GONE
                 actionBar?.let {
                     it.show()
+                    it.setDisplayHomeAsUpEnabled(true)
                 }
             }
         }

@@ -29,6 +29,7 @@ object Modules {
     const val createnotescreen = ":createNoteScreen"
     const val readnotescreen = ":readNoteScreen"
     const val editnotescreen = ":editNoteScreen"
+    const val addcategoryscreen = ":addCategoryScreen"
 }
 
 object Versions {

@@ -7,7 +7,7 @@
     <dimen name="small_constraint_vertical_spacing_between_views">12dp</dimen>
     <dimen name="extra_small_constraint_vertical_spacing_between_views">8dp</dimen>
     <dimen name="extra_small_constraint_horizontal_spacing_between_views">8dp</dimen>
-    <dimen name="extra_large_constraint_vertical_padding">12dp</dimen>
+    <dimen name="extra_large_constraint_vertical_padding">24dp</dimen>
     <dimen name="standart_constraint_vertical_padding">12dp</dimen>
     <dimen name="standart_constraint_horizontal_padding">32dp</dimen>
     <dimen name="medium_horizontal_spacing_between_views">16dp</dimen>
@@ -33,4 +33,8 @@
     <dimen name="horizontal_categories_list_item_height">64dp</dimen>
     <dimen name="image_constraint_layout_height">48dp</dimen>
     <dimen name="categorylist_item_image_size">24dp</dimen>
+    <dimen name="item_picker_recycler_view_size">48dp</dimen>
+    <dimen name="item_picker_recycler_view_corner_radius">8dp</dimen>
+    <dimen name="picked_item_stroke_width">2dp</dimen>
+    <dimen name="icon_picker_item_stroke_width">1dp</dimen>
 </resources>

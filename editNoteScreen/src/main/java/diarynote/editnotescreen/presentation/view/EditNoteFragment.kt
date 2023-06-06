@@ -173,7 +173,7 @@ class EditNoteFragment : Fragment() {
             adapter.setData(data, position)
             selectedCategoryIndex = position
         } else {
-
+            editNoteViewModel.navigateToAddCategoryFragment()
         }
     }
 

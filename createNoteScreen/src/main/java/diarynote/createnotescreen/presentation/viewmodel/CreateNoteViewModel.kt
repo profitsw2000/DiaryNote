@@ -132,6 +132,10 @@ class CreateNoteViewModel(
             )
     }
 
+    fun navigateToAddCategoryFragment() {
+        navigator.navigateToCategoryCreation()
+    }
+
     fun navigateUp() {
         navigator.navigateUp()
     }

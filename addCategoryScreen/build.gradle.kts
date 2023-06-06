@@ -5,10 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "diarynote.categoriesfragment"
+    namespace = "diarynote.addcategoryscreen"
 }
 
 dependencies {
+
     //Modules
     implementation(project(Modules.core))
     implementation(project(Modules.data))

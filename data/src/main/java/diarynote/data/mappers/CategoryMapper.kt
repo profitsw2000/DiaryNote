@@ -4,7 +4,7 @@ import diarynote.data.model.CategoryModel
 import diarynote.data.room.entity.CategoryEntity
 
 class CategoryMapper {
-    private fun map(categoryModel: CategoryModel): CategoryEntity {
+    fun map(categoryModel: CategoryModel): CategoryEntity {
         return CategoryEntity(
             id = categoryModel.id,
             color = categoryModel.color,
@@ -14,7 +14,7 @@ class CategoryMapper {
         )
     }
 
-    private fun map(categoryEntity: CategoryEntity): CategoryModel {
+    fun map(categoryEntity: CategoryEntity): CategoryModel {
         return CategoryModel(
             id = categoryEntity.id,
             color = categoryEntity.color,

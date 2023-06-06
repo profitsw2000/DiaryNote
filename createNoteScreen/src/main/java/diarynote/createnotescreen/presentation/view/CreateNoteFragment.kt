@@ -192,7 +192,7 @@ class CreateNoteFragment : Fragment() {
             adapter.updateData(data, position)
             selectedCategoryIndex = position
         } else {
-
+            createNoteViewModel.navigateToAddCategoryFragment()
         }
     }
 

@@ -58,10 +58,17 @@
     <string name="input_note_tags_words_error_text">Один тэг не более %1$s слов</string>
     <string name="exit_note_creation_dialog_title_text">Выход</string>
     <string name="exit_note_creation_dialog_message_text">Прекратить создание заметки и выйти?</string>
+    <string name="exit_category_creation_dialog_message_text">Прекратить создание категории и выйти?</string>
     <string name="dialog_button_yes_text">Да</string>
     <string name="dialog_button_no_text">Нет</string>
     <string name="delete_note_dialog_title_text">Удаление заметки</string>
     <string name="delete_note_dialog_message_text">Вы действительно хотите удалить данную заметку?</string>
     <string name="edit_note_dialog_title_text">Редактирование заметки</string>
     <string name="edit_note_dialog_message_text">Вы действительно хотите изменить данную заметку?</string>
+    <string name="add_category_name_title_text">Название категории</string>
+    <string name="add_category_color_title_text">Цвет</string>
+    <string name="icon_picker_item_image_content_description">Pick icon</string>
+    <string name="add_category_success_dialog_title_text">Добавление категории</string>
+    <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
+    <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>
 </resources>
