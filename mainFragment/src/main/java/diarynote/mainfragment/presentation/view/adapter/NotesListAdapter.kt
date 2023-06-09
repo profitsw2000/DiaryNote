@@ -23,34 +23,42 @@ class NotesListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesListAdapter.ViewHolder {
-        binding = NotesListItemViewBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = NotesListItemViewBinding.inflate(LayoutInflater.from(parent.context),
             parent,
             false)
-        return ViewHolder(binding.root)
+
+        val noteViewHolder = ViewHolder(binding)
+
+        binding.notesListItemViewRootLayout.setOnClickListener {
+            onItemClickListener.onItemClick(data[noteViewHolder.adapterPosition])
+        }
+
+        return noteViewHolder
     }
 
     override fun onBindViewHolder(holder: NotesListAdapter.ViewHolder, position: Int) {
-        holder.bind(data[position], position)
+        val noteModel = data[position]
+
+        with(holder) {
+            title.text = noteModel.title
+            content.text = noteModel.text
+            tags.text = noteModel.tags.joinToString(" #", "#", "")
+            date.text = SimpleDateFormat("dd.MM.yyyy").format(noteModel.date)
+            if (noteModel.edited) editedImage.setImageResource(diarynote.core.R.drawable.edit_icon_24)
+            else editedImage.setImageResource(0)
+        }
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(binding: NotesListItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(noteModel: NoteModel, position: Int) {
-            with(binding) {
-                noteTitleTextView.text = noteModel.title
-                noteContentTextView.text = noteModel.text
-                tagsTextView.text = noteModel.tags.joinToString(" #", "#", "")
-                creationDateTextView.text = SimpleDateFormat("dd.MM.yyyy").format(noteModel.date)
-                if (noteModel.edited) editedNoteSignImageView.setImageResource(diarynote.core.R.drawable.edit_icon_24)
-
-                notesListItemViewRootLayout.setOnClickListener {
-                    onItemClickListener.onItemClick(noteModel)
-                }
-            }
-        }
+        val title = binding.noteTitleTextView
+        val content = binding.noteContentTextView
+        val tags = binding.tagsTextView
+        val date = binding.creationDateTextView
+        val editedImage = binding.editedNoteSignImageView
     }
 }
