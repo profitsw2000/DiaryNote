@@ -9,9 +9,12 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.categoriesfragment.databinding.CategoriesListItemBinding
+import diarynote.core.utils.listener.OnItemClickListener
 import diarynote.data.model.CategoryModel
 
-class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+class CategoriesListAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     private var data: List<CategoryModel> = arrayListOf()
 
@@ -28,7 +31,7 @@ class CategoriesListAdapter : RecyclerView.Adapter<CategoriesListAdapter.ViewHol
         val categoryViewHolder = ViewHolder(binding)
 
         binding.root.setOnClickListener {
-            Toast.makeText(parent.context, categoryViewHolder.adapterPosition.toString(), Toast.LENGTH_SHORT).show()
+            onItemClickListener.onItemClick(categoryViewHolder.adapterPosition)
         }
 
         return categoryViewHolder

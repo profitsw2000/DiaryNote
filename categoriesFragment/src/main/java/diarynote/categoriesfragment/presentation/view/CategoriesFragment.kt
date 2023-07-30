@@ -13,6 +13,7 @@ import diarynote.categoriesfragment.databinding.FragmentCategoriesBinding
 import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
+import diarynote.core.utils.listener.OnItemClickListener
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.NoteModel
 import diarynote.navigator.Navigator
@@ -25,7 +26,12 @@ class CategoriesFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
     private val categoriesViewModel: CategoriesViewModel by viewModel()
-    private val adapter = CategoriesListAdapter()
+    private val adapter = CategoriesListAdapter(object : OnItemClickListener{
+        override fun onItemClick(position: Int) {
+            //TODO("Not yet implemented")
+        }
+
+    })
     private val navigator: Navigator by inject()
 
     override fun onCreateView(
