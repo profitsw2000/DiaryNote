@@ -5,15 +5,14 @@ plugins {
 }
 
 android {
-    namespace = "diarynote.mainfragment"
+    namespace = "diarynote.template"
 }
 
 dependencies {
+
     //Modules
     implementation(project(Modules.core))
     implementation(project(Modules.data))
-    implementation(project(Modules.template))
-    implementation(project(Modules.navigator))
 
     //Kotlin
     implementation(Kotlin.core)
@@ -32,11 +31,6 @@ dependencies {
     implementation(RxJava.rxKotlin)
     //Koin
     implementation(Koin.koin)
-    //Room
-    implementation(Room.roomRuntime)
-    implementation(Room.roomKtx)
-    implementation(Room.roomRxJava)
-    kapt(Room.roomCompiler)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

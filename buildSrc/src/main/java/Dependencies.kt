@@ -17,6 +17,7 @@ object Modules {
     const val app = ":app"
     const val core = ":core"
     const val data = ":data"
+    const val template = ":template"
     const val signinscreen = ":signInScreen"
     const val registrationscreen = ":registrationScreen"
     const val passwordrecovery = ":passwordRecovery"

@@ -1,7 +1,6 @@
 package diarynote.mainfragment.presentation.view
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,9 @@ import diarynote.data.model.NoteModel
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
 import diarynote.mainfragment.model.NotesState
-import diarynote.mainfragment.presentation.view.adapter.NotesListAdapter
-import diarynote.mainfragment.presentation.view.utils.OnItemClickListener
 import diarynote.mainfragment.presentation.viewmodel.HomeViewModel
+import diarynote.template.presentation.adapter.NotesListAdapter
+import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -23,7 +22,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
-    private val adapter = NotesListAdapter(object : OnItemClickListener{
+    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)

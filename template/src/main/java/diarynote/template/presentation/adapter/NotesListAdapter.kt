@@ -1,20 +1,18 @@
-package diarynote.mainfragment.presentation.view.adapter
+package diarynote.template.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.data.model.NoteModel
-import diarynote.mainfragment.databinding.NotesListItemViewBinding
-import diarynote.mainfragment.presentation.view.utils.OnItemClickListener
+import diarynote.template.databinding.NotesListItemViewBinding
+import diarynote.template.utils.OnItemClickListener
+import diarynote.template.utils.OnNoteItemClickListener
 import java.text.SimpleDateFormat
 
 class NotesListAdapter(
-    private val onItemClickListener: OnItemClickListener
+    private val onNoteItemClickListener: OnNoteItemClickListener
 ) : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
-    private lateinit var binding: NotesListItemViewBinding
     private var data: List<NoteModel> = arrayListOf()
 
     fun setData(data: List<NoteModel>) {
@@ -30,7 +28,7 @@ class NotesListAdapter(
         val noteViewHolder = ViewHolder(binding)
 
         binding.notesListItemViewRootLayout.setOnClickListener {
-            onItemClickListener.onItemClick(data[noteViewHolder.adapterPosition])
+            onNoteItemClickListener.onItemClick(data[noteViewHolder.adapterPosition])
         }
 
         return noteViewHolder

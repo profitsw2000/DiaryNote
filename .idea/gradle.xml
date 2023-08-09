@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/registrationScreen" />
             <option value="$PROJECT_DIR$/settingsFragment" />
             <option value="$PROJECT_DIR$/signInScreen" />
+            <option value="$PROJECT_DIR$/template" />
           </set>
         </option>
       </GradleProjectSettings>
