@@ -47,6 +47,10 @@ class CategoriesViewModel (
             )
     }
 
+    private fun getUserNotesByCategory() {
+        _notesLiveData.value = NotesState.Loading
+    }
+
     private fun getAllCategories() {
         _categoriesLiveData.value = CategoriesState.Loading
         categoryInteractor.getAllCategories(false)
