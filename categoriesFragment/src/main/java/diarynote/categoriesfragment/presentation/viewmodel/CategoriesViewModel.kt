@@ -17,7 +17,6 @@ class CategoriesViewModel (
     private val categoryInteractor: CategoryInteractor,
     private val sharedPreferences: SharedPreferences,
     private val categoryMapper: CategoryMapper
-    //private val navigator: Navigator
 ) : CoreViewModel() {
 
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
@@ -60,8 +59,4 @@ class CategoriesViewModel (
                 }
             )
     }
-
-/*    fun navigateToAddCategoryFragment() {
-        navigator.navigateToCategoryCreation()
-    }*/
 }

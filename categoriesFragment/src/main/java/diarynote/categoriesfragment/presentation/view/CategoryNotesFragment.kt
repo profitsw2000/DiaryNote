@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import diarynote.categoriesfragment.R
+import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
 
 class CategoryNotesFragment : Fragment() {
 
+    private var _binding: FragmentCategoryNotesBinding? = null
+    private val binding = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +22,7 @@ class CategoryNotesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category_notes, container, false)
+        _binding = FragmentCategoryNotesBinding.inflate(inflater)
+        return binding.root
     }
 }
