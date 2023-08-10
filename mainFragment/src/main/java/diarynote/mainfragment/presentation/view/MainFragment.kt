@@ -11,8 +11,8 @@ import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
-import diarynote.mainfragment.model.NotesState
 import diarynote.mainfragment.presentation.viewmodel.HomeViewModel
+import diarynote.template.model.NotesState
 import diarynote.template.presentation.adapter.NotesListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel

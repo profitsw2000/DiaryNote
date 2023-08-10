@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
+import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
+import diarynote.template.model.NotesState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryNotesFragment : Fragment() {
 
     private var _binding: FragmentCategoryNotesBinding? = null
     private val binding = _binding!!
+    private val categoriesViewModel: CategoriesViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,5 +29,27 @@ class CategoryNotesFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentCategoryNotesBinding.inflate(inflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    private fun initViews() {
+
+    }
+
+    private fun observeData() {
+        val observer = Observer<NotesState> {}
+        categoriesViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun renderData(notesState: NotesState) {
+        when(notesState) {
+            is NotesState.Success -> {}
+            is NotesState.Loading -> {}
+            is NotesState.Error -> {}
+        }
     }
 }

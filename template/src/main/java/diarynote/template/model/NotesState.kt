@@ -1,4 +1,4 @@
-package diarynote.mainfragment.model
+package diarynote.template.model
 
 import diarynote.data.model.NoteModel
 
