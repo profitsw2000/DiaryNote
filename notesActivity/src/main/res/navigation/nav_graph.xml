@@ -81,4 +81,10 @@
         android:label="Добавить категорию..."
         tools:layout="@layout/fragment_add_category"/>
 
+    <fragment
+        android:id="@+id/category_notes"
+        android:name="diarynote.categoriesfragment.presentation.view.CategoryNotesFragment"
+        android:label="Категория..."
+        tools:layout="@layout/fragment_category_notes"/>
+
 </navigation>

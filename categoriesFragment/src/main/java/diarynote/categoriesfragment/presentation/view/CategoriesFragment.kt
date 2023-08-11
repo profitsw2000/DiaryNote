@@ -25,6 +25,7 @@ class CategoriesFragment : Fragment() {
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
+    private val navigator: Navigator by inject()
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val adapter = CategoriesListAdapter(object : OnItemClickListener{
         override fun onItemClick(position: Int) {
@@ -32,7 +33,6 @@ class CategoriesFragment : Fragment() {
         }
 
     })
-    private val navigator: Navigator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

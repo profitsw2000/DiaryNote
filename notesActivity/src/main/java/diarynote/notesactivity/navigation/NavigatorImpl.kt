@@ -26,7 +26,7 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
     }
 
     override fun navigateToCategoryNotesList(bundle: Bundle) {
-        TODO("Not yet implemented")
+        navController.navigate(R.id.category_notes, bundle)
     }
 
     override fun navigateUp() {
