@@ -1,6 +1,7 @@
 package diarynote.categoriesfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryNotesFragment : Fragment() {
 
+    private val TAG = "VVV"
     private var _binding: FragmentCategoryNotesBinding? = null
     private val binding = _binding!!
     private val categoriesViewModel: CategoriesViewModel by viewModel()
@@ -33,7 +35,7 @@ class CategoryNotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        categoriesViewModel.getNotesList(1)
     }
 
     private fun initViews() {
@@ -47,7 +49,8 @@ class CategoryNotesFragment : Fragment() {
 
     private fun renderData(notesState: NotesState) {
         when(notesState) {
-            is NotesState.Success -> {}
+            is NotesState.Success -> {
+                Log.d(TAG, "renderData: ${notesState.noteModelList}") }
             is NotesState.Loading -> {}
             is NotesState.Error -> {}
         }

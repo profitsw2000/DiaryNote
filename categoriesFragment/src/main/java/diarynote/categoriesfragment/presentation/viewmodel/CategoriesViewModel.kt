@@ -30,6 +30,10 @@ class CategoriesViewModel (
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
     }
 
+    fun getNotesList(categoryId: Int) {
+        getUserNotesByCategory(sharedPreferences.getInt(CURRENT_USER_ID, 0), categoryId)
+    }
+
     private fun getAllUserCategories(userId: Int) {
         _categoriesLiveData.value = CategoriesState.Loading
         categoryInteractor.getAllUserCategories(userId, false)

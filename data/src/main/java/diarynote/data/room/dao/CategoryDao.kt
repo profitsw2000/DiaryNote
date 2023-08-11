@@ -10,11 +10,12 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface CategoryDao {
     @Transaction
-    @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
+    @Query("SELECT * FROM UserEntity WHERE UserEntity.id LIKE :id")
     fun getUserWithCategories(id: Int): Single<UserWithCategories>
 
     @Transaction
-    @Query("SELECT * FROM UserEntity INNER JOIN CategoryEntity ON CategoryEntity.user_id = UserEntity.id WHERE id LIKE :userId")
+    //@Query("SELECT * FROM UserEntity INNER JOIN CategoryEntity ON CategoryEntity.user_id = UserEntity.id WHERE id LIKE :userId")
+    @Query("SELECT * FROM UserEntity,CategoryEntity WHERE UserEntity.id = :userId AND CategoryEntity.id = :categoryId")
     fun getUserWithCategoryAndNotes(userId: Int, categoryId: Int): Single<UserWithCategoriesAndNotes>
 
     @Query("SELECT * FROM CategoryEntity")
