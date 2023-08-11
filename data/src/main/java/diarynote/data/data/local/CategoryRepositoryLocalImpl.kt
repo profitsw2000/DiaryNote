@@ -4,6 +4,7 @@ import diarynote.data.domain.local.CategoryRepositoryLocal
 import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.related.UserWithCategories
+import diarynote.data.room.related.UserWithCategoriesAndNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -12,6 +13,10 @@ class CategoryRepositoryLocalImpl(
 ) : CategoryRepositoryLocal {
     override fun getAllUserCategories(userId: Int): Single<UserWithCategories> {
         return database.categoryDao.getUserWithCategories(userId)
+    }
+
+    override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<UserWithCategoriesAndNotes> {
+        return database.categoryDao.getUserWithCategoryAndNotes(userId, categoryId)
     }
 
     override fun getAllCategories(): Single<List<CategoryEntity>> {

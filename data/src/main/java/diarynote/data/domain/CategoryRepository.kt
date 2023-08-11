@@ -2,12 +2,15 @@ package diarynote.data.domain
 
 import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.related.UserWithCategories
+import diarynote.data.room.related.UserWithCategoriesAndNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface CategoryRepository {
 
     fun getAllUserCategories(userId: Int): Single<UserWithCategories>
+
+    fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<UserWithCategoriesAndNotes>
 
     fun getAllCategories(): Single<List<CategoryEntity>>
 
