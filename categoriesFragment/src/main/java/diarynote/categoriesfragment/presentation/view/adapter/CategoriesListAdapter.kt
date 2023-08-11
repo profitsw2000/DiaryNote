@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import diarynote.categoriesfragment.databinding.CategoriesListItemBinding
 import diarynote.core.utils.listener.OnItemClickListener
 import diarynote.data.model.CategoryModel
+import diarynote.template.utils.OnCategoryItemClickListener
 
 class CategoriesListAdapter(
-    private val onItemClickListener: OnItemClickListener
+    private val onCategoryItemClickListener: OnCategoryItemClickListener
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     private var data: List<CategoryModel> = arrayListOf()
@@ -31,7 +32,7 @@ class CategoriesListAdapter(
         val categoryViewHolder = ViewHolder(binding)
 
         binding.root.setOnClickListener {
-            onItemClickListener.onItemClick(categoryViewHolder.adapterPosition)
+            onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
         }
 
         return categoryViewHolder

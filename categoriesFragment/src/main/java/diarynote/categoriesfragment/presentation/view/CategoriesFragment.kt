@@ -14,9 +14,11 @@ import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
 import diarynote.core.utils.listener.OnItemClickListener
+import diarynote.data.domain.CATEGORY_MODEL_BUNDLE
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.NoteModel
 import diarynote.navigator.Navigator
+import diarynote.template.utils.OnCategoryItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,9 +29,13 @@ class CategoriesFragment : Fragment() {
     private val binding get() = _binding!!
     private val navigator: Navigator by inject()
     private val categoriesViewModel: CategoriesViewModel by viewModel()
-    private val adapter = CategoriesListAdapter(object : OnItemClickListener{
-        override fun onItemClick(position: Int) {
-            //TODO("Not yet implemented")
+    private val adapter = CategoriesListAdapter(object : OnCategoryItemClickListener{
+        override fun onItemClick(categoryModel: CategoryModel) {
+            val bundle = Bundle().apply {
+                putInt(CATEGORY_MODEL_BUNDLE, categoryModel.id)
+            }
+            this@CategoriesFragment.arguments = bundle
+            navigator.navigateToCategoryNotesList(bundle)
         }
 
     })
