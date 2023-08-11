@@ -12,5 +12,7 @@ interface Navigator {
 
     fun navigateToCategoryCreation()
 
+    fun navigateToCategoryNotesList(bundle: Bundle)
+
     fun navigateUp()
 }
