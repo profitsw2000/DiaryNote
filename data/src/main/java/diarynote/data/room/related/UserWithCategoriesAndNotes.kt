@@ -13,5 +13,5 @@ data class UserWithCategoriesAndNotes(
         parentColumn = "id",
         entityColumn = "user_id"
     )
-    val categories: List<CategoryWithNotes>
+    val category: CategoryWithNotes
 )

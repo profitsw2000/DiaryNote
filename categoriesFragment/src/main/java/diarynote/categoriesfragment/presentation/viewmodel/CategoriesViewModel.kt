@@ -1,6 +1,7 @@
 package diarynote.categoriesfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.categoriesfragment.model.CategoriesState
@@ -58,8 +59,9 @@ class CategoriesViewModel (
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    Log.d("VVV", "getUserNotesByCategory: $it")
                     _notesLiveData.value = NotesState.Success(
-                        noteMapper.map(it.categories[0].notes)
+                        noteMapper.map(it.category.notes)
                     )
                 },{
                     val errorMessage = it.message ?: ""

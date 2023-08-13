@@ -10,7 +10,7 @@ import java.util.*
     childColumns = arrayOf("user_id"),
     onDelete = CASCADE),
     ForeignKey(
-        entity = UserEntity::class,
+        entity = CategoryEntity::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("category_id"),
         onDelete = CASCADE)],
