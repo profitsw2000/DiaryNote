@@ -3,6 +3,7 @@ package diarynote.data.interactor
 import diarynote.data.domain.local.NoteRepositoryLocal
 import diarynote.data.domain.web.NoteRepositoryRemote
 import diarynote.data.room.entity.NoteEntity
+import diarynote.data.room.related.UserWithCategoriesAndNotes
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -24,6 +25,14 @@ class NoteInteractor(
             noteRepositoryRemote.getAllUserNotes(id)
         } else {
             noteRepositoryLocal.getAllUserNotes(id)
+        }
+    }
+
+    fun getUserNotesByCategory(userId: Int, categoryId: Int, remote: Boolean): Single<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.getUserNotesByCategory(userId, categoryId)
+        } else {
+            noteRepositoryLocal.getUserNotesByCategory(userId, categoryId)
         }
     }
 

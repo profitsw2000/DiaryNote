@@ -2,6 +2,7 @@ package diarynote.data.room.dao
 
 import androidx.room.*
 import diarynote.data.room.entity.CategoryEntity
+import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.related.UserWithCategories
 import diarynote.data.room.related.UserWithCategoriesAndNotes
 import io.reactivex.rxjava3.core.Completable

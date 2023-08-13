@@ -10,8 +10,6 @@ interface CategoryRepository {
 
     fun getAllUserCategories(userId: Int): Single<UserWithCategories>
 
-    fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<UserWithCategoriesAndNotes>
-
     fun getAllCategories(): Single<List<CategoryEntity>>
 
     fun addCategory(categoryEntity: CategoryEntity): Completable

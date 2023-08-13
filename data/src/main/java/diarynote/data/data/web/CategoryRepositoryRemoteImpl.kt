@@ -12,10 +12,6 @@ class CategoryRepositoryRemoteImpl : CategoryRepositoryRemote {
         TODO("Not yet implemented")
     }
 
-    override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<UserWithCategoriesAndNotes> {
-        TODO("Not yet implemented")
-    }
-
     override fun getAllCategories(): Single<List<CategoryEntity>> {
         TODO("Not yet implemented")
     }

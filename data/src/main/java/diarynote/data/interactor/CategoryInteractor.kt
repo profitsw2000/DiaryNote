@@ -21,14 +21,6 @@ class CategoryInteractor(
         }
     }
 
-    fun getUserNotesByCategory(userId: Int, categoryId: Int, remote: Boolean): Single<UserWithCategoriesAndNotes> {
-        return if (remote) {
-            categoryRepositoryRemote.getUserNotesByCategory(userId, categoryId)
-        } else {
-            categoryRepositoryLocal.getUserNotesByCategory(userId, categoryId)
-        }
-    }
-
     fun getAllCategories(remote: Boolean): Single<List<CategoryEntity>> {
         return if (remote) {
             categoryRepositoryRemote.getAllCategories()

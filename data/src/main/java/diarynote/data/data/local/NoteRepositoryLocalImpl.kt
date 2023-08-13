@@ -22,6 +22,10 @@ class NoteRepositoryLocalImpl(
         return database.noteDao.getUserWithNotes(id)
     }
 
+    override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>> {
+        return database.noteDao.getUserNotesByCategory(userId, categoryId)
+    }
+
     override fun addNote(noteEntity: NoteEntity): Completable {
         return database.noteDao.insert(noteEntity)
     }

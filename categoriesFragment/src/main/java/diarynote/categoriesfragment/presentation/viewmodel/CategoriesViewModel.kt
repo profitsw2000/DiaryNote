@@ -8,6 +8,7 @@ import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
+import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.CategoryMapper
 import diarynote.data.mappers.NoteMapper
 import diarynote.template.model.NotesState
@@ -16,6 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class CategoriesViewModel (
     private val categoryInteractor: CategoryInteractor,
+    private val noteInteractor: NoteInteractor,
     private val sharedPreferences: SharedPreferences,
     private val categoryMapper: CategoryMapper,
     private val noteMapper: NoteMapper
@@ -54,14 +56,13 @@ class CategoriesViewModel (
 
     private fun getUserNotesByCategory(userId: Int, categoryId: Int) {
         _notesLiveData.value = NotesState.Loading
-        categoryInteractor.getUserNotesByCategory(userId, categoryId, false)
+        noteInteractor.getUserNotesByCategory(userId, categoryId, false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Log.d("VVV", "getUserNotesByCategory: $it")
                     _notesLiveData.value = NotesState.Success(
-                        noteMapper.map(it.category.notes)
+                        noteMapper.map(it)
                     )
                 },{
                     val errorMessage = it.message ?: ""

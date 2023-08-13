@@ -15,10 +15,6 @@ class CategoryRepositoryLocalImpl(
         return database.categoryDao.getUserWithCategories(userId)
     }
 
-    override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<UserWithCategoriesAndNotes> {
-        return database.categoryDao.getUserWithCategoryAndNotes(userId, categoryId)
-    }
-
     override fun getAllCategories(): Single<List<CategoryEntity>> {
         return database.categoryDao.all()
     }
