@@ -18,6 +18,7 @@ class NoteMapper {
             date = noteModel.date,
             edited = noteModel.edited,
             editDate = noteModel.editDate,
+            categoryId = noteModel.categoryId,
             userId = noteModel.userId
         )
     }
@@ -33,6 +34,7 @@ class NoteMapper {
             date = noteEntity.date,
             edited = noteEntity.edited,
             editDate = noteEntity.editDate,
+            categoryId = noteEntity.categoryId,
             userId = noteEntity.userId
         )
     }

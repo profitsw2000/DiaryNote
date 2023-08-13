@@ -18,6 +18,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     ),
     NoteEntity(
@@ -35,6 +36,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     ),
     NoteEntity(
@@ -50,6 +52,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     ),
     NoteEntity(
@@ -62,6 +65,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     ),
     NoteEntity(
@@ -77,6 +81,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     ),
     NoteEntity(
@@ -91,6 +96,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     ),
     NoteEntity(
@@ -107,6 +113,7 @@ val baseNotesList = listOf(
         date = formatter.parse("07.05.2023"),
         edited = false,
         editDate = formatter.parse("07.05.2023"),
+        categoryId = 0,
         userId = 0
     )
 )

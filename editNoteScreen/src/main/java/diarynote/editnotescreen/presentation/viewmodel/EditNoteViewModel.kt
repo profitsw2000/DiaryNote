@@ -59,7 +59,7 @@ class EditNoteViewModel(
     fun getNotesData(noteModel: NoteModel) {
         val noteTitleIsValid = inputValidator.checkInputIsValid(noteModel.title, NOTE_TITLE_MIN_LENGTH)
         val noteContentIsValid = inputValidator.checkInputIsValid(noteModel.text, NOTE_CONTENT_MIN_LENGTH)
-        val noteTagsLengthIsValid = inputValidator.checkInputIsValid(noteModel.tags.joinToString { "," }, NOTE_TAGS_MIN_LENGTH)
+        val noteTagsLengthIsValid = inputValidator.checkInputIsValid(noteModel.tags.joinToString(separator = ", "), NOTE_TAGS_MIN_LENGTH)
         val noteTagsIsValid = checkNoteTags(noteModel.tags)
 
         if (noteTitleIsValid &&

@@ -15,5 +15,6 @@ data class NoteModel(
     val date: Date,
     val edited: Boolean = false,
     val editDate: Date,
+    val categoryId: Int = 0,
     val userId: Int = 0
 ) : Parcelable

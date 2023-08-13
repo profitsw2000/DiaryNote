@@ -97,7 +97,8 @@ class CreateNoteFragment : Fragment() {
                 noteTitle,
                 noteContent,
                 noteTags,
-                data[selectedCategoryIndex].categoryName
+                data[selectedCategoryIndex].categoryName,
+                data[selectedCategoryIndex].id
             )
         }
     }

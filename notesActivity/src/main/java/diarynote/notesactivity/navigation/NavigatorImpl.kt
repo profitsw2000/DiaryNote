@@ -25,6 +25,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.add_category)
     }
 
+    override fun navigateToCategoryNotesList(bundle: Bundle) {
+        navController.navigate(R.id.category_notes, bundle)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

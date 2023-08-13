@@ -1,7 +1,6 @@
 package diarynote.categoriesfragment.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,11 @@ import diarynote.categoriesfragment.databinding.FragmentCategoriesBinding
 import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
+import diarynote.data.domain.CATEGORY_ID_BUNDLE
+import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.model.CategoryModel
-import diarynote.data.model.NoteModel
 import diarynote.navigator.Navigator
+import diarynote.template.utils.OnCategoryItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,9 +25,19 @@ class CategoriesFragment : Fragment() {
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
-    private val categoriesViewModel: CategoriesViewModel by viewModel()
-    private val adapter = CategoriesListAdapter()
     private val navigator: Navigator by inject()
+    private val categoriesViewModel: CategoriesViewModel by viewModel()
+    private val adapter = CategoriesListAdapter(object : OnCategoryItemClickListener{
+        override fun onItemClick(categoryModel: CategoryModel) {
+            val bundle = Bundle().apply {
+                putInt(CATEGORY_ID_BUNDLE, categoryModel.id)
+                putString(CATEGORY_NAME_BUNDLE, categoryModel.categoryName)
+            }
+            this@CategoriesFragment.arguments = bundle
+            navigator.navigateToCategoryNotesList(bundle)
+        }
+
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

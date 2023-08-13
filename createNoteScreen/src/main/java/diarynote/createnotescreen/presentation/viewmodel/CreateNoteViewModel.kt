@@ -1,6 +1,7 @@
 package diarynote.createnotescreen.presentation.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
@@ -59,7 +60,9 @@ class CreateNoteViewModel(
     fun getNotesData(noteTitle: String,
                     noteContent: String,
                      noteTags: String,
-                     category: String) {
+                     category: String,
+                     categoryId: Int
+    ) {
         val noteTitleIsValid = inputValidator.checkInputIsValid(noteTitle, NOTE_TITLE_MIN_LENGTH)
         val noteContentIsValid = inputValidator.checkInputIsValid(noteContent, NOTE_CONTENT_MIN_LENGTH)
         val noteTagsLengthIsValid = inputValidator.checkInputIsValid(noteTags, NOTE_TAGS_MIN_LENGTH)
@@ -79,6 +82,7 @@ class CreateNoteViewModel(
                 date = Calendar.getInstance().time,
                 edited = false,
                 editDate = Calendar.getInstance().time,
+                categoryId = categoryId,
                 userId = sharedPreferences.getInt(CURRENT_USER_ID,0)
             ))
         } else {
@@ -128,6 +132,7 @@ class CreateNoteViewModel(
                     _notesLiveData.value = NotesState.Success(arrayListOf())
                 },{
                     _notesLiveData.value = NotesState.Error(it.message!!, (1 shl ROOM_BIT_NUMBER))
+                    Log.d("VVV", "addNote: $it")
                 }
             )
     }
