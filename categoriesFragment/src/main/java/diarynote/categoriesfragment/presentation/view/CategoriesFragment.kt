@@ -33,6 +33,7 @@ class CategoriesFragment : Fragment() {
         override fun onItemClick(categoryModel: CategoryModel) {
             val bundle = Bundle().apply {
                 putInt(CATEGORY_MODEL_BUNDLE, categoryModel.id)
+                putString(CATEGORY_MODEL_BUNDLE, categoryModel.categoryName)
             }
             this@CategoriesFragment.arguments = bundle
             navigator.navigateToCategoryNotesList(bundle)

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
@@ -20,9 +21,11 @@ class CategoryNotesFragment : Fragment() {
     private val binding get() = _binding!!
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val categoryId: Int? by lazy { arguments?.getInt(CATEGORY_MODEL_BUNDLE) }
+    private val categoryName: String? by lazy { arguments?.getString(CATEGORY_MODEL_BUNDLE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = categoryName
     }
 
     override fun onCreateView(
