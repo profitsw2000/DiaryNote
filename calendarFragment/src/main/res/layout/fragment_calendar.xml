@@ -18,7 +18,8 @@
         app:checkedChip="@id/all_time_notes_chip"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="true">
+        app:singleSelection="true"
+        app:selectionRequired="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/all_time_notes_chip"

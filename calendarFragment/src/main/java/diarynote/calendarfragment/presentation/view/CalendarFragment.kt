@@ -26,7 +26,7 @@ class CalendarFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentCalendarBinding.bind(inflater.inflate(R.layout.fragment_calendar, container, false))
         return binding.root
@@ -37,10 +37,9 @@ class CalendarFragment : Fragment() {
         initViews()
     }
 
-    private fun initViews(){
+    private fun initViews() {
         binding.pickDateChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
             val chipText: String = group.findViewById<Chip>(checkedIds[0]).text.toString()
-
             getNotesByDate(chipText)
         }
     }
@@ -68,42 +67,41 @@ class CalendarFragment : Fragment() {
     }
 
     private fun getTodayNotes() {
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
         val today = Date(
-            year,
-            month,
-            day
+            calendar.get(Calendar.YEAR) - 1900,
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
         )
         Log.d("VVV", "getTodayNotes: $today")
-
-        Toast.makeText(requireContext(), today.toString(), Toast.LENGTH_SHORT).show()
         //viewModel.getNotesByDate(date)
     }
 
     private fun getLastWeekNotes() {
-        val fromDateMilliseconds = Date(calendar.timeInMillis - (6*24*60*60*1000))
-        val fromDate = Date(fromDateMilliseconds.year,
-            fromDateMilliseconds.month,
-            fromDateMilliseconds.day
+        val dateWeekAgoMilliseconds = Date(calendar.timeInMillis - (6*24*60*60*1000))                   //учитываем текущий день как полный
+        val dateWeekAgo = Date(dateWeekAgoMilliseconds.year,
+            dateWeekAgoMilliseconds.month,
+            dateWeekAgoMilliseconds.date
         )
-        Log.d("VVV", "getLastWeekNotes: $fromDate")
-        Toast.makeText(requireContext(), fromDate.toString(), Toast.LENGTH_SHORT).show()
+        Log.d("VVV", "getLastWeekNotes: $dateWeekAgo")
     }
 
     private fun getLastMonthNotes() {
-        val dateMonthAgo = getMonthAgoDate(calendar.get(Calendar.YEAR),
+        val dateMonthAgo = getMonthAgoDate(calendar.get(Calendar.YEAR) - 1900,
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         Log.d("VVV", "getLastMonthNotes: $dateMonthAgo")
-        Toast.makeText(requireContext(), dateMonthAgo.toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun getLastYearNotes() {
-
+        val daysInYear: Long = if ((calendar.get(Calendar.YEAR)) % 4 == 0) 366
+                        else 365
+        val dateYearAgoMilliseconds = Date(calendar.timeInMillis - ((daysInYear - 1)*24*60*60*1000))        //учитываем текущий день как полный
+        val dateYearAgo = Date(dateYearAgoMilliseconds.year,
+            dateYearAgoMilliseconds.month,
+            dateYearAgoMilliseconds.date
+        )
+        Log.d("VVV", "getLastYearNotes: $dateYearAgo")
     }
 
     private fun selectPeriodDialog() {
@@ -113,9 +111,9 @@ class CalendarFragment : Fragment() {
     private fun getMonthAgoDate(year: Int, month: Int, day: Int): Date {
         val previousMonth = if (month == Calendar.JANUARY) Calendar.DECEMBER
                             else month - 1
-        val yearPreviousMonth = if (month == Calendar.JANUARY) year
-                            else year - 1
-        val dayPreviousMonth = if (day > getMonthLastDayNumber(year, month)) day
+        val yearPreviousMonth = if (month == Calendar.JANUARY) year - 1
+                            else year
+        val dayPreviousMonth = if (day < getMonthLastDayNumber(year, month)) day
                             else getMonthLastDayNumber(year, month)
 
         return Date(yearPreviousMonth, previousMonth, dayPreviousMonth)
