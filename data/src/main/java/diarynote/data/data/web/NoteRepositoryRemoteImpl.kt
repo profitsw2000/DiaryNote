@@ -5,6 +5,7 @@ import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import java.util.Date
 
 class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
 
@@ -21,6 +22,18 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
     }
 
     override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUserNotesInDatePeriod(
+        userId: Int,
+        fromDate: Date,
+        toDate: Date
+    ): Single<List<NoteEntity>> {
         TODO("Not yet implemented")
     }
 

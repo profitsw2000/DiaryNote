@@ -6,6 +6,7 @@ import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import java.util.Date
 
 class NoteRepositoryLocalImpl(
     private val database: AppDatabase
@@ -24,6 +25,18 @@ class NoteRepositoryLocalImpl(
 
     override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>> {
         return database.noteDao.getUserNotesByCategory(userId, categoryId)
+    }
+
+    override fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>> {
+        return database.noteDao.getUserNotesFromDate(userId, fromDate)
+    }
+
+    override fun getUserNotesInDatePeriod(
+        userId: Int,
+        fromDate: Date,
+        toDate: Date
+    ): Single<List<NoteEntity>> {
+        return database.noteDao.getUserNotesInDatePeriod(userId, fromDate, toDate)
     }
 
     override fun addNote(noteEntity: NoteEntity): Completable {
