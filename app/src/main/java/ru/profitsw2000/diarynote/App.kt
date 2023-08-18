@@ -2,6 +2,7 @@ package ru.profitsw2000.diarynote
 
 import android.app.Application
 import diarynote.addcategoryscreen.di.addCategoryModule
+import diarynote.calendarfragment.di.calendarModule
 import diarynote.categoriesfragment.di.categoryModule
 import diarynote.createnotescreen.di.createNoteModule
 import diarynote.editnotescreen.di.editNoteModule
@@ -31,7 +32,8 @@ class App : Application() {
                 createNoteModule,
                 readNoteModule,
                 editNoteModule,
-                addCategoryModule
+                addCategoryModule,
+                calendarModule
             )
         }
     }

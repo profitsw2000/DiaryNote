@@ -6,21 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.util.Pair
+import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
-import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import diarynote.calendarfragment.R
 import diarynote.calendarfragment.databinding.FragmentCalendarBinding
-import java.util.Calendar
+import diarynote.calendarfragment.presentation.viewmodel.CalendarViewModel
+import diarynote.data.model.state.NotesState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Date
 
 class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-    private val calendar = Calendar.getInstance()
+    //private val calendar = Calendar.getInstance()
+    private val calendarViewModel: CalendarViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        observeData()
     }
 
     private fun initViews() {
@@ -50,22 +53,35 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    private fun observeData() {
+        val observer = Observer<NotesState> { renderData(it) }
+        calendarViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun renderData(notesState: NotesState) {
+        when(notesState) {
+            is NotesState.Success -> {}
+            is NotesState.Loading -> {}
+            is NotesState.Error -> {}
+        }
+    }
+
     private fun getNotesByDate(period: String) {
         when (period) {
             resources.getString(diarynote.core.R.string.all_time_notes_chip_text) ->
-                getAllNotes()
+                calendarViewModel.getAllNotes()
             resources.getString(diarynote.core.R.string.todays_notes_chip_text) ->
-                getTodayNotes()
+                calendarViewModel.getTodayNotes()
             resources.getString(diarynote.core.R.string.last_week_notes_chip_text) ->
-                getLastWeekNotes()
+                calendarViewModel.getLastWeekNotes()
             resources.getString(diarynote.core.R.string.last_month_notes_chip_text) ->
-                getLastMonthNotes()
+                calendarViewModel.getLastMonthNotes()
             resources.getString(diarynote.core.R.string.last_year_notes_chip_text) ->
-                getLastYearNotes()
+                calendarViewModel.getLastYearNotes()
             resources.getString(diarynote.core.R.string.select_period_notes_chip_text) -> {}
             else -> {  }
         }
-    }
+    }/*
 
     private fun getAllNotes() {
 
@@ -107,7 +123,7 @@ class CalendarFragment : Fragment() {
             dateYearAgoMilliseconds.date
         )
         Log.d("VVV", "getLastYearNotes: $dateYearAgo")
-    }
+    }*/
 
     private fun selectPeriodDialog() {
 
@@ -131,7 +147,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun getMonthAgoDate(year: Int, month: Int, day: Int): Date {
+/*    private fun getMonthAgoDate(year: Int, month: Int, day: Int): Date {
         val previousMonth = if (month == Calendar.JANUARY) Calendar.DECEMBER
                             else month - 1
         val yearPreviousMonth = if (month == Calendar.JANUARY) year - 1
@@ -160,7 +176,7 @@ class CalendarFragment : Fragment() {
             Calendar.DECEMBER -> 31
             else -> 0
         }
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

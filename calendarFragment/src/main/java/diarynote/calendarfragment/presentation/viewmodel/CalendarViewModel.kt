@@ -19,7 +19,7 @@ class CalendarViewModel(
     private val calendar = Calendar.getInstance()
 
     private val _notesLiveData = MutableLiveData<NotesState>()
-    private val notesLiveData by this::_notesLiveData
+    val notesLiveData by this::_notesLiveData
 
     fun getAllNotes() {
 
