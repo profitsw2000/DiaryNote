@@ -91,6 +91,10 @@
         <item name="android:textSize">18sp</item>
         <item name="chipCornerRadius">20dp</item>
     </style>
+
+    <style name="customCalendarStyle" parent="Widget.Material3.MaterialCalendar">
+
+    </style>
     
     <style name="bottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
         <item name="itemTextAppearanceActive">?attr/textAppearanceTitleMedium</item>

@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.util.Pair
 import com.google.android.material.chip.Chip
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
 import diarynote.calendarfragment.R
 import diarynote.calendarfragment.databinding.FragmentCalendarBinding
 import java.util.Calendar
@@ -42,6 +45,9 @@ class CalendarFragment : Fragment() {
             val chipText: String = group.findViewById<Chip>(checkedIds[0]).text.toString()
             getNotesByDate(chipText)
         }
+        binding.selectPeriodNotesChip.setOnClickListener {
+            selectPeriodDialog()
+        }
     }
 
     private fun getNotesByDate(period: String) {
@@ -56,8 +62,7 @@ class CalendarFragment : Fragment() {
                 getLastMonthNotes()
             resources.getString(diarynote.core.R.string.last_year_notes_chip_text) ->
                 getLastYearNotes()
-            resources.getString(diarynote.core.R.string.select_period_notes_chip_text) ->
-                selectPeriodDialog()
+            resources.getString(diarynote.core.R.string.select_period_notes_chip_text) -> {}
             else -> {  }
         }
     }
@@ -106,6 +111,24 @@ class CalendarFragment : Fragment() {
 
     private fun selectPeriodDialog() {
 
+        val dateRangePicker = MaterialDatePicker
+            .Builder
+            .dateRangePicker()
+            .setTitleText("Выбрать временной период")
+            .setSelection(
+                Pair(
+                    MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
+            .build()
+        dateRangePicker.show(childFragmentManager, "DATE_PICKER")
+        dateRangePicker.addOnPositiveButtonClickListener {
+            val beginDate = Date(it.first)
+            val endDate = Date(it.second)
+            Log.d("VVV", "selectPeriodDialog: $beginDate" +
+                    "\n$endDate")
+        }
     }
 
     private fun getMonthAgoDate(year: Int, month: Int, day: Int): Date {

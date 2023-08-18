@@ -25,7 +25,7 @@
         <!-- Surface brand color. -->
         <item name="colorSurface">@color/deep_purple_100</item>
         <item name="colorOnSurface">@color/deep_purple_A400</item>
-        <item name="colorSurfaceVariant">@color/grey_600</item>
+        <item name="colorSurfaceVariant">@color/white</item>                <!-- Calendar -->
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
         <item name="colorSurfaceInverse">@color/white</item>
         <item name="colorOnSurfaceInverse">@color/grey_600</item>
@@ -50,6 +50,7 @@
         <item name="textInputOutlinedStyle">@style/customTextInputOutlinedStyle</item>
         <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
         <item name="chipStyle">@style/customMainChipStyle</item>
+        <item name="materialCalendarStyle">@style/customCalendarStyle</item>
 <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
 
         <!-- Action Bar -->
