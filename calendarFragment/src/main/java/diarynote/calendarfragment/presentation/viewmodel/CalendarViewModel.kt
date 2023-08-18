@@ -1,12 +1,14 @@
 package diarynote.calendarfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
-import diarynote.data.model.state.NotesState
+import diarynote.template.model.NotesState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.Calendar
 import java.util.Date
 
@@ -22,7 +24,7 @@ class CalendarViewModel(
     val notesLiveData by this::_notesLiveData
 
     fun getAllNotes() {
-
+        getAllUserNotes(sharedPreferences.getInt(CURRENT_USER_ID,0), false)
     }
 
     fun getTodayNotes() {
@@ -31,6 +33,8 @@ class CalendarViewModel(
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+
+        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), today, false)
     }
 
     fun getLastWeekNotes() {
@@ -39,6 +43,8 @@ class CalendarViewModel(
             dateWeekAgoMilliseconds.month,
             dateWeekAgoMilliseconds.date
         )
+
+        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), dateWeekAgo, false)
     }
 
     fun getLastMonthNotes() {
@@ -46,6 +52,8 @@ class CalendarViewModel(
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+
+        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), dateMonthAgo, false)
     }
 
     fun getLastYearNotes() {
@@ -56,6 +64,12 @@ class CalendarViewModel(
             dateYearAgoMilliseconds.month,
             dateYearAgoMilliseconds.date
         )
+
+        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), dateYearAgo, false)
+    }
+
+    fun getNotesInDatePeriod(fromDate: Date, toDate: Date) {
+        getUserNotesInDatePeriod(sharedPreferences.getInt(CURRENT_USER_ID,0), fromDate, toDate, false)
     }
 
     private fun getMonthAgoDate(year: Int, month: Int, day: Int): Date {
@@ -87,5 +101,49 @@ class CalendarViewModel(
             Calendar.DECEMBER -> 31
             else -> 0
         }
+    }
+
+    private fun getAllUserNotes(userId: Int, remote: Boolean) {
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.getAllUserNotes(userId, remote)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(noteMapper.map(it.notesList))
+                }, {
+                    _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
+                }
+            )
+    }
+
+    private fun getUserNotesFromDate(userId: Int, fromDate: Date, remote: Boolean) {
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.getUserNotesFromDate(userId, fromDate, remote)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(noteMapper.map(it))
+                },
+                {
+                    _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
+                }
+            )
+    }
+
+    private fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date, remote: Boolean) {
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.getUserNotesInDatePeriod(userId, fromDate, toDate, remote)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(noteMapper.map(it))
+                },
+                {
+                    _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
+                }
+            )
     }
 }
