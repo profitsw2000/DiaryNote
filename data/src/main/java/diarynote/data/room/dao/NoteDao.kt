@@ -23,6 +23,12 @@ interface NoteDao {
 
     @Query("SELECT * " +
             "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId " +
+            "ORDER BY NoteEntity.editDate DESC")
+    fun getAllUserNotes(userId: Int): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
             "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate >= :fromDate " +
             "ORDER BY NoteEntity.editDate DESC")
     fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>>
@@ -34,7 +40,9 @@ interface NoteDao {
     fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date): Single<List<NoteEntity>>
 
     @Transaction
-    @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
+    @Query("SELECT * " +
+            "FROM UserEntity " +
+            "WHERE id LIKE :id")
     fun getUserWithNotes(id: Int): Single<UserWithNotes>
 
     @Transaction

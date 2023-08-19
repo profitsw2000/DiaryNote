@@ -9,11 +9,19 @@ import androidx.core.util.Pair
 import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import diarynote.calendarfragment.R
 import diarynote.calendarfragment.databinding.FragmentCalendarBinding
 import diarynote.calendarfragment.presentation.viewmodel.CalendarViewModel
+import diarynote.data.domain.NOTE_MODEL_BUNDLE
+import diarynote.data.model.NoteModel
+import diarynote.navigator.Navigator
 import diarynote.template.model.NotesState
+import diarynote.template.presentation.adapter.NotesListAdapter
+import diarynote.template.utils.OnNoteItemClickListener
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
 import java.util.Date
 
 class CalendarFragment : Fragment() {
@@ -21,6 +29,16 @@ class CalendarFragment : Fragment() {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
     private val calendarViewModel: CalendarViewModel by viewModel()
+    private val navigator: Navigator by inject()
+    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
+        override fun onItemClick(noteModel: NoteModel) {
+            val bundle = Bundle().apply {
+                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
+            }
+            this@CalendarFragment.arguments = bundle
+            navigator.navigateToNoteRead(bundle)
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +53,9 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
+        if (savedInstanceState == null) {
+            calendarViewModel.getAllNotes()
+        }
     }
 
     private fun initViews() {
@@ -45,6 +66,7 @@ class CalendarFragment : Fragment() {
         binding.selectPeriodNotesChip.setOnClickListener {
             selectPeriodDialog()
         }
+        binding.pickedDateNotesRecyclerView.adapter = adapter
     }
 
     private fun observeData() {
@@ -54,9 +76,10 @@ class CalendarFragment : Fragment() {
 
     private fun renderData(notesState: NotesState) {
         when(notesState) {
-            is NotesState.Success -> {}
-            is NotesState.Loading -> {}
-            is NotesState.Error -> {}
+            is NotesState.Success -> setList(notesState.noteModelList)
+            is NotesState.Loading -> showProgressBar()
+            is NotesState.Error -> handleError(notesState.message)
+            else -> {}
         }
     }
 
@@ -94,8 +117,35 @@ class CalendarFragment : Fragment() {
         dateRangePicker.addOnPositiveButtonClickListener {
             val beginDate = Date(it.first)
             val endDate = Date(it.second)
+            setSelectPeriodChipText(beginDate, endDate)
             calendarViewModel.getNotesInDatePeriod(beginDate, endDate)
         }
+    }
+
+    private fun setSelectPeriodChipText(beginDate: Date, endDate: Date) = with(binding) {
+        val sdf = SimpleDateFormat("dd.MM.yyyy")
+
+        selectPeriodNotesChip.text = sdf.format(beginDate) + "-" + sdf.format(endDate)
+    }
+
+    private fun setList(noteModelList: List<NoteModel>) = with(binding) {
+        progressBar.visibility = View.GONE
+        pickedDateNotesRecyclerView.visibility = View.VISIBLE
+        adapter.setData(noteModelList)
+    }
+
+    private fun showProgressBar() = with(binding) {
+        pickedDateNotesRecyclerView.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun handleError(message: String) = with(binding) {
+        pickedDateNotesRecyclerView.visibility = View.GONE
+        progressBar.visibility= View.GONE
+        Snackbar.make(this.calendarFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)){
+                allTimeNotesChip.isChecked = true}
+            .show()
     }
 
     override fun onDestroyView() {
