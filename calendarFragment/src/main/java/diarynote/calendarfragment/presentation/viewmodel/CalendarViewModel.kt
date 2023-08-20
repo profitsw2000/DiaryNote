@@ -9,6 +9,7 @@ import diarynote.data.mappers.NoteMapper
 import diarynote.template.model.NotesState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
@@ -19,15 +20,21 @@ class CalendarViewModel(
 ) : CoreViewModel() {
 
     private val calendar = Calendar.getInstance()
+    private lateinit var selectPeriodDefaultText: String
 
     private val _notesLiveData = MutableLiveData<NotesState>()
     val notesLiveData by this::_notesLiveData
 
+    private val _selectPeriodChipTextLiveData = MutableLiveData<String>()
+    val selectPeriodChipTextLiveData by this::_selectPeriodChipTextLiveData
+
     fun getAllNotes() {
+        setSelectPeriodChipText(selectPeriodDefaultText)
         getAllUserNotes(sharedPreferences.getInt(CURRENT_USER_ID,0), false)
     }
 
     fun getTodayNotes() {
+        setSelectPeriodChipText(selectPeriodDefaultText)
         val today = Date(
             calendar.get(Calendar.YEAR) - 1900,
             calendar.get(Calendar.MONTH),
@@ -38,6 +45,7 @@ class CalendarViewModel(
     }
 
     fun getLastWeekNotes() {
+        setSelectPeriodChipText(selectPeriodDefaultText)
         val dateWeekAgoMilliseconds = Date(calendar.timeInMillis - (6*24*60*60*1000))                   //учитываем текущий день как полный
         val dateWeekAgo = Date(dateWeekAgoMilliseconds.year,
             dateWeekAgoMilliseconds.month,
@@ -48,6 +56,7 @@ class CalendarViewModel(
     }
 
     fun getLastMonthNotes() {
+        setSelectPeriodChipText(selectPeriodDefaultText)
         val dateMonthAgo = getMonthAgoDate(calendar.get(Calendar.YEAR) - 1900,
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
@@ -57,6 +66,7 @@ class CalendarViewModel(
     }
 
     fun getLastYearNotes() {
+        setSelectPeriodChipText(selectPeriodDefaultText)
         val daysInYear: Long = if ((calendar.get(Calendar.YEAR)) % 4 == 0) 366
         else 365
         val dateYearAgoMilliseconds = Date(calendar.timeInMillis - ((daysInYear - 1)*24*60*60*1000))        //учитываем текущий день как полный
@@ -69,7 +79,17 @@ class CalendarViewModel(
     }
 
     fun getNotesInDatePeriod(fromDate: Date, toDate: Date) {
+        val sdf = SimpleDateFormat("dd.MM.yyyy")
+        setSelectPeriodChipText(sdf.format(fromDate) + "-" + sdf.format(toDate))
         getUserNotesInDatePeriod(sharedPreferences.getInt(CURRENT_USER_ID,0), fromDate, toDate, false)
+    }
+
+    fun setSelectPeriodChipDefaultText(text: String) {
+        selectPeriodDefaultText = text
+    }
+
+    private fun setSelectPeriodChipText(text: String) {
+        _selectPeriodChipTextLiveData.value = text
     }
 
     private fun getMonthAgoDate(year: Int, month: Int, day: Int): Date {

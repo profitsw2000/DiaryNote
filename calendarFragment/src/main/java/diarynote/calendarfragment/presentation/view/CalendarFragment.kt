@@ -53,25 +53,24 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        if (savedInstanceState == null) {
+        if (calendarViewModel.notesLiveData.value == null) {
             calendarViewModel.getAllNotes()
         }
     }
 
     private fun initViews() {
-        binding.pickDateChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
-            val chipText: String = group.findViewById<Chip>(checkedIds[0]).text.toString()
-            getNotesByDate(chipText)
-        }
-        binding.selectPeriodNotesChip.setOnClickListener {
-            selectPeriodDialog()
-        }
+        setChipOnClickListeners()
+        calendarViewModel.setSelectPeriodChipDefaultText(
+            resources.getString(diarynote.core.R.string.select_period_notes_chip_text)
+        )
         binding.pickedDateNotesRecyclerView.adapter = adapter
     }
 
     private fun observeData() {
         val observer = Observer<NotesState> { renderData(it) }
         calendarViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
+        val chipTextObserver = Observer<String> { setSelectPeriodChipText(it) }
+        calendarViewModel.selectPeriodChipTextLiveData.observe(viewLifecycleOwner, chipTextObserver)
     }
 
     private fun renderData(notesState: NotesState) {
@@ -83,21 +82,13 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun getNotesByDate(period: String) {
-        when (period) {
-            resources.getString(diarynote.core.R.string.all_time_notes_chip_text) ->
-                calendarViewModel.getAllNotes()
-            resources.getString(diarynote.core.R.string.todays_notes_chip_text) ->
-                calendarViewModel.getTodayNotes()
-            resources.getString(diarynote.core.R.string.last_week_notes_chip_text) ->
-                calendarViewModel.getLastWeekNotes()
-            resources.getString(diarynote.core.R.string.last_month_notes_chip_text) ->
-                calendarViewModel.getLastMonthNotes()
-            resources.getString(diarynote.core.R.string.last_year_notes_chip_text) ->
-                calendarViewModel.getLastYearNotes()
-            resources.getString(diarynote.core.R.string.select_period_notes_chip_text) -> selectPeriodDialog()
-            else -> {  }
-        }
+    private fun setChipOnClickListeners() = with(binding) {
+        allTimeNotesChip.setOnClickListener { calendarViewModel.getAllNotes() }
+        todayNotesChip.setOnClickListener { calendarViewModel.getTodayNotes() }
+        lastWeekNotesChip.setOnClickListener { calendarViewModel.getLastWeekNotes() }
+        lastMonthNotesChip.setOnClickListener { calendarViewModel.getLastMonthNotes() }
+        lastYearNotesChip.setOnClickListener { calendarViewModel.getLastYearNotes() }
+        selectPeriodNotesChip.setOnClickListener { selectPeriodDialog() }
     }
 
     private fun selectPeriodDialog() {
@@ -117,15 +108,12 @@ class CalendarFragment : Fragment() {
         dateRangePicker.addOnPositiveButtonClickListener {
             val beginDate = Date(it.first)
             val endDate = Date(it.second)
-            setSelectPeriodChipText(beginDate, endDate)
             calendarViewModel.getNotesInDatePeriod(beginDate, endDate)
         }
     }
 
-    private fun setSelectPeriodChipText(beginDate: Date, endDate: Date) = with(binding) {
-        val sdf = SimpleDateFormat("dd.MM.yyyy")
-
-        selectPeriodNotesChip.text = sdf.format(beginDate) + "-" + sdf.format(endDate)
+    private fun setSelectPeriodChipText(text: String) = with(binding) {
+        selectPeriodNotesChip.text = text
     }
 
     private fun setList(noteModelList: List<NoteModel>) = with(binding) {
