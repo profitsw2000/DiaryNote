@@ -63,6 +63,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="calendar_chip_text_style">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--Component styles-->
     <style name="customTextInputOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusBottomEnd">@dimen/auth_input_field_corner_radius</item>
@@ -78,6 +83,17 @@
         <item name="boxCornerRadiusBottomStart">@dimen/search_input_field_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/search_input_field_corner_radius</item>
         <item name="android:editTextColor">@color/black</item>
+    </style>
+
+    <style name="customMainChipStyle" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/calendar_chip_background_color</item>
+        <item name="chipStrokeColor">@color/deep_purple_A400</item>
+        <item name="android:textSize">18sp</item>
+        <item name="chipCornerRadius">20dp</item>
+    </style>
+
+    <style name="customCalendarStyle" parent="Widget.Material3.MaterialCalendar">
+
     </style>
     
     <style name="bottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
@@ -106,5 +122,9 @@
     <style name="searchInputShapeAppearance" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50dp</item>
+    </style>
+
+    <style name="custom" parent="">
+        <item name="cornerSize">10%</item>
     </style>
 </resources>

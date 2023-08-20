@@ -7,6 +7,7 @@ import diarynote.data.room.related.UserWithCategoriesAndNotes
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import java.util.Date
 
 class NoteInteractor(
     private val noteRepositoryLocal: NoteRepositoryLocal,
@@ -33,6 +34,22 @@ class NoteInteractor(
             noteRepositoryRemote.getUserNotesByCategory(userId, categoryId)
         } else {
             noteRepositoryLocal.getUserNotesByCategory(userId, categoryId)
+        }
+    }
+
+    fun getUserNotesFromDate(userId: Int, fromDate: Date, remote: Boolean): Single<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.getUserNotesFromDate(userId, fromDate)
+        } else {
+            noteRepositoryLocal.getUserNotesFromDate(userId, fromDate)
+        }
+    }
+
+    fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date, remote: Boolean): Single<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.getUserNotesInDatePeriod(userId, fromDate, toDate)
+        } else {
+            noteRepositoryLocal.getUserNotesInDatePeriod(userId, fromDate, toDate)
         }
     }
 

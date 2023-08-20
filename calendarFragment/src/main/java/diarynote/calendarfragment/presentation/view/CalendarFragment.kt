@@ -5,56 +5,139 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.util.Pair
+import androidx.lifecycle.Observer
+import com.google.android.material.chip.Chip
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import diarynote.calendarfragment.R
+import diarynote.calendarfragment.databinding.FragmentCalendarBinding
+import diarynote.calendarfragment.presentation.viewmodel.CalendarViewModel
+import diarynote.data.domain.NOTE_MODEL_BUNDLE
+import diarynote.data.model.NoteModel
+import diarynote.navigator.Navigator
+import diarynote.template.model.NotesState
+import diarynote.template.presentation.adapter.NotesListAdapter
+import diarynote.template.utils.OnNoteItemClickListener
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CalendarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CalendarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var _binding: FragmentCalendarBinding? = null
+    private val binding get() = _binding!!
+    private val calendarViewModel: CalendarViewModel by viewModel()
+    private val navigator: Navigator by inject()
+    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
+        override fun onItemClick(noteModel: NoteModel) {
+            val bundle = Bundle().apply {
+                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
+            }
+            this@CalendarFragment.arguments = bundle
+            navigator.navigateToNoteRead(bundle)
         }
-    }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        _binding = FragmentCalendarBinding.bind(inflater.inflate(R.layout.fragment_calendar, container, false))
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalendarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+        observeData()
+        if (calendarViewModel.notesLiveData.value == null) {
+            calendarViewModel.getAllNotes()
+        }
+    }
+
+    private fun initViews() {
+        setChipOnClickListeners()
+        calendarViewModel.setSelectPeriodChipDefaultText(
+            resources.getString(diarynote.core.R.string.select_period_notes_chip_text)
+        )
+        binding.pickedDateNotesRecyclerView.adapter = adapter
+    }
+
+    private fun observeData() {
+        val observer = Observer<NotesState> { renderData(it) }
+        calendarViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
+        val chipTextObserver = Observer<String> { setSelectPeriodChipText(it) }
+        calendarViewModel.selectPeriodChipTextLiveData.observe(viewLifecycleOwner, chipTextObserver)
+    }
+
+    private fun renderData(notesState: NotesState) {
+        when(notesState) {
+            is NotesState.Success -> setList(notesState.noteModelList)
+            is NotesState.Loading -> showProgressBar()
+            is NotesState.Error -> handleError(notesState.message)
+            else -> {}
+        }
+    }
+
+    private fun setChipOnClickListeners() = with(binding) {
+        allTimeNotesChip.setOnClickListener { calendarViewModel.getAllNotes() }
+        todayNotesChip.setOnClickListener { calendarViewModel.getTodayNotes() }
+        lastWeekNotesChip.setOnClickListener { calendarViewModel.getLastWeekNotes() }
+        lastMonthNotesChip.setOnClickListener { calendarViewModel.getLastMonthNotes() }
+        lastYearNotesChip.setOnClickListener { calendarViewModel.getLastYearNotes() }
+        selectPeriodNotesChip.setOnClickListener { selectPeriodDialog() }
+    }
+
+    private fun selectPeriodDialog() {
+
+        val dateRangePicker = MaterialDatePicker
+            .Builder
+            .dateRangePicker()
+            .setTitleText("Выбрать временной период")
+            .setSelection(
+                Pair(
+                    MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
+            .build()
+        dateRangePicker.show(childFragmentManager, "DATE_PICKER")
+        dateRangePicker.addOnPositiveButtonClickListener {
+            val beginDate = Date(it.first)
+            val endDate = Date(it.second)
+            calendarViewModel.getNotesInDatePeriod(beginDate, endDate)
+        }
+    }
+
+    private fun setSelectPeriodChipText(text: String) = with(binding) {
+        selectPeriodNotesChip.text = text
+    }
+
+    private fun setList(noteModelList: List<NoteModel>) = with(binding) {
+        progressBar.visibility = View.GONE
+        pickedDateNotesRecyclerView.visibility = View.VISIBLE
+        adapter.setData(noteModelList)
+    }
+
+    private fun showProgressBar() = with(binding) {
+        pickedDateNotesRecyclerView.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun handleError(message: String) = with(binding) {
+        pickedDateNotesRecyclerView.visibility = View.GONE
+        progressBar.visibility= View.GONE
+        Snackbar.make(this.calendarFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)){
+                allTimeNotesChip.isChecked = true}
+            .show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

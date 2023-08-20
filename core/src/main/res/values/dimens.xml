@@ -37,4 +37,8 @@
     <dimen name="item_picker_recycler_view_corner_radius">8dp</dimen>
     <dimen name="picked_item_stroke_width">2dp</dimen>
     <dimen name="icon_picker_item_stroke_width">1dp</dimen>
+    <dimen name="picked_date_notes_rv_top_padding">8dp</dimen>
+    <dimen name="calendar_horizontal_chip_spacing">16dp</dimen>
+    <dimen name="calendar_vertical_chip_spacing">0dp</dimen>
+    <dimen name="calendar_chip_horizontal_padding">24dp</dimen>
 </resources>

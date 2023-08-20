@@ -7,6 +7,7 @@ import diarynote.data.room.related.UserWithCategoriesAndNotes
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import java.util.Date
 
 @Dao
 interface NoteDao {
@@ -20,8 +21,28 @@ interface NoteDao {
     @Query("SELECT * FROM NoteEntity WHERE NoteEntity.user_id = :userId AND NoteEntity.category_id = :categoryId")
     fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>>
 
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId " +
+            "ORDER BY NoteEntity.editDate DESC")
+    fun getAllUserNotes(userId: Int): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate >= :fromDate " +
+            "ORDER BY NoteEntity.editDate DESC")
+    fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate BETWEEN :fromDate AND :toDate " +
+            "ORDER BY NoteEntity.editDate DESC")
+    fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date): Single<List<NoteEntity>>
+
     @Transaction
-    @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
+    @Query("SELECT * " +
+            "FROM UserEntity " +
+            "WHERE id LIKE :id")
     fun getUserWithNotes(id: Int): Single<UserWithNotes>
 
     @Transaction

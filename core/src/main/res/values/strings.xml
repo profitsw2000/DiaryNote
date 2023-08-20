@@ -72,4 +72,10 @@
     <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
     <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>
     <string name="no_notes_by_this_category_message_text">По выбранной категории заметок нет</string>
+    <string name="all_time_notes_chip_text">Все</string>
+    <string name="todays_notes_chip_text">Сегодня</string>
+    <string name="last_week_notes_chip_text">Неделя</string>
+    <string name="last_month_notes_chip_text">Месяц</string>
+    <string name="last_year_notes_chip_text">Год</string>
+    <string name="select_period_notes_chip_text">Выбрать период</string>
 </resources>

@@ -37,4 +37,5 @@ dependencies {
     implementation project(path: Modules.readnotescreen)
     implementation project(path: Modules.editnotescreen)
     implementation project(path: Modules.addcategoryscreen)
+    implementation project(path: Modules.calendarfragment)
 }
