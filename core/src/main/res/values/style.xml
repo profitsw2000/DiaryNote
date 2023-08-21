@@ -79,6 +79,11 @@
         <item name="android:textColor">@color/heavy_black</item>
     </style>
 
+    <style name="settings_menu_item_title_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/heavy_black</item>
+    </style>
+
     <!--Component styles-->
     <style name="customTextInputOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusBottomEnd">@dimen/auth_input_field_corner_radius</item>
