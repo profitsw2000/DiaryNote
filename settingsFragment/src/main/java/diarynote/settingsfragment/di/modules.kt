@@ -5,6 +5,7 @@ import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import org.koin.dsl.module
 
 val settingsModule = module{
+
     single { SettingsViewModel(get()) }
     factory { SettingsInteractor() }
 }
