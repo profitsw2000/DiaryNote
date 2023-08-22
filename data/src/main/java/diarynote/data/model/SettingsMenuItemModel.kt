@@ -1,6 +1,6 @@
 package diarynote.data.model
 
-data class MenuItemModel(
+data class SettingsMenuItemModel(
     val iconId: Int,
     val itemName: String
 )
