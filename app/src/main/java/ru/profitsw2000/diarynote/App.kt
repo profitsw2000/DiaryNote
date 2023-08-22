@@ -10,6 +10,7 @@ import diarynote.mainfragment.di.homeModule
 import diarynote.passwordrecovery.di.recoveryModule
 import diarynote.readnotescreen.di.readNoteModule
 import diarynote.registrationscreen.di.registrationModule
+import diarynote.settingsfragment.di.settingsModule
 import diarynote.signinscreen.di.signInModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -33,7 +34,8 @@ class App : Application() {
                 readNoteModule,
                 editNoteModule,
                 addCategoryModule,
-                calendarModule
+                calendarModule,
+                settingsModule
             )
         }
     }
