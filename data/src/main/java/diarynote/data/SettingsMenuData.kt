@@ -4,27 +4,27 @@ import diarynote.data.model.SettingsMenuItemModel
 
 val settingsMenuItemList = listOf(
     SettingsMenuItemModel(
-        iconId = 1,
+        itemId = 1,
         itemName = "Учетная запись"
     ),
     SettingsMenuItemModel(
-        iconId = 2,
+        itemId = 2,
         itemName = "Тема"
     ),
     SettingsMenuItemModel(
-        iconId = 3,
+        itemId = 3,
         itemName = "Язык"
     ),
     SettingsMenuItemModel(
-        iconId = 4,
+        itemId = 4,
         itemName = "Общие"
     ),
     SettingsMenuItemModel(
-        iconId = 5,
+        itemId = 5,
         itemName = "Помощь"
     ),
     SettingsMenuItemModel(
-        iconId = 6,
+        itemId = 6,
         itemName = "О приложении"
     )
 )
