@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import diarynote.data.model.SettingsMenuItemModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentSettingsBinding
@@ -37,9 +40,25 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+        observeData()
+        settingsViewModel.getSettingsMenuItemList()
     }
 
     private fun openFragmentById(itemId: Int) {
+        Toast.makeText(requireContext(), "$itemId", Toast.LENGTH_SHORT).show()
+    }
 
+    private fun initViews() = with(binding) {
+        settingsMenuRecyclerView.adapter = adapter
+    }
+
+    private fun observeData() {
+        val observer = Observer<List<SettingsMenuItemModel>>() { renderData(it) }
+        settingsViewModel.settingsLiveData.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun renderData(settingsMenuItemModelList: List<SettingsMenuItemModel>) {
+        adapter.setData(settingsMenuItemModelList)
     }
 }

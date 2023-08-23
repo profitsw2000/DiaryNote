@@ -15,6 +15,10 @@ class UserRepositoryLocalImpl (
         return database.userDao.insert(userEntity)
     }
 
+    override fun getUserById(userId: Int): Single<UserEntity> {
+        return database.userDao.getUserById(userId)
+    }
+
     override fun getUserByLogin(login: String): Single<UserEntity> {
         return database.userDao.getUserByLogin(login)
     }
