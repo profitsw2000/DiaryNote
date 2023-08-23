@@ -11,10 +11,8 @@ import diarynote.data.interactor.SettingsInteractor
 import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
 import diarynote.data.model.SettingsMenuItemModel
-import diarynote.template.model.NotesState
 import diarynote.template.model.UserState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class SettingsViewModel(
