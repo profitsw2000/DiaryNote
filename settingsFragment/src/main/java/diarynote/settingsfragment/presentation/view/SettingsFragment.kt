@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.data.model.SettingsMenuItemModel
+import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentSettingsBinding
 import diarynote.settingsfragment.presentation.view.adapter.SettingsAdapter
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
+import diarynote.template.model.UserState
 import diarynote.template.utils.OnSettingsMenuItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,6 +45,7 @@ class SettingsFragment : Fragment() {
         initViews()
         observeData()
         settingsViewModel.getSettingsMenuItemList()
+        settingsViewModel.getCurrentUserInfo()
     }
 
     private fun openFragmentById(itemId: Int) {
@@ -54,11 +57,45 @@ class SettingsFragment : Fragment() {
     }
 
     private fun observeData() {
-        val observer = Observer<List<SettingsMenuItemModel>>() { renderData(it) }
-        settingsViewModel.settingsLiveData.observe(viewLifecycleOwner, observer)
+        val settingsMenuObserver = Observer<List<SettingsMenuItemModel>> { renderSettingsMenuData(it) }
+        settingsViewModel.settingsLiveData.observe(viewLifecycleOwner, settingsMenuObserver)
+        val userObserver = Observer<UserState> { renderUserData(it) }
+        settingsViewModel.userLiveData.observe(viewLifecycleOwner, userObserver)
     }
 
-    private fun renderData(settingsMenuItemModelList: List<SettingsMenuItemModel>) {
+    private fun renderSettingsMenuData(settingsMenuItemModelList: List<SettingsMenuItemModel>) {
         adapter.setData(settingsMenuItemModelList)
+    }
+
+    private fun renderUserData(userState: UserState) {
+        when(userState) {
+            is UserState.Success -> { setUserData(userState.userModel) }
+            is UserState.Error -> { setErrorUserData() }
+            is UserState.Loading -> { setProgressBarVisible(true) }
+        }
+    }
+
+    private fun setUserData(userModel: UserModel) = with(binding) {
+        setProgressBarVisible(false)
+        accountLoginTextView.text = userModel.login
+        emailTextView.text = userModel.email
+    }
+
+    private fun setErrorUserData() = with(binding) {
+        setProgressBarVisible(false)
+        accountLoginTextView.text = ""
+        emailTextView.text = ""
+    }
+
+    private fun setProgressBarVisible(visible: Boolean) = with(binding) {
+        if (visible) {
+            progressBar.visibility = View.VISIBLE
+            accountLoginTextView.visibility = View.GONE
+            emailTextView.visibility = View.GONE
+        } else {
+            progressBar.visibility = View.GONE
+            accountLoginTextView.visibility = View.VISIBLE
+            emailTextView.visibility = View.VISIBLE
+        }
     }
 }
