@@ -9,6 +9,7 @@ import diarynote.settingsfragment.R
 
 class AccountSettingsFragment : Fragment() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
