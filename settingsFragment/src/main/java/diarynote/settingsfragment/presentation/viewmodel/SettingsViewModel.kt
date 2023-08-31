@@ -32,6 +32,10 @@ class SettingsViewModel(
         _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(false)
     }
 
+    fun getAccountSettingsMenuItemList() {
+        _settingsLiveData.value = settingsInteractor.getAccountSettingsMenuItemsList(false)
+    }
+
     fun getCurrentUserInfo(){
         getUserInfoById(sharedPreferences.getInt(CURRENT_USER_ID, 0))
     }
