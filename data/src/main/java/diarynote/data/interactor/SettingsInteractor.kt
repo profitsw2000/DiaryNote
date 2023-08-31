@@ -1,7 +1,7 @@
 package diarynote.data.interactor
 
 import diarynote.data.model.SettingsMenuItemModel
-import diarynote.data.settingsMenuItemList
+import diarynote.data.appsettings.settingsMenuItemList
 
 class SettingsInteractor() {
 
