@@ -12,6 +12,8 @@ dependencies {
     //Modules
     implementation(project(Modules.core))
     implementation(project(Modules.data))
+    implementation(project(Modules.template))
+    implementation(project(Modules.navigator))
 
     //Kotlin
     implementation(Kotlin.core)

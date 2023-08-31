@@ -19,6 +19,14 @@ class UserInteractor(
         }
     }
 
+    fun getUserById(userId: Int, remote: Boolean): Single<UserEntity> {
+        return if (remote) {
+            userRepositoryRemote.getUserById(userId)
+        } else {
+            userRepositoryLocal.getUserById(userId)
+        }
+    }
+
     fun getUserByLogin(login: String, remote: Boolean): Single<UserEntity> {
         return if (remote) {
             userRepositoryRemote.getUserByLogin(login)

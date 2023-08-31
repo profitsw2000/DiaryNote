@@ -11,6 +11,10 @@ class UserRepositoryRemoteImpl : UserRepositoryRemote {
         TODO("Not yet implemented")
     }
 
+    override fun getUserById(userId: Int): Single<UserEntity> {
+        TODO("Not yet implemented")
+    }
+
     override fun getUserByLogin(login: String): Single<UserEntity> {
         TODO("Not yet implemented")
     }
