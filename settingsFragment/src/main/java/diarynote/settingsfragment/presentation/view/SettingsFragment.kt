@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
@@ -49,6 +50,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun openFragmentById(itemId: Int) {
+        when(itemId) {
+            SETTINGS_ACCOUNT_ID -> navigator.navigateToAccountSettings()
+        }
         Toast.makeText(requireContext(), "$itemId", Toast.LENGTH_SHORT).show()
     }
 

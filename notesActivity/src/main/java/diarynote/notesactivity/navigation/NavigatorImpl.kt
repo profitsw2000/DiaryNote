@@ -29,6 +29,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.category_notes, bundle)
     }
 
+    override fun navigateToAccountSettings() {
+        navController.navigate(R.id.account_settings)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

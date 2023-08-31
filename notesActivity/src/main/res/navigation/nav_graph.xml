@@ -38,7 +38,11 @@
         android:id="@+id/settings"
         android:name="diarynote.settingsfragment.presentation.view.SettingsFragment"
         android:label="Настройки"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settings_to_account_settings"
+            app:destination="@id/account_settings"/>
+    </fragment>
 
 <!--  Main end  -->
 
@@ -86,5 +90,12 @@
         android:name="diarynote.categoriesfragment.presentation.view.CategoryNotesFragment"
         android:label="Категория..."
         tools:layout="@layout/fragment_category_notes"/>
+
+    <!--  Settings  -->
+    <fragment
+        android:id="@+id/account_settings"
+        android:name="diarynote.settingsfragment.presentation.view.AccountSettingsFragment"
+        android:label="Учетная запись"
+        tools:layout="@layout/fragment_account_settings"/>
 
 </navigation>

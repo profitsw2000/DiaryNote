@@ -14,5 +14,7 @@ interface Navigator {
 
     fun navigateToCategoryNotesList(bundle: Bundle)
 
+    fun navigateToAccountSettings()
+
     fun navigateUp()
 }

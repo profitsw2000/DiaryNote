@@ -26,7 +26,6 @@ class AccountSettingsFragment : Fragment() {
         override fun onItemClick(itemId: Int) {
 
         }
-
     })
 
     override fun onCreateView(
