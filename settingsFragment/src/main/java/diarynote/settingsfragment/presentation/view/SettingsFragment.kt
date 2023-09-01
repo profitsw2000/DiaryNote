@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
+import diarynote.data.appsettings.SETTINGS_THEME_ID
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
@@ -52,8 +53,8 @@ class SettingsFragment : Fragment() {
     private fun openFragmentById(itemId: Int) {
         when(itemId) {
             SETTINGS_ACCOUNT_ID -> navigator.navigateToAccountSettings()
+            SETTINGS_THEME_ID -> navigator.navigateToThemeSettings()
         }
-        Toast.makeText(requireContext(), "$itemId", Toast.LENGTH_SHORT).show()
     }
 
     private fun initViews() = with(binding) {
