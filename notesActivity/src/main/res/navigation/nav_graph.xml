@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_settings_to_account_settings"
             app:destination="@id/account_settings"/>
+        <action
+            android:id="@+id/action_settings_to_theme_settings"
+            app:destination="@id/theme_settings"/>
     </fragment>
 
 <!--  Main end  -->
@@ -97,5 +100,11 @@
         android:name="diarynote.settingsfragment.presentation.view.AccountSettingsFragment"
         android:label="Учетная запись"
         tools:layout="@layout/fragment_account_settings"/>
+
+    <fragment
+        android:id="@+id/theme_settings"
+        android:name="diarynote.settingsfragment.presentation.view.ThemeFragment"
+        android:label="Тема"
+        tools:layout="@layout/fragment_theme"/>
 
 </navigation>
