@@ -33,6 +33,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.account_settings)
     }
 
+    override fun navigateToThemeSettings() {
+        navController.navigate(R.id.theme_settings)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

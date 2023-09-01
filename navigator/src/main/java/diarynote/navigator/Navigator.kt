@@ -16,5 +16,7 @@ interface Navigator {
 
     fun navigateToAccountSettings()
 
+    fun navigateToThemeSettings()
+
     fun navigateUp()
 }
