@@ -1,6 +1,8 @@
 package diarynote.navigator
 
+import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 interface Navigator {
 
@@ -17,6 +19,8 @@ interface Navigator {
     fun navigateToAccountSettings()
 
     fun navigateToThemeSettings()
+
+    fun setCurrentTheme(context: Context)
 
     fun navigateUp()
 }

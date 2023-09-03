@@ -58,4 +58,26 @@
         <item name="drawerArrowStyle">@style/MyDrawerArrowToggleStyle</item>
     </style>
 
+    <!-- Dark application theme. -->
+    <style name="Theme.DiaryNoteDark" parent="Theme.Material3.Dark">
+
+        <!-- Outline brand color. -->
+        <item name="colorOutline">@color/deep_purple_A400</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/deep_purple_50</item>
+
+        <!-- Background color. -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+
+        <!--Стили для отдельных компонентов -->
+        <item name="chipStyle">@style/customMainChipStyle</item>
+        <item name="materialCalendarStyle">@style/customCalendarStyle</item>
+        <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
+
+        <!-- Action Bar -->
+        <item name="toolbarStyle">@style/appBarStyle</item>
+        <item name="drawerArrowStyle">@style/MyDrawerArrowToggleStyle</item>
+    </style>
 </resources>

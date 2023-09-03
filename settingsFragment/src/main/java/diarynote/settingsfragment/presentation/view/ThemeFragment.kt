@@ -1,5 +1,7 @@
 package diarynote.settingsfragment.presentation.view
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,10 +31,17 @@ class ThemeFragment : Fragment() {
     }
 
     private fun initViews() {
-
+        binding.darkThemeButton.setOnClickListener {
+            activity?.recreate()
+        }
     }
 
     private fun observeData() {
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

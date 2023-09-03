@@ -1,10 +1,13 @@
 package diarynote.notesactivity.navigation
 
+import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import diarynote.navigator.Navigator
 import diarynote.notesactivity.R
+import diarynote.notesactivity.presentation.view.NoteActivity
 
 class NavigatorImpl(private val navController: NavController) : Navigator {
 
@@ -35,6 +38,12 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
 
     override fun navigateToThemeSettings() {
         navController.navigate(R.id.theme_settings)
+    }
+
+    override fun setCurrentTheme(context: Context) {
+        val parentActivity = (context as NoteActivity)
+        parentActivity.setCurrentTheme()
+        parentActivity.recreate()
     }
 
     override fun navigateUp() {

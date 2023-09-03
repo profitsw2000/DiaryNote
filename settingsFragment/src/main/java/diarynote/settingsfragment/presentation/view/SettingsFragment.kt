@@ -103,4 +103,9 @@ class SettingsFragment : Fragment() {
             emailTextView.visibility = View.VISIBLE
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

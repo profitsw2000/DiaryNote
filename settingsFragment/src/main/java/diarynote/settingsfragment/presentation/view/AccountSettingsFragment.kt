@@ -56,4 +56,9 @@ class AccountSettingsFragment : Fragment() {
     private fun renderAccountSettingsMenuData(accountSettingsMenuItemModelList: List<SettingsMenuItemModel>) {
         adapter.setData(accountSettingsMenuItemModelList)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
