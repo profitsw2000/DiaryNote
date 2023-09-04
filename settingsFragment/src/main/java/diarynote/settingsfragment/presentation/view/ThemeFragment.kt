@@ -7,13 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import diarynote.data.appsettings.APP_THEME_DARK
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentThemeBinding
+import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ThemeFragment : Fragment() {
 
     private var _binding: FragmentThemeBinding? = null
     private val binding get() = _binding!!
+    private val settingsViewModel: SettingsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,7 @@ class ThemeFragment : Fragment() {
 
     private fun initViews() {
         binding.darkThemeButton.setOnClickListener {
+            settingsViewModel.setCurrentTheme(APP_THEME_DARK)
             activity?.recreate()
         }
     }

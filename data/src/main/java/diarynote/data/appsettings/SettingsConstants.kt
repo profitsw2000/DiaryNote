@@ -12,3 +12,7 @@ const val ACCOUNT_PROFILE_PHOTO_ID = 8
 const val ACCOUNT_CHANGE_ACCOUNT_INFO_ID = 9
 const val DELETE_ACCOUNT_ID = 10
 const val ACCOUNT_BACKUP_ID = 11
+
+const val CURRENT_THEME_KEY = "Current_theme"
+const val APP_THEME_LIGHT = 0
+const val APP_THEME_DARK = 1
