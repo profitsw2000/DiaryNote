@@ -56,7 +56,9 @@ class ThemeFragment : Fragment() {
     }
 
     private fun initSwitch() {
-        binding.defaultThemePickSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+
+        if (settingsViewModel.getFromDefaultDeviceMode()) binding.defaultThemePickSwitch.isChecked = true
+        binding.defaultThemePickSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 settingsViewModel.setFromDefaultDeviceMode(true)
                 when(requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
