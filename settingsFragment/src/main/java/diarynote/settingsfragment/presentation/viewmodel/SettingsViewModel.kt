@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
+import diarynote.data.appsettings.DEFAULT_THEME_KEY
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
 import diarynote.data.interactor.NoteInteractor
@@ -46,10 +47,21 @@ class SettingsViewModel(
         return sharedPreferences.getInt(CURRENT_THEME_KEY, APP_THEME_LIGHT)
     }
 
+    fun getFromDefaultDeviceMode(): Boolean {
+        return sharedPreferences.getBoolean(DEFAULT_THEME_KEY, false)
+    }
+
     fun setCurrentTheme(theme: Int) {
         sharedPreferences
             .edit()
             .putInt(CURRENT_THEME_KEY, theme)
+            .apply()
+    }
+
+    fun setFromDefaultDeviceMode(mode: Boolean) {
+        sharedPreferences
+            .edit()
+            .putBoolean(DEFAULT_THEME_KEY, mode)
             .apply()
     }
 

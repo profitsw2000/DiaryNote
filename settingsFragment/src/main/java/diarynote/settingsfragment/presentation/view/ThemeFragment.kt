@@ -2,6 +2,7 @@ package diarynote.settingsfragment.presentation.view
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,26 +33,55 @@ class ThemeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        observeData()
     }
 
-    private fun initViews() {
+    private fun initViews() = with(binding) {
+        initSwitch()
+        initDayThemeButton()
+        initDarkThemeButton()
+    }
+
+    private fun initDarkThemeButton() {
         binding.darkThemeButton.setOnClickListener {
-            if (settingsViewModel.getCurrentTheme() == APP_THEME_LIGHT) {
-                settingsViewModel.setCurrentTheme(APP_THEME_DARK)
-                activity?.recreate()
-            }
+            changeFromDefaultDeviceMode(APP_THEME_LIGHT)
+            changeTheme(APP_THEME_LIGHT, APP_THEME_DARK)
         }
+    }
+
+    private fun initDayThemeButton() {
         binding.lightThemeButton.setOnClickListener {
-            if (settingsViewModel.getCurrentTheme() == APP_THEME_DARK) {
-                settingsViewModel.setCurrentTheme(APP_THEME_LIGHT)
-                activity?.recreate()
+            changeFromDefaultDeviceMode(APP_THEME_DARK)
+            changeTheme(APP_THEME_DARK, APP_THEME_LIGHT)
+        }
+    }
+
+    private fun initSwitch() {
+        binding.defaultThemePickSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                settingsViewModel.setFromDefaultDeviceMode(true)
+                when(requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> changeTheme(APP_THEME_LIGHT, APP_THEME_DARK)
+                    Configuration.UI_MODE_NIGHT_NO -> changeTheme(APP_THEME_DARK, APP_THEME_LIGHT)
+                    else -> {}
+                }
+            } else {
+                settingsViewModel.setFromDefaultDeviceMode(false)
             }
         }
     }
 
-    private fun observeData() {
+    private fun changeTheme(fromTheme: Int, toTheme: Int) {
+        if (settingsViewModel.getCurrentTheme() == fromTheme) {
+            settingsViewModel.setCurrentTheme(toTheme)
+            activity?.recreate()
+        }
+    }
 
+    private fun changeFromDefaultDeviceMode(theme: Int) {
+        if (settingsViewModel.getFromDefaultDeviceMode() && settingsViewModel.getCurrentTheme() == theme) {
+            //settingsViewModel.setFromDefaultDeviceMode(false)
+            binding.defaultThemePickSwitch.isChecked = false
+        }
     }
 
     override fun onDestroyView() {
