@@ -14,5 +14,6 @@ const val DELETE_ACCOUNT_ID = 10
 const val ACCOUNT_BACKUP_ID = 11
 
 const val CURRENT_THEME_KEY = "Current_theme"
+const val DEFAULT_THEME_KEY = "Default_theme"
 const val APP_THEME_LIGHT = 0
 const val APP_THEME_DARK = 1

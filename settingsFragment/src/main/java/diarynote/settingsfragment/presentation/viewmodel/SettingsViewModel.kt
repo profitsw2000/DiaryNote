@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
@@ -39,6 +40,10 @@ class SettingsViewModel(
 
     fun getCurrentUserInfo(){
         getUserInfoById(sharedPreferences.getInt(CURRENT_USER_ID, 0))
+    }
+
+    fun getCurrentTheme(): Int {
+        return sharedPreferences.getInt(CURRENT_THEME_KEY, APP_THEME_LIGHT)
     }
 
     fun setCurrentTheme(theme: Int) {

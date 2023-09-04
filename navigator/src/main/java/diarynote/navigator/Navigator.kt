@@ -20,7 +20,5 @@ interface Navigator {
 
     fun navigateToThemeSettings()
 
-    fun setCurrentTheme(context: Context)
-
     fun navigateUp()
 }

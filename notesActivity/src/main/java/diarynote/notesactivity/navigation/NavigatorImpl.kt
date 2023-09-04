@@ -40,12 +40,6 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.theme_settings)
     }
 
-    override fun setCurrentTheme(context: Context) {
-        val parentActivity = (context as NoteActivity)
-        parentActivity.setCurrentTheme()
-        parentActivity.recreate()
-    }
-
     override fun navigateUp() {
         navController.navigateUp()
     }

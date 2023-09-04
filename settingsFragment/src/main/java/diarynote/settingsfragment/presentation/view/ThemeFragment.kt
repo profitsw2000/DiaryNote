@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import diarynote.data.appsettings.APP_THEME_DARK
+import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentThemeBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
@@ -36,8 +37,16 @@ class ThemeFragment : Fragment() {
 
     private fun initViews() {
         binding.darkThemeButton.setOnClickListener {
-            settingsViewModel.setCurrentTheme(APP_THEME_DARK)
-            activity?.recreate()
+            if (settingsViewModel.getCurrentTheme() == APP_THEME_LIGHT) {
+                settingsViewModel.setCurrentTheme(APP_THEME_DARK)
+                activity?.recreate()
+            }
+        }
+        binding.lightThemeButton.setOnClickListener {
+            if (settingsViewModel.getCurrentTheme() == APP_THEME_DARK) {
+                settingsViewModel.setCurrentTheme(APP_THEME_LIGHT)
+                activity?.recreate()
+            }
         }
     }
 
