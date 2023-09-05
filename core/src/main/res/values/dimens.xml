@@ -46,4 +46,6 @@
     <dimen name="account_image_size">100dp</dimen>
     <dimen name="account_image_stroke_size">2dp</dimen>
     <dimen name="settings_main_info_image_interval">24dp</dimen>
+    <dimen name="sub_settings_item_image_size">32dp</dimen>
+    <dimen name="sub_settings_item_image_view_margin_end">32dp</dimen>
 </resources>

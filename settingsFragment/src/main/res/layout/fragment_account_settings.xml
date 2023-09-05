@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/notes_activity_fragments_standart_padding"
     tools:context=".presentation.view.AccountSettingsFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
