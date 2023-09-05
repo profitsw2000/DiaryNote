@@ -51,3 +51,14 @@ val accountSettingsMenuItemList = listOf(
         itemName = "Резервная копия"
     )
 )
+
+val appLanguageList = listOf(
+    SettingsMenuItemModel(
+        itemId = RUSSIAN_LANGUAGE_ID,
+        itemName = "Русский"
+    ),
+    SettingsMenuItemModel(
+        itemId = ENGLISH_LANGUAGE_ID,
+        itemName = "English"
+    )
+)

@@ -17,3 +17,6 @@ const val CURRENT_THEME_KEY = "Current_theme"
 const val DEFAULT_THEME_KEY = "Default_theme"
 const val APP_THEME_LIGHT = 0
 const val APP_THEME_DARK = 1
+
+const val RUSSIAN_LANGUAGE_ID = 1
+const val ENGLISH_LANGUAGE_ID = 2
