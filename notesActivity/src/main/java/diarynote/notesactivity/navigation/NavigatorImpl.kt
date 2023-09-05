@@ -40,6 +40,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.theme_settings)
     }
 
+    override fun navigateToLanguageSettings() {
+        navController.navigate(R.id.language_settings)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }
