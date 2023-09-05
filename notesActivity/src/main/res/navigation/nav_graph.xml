@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_settings_to_theme_settings"
             app:destination="@id/theme_settings"/>
+        <action
+            android:id="@+id/action_settings_to_language_settings"
+            app:destination="@id/language_settings"/>
     </fragment>
 
 <!--  Main end  -->
@@ -106,5 +109,11 @@
         android:name="diarynote.settingsfragment.presentation.view.ThemeFragment"
         android:label="Тема"
         tools:layout="@layout/fragment_theme"/>
+
+    <fragment
+        android:id="@+id/language_settings"
+        android:name="diarynote.settingsfragment.presentation.view.LanguageFragment"
+        android:label="Язык"
+        tools:layout="@layout/fragment_language"/>
 
 </navigation>
