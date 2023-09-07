@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import diarynote.data.appsettings.ENGLISH_LANGUAGE_ABBR
+import diarynote.data.appsettings.ENGLISH_LANGUAGE_ID
+import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
+import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
 import diarynote.data.appsettings.appLanguageList
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentLanguageBinding
@@ -20,9 +24,17 @@ class LanguageFragment : Fragment() {
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val adapter = SubSettingsAdapter(object : OnSettingsMenuItemClickListener{
         override fun onItemClick(itemId: Int) {
-
+            setLanguageById(itemId)
+            activity?.recreate()
         }
     })
+
+    private fun setLanguageById(itemId: Int) {
+        when(itemId) {
+            RUSSIAN_LANGUAGE_ID -> settingsViewModel.setCurrentLanguage(RUSSIAN_LANGUAGE_ABBR)
+            ENGLISH_LANGUAGE_ID -> settingsViewModel.setCurrentLanguage(ENGLISH_LANGUAGE_ABBR)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

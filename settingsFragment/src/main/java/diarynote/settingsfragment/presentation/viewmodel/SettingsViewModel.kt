@@ -7,6 +7,7 @@ import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
 import diarynote.data.appsettings.DEFAULT_THEME_KEY
+import diarynote.data.appsettings.LANGUAGE_KEY
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
 import diarynote.data.interactor.NoteInteractor
@@ -55,6 +56,13 @@ class SettingsViewModel(
         sharedPreferences
             .edit()
             .putInt(CURRENT_THEME_KEY, theme)
+            .apply()
+    }
+
+    fun setCurrentLanguage(language: String) {
+        sharedPreferences
+            .edit()
+            .putString(LANGUAGE_KEY, language)
             .apply()
     }
 
