@@ -3,6 +3,7 @@ package diarynote.notesactivity.presentation.view
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Config
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,6 +24,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
+import java.util.Locale
 
 class NoteActivity : AppCompatActivity() {
 
@@ -35,6 +37,7 @@ class NoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         if(!noteViewModel.isDefaultDeviceTheme()) setTheme(getThemeStyle())
         super.onCreate(savedInstanceState)
+        setLanguage()
         _binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -83,5 +86,16 @@ class NoteActivity : AppCompatActivity() {
             APP_THEME_DARK -> diarynote.core.R.style.Theme_DiaryNoteDark
             else -> diarynote.core.R.style.Theme_DiaryNote
         }
+    }
+
+    private fun setLanguage() {
+        val languageToLoad = noteViewModel.getCurrentLanguage()
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+
+        val config = baseContext.resources.configuration
+        config.setLocale(locale)
+        baseContext.createConfigurationContext(config)
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
     }
 }

@@ -20,3 +20,6 @@ const val APP_THEME_DARK = 1
 
 const val RUSSIAN_LANGUAGE_ID = 1
 const val ENGLISH_LANGUAGE_ID = 2
+const val LANGUAGE_KEY = "language"
+const val RUSSIAN_LANGUAGE_ABBR = "ru"
+const val ENGLISH_LANGUAGE_ABBR = "en"
