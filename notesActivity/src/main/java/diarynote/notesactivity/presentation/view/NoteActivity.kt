@@ -18,7 +18,9 @@ import diarynote.navigator.Navigator
 import diarynote.notesactivity.R
 import diarynote.notesactivity.databinding.ActivityNoteBinding
 import diarynote.notesactivity.navigation.NavigatorImpl
+import diarynote.notesactivity.presentation.viewmodel.NoteViewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
@@ -28,10 +30,10 @@ class NoteActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val sharedPreferences: SharedPreferences by inject()
+    private val noteViewModel: NoteViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(!isDefaultDeviceTheme()) setTheme(getThemeStyle())
+        if(!noteViewModel.isDefaultDeviceTheme()) setTheme(getThemeStyle())
         super.onCreate(savedInstanceState)
         _binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -75,19 +77,11 @@ class NoteActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
-    private fun getCurrentThemeId() : Int {
-        return sharedPreferences.getInt(CURRENT_THEME_KEY, APP_THEME_LIGHT)
-    }
-
     private fun getThemeStyle(): Int {
-        return when(getCurrentThemeId()){
+        return when(noteViewModel.getCurrentThemeId()){
             APP_THEME_LIGHT -> diarynote.core.R.style.Theme_DiaryNote
             APP_THEME_DARK -> diarynote.core.R.style.Theme_DiaryNoteDark
             else -> diarynote.core.R.style.Theme_DiaryNote
         }
-    }
-
-    private fun isDefaultDeviceTheme(): Boolean {
-        return sharedPreferences.getBoolean(DEFAULT_THEME_KEY, false)
     }
 }
