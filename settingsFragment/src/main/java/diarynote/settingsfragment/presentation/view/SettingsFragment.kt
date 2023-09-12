@@ -47,7 +47,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        settingsViewModel.getSettingsMenuItemList()
+        settingsViewModel.getSettingsMenuItemList(requireContext())
         settingsViewModel.getCurrentUserInfo()
     }
 

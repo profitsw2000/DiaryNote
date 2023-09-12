@@ -9,7 +9,8 @@ import diarynote.data.appsettings.ENGLISH_LANGUAGE_ABBR
 import diarynote.data.appsettings.ENGLISH_LANGUAGE_ID
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
-import diarynote.data.appsettings.appLanguageList
+import diarynote.data.appsettings.appLanguageIdList
+import diarynote.data.appsettings.createSettingsMenuList
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentLanguageBinding
 import diarynote.settingsfragment.presentation.view.adapter.SubSettingsAdapter
@@ -54,7 +55,11 @@ class LanguageFragment : Fragment() {
     }
 
     private fun initViews() {
+        val languageSettingsList = createSettingsMenuList(
+            appLanguageIdList,
+            resources.getStringArray(diarynote.core.R.array.language_settings_strings)
+        )
         binding.languageListRecyclerView.adapter = adapter
-        settingsViewModel.getCurrentLanguageId()?.let { adapter.setData(appLanguageList, it) }
+        settingsViewModel.getCurrentLanguageId()?.let { adapter.setData(languageSettingsList, it) }
     }
 }

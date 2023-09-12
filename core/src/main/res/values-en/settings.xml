@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_strings">
+        <item>Account</item>
+        <item>Theme</item>
+        <item>Language</item>
+        <item>General</item>
+        <item>Help</item>
+        <item>About</item>
+    </string-array>
+
+    <string-array name="account_settings_strings">
+        <item>Change password</item>
+        <item>Profile photo</item>
+        <item>Change account info</item>
+        <item>Delete account</item>
+        <item>Backup</item>
+    </string-array>
+
+    <string-array name="language_settings_strings">
+        <item>Russian</item>
+        <item>English</item>
+    </string-array>
+</resources>

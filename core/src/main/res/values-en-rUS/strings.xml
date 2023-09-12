@@ -80,4 +80,12 @@
     <string name="last_year_notes_chip_text">Year</string>
     <string name="select_period_notes_chip_text">Select period</string>
     <string name="settings_title_text">Settings</string>
+    <string name="create_note_fragment_label_text">Create...</string>
+    <string name="read_note_fragment_label_text">Note...</string>
+    <string name="edit_note_fragment_label_text">Edit...</string>
+    <string name="add_category_fragment_label_text">Add category...</string>
+    <string name="category_notes_fragment_label_text">Category...</string>
+    <string name="account_fragment_label_text">Account</string>
+    <string name="appearance_fragment_label_text">Appearance</string>
+    <string name="language_fragment_label_text">Язык</string>
 </resources>

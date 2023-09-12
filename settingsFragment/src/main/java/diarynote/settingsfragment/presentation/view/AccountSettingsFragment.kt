@@ -41,7 +41,7 @@ class AccountSettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        settingsViewModel.getAccountSettingsMenuItemList()
+        settingsViewModel.getAccountSettingsMenuItemList(requireContext())
     }
 
     private fun initViews() = with(binding) {

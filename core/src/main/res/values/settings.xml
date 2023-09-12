@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_strings">
+        <item>Учетная запись</item>
+        <item>Тема</item>
+        <item>Язык</item>
+        <item>Общие</item>
+        <item>Помощь</item>
+        <item>О приложении</item>
+    </string-array>
+
+    <string-array name="account_settings_strings">
+        <item>Изменить пароль</item>
+        <item>Фото профиля</item>
+        <item>Изменить данные аккаунта</item>
+        <item>Удалить учетную запись</item>
+        <item>Резервная копия</item>
+    </string-array>
+
+    <string-array name="language_settings_strings">
+        <item>Русский</item>
+        <item>Английский</item>
+    </string-array>
+</resources>

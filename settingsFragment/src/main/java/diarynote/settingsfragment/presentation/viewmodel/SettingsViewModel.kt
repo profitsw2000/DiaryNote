@@ -1,5 +1,6 @@
 package diarynote.settingsfragment.presentation.viewmodel
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,12 +36,12 @@ class SettingsViewModel(
     private val _userLiveData = MutableLiveData<UserState>()
     val userLiveData: LiveData<UserState> by this::_userLiveData
 
-    fun getSettingsMenuItemList() {
-        _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(false)
+    fun getSettingsMenuItemList(context: Context) {
+        _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(context,false)
     }
 
-    fun getAccountSettingsMenuItemList() {
-        _settingsLiveData.value = settingsInteractor.getAccountSettingsMenuItemsList(false)
+    fun getAccountSettingsMenuItemList(context: Context) {
+        _settingsLiveData.value = settingsInteractor.getAccountSettingsMenuItemsList(context,false)
     }
 
     fun getCurrentUserInfo(){

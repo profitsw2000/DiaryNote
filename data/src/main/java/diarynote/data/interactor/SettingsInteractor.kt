@@ -1,19 +1,29 @@
 package diarynote.data.interactor
 
-import diarynote.data.appsettings.accountSettingsMenuItemList
+import android.content.Context
+import diarynote.core.R
+import diarynote.data.appsettings.accountSettingsIdList
+import diarynote.data.appsettings.createSettingsMenuList
+import diarynote.data.appsettings.settingsIdList
 import diarynote.data.model.SettingsMenuItemModel
-import diarynote.data.appsettings.settingsMenuItemList
 
 class SettingsInteractor() {
 
-    fun getSettingsMenuItemsList(remote: Boolean)  : List<SettingsMenuItemModel>{
+    fun getSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
+
         if (remote) return arrayListOf()
-        else return  settingsMenuItemList
+        else return createSettingsMenuList(
+            settingsIdList,
+            context.resources.getStringArray(R.array.settings_strings)
+        )
     }
 
-    fun getAccountSettingsMenuItemsList(remote: Boolean)  : List<SettingsMenuItemModel>{
+    fun getAccountSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
         if (remote) return arrayListOf()
-        else return  accountSettingsMenuItemList
+        else return  createSettingsMenuList(
+            accountSettingsIdList,
+            context.resources.getStringArray(R.array.account_settings_strings)
+        )
     }
 
 }
