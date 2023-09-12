@@ -24,8 +24,11 @@ class LanguageFragment : Fragment() {
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val adapter = SubSettingsAdapter(object : OnSettingsMenuItemClickListener{
         override fun onItemClick(itemId: Int) {
-            setLanguageById(itemId)
-            activity?.recreate()
+            if (settingsViewModel.getCurrentLanguageId() != itemId){
+                setLanguageById(itemId)
+                settingsViewModel.setCurrentLanguageId(itemId)
+                activity?.recreate()
+            }
         }
     })
 
@@ -52,6 +55,6 @@ class LanguageFragment : Fragment() {
 
     private fun initViews() {
         binding.languageListRecyclerView.adapter = adapter
-        adapter.setData(appLanguageList)
+        settingsViewModel.getCurrentLanguageId()?.let { adapter.setData(appLanguageList, it) }
     }
 }

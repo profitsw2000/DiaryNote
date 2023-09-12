@@ -1,6 +1,7 @@
 package diarynote.settingsfragment.presentation.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.data.appsettings.SETTINGS_ABOUT_ID
@@ -19,9 +20,16 @@ class SubSettingsAdapter(
 ) : RecyclerView.Adapter<SubSettingsAdapter.ViewHolder>() {
 
     private var data: List<SettingsMenuItemModel> = arrayListOf()
+    private var selectedLanguageId: Int = 0
 
     fun setData(data: List<SettingsMenuItemModel>) {
         this.data = data
+        notifyDataSetChanged()
+    }
+
+    fun setData(data: List<SettingsMenuItemModel>, selectedLanguageId: Int) {
+        this.data = data
+        this.selectedLanguageId = selectedLanguageId
         notifyDataSetChanged()
     }
 
@@ -49,10 +57,14 @@ class SubSettingsAdapter(
 
         with(holder) {
             itemName.text = settingsMenuItem.itemName
+            if (settingsMenuItem.itemId == selectedLanguageId) {
+                itemImage.visibility = View.VISIBLE
+            }
         }
     }
 
     inner class ViewHolder(binding: SubSettingsRvItemViewBinding) : RecyclerView.ViewHolder(binding.root){
         val itemName = binding.accountMenuItemNameTextView
+        val itemImage = binding.subSettingsItemImageView
     }
 }

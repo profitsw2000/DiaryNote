@@ -7,7 +7,10 @@ import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
 import diarynote.data.appsettings.DEFAULT_THEME_KEY
+import diarynote.data.appsettings.LANGUAGE_ID_KEY
 import diarynote.data.appsettings.LANGUAGE_KEY
+import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
+import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
 import diarynote.data.interactor.NoteInteractor
@@ -64,6 +67,17 @@ class SettingsViewModel(
             .edit()
             .putString(LANGUAGE_KEY, language)
             .apply()
+    }
+
+    fun setCurrentLanguageId(languageId: Int) {
+        sharedPreferences
+            .edit()
+            .putInt(LANGUAGE_ID_KEY, languageId)
+            .apply()
+    }
+
+    fun getCurrentLanguageId() : Int? {
+        return sharedPreferences.getInt(LANGUAGE_ID_KEY, RUSSIAN_LANGUAGE_ID)
     }
 
     fun setFromDefaultDeviceMode(mode: Boolean) {
