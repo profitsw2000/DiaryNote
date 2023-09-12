@@ -16,7 +16,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class HomeViewModel(
     private val noteInteractor: NoteInteractor,
     private val sharedPreferences: SharedPreferences,
-    private val navigator: Navigator,
     private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
@@ -43,13 +42,4 @@ class HomeViewModel(
                 }
             )
     }
-
-    fun navigateToNoteCreation() {
-        navigator.navigateToNoteCreation()
-    }
-
-    fun navigateToNoteDetails(bundle: Bundle) {
-        navigator.navigateToNoteRead(bundle)
-    }
-
 }

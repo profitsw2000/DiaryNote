@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val homeModule = module {
 
-    single { HomeViewModel(get(), get(), get(), get()) }
+    single { HomeViewModel(get(), get(), get()) }
     single<NoteRepositoryLocal> { NoteRepositoryLocalImpl(get()) }
     single<NoteRepositoryRemote> { NoteRepositoryRemoteImpl() }
     factory { NoteInteractor(get(), get()) }
