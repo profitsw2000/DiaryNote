@@ -79,12 +79,4 @@
     <string name="last_year_notes_chip_text">Год</string>
     <string name="select_period_notes_chip_text">Выбрать период</string>
     <string name="settings_title_text">Настройки</string>
-    <string name="create_note_fragment_label_text">Создание...</string>
-    <string name="read_note_fragment_label_text">Заметка...</string>
-    <string name="edit_note_fragment_label_text">Редактирование...</string>
-    <string name="add_category_fragment_label_text">Добавить категорию...</string>
-    <string name="category_notes_fragment_label_text">Категория...</string>
-    <string name="account_fragment_label_text">Учетная запись</string>
-    <string name="appearance_fragment_label_text">Тема</string>
-    <string name="language_fragment_label_text">Language</string>
 </resources>

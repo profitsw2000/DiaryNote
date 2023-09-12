@@ -14,8 +14,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ReadNoteViewModel(
     private val noteInteractor: NoteInteractor,
-    private val noteMapper: NoteMapper,
-    private val navigator: Navigator
+    private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
     private val _notesLiveData = MutableLiveData<NotesState?>()
@@ -51,10 +50,6 @@ class ReadNoteViewModel(
                     _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1, 0) }
                 }
             )
-    }
-
-    fun navigateToEditNoteFragment(bundle: Bundle) {
-        navigator.navigateToNoteEdit(bundle)
     }
 
     fun clear() {

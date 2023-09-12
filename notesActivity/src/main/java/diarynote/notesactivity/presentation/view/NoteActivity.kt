@@ -36,8 +36,8 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if(!noteViewModel.isDefaultDeviceTheme()) setTheme(getThemeStyle())
-        super.onCreate(savedInstanceState)
         setLanguage()
+        super.onCreate(savedInstanceState)
         _binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
