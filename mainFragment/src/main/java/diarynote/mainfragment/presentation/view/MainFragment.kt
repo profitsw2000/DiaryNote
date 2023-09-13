@@ -12,9 +12,11 @@ import diarynote.data.model.NoteModel
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
 import diarynote.mainfragment.presentation.viewmodel.HomeViewModel
+import diarynote.navigator.Navigator
 import diarynote.template.model.NotesState
 import diarynote.template.presentation.adapter.NotesListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -22,13 +24,14 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
+    private val navigator: Navigator by inject()
     private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
             }
             this@MainFragment.arguments = bundle
-            homeViewModel.navigateToNoteDetails(bundle)
+            navigator.navigateToNoteRead(bundle)
         }
     })
 
@@ -52,7 +55,7 @@ class MainFragment : Fragment() {
         with(binding) {
             mainNotesListRecyclerView.adapter = adapter
             addNoteFab.setOnClickListener {
-                homeViewModel.navigateToNoteCreation()
+                navigator.navigateToNoteCreation()
             }
         }
     }

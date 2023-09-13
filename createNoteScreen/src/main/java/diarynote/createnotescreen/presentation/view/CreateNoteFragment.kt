@@ -20,6 +20,8 @@ import diarynote.createnotescreen.presentation.view.adapter.HorizontalCategoryLi
 import diarynote.createnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.createnotescreen.presentation.viewmodel.CreateNoteViewModel
 import diarynote.data.model.CategoryModel
+import diarynote.navigator.Navigator
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateNoteFragment : Fragment() {
@@ -29,6 +31,7 @@ class CreateNoteFragment : Fragment() {
     private lateinit var data: List<CategoryModel>
     private var selectedCategoryIndex = 0
     private val createNoteViewModel: CreateNoteViewModel by viewModel()
+    private val navigator: Navigator by inject()
     private val adapter = HorizontalCategoryListAdapter(object : OnItemClickListener {
         override fun onItemClick(position: Int) {
             updateListItem(position)
@@ -57,7 +60,7 @@ class CreateNoteFragment : Fragment() {
         val dialoger =
             DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
-                    createNoteViewModel.navigateUp()
+                    navigator.navigateUp()
                 }
             })
 
@@ -141,7 +144,7 @@ class CreateNoteFragment : Fragment() {
     private fun successfulNoteCreation() = with(binding) {
         val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
             override fun onClick() {
-                createNoteViewModel.navigateUp()
+                navigator.navigateUp()
                 clearInputForms()
                 createNoteViewModel.clear()
             }
@@ -193,7 +196,7 @@ class CreateNoteFragment : Fragment() {
             adapter.updateData(data, position)
             selectedCategoryIndex = position
         } else {
-            createNoteViewModel.navigateToAddCategoryFragment()
+            navigator.navigateToCategoryCreation()
         }
     }
 

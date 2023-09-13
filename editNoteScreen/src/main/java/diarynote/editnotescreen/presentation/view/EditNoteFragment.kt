@@ -20,7 +20,9 @@ import diarynote.editnotescreen.databinding.FragmentEditNoteBinding
 import diarynote.editnotescreen.presentation.view.adapter.HorizontalCategoryListAdapter
 import diarynote.editnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.editnotescreen.presentation.viewmodel.EditNoteViewModel
+import diarynote.navigator.Navigator
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -29,6 +31,7 @@ class EditNoteFragment : Fragment() {
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
     private val editNoteViewModel: EditNoteViewModel by viewModel()
+    private val navigator: Navigator by inject()
     private var selectedCategoryIndex = 0
     private lateinit var data: List<CategoryModel>
     private val noteModel: NoteModel? by lazy { arguments?.getParcelable(NOTE_MODEL_BUNDLE) }
@@ -173,7 +176,7 @@ class EditNoteFragment : Fragment() {
             adapter.setData(data, position)
             selectedCategoryIndex = position
         } else {
-            editNoteViewModel.navigateToAddCategoryFragment()
+            navigator.navigateToCategoryCreation()
         }
     }
 

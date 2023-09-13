@@ -23,8 +23,7 @@ class EditNoteViewModel(
     private val categoryMapper: CategoryMapper,
     private val sharedPreferences: SharedPreferences,
     private val noteInteractor: NoteInteractor,
-    private val noteMapper: NoteMapper,
-    private val navigator: Navigator
+    private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -105,14 +104,6 @@ class EditNoteViewModel(
                     _notesLiveData.value = NotesState.Error(it.message!!, (1 shl ROOM_BIT_NUMBER))
                 }
             )
-    }
-
-    fun navigateUp() {
-        navigator.navigateUp()
-    }
-
-    fun navigateToAddCategoryFragment() {
-        navigator.navigateToCategoryCreation()
     }
 
     fun clear() {

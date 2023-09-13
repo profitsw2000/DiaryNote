@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/main"
         android:name="diarynote.mainfragment.presentation.view.MainFragment"
-        android:label="Главная"
+        android:label="@string/main_fragment_label_text"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_main_to_create_note"
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/categories"
         android:name="diarynote.categoriesfragment.presentation.view.CategoriesFragment"
-        android:label="Категории"
+        android:label="@string/categories_fragment_label_text"
         tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/action_categories_to_create_category"
@@ -31,21 +31,31 @@
     <fragment
         android:id="@+id/calendar"
         android:name="diarynote.calendarfragment.presentation.view.CalendarFragment"
-        android:label="Календарь"
+        android:label="@string/calendar_fragment_label_text"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/settings"
         android:name="diarynote.settingsfragment.presentation.view.SettingsFragment"
-        android:label="Настройки"
-        tools:layout="@layout/fragment_settings"/>
+        android:label="@string/settings_fragment_label_text"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settings_to_account_settings"
+            app:destination="@id/account_settings"/>
+        <action
+            android:id="@+id/action_settings_to_theme_settings"
+            app:destination="@id/theme_settings"/>
+        <action
+            android:id="@+id/action_settings_to_language_settings"
+            app:destination="@id/language_settings"/>
+    </fragment>
 
 <!--  Main end  -->
 
     <fragment
         android:id="@+id/create_note"
         android:name="diarynote.createnotescreen.presentation.view.CreateNoteFragment"
-        android:label="Создание..."
+        android:label="@string/create_note_fragment_label_text"
         tools:layout="@layout/fragment_create_note">
         <action
             android:id="@+id/action_create_note_to_create_category"
@@ -55,7 +65,7 @@
     <fragment
         android:id="@+id/read_note"
         android:name="diarynote.readnotescreen.presentation.view.ReadNoteFragment"
-        android:label="Заметка..."
+        android:label="@string/read_note_fragment_label_text"
         tools:layout="@layout/fragment_read_note">
 
         <action
@@ -68,7 +78,7 @@
     <fragment
         android:id="@+id/edit_note"
         android:name="diarynote.editnotescreen.presentation.view.EditNoteFragment"
-        android:label="Редактирование..."
+        android:label="@string/edit_note_fragment_label_text"
         tools:layout="@layout/fragment_edit_note">
         <action
             android:id="@+id/action_edit_note_to_create_category"
@@ -78,13 +88,32 @@
     <fragment
         android:id="@+id/add_category"
         android:name="diarynote.addcategoryscreen.presentation.view.AddCategoryFragment"
-        android:label="Добавить категорию..."
+        android:label="@string/add_category_fragment_label_text"
         tools:layout="@layout/fragment_add_category"/>
 
     <fragment
         android:id="@+id/category_notes"
         android:name="diarynote.categoriesfragment.presentation.view.CategoryNotesFragment"
-        android:label="Категория..."
+        android:label="@string/category_notes_fragment_label_text"
         tools:layout="@layout/fragment_category_notes"/>
+
+    <!--  Settings  -->
+    <fragment
+        android:id="@+id/account_settings"
+        android:name="diarynote.settingsfragment.presentation.view.AccountSettingsFragment"
+        android:label="@string/account_fragment_label_text"
+        tools:layout="@layout/fragment_account_settings"/>
+
+    <fragment
+        android:id="@+id/theme_settings"
+        android:name="diarynote.settingsfragment.presentation.view.ThemeFragment"
+        android:label="@string/appearance_fragment_label_text"
+        tools:layout="@layout/fragment_theme"/>
+
+    <fragment
+        android:id="@+id/language_settings"
+        android:name="diarynote.settingsfragment.presentation.view.LanguageFragment"
+        android:label="@string/language_fragment_label_text"
+        tools:layout="@layout/fragment_language"/>
 
 </navigation>

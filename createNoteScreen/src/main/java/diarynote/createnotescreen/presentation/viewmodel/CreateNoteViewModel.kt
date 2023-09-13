@@ -24,8 +24,7 @@ class CreateNoteViewModel(
     private val noteInteractor: NoteInteractor,
     private val sharedPreferences: SharedPreferences,
     private val categoryMapper: CategoryMapper,
-    private val noteMapper: NoteMapper,
-    private val navigator: Navigator
+    private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
@@ -135,14 +134,6 @@ class CreateNoteViewModel(
                     Log.d("VVV", "addNote: $it")
                 }
             )
-    }
-
-    fun navigateToAddCategoryFragment() {
-        navigator.navigateToCategoryCreation()
-    }
-
-    fun navigateUp() {
-        navigator.navigateUp()
     }
 
     fun clear() {

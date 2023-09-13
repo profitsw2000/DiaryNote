@@ -9,9 +9,11 @@ import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
+import diarynote.navigator.Navigator
 import diarynote.readnotescreen.R
 import diarynote.readnotescreen.databinding.FragmentReadNoteBinding
 import diarynote.readnotescreen.presentation.viewmodel.ReadNoteViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,6 +23,7 @@ class ReadNoteFragment : Fragment() {
     private var _binding: FragmentReadNoteBinding? = null
     private val binding get() = _binding!!
     private val readNoteViewModel: ReadNoteViewModel by viewModel()
+    private val navigator: Navigator by inject()
     private val noteModel: NoteModel? by lazy { arguments?.getParcelable(NOTE_MODEL_BUNDLE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,7 +134,7 @@ class ReadNoteFragment : Fragment() {
                         putParcelable(NOTE_MODEL_BUNDLE, noteModel)
                     }
                     this@ReadNoteFragment.arguments = bundle
-                    readNoteViewModel.navigateToEditNoteFragment(bundle)
+                    navigator.navigateToNoteEdit(bundle)
                 }
             }
         )

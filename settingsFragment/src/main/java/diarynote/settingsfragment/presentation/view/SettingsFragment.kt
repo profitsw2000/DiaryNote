@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
+import diarynote.data.appsettings.SETTINGS_LANGUAGE_ID
+import diarynote.data.appsettings.SETTINGS_THEME_ID
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
@@ -44,12 +47,16 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        settingsViewModel.getSettingsMenuItemList()
+        settingsViewModel.getSettingsMenuItemList(requireContext())
         settingsViewModel.getCurrentUserInfo()
     }
 
     private fun openFragmentById(itemId: Int) {
-        Toast.makeText(requireContext(), "$itemId", Toast.LENGTH_SHORT).show()
+        when(itemId) {
+            SETTINGS_ACCOUNT_ID -> navigator.navigateToAccountSettings()
+            SETTINGS_THEME_ID -> navigator.navigateToThemeSettings()
+            SETTINGS_LANGUAGE_ID -> navigator.navigateToLanguageSettings()
+        }
     }
 
     private fun initViews() = with(binding) {
@@ -97,5 +104,10 @@ class SettingsFragment : Fragment() {
             accountLoginTextView.visibility = View.VISIBLE
             emailTextView.visibility = View.VISIBLE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

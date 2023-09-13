@@ -1,10 +1,13 @@
 package diarynote.notesactivity.navigation
 
+import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import diarynote.navigator.Navigator
 import diarynote.notesactivity.R
+import diarynote.notesactivity.presentation.view.NoteActivity
 
 class NavigatorImpl(private val navController: NavController) : Navigator {
 
@@ -27,6 +30,18 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
 
     override fun navigateToCategoryNotesList(bundle: Bundle) {
         navController.navigate(R.id.category_notes, bundle)
+    }
+
+    override fun navigateToAccountSettings() {
+        navController.navigate(R.id.account_settings)
+    }
+
+    override fun navigateToThemeSettings() {
+        navController.navigate(R.id.theme_settings)
+    }
+
+    override fun navigateToLanguageSettings() {
+        navController.navigate(R.id.language_settings)
     }
 
     override fun navigateUp() {

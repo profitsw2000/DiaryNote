@@ -1,6 +1,8 @@
 package diarynote.navigator
 
+import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 interface Navigator {
 
@@ -13,6 +15,12 @@ interface Navigator {
     fun navigateToCategoryCreation()
 
     fun navigateToCategoryNotesList(bundle: Bundle)
+
+    fun navigateToAccountSettings()
+
+    fun navigateToThemeSettings()
+
+    fun navigateToLanguageSettings()
 
     fun navigateUp()
 }

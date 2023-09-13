@@ -7,6 +7,7 @@ import diarynote.categoriesfragment.di.categoryModule
 import diarynote.createnotescreen.di.createNoteModule
 import diarynote.editnotescreen.di.editNoteModule
 import diarynote.mainfragment.di.homeModule
+import diarynote.notesactivity.di.noteModule
 import diarynote.passwordrecovery.di.recoveryModule
 import diarynote.readnotescreen.di.readNoteModule
 import diarynote.registrationscreen.di.registrationModule
@@ -35,7 +36,8 @@ class App : Application() {
                 editNoteModule,
                 addCategoryModule,
                 calendarModule,
-                settingsModule
+                settingsModule,
+                noteModule
             )
         }
     }

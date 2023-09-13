@@ -1,11 +1,12 @@
 package ru.profitsw2000.diarynote.di
 
 import android.content.Context
+import diarynote.core.utils.SHARED_PREFERENCE_NAME
 import diarynote.data.room.database.AppDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.profitsw2000.diarynote.presentation.viewmodel.MainViewModel
 
-val SHARED_PREFERENCE_NAME = "SHARED_PREFERENCE_NAME"
 
 val appModule = module {
     single {
@@ -19,4 +20,6 @@ val appModule = module {
             Context.MODE_PRIVATE
         )
     }
+
+    single { MainViewModel(get()) }
 }
