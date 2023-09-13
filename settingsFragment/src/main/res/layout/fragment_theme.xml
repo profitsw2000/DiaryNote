@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_theme_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_300"
+    tools:context=".presentation.view.ThemeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/default_theme_pick_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/small_constraint_horizontal_padding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85"/>
+
+        <TextView
+            android:id="@+id/default_theme_title_text_view"
+            style="@style/categories_list_item_title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/default_theme_picker_title_text" />
+
+        <TextView
+            android:id="@+id/default_theme_content_text_view"
+            style="@style/notes_tags_and_date_text_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/default_theme_picker_content_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/default_theme_title_text_view" />
+
+        <Switch
+            android:id="@+id/default_theme_pick_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/switch_minimum_size"
+            android:minHeight="@dimen/switch_minimum_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@id/default_theme_content_text_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pick_theme_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/small_constraint_vertical_spacing_between_views"
+        android:background="@color/white"
+        android:padding="@dimen/small_constraint_horizontal_padding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/default_theme_pick_constraint_layout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/pick_theme_title_text_view"
+            style="@style/categories_list_item_title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_theme_title_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/light_theme_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/pick_theme_title_text_view"
+            app:layout_constraintEnd_toStartOf="@+id/dark_theme_button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/small_constraint_vertical_spacing_between_views"
+            android:layout_marginEnd="@dimen/small_constraint_horizontal_padding"
+            android:text="@string/light_theme_pick_button_text"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:id="@+id/dark_theme_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/light_theme_button"
+            app:layout_constraintStart_toEndOf="@id/light_theme_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/dark_theme_pick_button_text"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
