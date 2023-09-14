@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
+import diarynote.data.appsettings.SETTINGS_GENERAL_ID
 import diarynote.data.appsettings.SETTINGS_LANGUAGE_ID
 import diarynote.data.appsettings.SETTINGS_THEME_ID
 import diarynote.data.model.SettingsMenuItemModel
@@ -56,6 +57,7 @@ class SettingsFragment : Fragment() {
             SETTINGS_ACCOUNT_ID -> navigator.navigateToAccountSettings()
             SETTINGS_THEME_ID -> navigator.navigateToThemeSettings()
             SETTINGS_LANGUAGE_ID -> navigator.navigateToLanguageSettings()
+            SETTINGS_GENERAL_ID -> navigator.navigateToGeneralSettings()
         }
     }
 

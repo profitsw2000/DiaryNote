@@ -5,18 +5,37 @@
     android:id="@+id/general_settings_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/standart_constraint_horizontal_padding"
     tools:context=".presentation.view.GeneralSettingsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/general_settings_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/use_password_text_view"
+        style="@style/settings_menu_item_title_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/sub_settings_item_text_padding"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/use_password_menu_item_text"/>
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:button="@drawable/subtract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        app:layout_constraintBottom_toBottomOf="@+id/use_password_text_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layout_constraintTop_toTopOf="@+id/use_password_text_view" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha=".5"
+        android:background="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/use_password_text_view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

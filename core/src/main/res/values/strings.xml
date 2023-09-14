@@ -79,4 +79,5 @@
     <string name="last_year_notes_chip_text">Год</string>
     <string name="select_period_notes_chip_text">Выбрать период</string>
     <string name="settings_title_text">Настройки</string>
+    <string name="use_password_menu_item_text">Запрашивать пароль при входе</string>
 </resources>
