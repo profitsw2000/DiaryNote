@@ -116,4 +116,10 @@
         android:label="@string/language_fragment_label_text"
         tools:layout="@layout/fragment_language"/>
 
+    <fragment
+        android:id="@+id/general_settings"
+        android:name="diarynote.settingsfragment.presentation.view.GeneralSettingsFragment"
+        android:label="@string/general_settings_fragment_label_text"
+        tools:layout="@layout/fragment_general_settings"/>
+
 </navigation>

@@ -22,5 +22,7 @@ interface Navigator {
 
     fun navigateToLanguageSettings()
 
+    fun navigateToGeneralSettings()
+
     fun navigateUp()
 }

@@ -44,6 +44,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.language_settings)
     }
 
+    override fun navigateToGeneralSettings() {
+        navController.navigate(R.id.general_settings)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }
