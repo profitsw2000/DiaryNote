@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity(), Controller {
         setLanguage()
         super.onCreate(savedInstanceState)
 
+        if (mainViewModel.isPasswordRequired() == false) {
+            startNotesActivity()
+        }
+
         setContentView(R.layout.activity_main)
 
         val actionBar = supportActionBar

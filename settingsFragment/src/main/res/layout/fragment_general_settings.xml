@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/use_password_text_view"
             app:layout_constraintBottom_toBottomOf="@id/use_password_text_view"
-            tools:src="@drawable/unchecked_item_icon"/>
+            tools:src="@drawable/unchecked_item"/>
 
         <View
             android:id="@+id/view"

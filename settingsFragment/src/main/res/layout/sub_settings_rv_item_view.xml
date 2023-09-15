@@ -27,16 +27,6 @@
         android:visibility="gone"
         android:src="@drawable/baseline_check_24"/>
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        style="@style/settings_radio_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        app:layout_constraintBottom_toBottomOf="@+id/account_menu_item_name_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/account_menu_item_name_text_view" />
-
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"

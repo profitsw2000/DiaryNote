@@ -46,9 +46,9 @@ class GeneralSettingsFragment : Fragment() {
 
     private fun setPasswordRequiredImage() = with(binding) {
         if (settingsViewModel.isPasswordRequired() == true) {
-            subSettingsItemImageView.setImageResource(R.drawable.checked_item_icon)
+            subSettingsItemImageView.setImageResource(R.drawable.checked_item)
         } else {
-            subSettingsItemImageView.setImageResource(R.drawable.unchecked_item_icon)
+            subSettingsItemImageView.setImageResource(R.drawable.unchecked_item)
         }
     }
 }
