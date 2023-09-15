@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentGeneralSettingsBinding
+import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GeneralSettingsFragment : Fragment() {
 
     private var _binding: FragmentGeneralSettingsBinding? = null
     private val binding get() = _binding!!
+    private val settingsViewModel: SettingsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +31,24 @@ class GeneralSettingsFragment : Fragment() {
     }
 
     private fun initViews() = with(binding) {
+        initPasswordRequiredField()
+    }
 
+    private fun initPasswordRequiredField() = with(binding) {
+        setPasswordRequiredImage()
+        usePasswordConstraintLayout.setOnClickListener {
+            settingsViewModel.isPasswordRequired()?.let {
+                    it1 -> settingsViewModel.setPasswordRequired(!it1)
+            }
+            setPasswordRequiredImage()
+        }
+    }
+
+    private fun setPasswordRequiredImage() = with(binding) {
+        if (settingsViewModel.isPasswordRequired() == true) {
+            subSettingsItemImageView.setImageResource(R.drawable.checked_item_icon)
+        } else {
+            subSettingsItemImageView.setImageResource(R.drawable.unchecked_item_icon)
+        }
     }
 }

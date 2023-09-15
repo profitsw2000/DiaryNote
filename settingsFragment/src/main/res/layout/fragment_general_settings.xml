@@ -7,35 +7,45 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.GeneralSettingsFragment">
 
-    <TextView
-        android:id="@+id/use_password_text_view"
-        style="@style/settings_menu_item_title_text_style"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/use_password_constraint_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/sub_settings_item_text_padding"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/use_password_menu_item_text"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:button="@drawable/subtract"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        app:layout_constraintBottom_toBottomOf="@+id/use_password_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/use_password_text_view" />
+        <TextView
+            android:id="@+id/use_password_text_view"
+            style="@style/settings_menu_item_title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/sub_settings_item_text_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/use_password_menu_item_text"/>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha=".5"
-        android:background="@color/black"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/use_password_text_view" />
+        <ImageView
+            android:id="@+id/sub_settings_item_image_view"
+            android:layout_width="@dimen/general_settings_item_image_size"
+            android:layout_height="@dimen/general_settings_item_image_size"
+            android:layout_marginEnd="@dimen/sub_settings_item_image_view_margin_end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/use_password_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/use_password_text_view"
+            tools:src="@drawable/unchecked_item_icon"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha=".5"
+            android:background="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/use_password_text_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

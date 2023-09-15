@@ -27,3 +27,4 @@ const val ENGLISH_LANGUAGE_ABBR = "en"
 
 
 const val USE_PASSWORD_ID = 1
+const val PASSWORD_REQUIRED_KEY = "password_required"
