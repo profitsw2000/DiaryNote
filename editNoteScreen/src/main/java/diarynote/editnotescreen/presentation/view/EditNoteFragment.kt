@@ -21,7 +21,6 @@ import diarynote.editnotescreen.presentation.view.adapter.HorizontalCategoryList
 import diarynote.editnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.editnotescreen.presentation.viewmodel.EditNoteViewModel
 import diarynote.navigator.Navigator
-import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -41,14 +40,10 @@ class EditNoteFragment : Fragment() {
         }
     })
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentEditNoteBinding.bind(inflater.inflate(R.layout.fragment_edit_note, container, false))
         return binding.root
@@ -80,8 +75,6 @@ class EditNoteFragment : Fragment() {
                     )
                 )
             }
-        } else {
-
         }
     }
 
@@ -123,8 +116,6 @@ class EditNoteFragment : Fragment() {
     private fun successfulNoteUpdate() = with(binding) {
         val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
             override fun onClick() {
-                //editNoteViewModel.navigateUp()
-                //clearInputForms()
                 editNoteViewModel.clear()
                 requireActivity().onBackPressed()
             }
@@ -161,7 +152,7 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun getNoteTagsList(tags: String): List<String> {
-        var tagsList = tags.split(",").toList()
+        val tagsList = tags.split(",").toList()
         val newTagsList = mutableListOf<String>()
 
         tagsList.forEach {
@@ -183,10 +174,5 @@ class EditNoteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = EditNoteFragment()
     }
 }

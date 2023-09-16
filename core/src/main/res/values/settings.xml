@@ -22,4 +22,11 @@
         <item>Английский</item>
     </string-array>
 
+    <string-array name="unactive_time_period_strings">
+        <item>Час</item>
+        <item>День</item>
+        <item>Неделя</item>
+        <item>Месяц</item>
+    </string-array>
+
 </resources>

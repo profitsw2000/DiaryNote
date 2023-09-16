@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.color.MaterialColors
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
-import diarynote.addcategoryscreen.model.IconModel
-import diarynote.core.utils.listener.OnItemClickListener
 
 class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
 

@@ -18,4 +18,11 @@ interface Dialoger {
         neutralButtonText: String,
         negativeButtonText: String
     )
+
+    fun showDialogWithSingleChoice(
+        title: String,
+        negativeButtonText: String,
+        itemList: Array<String>?,
+        selectedItem: Int?
+    )
 }

@@ -47,5 +47,47 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/unactive_time_to_quit_item_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/use_password_constraint_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/unactive_time_to_quit_item_text_view"
+            style="@style/settings_menu_item_title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/sub_settings_item_text_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Выйти из аккаунта если я не захожу"/>
+
+        <TextView
+            android:id="@+id/quit_account_selected_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/sub_settings_item_text_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/unactive_time_to_quit_item_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/unactive_time_to_quit_item_text_view"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold"
+            tools:text="День"/>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha=".5"
+            android:background="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unactive_time_to_quit_item_text_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

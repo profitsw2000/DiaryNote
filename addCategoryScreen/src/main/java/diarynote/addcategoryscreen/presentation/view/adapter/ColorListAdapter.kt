@@ -1,13 +1,9 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.addcategoryscreen.databinding.CategoryColorPickerRecyclerviewItemBinding
-import diarynote.addcategoryscreen.model.ColorModel
-import diarynote.core.utils.listener.OnItemClickListener
 
 class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() {
 

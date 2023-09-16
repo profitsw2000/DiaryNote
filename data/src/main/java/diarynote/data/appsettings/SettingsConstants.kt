@@ -28,3 +28,4 @@ const val ENGLISH_LANGUAGE_ABBR = "en"
 
 const val USE_PASSWORD_ID = 1
 const val PASSWORD_REQUIRED_KEY = "password_required"
+const val INACTIVE_TIME_PERIOD_INDEX_KEY = "inactive_time"
