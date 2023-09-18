@@ -8,6 +8,7 @@
     <dimen name="extra_small_constraint_vertical_spacing_between_views">8dp</dimen>
     <dimen name="extra_small_constraint_horizontal_spacing_between_views">8dp</dimen>
     <dimen name="extra_large_constraint_vertical_padding">24dp</dimen>
+    <dimen name="extra_large_constraint_horizontal_padding">32dp</dimen>
     <dimen name="standart_constraint_vertical_padding">12dp</dimen>
     <dimen name="standart_constraint_horizontal_padding">32dp</dimen>
     <dimen name="small_constraint_horizontal_padding">16dp</dimen>
