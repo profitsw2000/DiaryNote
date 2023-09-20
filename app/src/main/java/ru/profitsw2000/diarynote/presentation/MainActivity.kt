@@ -25,21 +25,21 @@ class MainActivity : AppCompatActivity(), Controller {
         setLanguage()
         super.onCreate(savedInstanceState)
 
-        if (mainViewModel.isPasswordRequired() == false) {
+        if (mainViewModel.isPasswordRequired() == false && !mainViewModel.isInactivePeriodExpired()) {
             startNotesActivity()
-        }
+        } else {
+            setContentView(R.layout.activity_main)
 
-        setContentView(R.layout.activity_main)
+            val actionBar = supportActionBar
+            actionBar?.let {
+                it.hide()
+            }
 
-        val actionBar = supportActionBar
-        actionBar?.let {
-            it.hide()
-        }
-
-        fragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.fragment_container, SignInFragment.newInstance())
-                .commitAllowingStateLoss()
+            fragmentManager.apply {
+                beginTransaction()
+                    .replace(R.id.fragment_container, SignInFragment.newInstance())
+                    .commitAllowingStateLoss()
+            }
         }
     }
 
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity(), Controller {
     }
 
     override fun startNotesActivity() {
+        mainViewModel.setLastEntranceTimeInMillis()
         val intent = Intent(this, NoteActivity::class.java)
         startActivity(intent)
     }
@@ -96,4 +97,5 @@ class MainActivity : AppCompatActivity(), Controller {
             else -> diarynote.core.R.style.Theme_DiaryNote
         }
     }
+
 }

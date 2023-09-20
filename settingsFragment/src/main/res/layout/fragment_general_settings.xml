@@ -63,7 +63,7 @@
             android:padding="@dimen/sub_settings_item_text_padding"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Выйти из аккаунта если я не захожу"/>
+            android:text="@string/quit_inactive_account_text"/>
 
         <TextView
             android:id="@+id/quit_account_selected_time_text"

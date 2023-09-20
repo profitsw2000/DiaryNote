@@ -29,4 +29,14 @@
         <item>Месяц</item>
     </string-array>
 
+    <string-array name="help_menu_strings">
+        <item>Создание заметки</item>
+        <item>Поиск заметки</item>
+        <item>Редактирование и удаление заметки</item>
+        <item>Создание категории заметок</item>
+        <item>Просмотр заметок по категории</item>
+        <item>Просмотр заметок за определенный временной промежуток</item>
+        <item>Изменение данных учетной записи</item>
+    </string-array>
+
 </resources>
