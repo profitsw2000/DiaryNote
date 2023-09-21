@@ -13,4 +13,5 @@
     <string name="appearance_fragment_label_text">Тема</string>
     <string name="language_fragment_label_text">Язык</string>
     <string name="general_settings_fragment_label_text">Общие</string>
+    <string name="help_fragment_label_text">Помощь</string>
 </resources>

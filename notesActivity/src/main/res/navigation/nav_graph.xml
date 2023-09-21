@@ -122,4 +122,10 @@
         android:label="@string/general_settings_fragment_label_text"
         tools:layout="@layout/fragment_general_settings"/>
 
+    <fragment
+        android:id="@+id/help"
+        android:name="diarynote.settingsfragment.presentation.view.HelpFragment"
+        android:label="@string/help_fragment_label_text"
+        tools:layout="@layout/fragment_help"/>
+
 </navigation>
