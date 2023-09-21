@@ -83,4 +83,5 @@
     <string name="settings_title_text">Settings</string>
     <string name="use_password_menu_item_text">Require password when logging in</string>
     <string name="quit_inactive_account_text">Quit account when inactive</string>
+    <string name="developer_logo_text">ProfitSW</string>
 </resources>

@@ -82,4 +82,5 @@
     <string name="settings_title_text">Настройки</string>
     <string name="use_password_menu_item_text">Запрашивать пароль при входе</string>
     <string name="quit_inactive_account_text">Выход из аккаунта при неактивности</string>
+    <string name="developer_logo_text">ProfitSW</string>
 </resources>
