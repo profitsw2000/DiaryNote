@@ -83,4 +83,6 @@
     <string name="use_password_menu_item_text">Запрашивать пароль при входе</string>
     <string name="quit_inactive_account_text">Выход из аккаунта при неактивности</string>
     <string name="developer_logo_text">ProfitSW</string>
+    <string name="app_version_number_text">Version 1.0</string>
+    <string name="app_developing_year_text">© 2023 by ProfitSW</string>
 </resources>

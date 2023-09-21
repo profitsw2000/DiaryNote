@@ -49,6 +49,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.help)
     }
 
+    override fun navigateToAboutScreen() {
+        navController.navigate(R.id.about)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import diarynote.data.appsettings.SETTINGS_ABOUT_ID
 import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
 import diarynote.data.appsettings.SETTINGS_GENERAL_ID
 import diarynote.data.appsettings.SETTINGS_HELP_ID
@@ -60,6 +61,7 @@ class SettingsFragment : Fragment() {
             SETTINGS_LANGUAGE_ID -> navigator.navigateToLanguageSettings()
             SETTINGS_GENERAL_ID -> navigator.navigateToGeneralSettings()
             SETTINGS_HELP_ID -> navigator.navigateToHelpScreen()
+            SETTINGS_ABOUT_ID -> navigator.navigateToAboutScreen()
         }
     }
 

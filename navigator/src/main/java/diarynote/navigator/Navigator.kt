@@ -26,5 +26,7 @@ interface Navigator {
 
     fun navigateToHelpScreen()
 
+    fun navigateToAboutScreen()
+
     fun navigateUp()
 }

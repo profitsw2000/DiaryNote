@@ -66,6 +66,11 @@ class NoteActivity : AppCompatActivity() {
                 actionBar?.let {
                     it.hide()
                 }
+            } else if (destination.id == R.id.about) {
+                binding.bottomNav.visibility = View.GONE
+                actionBar?.let {
+                    it.hide()
+                }
             } else {
                 binding.bottomNav.visibility = View.GONE
                 actionBar?.let {

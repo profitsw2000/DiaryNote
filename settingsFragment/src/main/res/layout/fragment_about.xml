@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/developer_logo_text_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Version 1.0"/>
+        android:text="@string/app_version_number_text"/>
 
     <TextView
         android:id="@+id/developing_data_text_view"
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/standard_vertical_margin_between_views"
-        android:text="© 2023 by ProfitSW"
+        android:text="@string/app_developing_year_text"
         android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
