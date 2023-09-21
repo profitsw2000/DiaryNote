@@ -45,8 +45,8 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.general_settings)
     }
 
-    override fun navigateToHelpScreen(bundle: Bundle) {
-        navController.navigate(R.id.help, bundle)
+    override fun navigateToHelpScreen() {
+        navController.navigate(R.id.help)
     }
 
     override fun navigateUp() {
