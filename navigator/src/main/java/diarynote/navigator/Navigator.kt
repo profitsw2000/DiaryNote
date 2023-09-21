@@ -24,5 +24,7 @@ interface Navigator {
 
     fun navigateToGeneralSettings()
 
+    fun navigateToHelpScreen(bundle: Bundle)
+
     fun navigateUp()
 }

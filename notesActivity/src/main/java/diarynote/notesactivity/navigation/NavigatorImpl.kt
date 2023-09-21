@@ -1,13 +1,10 @@
 package diarynote.notesactivity.navigation
 
-import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import diarynote.navigator.Navigator
 import diarynote.notesactivity.R
-import diarynote.notesactivity.presentation.view.NoteActivity
 
 class NavigatorImpl(private val navController: NavController) : Navigator {
 
@@ -46,6 +43,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
 
     override fun navigateToGeneralSettings() {
         navController.navigate(R.id.general_settings)
+    }
+
+    override fun navigateToHelpScreen(bundle: Bundle) {
+        navController.navigate(R.id.help, bundle)
     }
 
     override fun navigateUp() {
