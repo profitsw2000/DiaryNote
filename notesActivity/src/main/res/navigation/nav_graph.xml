@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_settings_to_help"
             app:destination="@id/help"/>
+        <action
+            android:id="@+id/action_settings_to_about"
+            app:destination="@id/about"/>
     </fragment>
 
 <!--  Main end  -->
@@ -130,5 +133,11 @@
         android:name="diarynote.settingsfragment.presentation.view.HelpFragment"
         android:label="@string/help_fragment_label_text"
         tools:layout="@layout/fragment_help"/>
+
+    <fragment
+        android:id="@+id/about"
+        android:name="diarynote.settingsfragment.presentation.view.AboutFragment"
+        android:label="@string/about_fragment_label_text"
+        tools:layout="@layout/fragment_about"/>
 
 </navigation>
