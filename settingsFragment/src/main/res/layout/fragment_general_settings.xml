@@ -58,9 +58,10 @@
         <TextView
             android:id="@+id/unactive_time_to_quit_item_text_view"
             style="@style/settings_menu_item_title_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/sub_settings_item_text_padding"
+            app:layout_constraintWidth_percent="0.8"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/quit_inactive_account_text"/>
@@ -70,12 +71,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/sub_settings_item_text_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/unactive_time_to_quit_item_text_view"
-            app:layout_constraintBottom_toBottomOf="@id/unactive_time_to_quit_item_text_view"
             android:textColor="@color/dark_blue"
             android:textStyle="bold"
-            tools:text="День"/>
+            app:layout_constraintBottom_toBottomOf="@id/unactive_time_to_quit_item_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/unactive_time_to_quit_item_text_view"
+            tools:text="День" />
 
         <View
             android:id="@+id/view2"

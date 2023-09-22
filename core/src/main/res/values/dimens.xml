@@ -54,4 +54,5 @@
     <dimen name="large_vertical_margin_between_views">24dp</dimen>
     <dimen name="standard_vertical_margin_between_views">16dp</dimen>
     <dimen name="developer_logo_text_size">24sp</dimen>
+    <dimen name="sub_settings_content_padding_size">6dp</dimen>
 </resources>
