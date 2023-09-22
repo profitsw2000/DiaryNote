@@ -4,4 +4,5 @@
     <string name="pick_theme_title_text">Выберите тему оформления</string>
     <string name="light_theme_pick_button_text">Светлая</string>
     <string name="dark_theme_pick_button_text">Темная</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

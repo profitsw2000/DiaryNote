@@ -21,4 +21,22 @@
         <item>Russian</item>
         <item>English</item>
     </string-array>
+
+    <string-array name="unactive_time_period_strings">
+        <item>Hour</item>
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+
+    <string-array name="help_menu_strings">
+        <item>How to create note</item>
+        <item>Search note</item>
+        <item>Edit or delete note</item>
+        <item>Create notes category</item>
+        <item>View notes by category</item>
+        <item>View notes for a specific time period</item>
+        <item>Changing eour account information</item>
+    </string-array>
+
 </resources>

@@ -13,4 +13,7 @@
     <string name="account_fragment_label_text">Account</string>
     <string name="appearance_fragment_label_text">Appearance</string>
     <string name="language_fragment_label_text">Language</string>
+    <string name="general_settings_fragment_label_text">General</string>
+    <string name="help_fragment_label_text">Help</string>
+    <string name="about_fragment_label_text">About</string>
 </resources>

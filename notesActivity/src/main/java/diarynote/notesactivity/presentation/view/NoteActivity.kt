@@ -1,26 +1,20 @@
 package diarynote.notesactivity.presentation.view
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Config
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import diarynote.core.utils.SHARED_PREFERENCE_NAME
 import diarynote.data.appsettings.APP_THEME_DARK
 import diarynote.data.appsettings.APP_THEME_LIGHT
-import diarynote.data.appsettings.CURRENT_THEME_KEY
-import diarynote.data.appsettings.DEFAULT_THEME_KEY
 import diarynote.navigator.Navigator
 import diarynote.notesactivity.R
 import diarynote.notesactivity.databinding.ActivityNoteBinding
 import diarynote.notesactivity.navigation.NavigatorImpl
 import diarynote.notesactivity.presentation.viewmodel.NoteViewModel
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -63,9 +57,10 @@ class NoteActivity : AppCompatActivity() {
                 destination.id == R.id.calendar ||
                 destination.id == R.id.settings) {
                 binding.bottomNav.visibility = View.VISIBLE
-                actionBar?.let {
-                    it.hide()
-                }
+                actionBar?.hide()
+            } else if (destination.id == R.id.about) {
+                binding.bottomNav.visibility = View.GONE
+                actionBar?.hide()
             } else {
                 binding.bottomNav.visibility = View.GONE
                 actionBar?.let {

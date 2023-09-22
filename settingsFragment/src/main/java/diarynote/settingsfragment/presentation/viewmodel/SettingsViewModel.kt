@@ -8,13 +8,13 @@ import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
 import diarynote.data.appsettings.DEFAULT_THEME_KEY
+import diarynote.data.appsettings.INACTIVE_TIME_PERIOD_INDEX_KEY
 import diarynote.data.appsettings.LANGUAGE_ID_KEY
 import diarynote.data.appsettings.LANGUAGE_KEY
-import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
+import diarynote.data.appsettings.PASSWORD_REQUIRED_KEY
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
-import diarynote.data.interactor.NoteInteractor
 import diarynote.data.interactor.SettingsInteractor
 import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
@@ -77,7 +77,7 @@ class SettingsViewModel(
             .apply()
     }
 
-    fun getCurrentLanguageId() : Int? {
+    fun getCurrentLanguageId() : Int {
         return sharedPreferences.getInt(LANGUAGE_ID_KEY, RUSSIAN_LANGUAGE_ID)
     }
 
@@ -101,6 +101,28 @@ class SettingsViewModel(
                     _userLiveData.value = UserState.Error(ROOM_ERROR_CODE, it.message?: "")
                 }
             )
+    }
+
+    fun isPasswordRequired(): Boolean {
+        return sharedPreferences.getBoolean(PASSWORD_REQUIRED_KEY, true)
+    }
+
+    fun setPasswordRequired(passwordRequired: Boolean) {
+        sharedPreferences
+            .edit()
+            .putBoolean(PASSWORD_REQUIRED_KEY, passwordRequired)
+            .apply()
+    }
+
+    fun getCurrentInactiveTimePeriodIndex(): Int {
+        return sharedPreferences.getInt(INACTIVE_TIME_PERIOD_INDEX_KEY, 0)
+    }
+
+    fun setCurrentInactiveTimePeriodIndex(index: Int) {
+        sharedPreferences
+            .edit()
+            .putInt(INACTIVE_TIME_PERIOD_INDEX_KEY, index)
+            .apply()
     }
 
 }

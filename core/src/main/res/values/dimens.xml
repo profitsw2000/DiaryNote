@@ -8,6 +8,7 @@
     <dimen name="extra_small_constraint_vertical_spacing_between_views">8dp</dimen>
     <dimen name="extra_small_constraint_horizontal_spacing_between_views">8dp</dimen>
     <dimen name="extra_large_constraint_vertical_padding">24dp</dimen>
+    <dimen name="extra_large_constraint_horizontal_padding">32dp</dimen>
     <dimen name="standart_constraint_vertical_padding">12dp</dimen>
     <dimen name="standart_constraint_horizontal_padding">32dp</dimen>
     <dimen name="small_constraint_horizontal_padding">16dp</dimen>
@@ -48,4 +49,10 @@
     <dimen name="settings_main_info_image_interval">24dp</dimen>
     <dimen name="sub_settings_item_image_size">32dp</dimen>
     <dimen name="sub_settings_item_image_view_margin_end">32dp</dimen>
+    <dimen name="general_settings_item_image_size">18dp</dimen>
+    <dimen name="extra_large_vertical_margin_between_views">32dp</dimen>
+    <dimen name="large_vertical_margin_between_views">24dp</dimen>
+    <dimen name="standard_vertical_margin_between_views">16dp</dimen>
+    <dimen name="developer_logo_text_size">24sp</dimen>
+    <dimen name="sub_settings_content_padding_size">6dp</dimen>
 </resources>
