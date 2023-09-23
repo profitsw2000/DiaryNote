@@ -49,8 +49,17 @@ interface NoteDao {
     @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
     fun getUserWithCategoriesAndNotes(id: Int): Single<UserWithCategoriesAndNotes>
 
-    @Query("SELECT * FROM NoteEntity WHERE NoteEntity.user_id LIKE :userId AND NoteEntity.tags LIKE :search")
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id LIKE :userId " +
+            "AND NoteEntity.tags LIKE '%' || :search || '%'")
     fun searchUserNotesWithWordInTags(userId: Int, search: String): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id LIKE :userId " +
+            "AND NoteEntity.text LIKE '%' || :search || '%'")
+    fun searchUserNotesWithWordInText(userId: Int, search: String): Single<List<NoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(noteEntity: NoteEntity): Completable
