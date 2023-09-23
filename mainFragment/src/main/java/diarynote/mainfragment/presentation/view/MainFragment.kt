@@ -60,7 +60,7 @@ class MainFragment : Fragment() {
             }
             searchNoteTextInputLayout.setEndIconOnClickListener {
                 val search = searchInputEditText.text.toString()
-                homeViewModel.getUserNotesWithWordInTags(search)
+                homeViewModel.getUserNotesByWord(search)
                 Toast.makeText(requireContext(), search, Toast.LENGTH_SHORT).show()
             }
         }

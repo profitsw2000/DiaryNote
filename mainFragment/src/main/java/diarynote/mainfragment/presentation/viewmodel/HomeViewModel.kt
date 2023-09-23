@@ -64,4 +64,48 @@ class HomeViewModel(
                 }
             )
     }
+
+    fun getUserNotesWithWordInText(search: String) {
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.getUserNotesWithWordInText(
+            sharedPreferences.getInt(CURRENT_USER_ID, 0),
+            search,
+            false
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(
+                        noteMapper.map(it)
+                    )
+                },
+                {
+                    val errorMessage = it.message ?: ""
+                    _notesLiveData.value = NotesState.Error(errorMessage)
+                }
+            )
+    }
+
+    fun getUserNotesByWord(search: String) {
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.getUserNotesByWord(
+            sharedPreferences.getInt(CURRENT_USER_ID, 0),
+            search,
+            false
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(
+                        noteMapper.map(it)
+                    )
+                },
+                {
+                    val errorMessage = it.message ?: ""
+                    _notesLiveData.value = NotesState.Error(errorMessage)
+                }
+            )
+    }
 }

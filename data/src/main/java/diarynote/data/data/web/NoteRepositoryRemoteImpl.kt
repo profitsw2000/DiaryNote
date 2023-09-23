@@ -52,6 +52,17 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         TODO("Not yet implemented")
     }
 
+    override fun searchUserNotesWithWordInText(
+        userId: Int,
+        search: String
+    ): Single<List<NoteEntity>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun searchUserNotesByWord(userId: Int, search: String): Single<List<NoteEntity>> {
+        TODO("Not yet implemented")
+    }
+
     override fun updateNote(noteEntity: NoteEntity): Completable {
         TODO("Not yet implemented")
     }

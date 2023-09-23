@@ -85,6 +85,22 @@ class NoteInteractor(
         }
     }
 
+    fun getUserNotesWithWordInText(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.searchUserNotesWithWordInText(userId, search)
+        } else {
+            noteRepositoryLocal.searchUserNotesWithWordInText(userId, search)
+        }
+    }
+
+    fun getUserNotesByWord(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.searchUserNotesByWord(userId, search)
+        } else {
+            noteRepositoryLocal.searchUserNotesByWord(userId, search)
+        }
+    }
+
     fun updateNote(noteEntity: NoteEntity, remote: Boolean): Completable {
         return if (remote) {
             noteRepositoryRemote.updateNote(noteEntity)
