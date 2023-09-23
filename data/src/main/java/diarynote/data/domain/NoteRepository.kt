@@ -25,6 +25,8 @@ interface NoteRepository {
 
     fun addNoteList(noteEntityList: List<NoteEntity>): Completable
 
+    fun searchUserNotesWithWordInTags(userId: Int, search: String): Single<List<NoteEntity>>
+
     fun updateNote(noteEntity: NoteEntity): Completable
 
     fun deleteNote(noteEntity: NoteEntity): Completable

@@ -47,6 +47,13 @@ class NoteRepositoryLocalImpl(
         return database.noteDao.insert(noteEntityList)
     }
 
+    override fun searchUserNotesWithWordInTags(
+        userId: Int,
+        search: String
+    ): Single<List<NoteEntity>> {
+        return database.noteDao.searchUserNotesWithWordInTags(userId, search)
+    }
+
     override fun updateNote(noteEntity: NoteEntity): Completable {
         return database.noteDao.update(noteEntity)
     }
