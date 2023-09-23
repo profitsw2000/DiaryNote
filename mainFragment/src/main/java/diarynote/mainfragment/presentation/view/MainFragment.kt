@@ -57,6 +57,10 @@ class MainFragment : Fragment() {
             addNoteFab.setOnClickListener {
                 navigator.navigateToNoteCreation()
             }
+            searchNoteTextInputLayout.setEndIconOnClickListener {
+                val search = searchInputEditText.text.toString()
+                homeViewModel.getUserNotesWithWordInTags(search)
+            }
         }
     }
 

@@ -43,9 +43,13 @@ class HomeViewModel(
             )
     }
 
-    private fun getUserNotesWithWordInTags(userId: Int, search: String) {
+    fun getUserNotesWithWordInTags(search: String) {
         _notesLiveData.value = NotesState.Loading
-        noteInteractor.getUserNotesWithWordInTags(userId, search, false)
+        noteInteractor.getUserNotesWithWordInTags(
+            sharedPreferences.getInt(CURRENT_USER_ID, 0),
+            search,
+            false
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
