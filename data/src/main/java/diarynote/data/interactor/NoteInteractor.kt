@@ -77,7 +77,7 @@ class NoteInteractor(
         }
     }
 
-    fun getUserNotesWithWordInTag(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
+    fun getUserNotesWithWordInTags(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
         return if (remote) {
             noteRepositoryRemote.searchUserNotesWithWordInTags(userId, search)
         } else {

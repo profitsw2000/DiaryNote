@@ -42,4 +42,22 @@ class HomeViewModel(
                 }
             )
     }
+
+    private fun getUserNotesWithWordInTags(userId: Int, search: String) {
+        _notesLiveData.value = NotesState.Loading
+        noteInteractor.getUserNotesWithWordInTags(userId, search, false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _notesLiveData.value = NotesState.Success(
+                        noteMapper.map(it)
+                    )
+                },
+                {
+                    val errorMessage = it.message ?: ""
+                    _notesLiveData.value = NotesState.Error(errorMessage)
+                }
+            )
+    }
 }
