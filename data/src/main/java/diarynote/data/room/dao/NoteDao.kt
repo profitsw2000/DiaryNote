@@ -69,8 +69,31 @@ interface NoteDao {
             "SELECT * " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.text LIKE '%' || :search || '%'")
+            "AND NoteEntity.text LIKE '%' || :search || '%' " +
+            "ORDER BY NoteEntity.tags DESC")
     fun searchUserNotesByWord(userId: Int, search: String): Single<List<NoteEntity>>
+
+    @Query("SELECT DISTINCT " +
+            "id,category,title,text,tags,image,date,edited,editDate,category_id,user_id FROM " +
+            "(SELECT *, 0 " +
+            "AS PRIORITY " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id LIKE :userId" +
+            " AND NoteEntity.tags LIKE '%' || :search || '%' " +
+            "UNION " +
+            "SELECT *, 1 " +
+            "AS PRIORITY " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id LIKE :userId " +
+            "AND NoteEntity.title LIKE '%' || :search || '%' " +
+            "UNION " +
+            "SELECT *, 2 " +
+            "AS PRIORITY " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id LIKE :userId " +
+            "AND NoteEntity.text LIKE '%' || :search || '%' " +
+            "ORDER BY PRIORITY)")
+    fun searchUserNotesByWordWithPriority(userId: Int, search: String): Single<List<NoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(noteEntity: NoteEntity): Completable
@@ -84,3 +107,5 @@ interface NoteDao {
     @Delete
     fun delete(noteEntity: NoteEntity): Completable
 }
+
+//"SELECT *, 0 AS PRIORITY FROM NoteEntity WHERE NoteEntity.user_id LIKE :userId AND NoteEntity.tags LIKE '%' || :search || '%' UNION ALL SELECT *, 1 AS PRIORITY FROM NoteEntity WHERE NoteEntity.user_id LIKE :userId AND NoteEntity.text LIKE '%' || :search || '%' ORDER BY PRIORITY"
