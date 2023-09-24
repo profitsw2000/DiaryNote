@@ -108,4 +108,11 @@ class HomeViewModel(
                 }
             )
     }
+
+    private fun getQueryWordsList(searchQuery: String): List<String> {
+        val wordsList: MutableList<String> = mutableListOf()
+        wordsList.add(searchQuery.trim())
+        wordsList.addAll(searchQuery.trim().split(" ").toList())
+        return wordsList
+    }
 }
