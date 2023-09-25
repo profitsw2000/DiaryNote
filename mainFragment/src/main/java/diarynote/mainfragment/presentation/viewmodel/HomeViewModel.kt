@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
@@ -111,14 +112,63 @@ class HomeViewModel(
 
     private fun getQueryWordsList(searchQuery: String): List<String> {
         val wordsList: MutableList<String> = mutableListOf()
-        wordsList.add(searchQuery.trim())
         if (searchQuery.trim().split(" ").toList().size < 2) {
             wordsList.addAll(searchQuery.trim().split(" ").toList())
         }
         return wordsList
     }
 
-    private fun getQueryString(queryList: List<String>): String {
-        return ""
+    private fun getQueryString(searchQuery: String): String {
+        val mainPartQuery = "(SELECT *, 0 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE :userId" +
+                " AND NoteEntity.tags LIKE '%${searchQuery.trim()}%' " +
+                "UNION " +
+                "SELECT *, 1 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE :userId " +
+                "AND NoteEntity.title LIKE '%${searchQuery.trim()}%' " +
+                "UNION " +
+                "SELECT *, 2 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE :userId " +
+                "AND NoteEntity.text LIKE '%${searchQuery.trim()}%' " +
+                "ORDER BY PRIORITY)"
+
+        return if (getQueryWordsList(searchQuery).size > 1) {
+            ""
+        } else {
+            ""
+        }
+    }
+
+    private fun getParticularWordsQuery(searchQuery: String) {
+        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(searchQuery)
+        if (getQueryWordsList(searchQuery).size > 1) {
+            getQueryWordsList(searchQuery).forEach {
+                "SELECT *, 0 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE :userId" +
+                " AND NoteEntity.tags LIKE '%${searchQuery.trim()}%' " +
+                "UNION " +
+                "SELECT *, 1 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE :userId " +
+                "AND NoteEntity.title LIKE '%${searchQuery.trim()}%' " +
+                "UNION " +
+                "SELECT *, 2 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE :userId " +
+                "AND NoteEntity.text LIKE '%${searchQuery.trim()}%' "
+            }
+        } else {
+            ""
+        }
     }
 }
