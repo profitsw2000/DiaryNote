@@ -168,7 +168,27 @@ class HomeViewModel(
                 "AND NoteEntity.text LIKE '%${searchQuery.trim()}%' "
             }
         } else {
-            ""
+            getFullStringQuery(searchQuery)
         }
+    }
+
+    private fun getFullStringQuery(searchQuery: String) : String {
+        return "SELECT *, 0 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE ?" +
+                " AND NoteEntity.tags LIKE '%?%' " +
+                "UNION " +
+                "SELECT *, 1 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE ? " +
+                "AND NoteEntity.title LIKE '%?%' " +
+                "UNION " +
+                "SELECT *, 2 " +
+                "AS PRIORITY " +
+                "FROM NoteEntity " +
+                "WHERE NoteEntity.user_id LIKE ? " +
+                "AND NoteEntity.text LIKE '%?%'"
     }
 }
