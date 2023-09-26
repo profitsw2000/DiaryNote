@@ -108,4 +108,3 @@ interface NoteDao {
     fun delete(noteEntity: NoteEntity): Completable
 }
 
-//"SELECT *, 0 AS PRIORITY FROM NoteEntity WHERE NoteEntity.user_id LIKE :userId AND NoteEntity.tags LIKE '%' || :search || '%' UNION ALL SELECT *, 1 AS PRIORITY FROM NoteEntity WHERE NoteEntity.user_id LIKE :userId AND NoteEntity.text LIKE '%' || :search || '%' ORDER BY PRIORITY"

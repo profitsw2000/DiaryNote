@@ -1,6 +1,7 @@
 package diarynote.mainfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
+    private val TAG: String = "VVV"
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
@@ -61,7 +63,8 @@ class MainFragment : Fragment() {
             searchNoteTextInputLayout.setEndIconOnClickListener {
                 val search = searchInputEditText.text.toString()
                 homeViewModel.getUserNotesByWord(search)
-                Toast.makeText(requireContext(), search, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "query: ${homeViewModel.getSearchQuery(search)}")
+                Log.d(TAG, "args: ${homeViewModel.getSearchArgs(search)}")
             }
         }
     }

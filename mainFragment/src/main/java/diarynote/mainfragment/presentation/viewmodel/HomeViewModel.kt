@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
+import diarynote.core.utils.SearchQueryBuilder
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
@@ -108,6 +109,18 @@ class HomeViewModel(
                     _notesLiveData.value = NotesState.Error(errorMessage)
                 }
             )
+    }
+
+    fun getSearchQuery(search: String) : String {
+        val searchQueryBuilder = SearchQueryBuilder(search, sharedPreferences.getInt(CURRENT_USER_ID, 0))
+
+        return searchQueryBuilder.getSearchQueryString()
+    }
+
+    fun getSearchArgs(search: String) : MutableList<Any> {
+        val searchQueryBuilder = SearchQueryBuilder(search, sharedPreferences.getInt(CURRENT_USER_ID, 0))
+
+        return searchQueryBuilder.getSearchQueryArgs()
     }
 
     private fun getQueryWordsList(searchQuery: String): List<String> {

@@ -12,53 +12,66 @@ class SearchQueryBuilder(
             "WHERE NoteEntity.user_id LIKE ? " +
             "AND NoteEntity.tags LIKE '%?%' " +
             "UNION " +
-            "SELECT *, 1 " +
+            "SELECT *, ? " +
             "AS PRIORITY " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id LIKE ? " +
             "AND NoteEntity.title LIKE '%?%' " +
             "UNION " +
-            "SELECT *, 2 " +
+            "SELECT *, ? " +
             "AS PRIORITY " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id LIKE ? " +
             "AND NoteEntity.text LIKE '%?%' "
     private val queryEnd = "ORDER BY PRIORITY)"
 
-    private var queryString: String = ""
-    private var args: MutableList<Any> = mutableListOf()
+    private val args = mutableListOf<Any>()
+    private var queryString: String = queryBegin +
+            getFullStringQueryWithArgs(searchString) +
+            getQueriesForParticularWordsWithArgs(searchString) +
+            queryEnd
 
     private fun getQueryWordsList(searchQuery: String): List<String> {
-        val wordsList: MutableList<String> = mutableListOf()
-        if (searchQuery.trim().split(" ").toList().size < 2) {
-            wordsList.addAll(searchQuery.trim().split(" ").toList())
-        }
-        return wordsList
+        return searchQuery.trim().split(" ").toList()
     }
 
-    private fun generateFullStringQueryWithArgs(searchQuery: String) {
-        queryString += queryBase
+    private fun getFullStringQueryWithArgs(searchQuery: String) : String {
         args.addAll(listOf(0, userId, searchQuery,
             1, userId, searchQuery,
             2, userId, searchQuery)
         )
+        return queryBase
     }
 
-    private fun generateParticularWordQueryWithArgs(searchQuery: String,
-                                                    wordNumber: Int) {
-        queryString += queryBase
+    private fun getQueriesForParticularWordsWithArgs(searchQuery: String) : String {
+        val particularWordsList = getQueryWordsList(searchQuery)
+        var resultString = ""
+
+        if (particularWordsList.size > 1) {
+            particularWordsList.forEachIndexed { index, s ->
+                resultString += "UNION "
+                resultString += getParticularWordQueryWithArgs(s, index)
+            }
+        }
+
+        return resultString
+    }
+
+    private fun getParticularWordQueryWithArgs(searchQuery: String,
+                                                    wordNumber: Int) : String {
         args.addAll(listOf((wordNumber + 3), userId, searchQuery,
             (wordNumber + 6), userId, searchQuery,
             (wordNumber + 9), userId, searchQuery
             )
         )
+        return queryBase
     }
 
     fun getSearchQueryString(): String {
         return queryString
     }
 
-    fun getSearchQueryArgs(): List<Any>{
+    fun getSearchQueryArgs(): MutableList<Any> {
         return args
     }
 
