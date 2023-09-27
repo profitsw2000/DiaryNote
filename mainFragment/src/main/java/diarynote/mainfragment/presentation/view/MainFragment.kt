@@ -62,9 +62,12 @@ class MainFragment : Fragment() {
             }
             searchNoteTextInputLayout.setEndIconOnClickListener {
                 val search = searchInputEditText.text.toString()
+                val searchPair = homeViewModel.getSearchQueryPair(search)
+                val query: String = searchPair.first
+                val args: List<Any> = searchPair.second
                 homeViewModel.getUserNotesByWord(search)
-                Log.d(TAG, "query: ${homeViewModel.getSearchQuery(search)}")
-                Log.d(TAG, "args: ${homeViewModel.getSearchArgs(search)}")
+                Log.d(TAG, "query: $query")
+                Log.d(TAG, "query: $args")
             }
         }
     }

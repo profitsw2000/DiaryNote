@@ -111,97 +111,9 @@ class HomeViewModel(
             )
     }
 
-    fun getSearchQuery(search: String) : String {
+    fun getSearchQueryPair(search: String) : Pair<String, List<Any>> {
         val searchQueryBuilder = SearchQueryBuilder(search, sharedPreferences.getInt(CURRENT_USER_ID, 0))
 
-        return searchQueryBuilder.getSearchQueryString()
-    }
-
-    fun getSearchArgs(search: String) : MutableList<Any> {
-        val searchQueryBuilder = SearchQueryBuilder(search, sharedPreferences.getInt(CURRENT_USER_ID, 0))
-
-        return searchQueryBuilder.getSearchQueryArgs()
-    }
-
-    private fun getQueryWordsList(searchQuery: String): List<String> {
-        val wordsList: MutableList<String> = mutableListOf()
-        if (searchQuery.trim().split(" ").toList().size < 2) {
-            wordsList.addAll(searchQuery.trim().split(" ").toList())
-        }
-        return wordsList
-    }
-
-    private fun getQueryString(searchQuery: String): String {
-        val mainPartQuery = "(SELECT *, 0 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE :userId" +
-                " AND NoteEntity.tags LIKE '%${searchQuery.trim()}%' " +
-                "UNION " +
-                "SELECT *, 1 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE :userId " +
-                "AND NoteEntity.title LIKE '%${searchQuery.trim()}%' " +
-                "UNION " +
-                "SELECT *, 2 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE :userId " +
-                "AND NoteEntity.text LIKE '%${searchQuery.trim()}%' " +
-                "ORDER BY PRIORITY)"
-
-        return if (getQueryWordsList(searchQuery).size > 1) {
-            ""
-        } else {
-            ""
-        }
-    }
-
-    private fun getParticularWordsQuery(searchQuery: String) {
-        val query: SimpleSQLiteQuery = SimpleSQLiteQuery(searchQuery)
-        if (getQueryWordsList(searchQuery).size > 1) {
-            getQueryWordsList(searchQuery).forEach {
-                "SELECT *, 0 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE :userId" +
-                " AND NoteEntity.tags LIKE '%${searchQuery.trim()}%' " +
-                "UNION " +
-                "SELECT *, 1 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE :userId " +
-                "AND NoteEntity.title LIKE '%${searchQuery.trim()}%' " +
-                "UNION " +
-                "SELECT *, 2 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE :userId " +
-                "AND NoteEntity.text LIKE '%${searchQuery.trim()}%' "
-            }
-        } else {
-            getFullStringQuery(searchQuery)
-        }
-    }
-
-    private fun getFullStringQuery(searchQuery: String) : String {
-        return "SELECT *, 0 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE ?" +
-                " AND NoteEntity.tags LIKE '%?%' " +
-                "UNION " +
-                "SELECT *, 1 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE ? " +
-                "AND NoteEntity.title LIKE '%?%' " +
-                "UNION " +
-                "SELECT *, 2 " +
-                "AS PRIORITY " +
-                "FROM NoteEntity " +
-                "WHERE NoteEntity.user_id LIKE ? " +
-                "AND NoteEntity.text LIKE '%?%'"
+        return searchQueryBuilder.getSearchQueryPair()
     }
 }

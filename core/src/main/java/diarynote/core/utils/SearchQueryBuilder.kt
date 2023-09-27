@@ -30,6 +30,7 @@ class SearchQueryBuilder(
             getFullStringQueryWithArgs(searchString) +
             getQueriesForParticularWordsWithArgs(searchString) +
             queryEnd
+    private val queryPair: Pair<String, List<Any>> = Pair(queryString, args)
 
     private fun getQueryWordsList(searchQuery: String): List<String> {
         return searchQuery.trim().split(" ").toList()
@@ -67,12 +68,8 @@ class SearchQueryBuilder(
         return queryBase
     }
 
-    fun getSearchQueryString(): String {
-        return queryString
-    }
-
-    fun getSearchQueryArgs(): MutableList<Any> {
-        return args
+    fun getSearchQueryPair(): Pair<String, List<Any>> {
+        return queryPair
     }
 
 }
