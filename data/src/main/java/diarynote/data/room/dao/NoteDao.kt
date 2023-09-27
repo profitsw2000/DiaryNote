@@ -50,52 +50,6 @@ interface NoteDao {
     @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
     fun getUserWithCategoriesAndNotes(id: Int): Single<UserWithCategoriesAndNotes>
 
-    @Query("SELECT * " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.tags LIKE '%' || :search || '%'")
-    fun searchUserNotesWithWordInTags(userId: Int, search: String): Single<List<NoteEntity>>
-
-    @Query("SELECT * " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.text LIKE '%' || :search || '%'")
-    fun searchUserNotesWithWordInText(userId: Int, search: String): Single<List<NoteEntity>>
-
-    @Query("SELECT * " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.tags LIKE '%' || :search || '%'" +
-            "UNION " +
-            "SELECT * " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.text LIKE '%' || :search || '%' " +
-            "ORDER BY NoteEntity.tags DESC")
-    fun searchUserNotesByWord(userId: Int, search: String): Single<List<NoteEntity>>
-
-    @Query("SELECT DISTINCT " +
-            "id,category,title,text,tags,image,date,edited,editDate,category_id,user_id FROM " +
-            "(SELECT *, 0 " +
-            "AS PRIORITY " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId" +
-            " AND NoteEntity.tags LIKE '%' || :search || '%' " +
-            "UNION " +
-            "SELECT *, 1 " +
-            "AS PRIORITY " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.title LIKE '%' || :search || '%' " +
-            "UNION " +
-            "SELECT *, 2 " +
-            "AS PRIORITY " +
-            "FROM NoteEntity " +
-            "WHERE NoteEntity.user_id LIKE :userId " +
-            "AND NoteEntity.text LIKE '%' || :search || '%' " +
-            "ORDER BY PRIORITY)")
-    fun searchUserNotesByWordWithPriority(userId: Int, search: String): Single<List<NoteEntity>>
-
     @RawQuery
     fun searchUserNotesByStringWithPriority(query: SupportSQLiteQuery): Single<List<NoteEntity>>
 

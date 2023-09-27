@@ -10,19 +10,19 @@ class SearchQueryBuilder(
             "AS PRIORITY " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id LIKE ? " +
-            "AND NoteEntity.tags LIKE '%?%' " +
+            "AND NoteEntity.tags LIKE '%' || ? || '%' " +
             "UNION " +
             "SELECT *, ? " +
             "AS PRIORITY " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id LIKE ? " +
-            "AND NoteEntity.title LIKE '%?%' " +
+            "AND NoteEntity.title LIKE '%' || ? || '%' " +
             "UNION " +
             "SELECT *, ? " +
             "AS PRIORITY " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id LIKE ? " +
-            "AND NoteEntity.text LIKE '%?%' "
+            "AND NoteEntity.text LIKE '%' || ? || '%' "
     private val queryEnd = "ORDER BY PRIORITY)"
 
     private val args = mutableListOf<Any>()

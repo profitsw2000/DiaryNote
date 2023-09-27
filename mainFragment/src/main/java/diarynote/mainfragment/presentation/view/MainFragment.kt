@@ -1,7 +1,6 @@
 package diarynote.mainfragment.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
-    private val TAG: String = "VVV"
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
@@ -51,7 +49,9 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        homeViewModel.getNotesList()
+        if (homeViewModel.notesLiveData.value == null) {
+            homeViewModel.getNotesList()
+        }
     }
 
     private fun initViews() {
@@ -62,12 +62,7 @@ class MainFragment : Fragment() {
             }
             searchNoteTextInputLayout.setEndIconOnClickListener {
                 val search = searchInputEditText.text.toString()
-                val searchPair = homeViewModel.getSearchQueryPair(search)
-                val query: String = searchPair.first
-                val args: List<Any> = searchPair.second
-                homeViewModel.getUserNotesByWord(search)
-                Log.d(TAG, "query: $query")
-                Log.d(TAG, "query: $args")
+                homeViewModel.getUserNotesByString(search)
             }
         }
     }
@@ -110,10 +105,5 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = MainFragment()
     }
 }

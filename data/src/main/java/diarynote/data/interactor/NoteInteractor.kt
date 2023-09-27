@@ -1,5 +1,6 @@
 package diarynote.data.interactor
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.domain.local.NoteRepositoryLocal
 import diarynote.data.domain.web.NoteRepositoryRemote
 import diarynote.data.room.entity.NoteEntity
@@ -77,27 +78,11 @@ class NoteInteractor(
         }
     }
 
-    fun getUserNotesWithWordInTags(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
+    fun getUserNotesByString(query: SupportSQLiteQuery, remote: Boolean): Single<List<NoteEntity>> {
         return if (remote) {
-            noteRepositoryRemote.searchUserNotesWithWordInTags(userId, search)
+            noteRepositoryRemote.searchUserNotesByString(query)
         } else {
-            noteRepositoryLocal.searchUserNotesWithWordInTags(userId, search)
-        }
-    }
-
-    fun getUserNotesWithWordInText(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.searchUserNotesWithWordInText(userId, search)
-        } else {
-            noteRepositoryLocal.searchUserNotesWithWordInText(userId, search)
-        }
-    }
-
-    fun getUserNotesByWord(userId: Int, search: String, remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.searchUserNotesByWord(userId, search)
-        } else {
-            noteRepositoryLocal.searchUserNotesByWord(userId, search)
+            noteRepositoryLocal.searchUserNotesByString(query)
         }
     }
 

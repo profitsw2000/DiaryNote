@@ -1,5 +1,6 @@
 package diarynote.data.data.web
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.domain.web.NoteRepositoryRemote
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.related.UserWithNotes
@@ -45,21 +46,7 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         TODO("Not yet implemented")
     }
 
-    override fun searchUserNotesWithWordInTags(
-        userId: Int,
-        search: String
-    ): Single<List<NoteEntity>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun searchUserNotesWithWordInText(
-        userId: Int,
-        search: String
-    ): Single<List<NoteEntity>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun searchUserNotesByWord(userId: Int, search: String): Single<List<NoteEntity>> {
+    override fun searchUserNotesByString(query: SupportSQLiteQuery): Single<List<NoteEntity>> {
         TODO("Not yet implemented")
     }
 

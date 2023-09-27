@@ -1,5 +1,6 @@
 package diarynote.data.domain
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.related.UserWithCategoriesAndNotes
 import diarynote.data.room.related.UserWithNotes
@@ -25,11 +26,7 @@ interface NoteRepository {
 
     fun addNoteList(noteEntityList: List<NoteEntity>): Completable
 
-    fun searchUserNotesWithWordInTags(userId: Int, search: String): Single<List<NoteEntity>>
-
-    fun searchUserNotesWithWordInText(userId: Int, search: String): Single<List<NoteEntity>>
-
-    fun searchUserNotesByWord(userId: Int, search: String): Single<List<NoteEntity>>
+    fun searchUserNotesByString(query: SupportSQLiteQuery): Single<List<NoteEntity>>
 
     fun updateNote(noteEntity: NoteEntity): Completable
 
