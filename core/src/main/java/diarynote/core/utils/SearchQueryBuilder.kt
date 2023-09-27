@@ -1,7 +1,7 @@
 package diarynote.core.utils
 
 class SearchQueryBuilder(
-    private val searchString: String,
+    searchString: String,
     private val userId: Int
 ) {
     private val queryBegin = "SELECT DISTINCT " +
@@ -51,7 +51,7 @@ class SearchQueryBuilder(
         if (particularWordsList.size > 1) {
             particularWordsList.forEachIndexed { index, s ->
                 resultString += "UNION "
-                resultString += getParticularWordQueryWithArgs(s, index)
+                resultString += getParticularWordQueryWithArgs(s, index, particularWordsList.size)
             }
         }
 
@@ -59,10 +59,11 @@ class SearchQueryBuilder(
     }
 
     private fun getParticularWordQueryWithArgs(searchQuery: String,
-                                                    wordNumber: Int) : String {
+                                                    wordNumber: Int,
+                                               numberOfWords: Int) : String {
         args.addAll(listOf((wordNumber + 3), userId, searchQuery,
-            (wordNumber + 6), userId, searchQuery,
-            (wordNumber + 9), userId, searchQuery
+            (wordNumber + numberOfWords + 3), userId, searchQuery,
+            (wordNumber + numberOfWords*2 + 3), userId, searchQuery
             )
         )
         return queryBase
