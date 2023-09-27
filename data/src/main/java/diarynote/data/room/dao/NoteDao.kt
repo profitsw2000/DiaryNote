@@ -1,6 +1,7 @@
 package diarynote.data.room.dao
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.related.UserWithCategoriesAndNotes
@@ -94,6 +95,9 @@ interface NoteDao {
             "AND NoteEntity.text LIKE '%' || :search || '%' " +
             "ORDER BY PRIORITY)")
     fun searchUserNotesByWordWithPriority(userId: Int, search: String): Single<List<NoteEntity>>
+
+    @RawQuery
+    fun searchUserNotesByStringWithPriority(query: SupportSQLiteQuery): Single<List<NoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(noteEntity: NoteEntity): Completable
