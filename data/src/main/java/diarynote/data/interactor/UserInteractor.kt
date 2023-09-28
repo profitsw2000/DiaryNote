@@ -43,4 +43,11 @@ class UserInteractor(
         }
     }
 
+    fun updateUserPassword(password: String, userId: Int, remote: Boolean): Completable {
+        return if (remote) {
+            userRepositoryRemote.updateUserPassword(password, userId)
+        } else {
+            userRepositoryLocal.updateUserPassword(password, userId)
+        }
+    }
 }
