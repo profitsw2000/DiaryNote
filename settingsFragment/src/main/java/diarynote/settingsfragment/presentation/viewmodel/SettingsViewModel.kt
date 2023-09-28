@@ -33,8 +33,8 @@ class SettingsViewModel(
     private val _settingsLiveData = MutableLiveData<List<SettingsMenuItemModel>>()
     val settingsLiveData: LiveData<List<SettingsMenuItemModel>> by this::_settingsLiveData
 
-    private val _userLiveData = MutableLiveData<UserState>()
-    val userLiveData: LiveData<UserState> by this::_userLiveData
+    private val _userLiveData = MutableLiveData<UserState?>()
+    val userLiveData: LiveData<UserState?> by this::_userLiveData
 
     fun getSettingsMenuItemList(context: Context) {
         _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(context,false)
@@ -123,6 +123,16 @@ class SettingsViewModel(
             .edit()
             .putInt(INACTIVE_TIME_PERIOD_INDEX_KEY, index)
             .apply()
+    }
+
+    fun changeUserPassword(currentPassword: String,
+                           newPassword: String,
+                           confirmPassword: String) {
+
+    }
+
+    fun clear() {
+        _userLiveData.value = null
     }
 
 }
