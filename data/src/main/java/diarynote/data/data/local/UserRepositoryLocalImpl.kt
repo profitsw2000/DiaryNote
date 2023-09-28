@@ -26,4 +26,8 @@ class UserRepositoryLocalImpl (
     override fun getUserByEmail(email: String): Single<UserEntity> {
         return database.userDao.getUserByEmail(email)
     }
+
+    override fun updateUserPassword(password: String, userId: Int): Completable {
+        return database.userDao.updatePassword(password, userId)
+    }
 }
