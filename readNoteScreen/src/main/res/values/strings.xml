@@ -1,0 +1,4 @@
+<resources>
+    <string name="edit_note_date_text">Изменено: %1$s</string>
+    <string name="read_note_error_text">Не удалось загрузить заметку. Попробуйте еще раз.</string>
+</resources>

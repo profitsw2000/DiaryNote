@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.view.ReadNoteFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/standart_constraint_horizontal_padding"
+        android:paddingTop="24dp">
+
+        <TextView
+            android:id="@+id/note_title_text_view"
+            style="@style/notes_title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:text="Планировщик для микроконтoроллера или как управлять венетилятором."/>
+
+        <TextView
+            android:id="@+id/note_content_text_view"
+            style="@style/notes_content_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
+            app:layout_constraintTop_toBottomOf="@+id/note_title_text_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:text="Вопреки расхожему мнению, применение планировщиков/диспетчеров позволяет значительно ускорить разработку приложений, затратив при этом совсем немного памяти. А, как известно, время разработчика дороже последней. Средний диспетчер занимает около 1 кБ flash. Это совсем немного, учитывая те возможности, которые он предоставляет. Сделать свои программы более организованными мне, простому любителю, хотелось достаточно давно. Я опробовал на реальных устройствах событийную систему на таблице, диспетчер ДиХальта и планировщик. Последний меньше всего мне понравился. При использовании его как есть он, на мой взгляд, мало пригоден для создания приложений посложнее мигания светодиодами. Но у него есть один плюс, который меня покорил. Он очень, очень простой. А значит быстрый и надежный. Поэтому его я и взял за основу. Итак, что же, как минимум, должно быть у диспетчера для полноценного его использования? На мой взгляд необходимо следующее:"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tags_and_date_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
+            app:layout_constraintTop_toBottomOf="@id/note_content_text_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:id="@+id/note_tags_text_view"
+                style="@style/notes_tags_and_date_text_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/note_create_date_text_view"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="@dimen/standart_constraint_horizontal_padding"
+                tools:text="#светодиод #компоненты #алгоритмы #RTOS #микроконтролллеры"/>
+
+            <TextView
+                android:id="@+id/note_create_date_text_view"
+                style="@style/notes_tags_and_date_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="22.12.2022"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/note_edit_date_text_view"
+            style="@style/notes_tags_and_date_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/extra_small_constraint_vertical_spacing_between_views"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tags_and_date_constraint_layout"
+            tools:text="Изменено: 23.05.2022"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

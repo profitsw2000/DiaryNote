@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color_picker_recycler_view_item_card_view"
+    android:layout_width="@dimen/item_picker_recycler_view_size"
+    android:layout_height="@dimen/item_picker_recycler_view_size"
+    app:cardCornerRadius="@dimen/item_picker_recycler_view_corner_radius"
+    app:strokeWidth="0dp"
+    android:layout_marginRight="@dimen/horizontal_categories_list_interval_size"
+    app:cardBackgroundColor="@color/yellow">
+
+</com.google.android.material.card.MaterialCardView>
