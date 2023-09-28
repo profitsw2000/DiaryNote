@@ -1,5 +1,6 @@
 package diarynote.data.data.local
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.domain.local.NoteRepositoryLocal
 import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.entity.NoteEntity
@@ -45,6 +46,10 @@ class NoteRepositoryLocalImpl(
 
     override fun addNoteList(noteEntityList: List<NoteEntity>): Completable {
         return database.noteDao.insert(noteEntityList)
+    }
+
+    override fun searchUserNotesByString(query: SupportSQLiteQuery): Single<List<NoteEntity>> {
+        return database.noteDao.searchUserNotesByStringWithPriority(query)
     }
 
     override fun updateNote(noteEntity: NoteEntity): Completable {

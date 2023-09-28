@@ -1,5 +1,6 @@
 package diarynote.data.interactor
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.domain.local.NoteRepositoryLocal
 import diarynote.data.domain.web.NoteRepositoryRemote
 import diarynote.data.room.entity.NoteEntity
@@ -74,6 +75,14 @@ class NoteInteractor(
             noteRepositoryRemote.addNoteList(noteEntityList)
         } else {
             noteRepositoryLocal.addNoteList(noteEntityList)
+        }
+    }
+
+    fun getUserNotesByString(query: SupportSQLiteQuery, remote: Boolean): Single<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.searchUserNotesByString(query)
+        } else {
+            noteRepositoryLocal.searchUserNotesByString(query)
         }
     }
 

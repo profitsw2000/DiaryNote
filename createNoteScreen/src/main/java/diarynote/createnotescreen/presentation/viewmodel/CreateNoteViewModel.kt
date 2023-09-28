@@ -115,7 +115,7 @@ class CreateNoteViewModel(
         val tagsList: List<String> = noteTags.split(",").toList()
         if (tagsList.size >= 10) return false
         tagsList.forEach {
-            val wordList = it.split(" ").toList()
+            val wordList = it.trim().split(" ").toList()
             if (wordList.size > NOTE_TAG_WORDS_LIMIT) return false
         }
         return true

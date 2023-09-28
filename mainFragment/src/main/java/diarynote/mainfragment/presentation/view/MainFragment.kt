@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
@@ -48,7 +49,9 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        homeViewModel.getNotesList()
+        if (homeViewModel.notesLiveData.value == null) {
+            homeViewModel.getNotesList()
+        }
     }
 
     private fun initViews() {
@@ -56,6 +59,10 @@ class MainFragment : Fragment() {
             mainNotesListRecyclerView.adapter = adapter
             addNoteFab.setOnClickListener {
                 navigator.navigateToNoteCreation()
+            }
+            searchNoteTextInputLayout.setEndIconOnClickListener {
+                val search = searchInputEditText.text.toString()
+                homeViewModel.getUserNotesByString(search)
             }
         }
     }
@@ -78,6 +85,7 @@ class MainFragment : Fragment() {
             mainNotesListRecyclerView.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
+        if (noteModelList.isEmpty()) Toast.makeText(requireContext(), "Empty search list", Toast.LENGTH_SHORT).show()
         adapter.setData(noteModelList)
     }
 
@@ -97,10 +105,5 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = MainFragment()
     }
 }

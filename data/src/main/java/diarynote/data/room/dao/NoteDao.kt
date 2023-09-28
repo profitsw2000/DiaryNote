@@ -1,6 +1,7 @@
 package diarynote.data.room.dao
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.related.UserWithCategoriesAndNotes
@@ -49,6 +50,9 @@ interface NoteDao {
     @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
     fun getUserWithCategoriesAndNotes(id: Int): Single<UserWithCategoriesAndNotes>
 
+    @RawQuery
+    fun searchUserNotesByStringWithPriority(query: SupportSQLiteQuery): Single<List<NoteEntity>>
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(noteEntity: NoteEntity): Completable
 
@@ -61,3 +65,4 @@ interface NoteDao {
     @Delete
     fun delete(noteEntity: NoteEntity): Completable
 }
+
