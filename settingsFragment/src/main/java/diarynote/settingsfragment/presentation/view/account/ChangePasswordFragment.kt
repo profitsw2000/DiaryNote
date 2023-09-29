@@ -29,7 +29,8 @@ class ChangePasswordFragment : Fragment() {
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val navigator: Navigator by inject()
-    private val userModel: UserModel? by lazy { arguments?.getParcelable(USER_MODEL_BUNDLE) }
+    private lateinit var userModel: UserModel
+    private var isChangePassword = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,20 +45,17 @@ class ChangePasswordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
+        settingsViewModel.getCurrentUserInfo()
     }
 
     private fun initViews() = with(binding) {
-        if (userModel == null) {
-            setErrorMessage("")
-        } else {
-            changePasswordButton.setOnClickListener {
-                settingsViewModel.changeUserPassword(
-                    currentPasswordEditText.text.toString(),
-                    passwordInputEditText.text.toString(),
-                    confirmPasswordInputEditText.text.toString(),
-                    userModel!!
-                )
-            }
+        changePasswordButton.setOnClickListener {
+            settingsViewModel.changeUserPassword(
+                currentPasswordEditText.text.toString(),
+                passwordInputEditText.text.toString(),
+                confirmPasswordInputEditText.text.toString(),
+                userModel
+            )
         }
     }
 
@@ -70,7 +68,7 @@ class ChangePasswordFragment : Fragment() {
         when(userState) {
             is UserState.Error -> handleError(userState.errorCode, userState.message)
             is UserState.Loading -> setProgressBarVisible(true)
-            is UserState.Success -> successfullPasswordChanging()
+            is UserState.Success -> handleSuccess(userState.userModel)
         }
     }
 
@@ -100,6 +98,15 @@ class ChangePasswordFragment : Fragment() {
         }
     }
 
+    private fun handleSuccess(userModel: UserModel) {
+        if (isChangePassword) {
+            successfullPasswordChanging()
+        } else {
+            initViews()
+            this.userModel = userModel
+        }
+    }
+
     private fun successfullPasswordChanging() {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener{
@@ -121,7 +128,7 @@ class ChangePasswordFragment : Fragment() {
         mainGroup.visibility = View.GONE
         progressBar.visibility = View.GONE
         errorMessageTextView.visibility = View.VISIBLE
-        errorMessageTextView.text = getString(diarynote.core.R.string.change_password_error_message_text) + message
+        errorMessageTextView.text = getString(diarynote.core.R.string.change_password_error_message_text, message)
     }
 
     private fun clearInputForms() = with(binding) {

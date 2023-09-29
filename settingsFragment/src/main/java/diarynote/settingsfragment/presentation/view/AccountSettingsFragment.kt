@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import diarynote.data.appsettings.ACCOUNT_CHANGE_PASSWORD_ID
+import diarynote.data.domain.NOTE_MODEL_BUNDLE
+import diarynote.data.domain.USER_MODEL_BUNDLE
 import diarynote.data.model.SettingsMenuItemModel
+import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentAccountSettingsBinding
@@ -26,7 +29,7 @@ class AccountSettingsFragment : Fragment() {
     private val adapter = SubSettingsAdapter(object : OnSettingsMenuItemClickListener{
         override fun onItemClick(itemId: Int) {
             when (itemId) {
-                ACCOUNT_CHANGE_PASSWORD_ID -> {}
+                ACCOUNT_CHANGE_PASSWORD_ID -> navigator.navigateToChangePassword()
             }
         }
     })

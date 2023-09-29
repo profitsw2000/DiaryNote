@@ -89,7 +89,7 @@
     <string name="change_password_asking_current_text_view">Сначала подтвердите, что это ваша учетная запись. Введите ваш пароль.</string>
     <string name="new_password_explanation_text_view">Выберите надежный пароль и не используйте его для других аккаунтов. Пароль должен содержать не менее 8 символов.</string>
     <string name="change_password_button_text">СМЕНИТЬ ПАРОЛЬ</string>
-    <string name="change_password_error_message_text">Ошибка изменения пароля учетной записи.</string>
+    <string name="change_password_error_message_text">Ошибка изменения пароля учетной записи.%1$s</string>
     <string name="invalid_current_password_text">Неверный пароль</string>
     <string name="change_password_successfull_dialog_title">Изменение пароля</string>
     <string name="change_password_successfull_dialog_message">Изменение пароля завершено успешно</string>
