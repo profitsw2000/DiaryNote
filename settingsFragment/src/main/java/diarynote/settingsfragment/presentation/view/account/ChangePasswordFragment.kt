@@ -43,12 +43,28 @@ class ChangePasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         observeData()
         settingsViewModel.getCurrentUserInfo()
     }
 
     private fun initViews() = with(binding) {
+
+        initButton()
+
+        currentPasswordEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) currentPasswordInputLayout.error = null
+        }
+
+        passwordInputEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) passwordTextInputLayout.error = null
+        }
+
+        confirmPasswordInputEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) confirmPasswordTextInputLayout.error = null
+        }
+    }
+
+    private fun initButton() = with(binding) {
         changePasswordButton.setOnClickListener {
             settingsViewModel.changeUserPassword(
                 currentPasswordEditText.text.toString(),
@@ -76,10 +92,8 @@ class ChangePasswordFragment : Fragment() {
 
         setProgressBarVisible(false)
 
-        if((1 shl CURRENT_PASSWORD_BIT_NUMBER) and code != 0) currentPasswordInputLayout.error =
-            getString(
-                diarynote.core.R.string.invalid_current_password_text
-            )
+        if((1 shl CURRENT_PASSWORD_BIT_NUMBER) and code != 0) currentPasswordInputLayout.error = getString(
+                diarynote.core.R.string.invalid_current_password_text)
         if((1 shl PASSWORD_BIT_NUMBER) and code != 0) passwordTextInputLayout.error = getString(
             diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
         if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
@@ -99,11 +113,13 @@ class ChangePasswordFragment : Fragment() {
     }
 
     private fun handleSuccess(userModel: UserModel) {
+        setProgressBarVisible(false)
         if (isChangePassword) {
             successfullPasswordChanging()
         } else {
             initViews()
             this.userModel = userModel
+            isChangePassword = true
         }
     }
 
@@ -111,7 +127,6 @@ class ChangePasswordFragment : Fragment() {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener{
                 override fun onClick() {
-                    settingsViewModel.clear()
                     clearInputForms()
                     requireActivity().onBackPressed()
                 }

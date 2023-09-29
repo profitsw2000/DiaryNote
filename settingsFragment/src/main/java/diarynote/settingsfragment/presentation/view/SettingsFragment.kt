@@ -71,7 +71,7 @@ class SettingsFragment : Fragment() {
     private fun observeData() {
         val settingsMenuObserver = Observer<List<SettingsMenuItemModel>> { renderSettingsMenuData(it) }
         settingsViewModel.settingsLiveData.observe(viewLifecycleOwner, settingsMenuObserver)
-        val userObserver = Observer<UserState> { renderUserData(it) }
+        val userObserver = Observer<UserState?> { renderUserData(it) }
         settingsViewModel.userLiveData.observe(viewLifecycleOwner, userObserver)
     }
 
