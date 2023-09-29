@@ -4,6 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
+import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
+import diarynote.core.utils.EMAIL_BIT_NUMBER
+import diarynote.core.utils.InputValidator
+import diarynote.core.utils.LOGIN_BIT_NUMBER
+import diarynote.core.utils.PASSWORD_BIT_NUMBER
+import diarynote.core.utils.PASSWORD_MIN_LENGTH
+import diarynote.core.utils.PASSWORD_PATTERN
+import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
@@ -19,6 +28,7 @@ import diarynote.data.interactor.SettingsInteractor
 import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
 import diarynote.data.model.SettingsMenuItemModel
+import diarynote.data.model.UserModel
 import diarynote.template.model.UserState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -127,12 +137,49 @@ class SettingsViewModel(
 
     fun changeUserPassword(currentPassword: String,
                            newPassword: String,
-                           confirmPassword: String) {
+                           confirmPassword: String,
+                           userModel: UserModel) {
+        val inputValidator = InputValidator()
 
+        val currentPasswordIsValid = (currentPassword == userModel.password)
+        val passwordIsValid = inputValidator.checkInputIsValid(newPassword, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)
+        val confirmed = (newPassword == confirmPassword)
+
+        if (currentPasswordIsValid && passwordIsValid && confirmed) {
+            updateUserPassword(userModel, newPassword, sharedPreferences.getInt(CURRENT_USER_ID, 0))
+        } else {
+            invalidInput(!currentPasswordIsValid, !passwordIsValid, !confirmed)
+        }
+    }
+
+    private fun invalidInput(currentPasswordIsValid: Boolean, passwordIsValid: Boolean, confirmed: Boolean) {
+        val errorCode = (currentPasswordIsValid.toInt() shl CURRENT_PASSWORD_BIT_NUMBER) or
+                (passwordIsValid.toInt() shl PASSWORD_BIT_NUMBER) or
+                (confirmed.toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
+
+        _userLiveData.value = UserState.Error(errorCode, "")
+    }
+
+    private fun updateUserPassword(userModel: UserModel, newPassword: String, userId: Int) {
+        _userLiveData.value = UserState.Loading
+        userInteractor.updateUserPassword(newPassword, userId, false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _userLiveData.value = UserState.Success(userModel)
+                },
+                {
+                    val message = it.message ?: ""
+                    _userLiveData.value = UserState.Error((1 shl ROOM_BIT_NUMBER), message)
+                }
+            )
     }
 
     fun clear() {
         _userLiveData.value = null
     }
+
+    private fun Boolean.toInt() = if (this) 1 else 0
 
 }

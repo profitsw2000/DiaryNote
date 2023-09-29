@@ -7,7 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
+import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
+import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
+import diarynote.core.utils.PASSWORD_BIT_NUMBER
+import diarynote.core.utils.PASSWORD_MIN_LENGTH
+import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
+import diarynote.data.domain.USER_MODEL_BUNDLE
+import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentChangePasswordBinding
@@ -22,6 +29,7 @@ class ChangePasswordFragment : Fragment() {
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val navigator: Navigator by inject()
+    private val userModel: UserModel? by lazy { arguments?.getParcelable(USER_MODEL_BUNDLE) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,16 +43,21 @@ class ChangePasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-
+        observeData()
     }
 
     private fun initViews() = with(binding) {
-        changePasswordButton.setOnClickListener {
-            settingsViewModel.changeUserPassword(
-                currentPasswordEditText.text.toString(),
-                passwordInputEditText.text.toString(),
-                confirmPasswordInputEditText.text.toString()
-            )
+        if (userModel == null) {
+            setErrorMessage("")
+        } else {
+            changePasswordButton.setOnClickListener {
+                settingsViewModel.changeUserPassword(
+                    currentPasswordEditText.text.toString(),
+                    passwordInputEditText.text.toString(),
+                    confirmPasswordInputEditText.text.toString(),
+                    userModel!!
+                )
+            }
         }
     }
 
@@ -55,17 +68,25 @@ class ChangePasswordFragment : Fragment() {
 
     private fun renderData(userState: UserState) {
         when(userState) {
-            is UserState.Error -> handleError(userState.errorCode)
+            is UserState.Error -> handleError(userState.errorCode, userState.message)
             is UserState.Loading -> setProgressBarVisible(true)
             is UserState.Success -> successfullPasswordChanging()
         }
     }
 
-    private fun handleError(code: Int) {
-        val dialoger = DialogerImpl(requireActivity())
+    private fun handleError(code: Int, message: String) = with(binding){
 
         setProgressBarVisible(false)
 
+        if((1 shl CURRENT_PASSWORD_BIT_NUMBER) and code != 0) currentPasswordInputLayout.error =
+            getString(
+                diarynote.core.R.string.invalid_current_password_text
+            )
+        if((1 shl PASSWORD_BIT_NUMBER) and code != 0) passwordTextInputLayout.error = getString(
+            diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
+        if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
+            diarynote.core.R.string.password_not_confirmed_error_message)
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) setErrorMessage(message)
 
     }
 
@@ -84,15 +105,29 @@ class ChangePasswordFragment : Fragment() {
             object : OnDialogPositiveButtonClickListener{
                 override fun onClick() {
                     settingsViewModel.clear()
+                    clearInputForms()
                     requireActivity().onBackPressed()
                 }
-
             })
 
         setProgressBarVisible(false)
-        dialoger.showAlertDialog("Изменение пароля",
-            "Изменение пароля завершено успешно",getString(diarynote.core.R.string.dialog_button_ok_text)
+        dialoger.showAlertDialog(
+            getString(diarynote.core.R.string.change_password_successfull_dialog_title),
+            getString(diarynote.core.R.string.change_password_successfull_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
             )
+    }
+
+    private fun setErrorMessage(message: String) = with(binding) {
+        mainGroup.visibility = View.GONE
+        progressBar.visibility = View.GONE
+        errorMessageTextView.visibility = View.VISIBLE
+        errorMessageTextView.text = getString(diarynote.core.R.string.change_password_error_message_text) + message
+    }
+
+    private fun clearInputForms() = with(binding) {
+        currentPasswordEditText.setText("")
+        passwordInputEditText.setText("")
+        confirmPasswordInputEditText.setText("")
     }
 
     override fun onDestroyView() {
