@@ -53,6 +53,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.about)
     }
 
+    override fun navigateToChangePassword(bundle: Bundle) {
+        navController.navigate(R.id.change_password_fragment, bundle)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

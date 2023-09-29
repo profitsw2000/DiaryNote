@@ -26,5 +26,7 @@ interface Navigator {
 
     fun navigateToAboutScreen()
 
+    fun navigateToChangePassword(bundle: Bundle)
+
     fun navigateUp()
 }
