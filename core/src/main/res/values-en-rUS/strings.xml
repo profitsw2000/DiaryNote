@@ -92,6 +92,9 @@
     <string name="change_password_button_text">CHANGE PASSWORD</string>
     <string name="change_password_error_message_text">Account password changing error.%1$s</string>
     <string name="invalid_current_password_text">Invalid password</string>
-    <string name="change_password_successfull_dialog_title">Изменение пароля</string>
-    <string name="change_password_successfull_dialog_message">Изменение пароля завершено успешно</string>
+    <string name="change_password_successfull_dialog_title">Change password</string>
+    <string name="change_password_successfull_dialog_message">Password change completed successfully</string>
+    <string name="name_hint_text">Name</string>
+    <string name="surname_hint_text">Surname</string>
+    <string name="save_button_text">SAVE</string>
 </resources>

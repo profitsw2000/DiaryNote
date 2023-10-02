@@ -93,4 +93,7 @@
     <string name="invalid_current_password_text">Неверный пароль</string>
     <string name="change_password_successfull_dialog_title">Изменение пароля</string>
     <string name="change_password_successfull_dialog_message">Изменение пароля завершено успешно</string>
+    <string name="name_hint_text">Имя</string>
+    <string name="surname_hint_text">Фамилия</string>
+    <string name="save_button_text">СОХРАНИТЬ</string>
 </resources>
