@@ -8,6 +8,8 @@ class UserMapper {
     fun map(userModel: UserModel): UserEntity {
         return UserEntity(
             id = userModel.id,
+            name = userModel.name,
+            surname = userModel.surname,
             login = userModel.login,
             email = userModel.email,
             password = userModel.password
@@ -17,6 +19,8 @@ class UserMapper {
     fun map(userEntity: UserEntity): UserModel {
         return UserModel(
             id = userEntity.id,
+            name = userEntity.name,
+            surname = userEntity.surname,
             login = userEntity.login,
             email = userEntity.email,
             password = userEntity.password
