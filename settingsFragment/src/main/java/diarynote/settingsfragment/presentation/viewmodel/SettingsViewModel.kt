@@ -176,6 +176,31 @@ class SettingsViewModel(
             )
     }
 
+    fun changeUserInfo(userName: String,
+                           userSurname: String,
+                           login: String,
+                           userModel: UserModel) {
+        val inputValidator = InputValidator()
+
+        val nameIsValid = true
+        val surnameIsValid = true
+        val loginIsValid = true
+
+        if (nameIsValid && surnameIsValid && loginIsValid) {
+
+        } else {
+            invalidUserInfoInput(!nameIsValid, !surnameIsValid, !loginIsValid)
+        }
+    }
+
+    private fun invalidUserInfoInput(nameIsValid: Boolean, surnameIsValid: Boolean, loginIsValid: Boolean) {
+        val errorCode = (nameIsValid.toInt() shl CURRENT_PASSWORD_BIT_NUMBER) or
+                (surnameIsValid.toInt() shl PASSWORD_BIT_NUMBER) or
+                (loginIsValid.toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
+
+        _userLiveData.value = UserState.Error(errorCode, "")
+    }
+
     fun clear() {
         _userLiveData.value = null
     }
