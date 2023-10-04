@@ -17,4 +17,5 @@
     <string name="help_fragment_label_text">Help</string>
     <string name="about_fragment_label_text">About</string>
     <string name="change_password_fragment_label_text">Change password</string>
+    <string name="change_user_info_fragment_label_text">Change user info...</string>
 </resources>
