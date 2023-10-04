@@ -11,6 +11,7 @@ import diarynote.core.utils.EMAIL_ALREADY_EXIST_BIT_NUMBER
 import diarynote.core.utils.EMAIL_BIT_NUMBER
 import diarynote.core.utils.LOGIN_ALREADY_EXIST_BIT_NUMBER
 import diarynote.core.utils.LOGIN_BIT_NUMBER
+import diarynote.core.utils.LOGIN_MIN_LENGTH
 import diarynote.core.utils.NAME_BIT_NUMBER
 import diarynote.core.utils.NAME_MIN_LENGTH
 import diarynote.core.utils.ROOM_BIT_NUMBER
@@ -50,6 +51,8 @@ class ChangeUserInfoFragment : Fragment() {
     private fun initViews() = with(binding) {
         nameInputEditText.setText(userModel.name)
         surnameInputEditText.setText(userModel.surname)
+        loginInputEditText.setText(userModel.login)
+        emailInputEditText.setText(userModel.email)
 
         changeUserInfoButton.setOnClickListener {
             settingsViewModel.changeUserInfo(nameInputEditText.text.toString(),
@@ -83,7 +86,7 @@ class ChangeUserInfoFragment : Fragment() {
         if((1 shl SURNAME_BIT_NUMBER) and code != 0) surnameTextInputLayout.error = getString(
             diarynote.core.R.string.name_input_error_message, NAME_MIN_LENGTH.toString())
         if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = getString(
-            diarynote.core.R.string.login_input_error_message)
+            diarynote.core.R.string.login_input_error_message, LOGIN_MIN_LENGTH.toString())
         if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = getString(
             diarynote.core.R.string.invalid_email_input_message)
         if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_registration_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
@@ -124,8 +127,8 @@ class ChangeUserInfoFragment : Fragment() {
 
         setProgressBarVisible(false)
         dialoger.showAlertDialog(
-            getString(diarynote.core.R.string.change_password_successfull_dialog_title),
-            getString(diarynote.core.R.string.change_password_successfull_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
+            getString(diarynote.core.R.string.change_user_info_successfull_dialog_title),
+            getString(diarynote.core.R.string.change_user_info_successfull_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
         )
     }
 

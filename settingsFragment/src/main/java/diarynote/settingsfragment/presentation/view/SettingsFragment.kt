@@ -88,8 +88,10 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setUserData(userModel: UserModel) = with(binding) {
+        val accountOwnerName = if (userModel.name == "" && userModel.surname == "") userModel.login
+        else "${userModel.name} ${userModel.surname}"
         setProgressBarVisible(false)
-        accountLoginTextView.text = userModel.login
+        accountLoginTextView.text = accountOwnerName
         emailTextView.text = userModel.email
     }
 

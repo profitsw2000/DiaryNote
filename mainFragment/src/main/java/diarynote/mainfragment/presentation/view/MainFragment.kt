@@ -85,7 +85,6 @@ class MainFragment : Fragment() {
             mainNotesListRecyclerView.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
-        if (noteModelList.isEmpty()) Toast.makeText(requireContext(), "Empty search list", Toast.LENGTH_SHORT).show()
         adapter.setData(noteModelList)
     }
 

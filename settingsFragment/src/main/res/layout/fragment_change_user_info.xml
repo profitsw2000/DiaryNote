@@ -131,6 +131,7 @@
         app:constraint_referenced_ids="name_text_input_layout,
                                         surname_text_input_layout,
                                         login_text_input_layout,
+                                        email_text_input_layout,
                                         change_user_info_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
