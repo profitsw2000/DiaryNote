@@ -117,6 +117,7 @@ class ChangePasswordFragment : Fragment() {
         } else {
             this.userModel = userModel
             isChangePassword = true
+            initViews()
         }
     }
 

@@ -6,6 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import diarynote.core.common.dialog.data.DialogerImpl
+import diarynote.core.utils.EMAIL_ALREADY_EXIST_BIT_NUMBER
+import diarynote.core.utils.EMAIL_BIT_NUMBER
+import diarynote.core.utils.LOGIN_ALREADY_EXIST_BIT_NUMBER
+import diarynote.core.utils.LOGIN_BIT_NUMBER
+import diarynote.core.utils.NAME_BIT_NUMBER
+import diarynote.core.utils.NAME_MIN_LENGTH
+import diarynote.core.utils.ROOM_BIT_NUMBER
+import diarynote.core.utils.SURNAME_BIT_NUMBER
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentChangeUserInfoBinding
@@ -45,6 +55,7 @@ class ChangeUserInfoFragment : Fragment() {
             settingsViewModel.changeUserInfo(nameInputEditText.text.toString(),
                                             surnameInputEditText.text.toString(),
                                             loginInputEditText.text.toString(),
+                                            emailInputEditText.text.toString(),
                                             userModel
                 )
         }
@@ -64,24 +75,20 @@ class ChangeUserInfoFragment : Fragment() {
     }
 
     private fun handleError(code: Int, message: String) = with(binding){
-
+        val dialoger = DialogerImpl(requireActivity())
         setProgressBarVisible(false)
 
-/*        if((1 shl CURRENT_PASSWORD_BIT_NUMBER) and code != 0) currentPasswordInputLayout.error = getString(
-            diarynote.core.R.string.invalid_current_password_text)
-        if((1 shl PASSWORD_BIT_NUMBER) and code != 0) passwordTextInputLayout.error = getString(
-            diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
-        if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
-            diarynote.core.R.string.password_not_confirmed_error_message)
-        if((1 shl ROOM_BIT_NUMBER) and code != 0) setErrorMessage(message)*/
-
-    }
-
-    private fun setErrorMessage(message: String) = with(binding) {
-        mainGroup.visibility = View.GONE
-        progressBar.visibility = View.GONE
-        errorMessageTextView.visibility = View.VISIBLE
-        errorMessageTextView.text = getString(diarynote.core.R.string.change_user_info_error_message_text, message)
+        if((1 shl NAME_BIT_NUMBER) and code != 0) nameTextInputLayout.error = getString(
+            diarynote.core.R.string.name_input_error_message, NAME_MIN_LENGTH.toString())
+        if((1 shl SURNAME_BIT_NUMBER) and code != 0) surnameTextInputLayout.error = getString(
+            diarynote.core.R.string.name_input_error_message, NAME_MIN_LENGTH.toString())
+        if((1 shl LOGIN_BIT_NUMBER) and code != 0) loginTextInputLayout.error = getString(
+            diarynote.core.R.string.login_input_error_message)
+        if((1 shl EMAIL_BIT_NUMBER) and code != 0) emailTextInputLayout.error = getString(
+            diarynote.core.R.string.invalid_email_input_message)
+        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_registration_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
+        if((1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.user_already_exist_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
+        if((1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.email_already_exist_error_message), getString(diarynote.core.R.string.dialog_button_ok_text))
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
@@ -107,6 +114,19 @@ class ChangeUserInfoFragment : Fragment() {
 
     private fun successfullUserInfoChanging() {
 
+        val dialoger = DialogerImpl(requireActivity(),
+            object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    clearInputForms()
+                    requireActivity().onBackPressed()
+                }
+            })
+
+        setProgressBarVisible(false)
+        dialoger.showAlertDialog(
+            getString(diarynote.core.R.string.change_password_successfull_dialog_title),
+            getString(diarynote.core.R.string.change_password_successfull_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
+        )
     }
 
     private fun clearInputForms() = with(binding) {

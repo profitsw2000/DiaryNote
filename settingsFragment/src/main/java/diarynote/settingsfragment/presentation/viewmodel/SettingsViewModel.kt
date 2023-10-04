@@ -6,13 +6,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
 import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
+import diarynote.core.utils.EMAIL_ALREADY_EXIST_BIT_NUMBER
 import diarynote.core.utils.EMAIL_BIT_NUMBER
+import diarynote.core.utils.EMAIL_PATTERN
 import diarynote.core.utils.InputValidator
+import diarynote.core.utils.LOGIN_ALREADY_EXIST_BIT_NUMBER
 import diarynote.core.utils.LOGIN_BIT_NUMBER
+import diarynote.core.utils.LOGIN_MIN_LENGTH
+import diarynote.core.utils.LOGIN_PATTERN
+import diarynote.core.utils.NAME_BIT_NUMBER
+import diarynote.core.utils.NAME_MIN_LENGTH
+import diarynote.core.utils.NAME_PATTERN
 import diarynote.core.utils.PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.core.utils.PASSWORD_PATTERN
 import diarynote.core.utils.ROOM_BIT_NUMBER
+import diarynote.core.utils.SURNAME_BIT_NUMBER
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
@@ -179,26 +188,63 @@ class SettingsViewModel(
     fun changeUserInfo(userName: String,
                            userSurname: String,
                            login: String,
+                           email: String,
                            userModel: UserModel) {
         val inputValidator = InputValidator()
 
-        val nameIsValid = true
-        val surnameIsValid = true
-        val loginIsValid = true
+        val nameIsValid = inputValidator.checkInputIsValid(userName, NAME_MIN_LENGTH, NAME_PATTERN) || (userName == "")
+        val surnameIsValid = inputValidator.checkInputIsValid(userSurname, NAME_MIN_LENGTH, NAME_PATTERN) || (userSurname == "")
+        val loginIsValid = inputValidator.checkInputIsValid(login, LOGIN_MIN_LENGTH, LOGIN_PATTERN)
+        val emailIsValid = inputValidator.checkInputIsValid(email, EMAIL_PATTERN)
 
-        if (nameIsValid && surnameIsValid && loginIsValid) {
-
+        if (nameIsValid && surnameIsValid && loginIsValid && emailIsValid) {
+            updateUserInfo(
+                UserModel(id = userModel.id,
+                name = userName,
+                surname = userSurname,
+                login = login,
+                email = userModel.email,
+                password = userModel.password)
+            )
         } else {
-            invalidUserInfoInput(!nameIsValid, !surnameIsValid, !loginIsValid)
+            invalidUserInfoInput(!nameIsValid, !surnameIsValid, !loginIsValid, !emailIsValid)
         }
     }
 
-    private fun invalidUserInfoInput(nameIsValid: Boolean, surnameIsValid: Boolean, loginIsValid: Boolean) {
-        val errorCode = (nameIsValid.toInt() shl CURRENT_PASSWORD_BIT_NUMBER) or
-                (surnameIsValid.toInt() shl PASSWORD_BIT_NUMBER) or
-                (loginIsValid.toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
+    private fun invalidUserInfoInput(nameIsValid: Boolean,
+                                     surnameIsValid: Boolean,
+                                     loginIsValid: Boolean,
+                                     emailIsValid: Boolean) {
+        val errorCode = (nameIsValid.toInt() shl NAME_BIT_NUMBER) or
+                (surnameIsValid.toInt() shl SURNAME_BIT_NUMBER) or
+                (loginIsValid.toInt() shl LOGIN_BIT_NUMBER) or
+                (emailIsValid.toInt() shl EMAIL_BIT_NUMBER)
 
         _userLiveData.value = UserState.Error(errorCode, "")
+    }
+
+    private fun updateUserInfo(userModel: UserModel) {
+        _userLiveData.value = UserState.Loading
+        userInteractor.updateUser(userMapper.map(userModel), false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _userLiveData.value = UserState.Success(userModel)
+                },
+                {
+                    val message = it.message ?: ""
+                    _userLiveData.value = UserState.Error(getErrorCode(message), message)
+                }
+            )
+    }
+
+    private fun getErrorCode(errorMessage: String) : Int {
+        return when(errorMessage) {
+            "UNIQUE constraint failed: UserEntity.login (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER)
+            "UNIQUE constraint failed: UserEntity.email (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER)
+            else -> (1 shl ROOM_BIT_NUMBER)
+        }
     }
 
     fun clear() {

@@ -94,11 +94,32 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputOutlinedStyle"
+        android:id="@+id/email_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/login_text_input_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:errorEnabled="true"
+        android:hint="@string/email_hint_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/customEditTextInputOutlinedStyle"
+            android:id="@+id/email_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/change_user_info_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/login_text_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/email_text_input_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/save_button_text"/>
