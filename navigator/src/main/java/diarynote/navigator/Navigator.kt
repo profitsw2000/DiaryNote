@@ -28,5 +28,7 @@ interface Navigator {
 
     fun navigateToChangePassword()
 
+    fun navigateToChangeUserInfo()
+
     fun navigateUp()
 }
