@@ -30,4 +30,8 @@ class UserRepositoryLocalImpl (
     override fun updateUserPassword(password: String, userId: Int): Completable {
         return database.userDao.updatePassword(password, userId)
     }
+
+    override fun updateUser(userEntity: UserEntity): Completable {
+        return database.userDao.update(userEntity)
+    }
 }

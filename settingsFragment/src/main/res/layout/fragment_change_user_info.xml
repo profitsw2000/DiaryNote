@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/standart_constraint_horizontal_padding"
-    tools:context=".ChangeUserInfoFragment">
+    tools:context=".presentation.view.account.ChangeUserInfoFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"

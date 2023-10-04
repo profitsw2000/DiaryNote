@@ -13,7 +13,6 @@ import diarynote.core.utils.PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
-import diarynote.data.domain.USER_MODEL_BUNDLE
 import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
@@ -28,7 +27,6 @@ class ChangePasswordFragment : Fragment() {
     private var _binding: FragmentChangePasswordBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
-    private val navigator: Navigator by inject()
     private lateinit var userModel: UserModel
     private var isChangePassword = false
 
@@ -117,7 +115,6 @@ class ChangePasswordFragment : Fragment() {
         if (isChangePassword) {
             successfullPasswordChanging()
         } else {
-            initViews()
             this.userModel = userModel
             isChangePassword = true
         }

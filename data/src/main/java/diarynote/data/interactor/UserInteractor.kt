@@ -50,4 +50,12 @@ class UserInteractor(
             userRepositoryLocal.updateUserPassword(password, userId)
         }
     }
+
+    fun updateUser(userEntity: UserEntity, remote: Boolean): Completable {
+        return if (remote) {
+            userRepositoryRemote.updateUser(userEntity)
+        } else {
+            userRepositoryLocal.updateUser(userEntity)
+        }
+    }
 }

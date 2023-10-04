@@ -1,4 +1,4 @@
-package diarynote.settingsfragment
+package diarynote.settingsfragment.presentation.view.account
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
-import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
-import diarynote.core.utils.PASSWORD_BIT_NUMBER
-import diarynote.core.utils.PASSWORD_MIN_LENGTH
-import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.data.model.UserModel
+import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentChangeUserInfoBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.model.UserState
@@ -36,14 +32,14 @@ class ChangeUserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        //initViews()
         observeData()
         settingsViewModel.getCurrentUserInfo()
     }
 
     private fun initViews() = with(binding) {
-        //nameInputEditText.setText(userModel.name)
-        //surnameInputEditText.setText(userModel.surname)
+        nameInputEditText.setText(userModel.name)
+        surnameInputEditText.setText(userModel.surname)
 
         changeUserInfoButton.setOnClickListener {
             settingsViewModel.changeUserInfo(nameInputEditText.text.toString(),
