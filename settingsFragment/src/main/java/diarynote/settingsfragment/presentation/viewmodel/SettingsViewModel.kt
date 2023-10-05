@@ -67,6 +67,10 @@ class SettingsViewModel(
         getUserInfoById(sharedPreferences.getInt(CURRENT_USER_ID, 0))
     }
 
+    fun deleteCurrentUser() {
+        deleteUser(sharedPreferences.getInt(CURRENT_USER_ID, 0))
+    }
+
     fun getCurrentTheme(): Int {
         return sharedPreferences.getInt(CURRENT_THEME_KEY, APP_THEME_LIGHT)
     }
@@ -245,6 +249,22 @@ class SettingsViewModel(
             "UNIQUE constraint failed: UserEntity.email (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER)
             else -> (1 shl ROOM_BIT_NUMBER)
         }
+    }
+
+    private fun deleteUser(userId: Int) {
+        _userLiveData.value = UserState.Loading
+        userInteractor.deleteUser(userId, false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _userLiveData.value = UserState.Success(UserModel(userId, "", "", "", "", ""))
+                },
+                {
+                    val message = it.message ?: ""
+                    _userLiveData.value = UserState.Error(getErrorCode(message), message)
+                }
+            )
     }
 
     fun clear() {
