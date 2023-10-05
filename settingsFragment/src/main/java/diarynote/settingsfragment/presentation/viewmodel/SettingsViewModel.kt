@@ -203,7 +203,7 @@ class SettingsViewModel(
                 name = userName,
                 surname = userSurname,
                 login = login,
-                email = userModel.email,
+                email = email,
                 password = userModel.password)
             )
         } else {
