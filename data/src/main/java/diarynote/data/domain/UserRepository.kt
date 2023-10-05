@@ -17,4 +17,6 @@ interface UserRepository {
     fun updateUserPassword(password: String, userId: Int): Completable
 
     fun updateUser(userEntity: UserEntity): Completable
+
+    fun deleteUser(id: Int): Completable
 }

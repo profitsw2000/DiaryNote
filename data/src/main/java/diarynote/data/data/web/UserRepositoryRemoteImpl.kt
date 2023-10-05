@@ -30,4 +30,8 @@ class UserRepositoryRemoteImpl : UserRepositoryRemote {
     override fun updateUser(userEntity: UserEntity): Completable {
         TODO("Not yet implemented")
     }
+
+    override fun deleteUser(id: Int): Completable {
+        TODO("Not yet implemented")
+    }
 }

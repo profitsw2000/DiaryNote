@@ -34,4 +34,8 @@ class UserRepositoryLocalImpl (
     override fun updateUser(userEntity: UserEntity): Completable {
         return database.userDao.update(userEntity)
     }
+
+    override fun deleteUser(id: Int): Completable {
+        return database.userDao.delete(id)
+    }
 }
