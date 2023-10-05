@@ -262,7 +262,7 @@ class SettingsViewModel(
                 },
                 {
                     val message = it.message ?: ""
-                    _userLiveData.value = UserState.Error(getErrorCode(message), message)
+                    _userLiveData.value = UserState.Error((1 shl ROOM_BIT_NUMBER), message)
                 }
             )
     }
