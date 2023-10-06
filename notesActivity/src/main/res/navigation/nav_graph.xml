@@ -115,6 +115,9 @@
         <action
             android:id="@+id/action_settings_to_change_user_info"
             app:destination="@+id/change_user_info_fragment" />
+        <action
+            android:id="@+id/action_settings_to_delete_account_info"
+            app:destination="@+id/delete_user_account_fragment" />
     </fragment>
 
     <fragment
@@ -159,5 +162,11 @@
         android:name="diarynote.settingsfragment.presentation.view.account.ChangeUserInfoFragment"
         android:label="@string/change_user_info_fragment_label_text"
         tools:layout="@layout/fragment_change_user_info"/>
+
+    <fragment
+        android:id="@+id/delete_user_account_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.DeleteAccountFragment"
+        android:label="@string/delete_account_label_text"
+        tools:layout="@layout/fragment_delete_account"/>
 
 </navigation>

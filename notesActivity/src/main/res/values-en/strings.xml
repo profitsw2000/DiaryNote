@@ -18,4 +18,5 @@
     <string name="about_fragment_label_text">About</string>
     <string name="change_password_fragment_label_text">Change password</string>
     <string name="change_user_info_fragment_label_text">Change user info...</string>
+    <string name="delete_account_label_text">Delete account...</string>
 </resources>
