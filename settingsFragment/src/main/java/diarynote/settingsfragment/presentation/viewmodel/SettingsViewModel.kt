@@ -38,6 +38,7 @@ import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
+import diarynote.data.room.entity.UserEntity
 import diarynote.template.model.UserState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -68,7 +69,8 @@ class SettingsViewModel(
     }
 
     fun deleteCurrentUser() {
-        deleteUser(sharedPreferences.getInt(CURRENT_USER_ID, 0))
+        val userEntity = UserEntity(sharedPreferences.getInt(CURRENT_USER_ID, 0), "", "", "", "", "")
+        deleteUser(userEntity)
     }
 
     fun getCurrentTheme(): Int {
@@ -251,14 +253,14 @@ class SettingsViewModel(
         }
     }
 
-    private fun deleteUser(userId: Int) {
+    private fun deleteUser(userEntity: UserEntity) {
         _userLiveData.value = UserState.Loading
-        userInteractor.deleteUser(userId, false)
+        userInteractor.deleteUser(userEntity, false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _userLiveData.value = UserState.Success(UserModel(userId, "", "", "", "", ""))
+                    _userLiveData.value = UserState.Success(userMapper.map(userEntity))
                 },
                 {
                     val message = it.message ?: ""
