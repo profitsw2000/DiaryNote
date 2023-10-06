@@ -99,6 +99,7 @@
     <string name="change_password_successfull_dialog_message">Password change completed successfully</string>
     <string name="change_user_info_successfull_dialog_title">Change user info</string>
     <string name="change_user_info_successfull_dialog_message">User info change completed successfully</string>
+    <string name="delete_account_successfull_dialog_message">Account delete completed successfully</string>
     <string name="name_hint_text">Name</string>
     <string name="surname_hint_text">Surname</string>
     <string name="save_button_text">SAVE</string>

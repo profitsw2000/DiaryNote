@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import diarynote.data.appsettings.ACCOUNT_CHANGE_ACCOUNT_INFO_ID
 import diarynote.data.appsettings.ACCOUNT_CHANGE_PASSWORD_ID
+import diarynote.data.appsettings.DELETE_ACCOUNT_ID
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.domain.USER_MODEL_BUNDLE
 import diarynote.data.model.SettingsMenuItemModel

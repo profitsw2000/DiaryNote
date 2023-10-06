@@ -98,6 +98,7 @@
     <string name="change_password_successfull_dialog_message">Изменение пароля завершено успешно</string>
     <string name="change_user_info_successfull_dialog_title">Изменение данных пользователя</string>
     <string name="change_user_info_successfull_dialog_message">Изменение данных пользователя завершено успешно</string>
+    <string name="delete_account_successfull_dialog_message">Удаление учетной записи завершено успешно</string>
     <string name="name_hint_text">Имя</string>
     <string name="surname_hint_text">Фамилия</string>
     <string name="save_button_text">СОХРАНИТЬ</string>

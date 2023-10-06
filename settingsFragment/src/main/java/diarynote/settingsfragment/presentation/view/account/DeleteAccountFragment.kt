@@ -21,6 +21,7 @@ import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentDeleteAccountBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.model.UserState
+import diarynote.template.presentation.ActivityNavigator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -41,6 +42,8 @@ class DeleteAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+        observeData()
     }
 
     private fun initViews() = with(binding) {
@@ -72,7 +75,7 @@ class DeleteAccountFragment : Fragment() {
         when(userState) {
             is UserState.Error -> handleError(userState.errorCode, userState.message)
             is UserState.Loading -> setProgressBarVisible(true)
-            is UserState.Success -> {}
+            is UserState.Success -> handleSuccess()
         }
     }
 
@@ -89,6 +92,27 @@ class DeleteAccountFragment : Fragment() {
         } else {
             progressBar.visibility = View.GONE
         }
+    }
+
+    private fun handleSuccess() {
+        val dialoger = DialogerImpl(requireActivity(),
+            object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    startMainActivity()
+                }
+            })
+
+        setProgressBarVisible(false)
+        dialoger.showAlertDialog(
+            getString(diarynote.core.R.string.delete_account_dialog_title),
+            getString(diarynote.core.R.string.delete_account_successfull_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
+        )
+    }
+
+    private fun startMainActivity() {
+        val activityNavigator = ActivityNavigator()
+
+        startActivity(activityNavigator.startMainActivity(requireActivity()))
     }
 
     override fun onDestroyView() {
