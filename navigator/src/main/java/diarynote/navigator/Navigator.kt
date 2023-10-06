@@ -30,5 +30,7 @@ interface Navigator {
 
     fun navigateToChangeUserInfo()
 
+    fun navigateToAccountDelete()
+
     fun navigateUp()
 }

@@ -61,6 +61,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.change_user_info_fragment)
     }
 
+    override fun navigateToAccountDelete() {
+        navController.navigate(R.id.delete_user_account_fragment)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }
