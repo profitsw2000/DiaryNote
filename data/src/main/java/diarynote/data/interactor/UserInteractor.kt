@@ -59,11 +59,11 @@ class UserInteractor(
         }
     }
 
-    fun deleteUser(userId: Int, remote: Boolean): Completable {
+    fun deleteUser(userEntity: UserEntity, remote: Boolean): Completable {
         return if (remote) {
-            userRepositoryRemote.deleteUser(userId)
+            userRepositoryRemote.deleteUser(userEntity)
         } else {
-            userRepositoryLocal.deleteUser(userId)
+            userRepositoryLocal.deleteUser(userEntity)
         }
     }
 }

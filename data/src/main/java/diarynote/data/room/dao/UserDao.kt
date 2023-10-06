@@ -36,6 +36,4 @@ interface UserDao {
     @Delete
     fun delete(userEntity: UserEntity): Completable
 
-    @Delete
-    fun delete(id: Int): Completable
 }

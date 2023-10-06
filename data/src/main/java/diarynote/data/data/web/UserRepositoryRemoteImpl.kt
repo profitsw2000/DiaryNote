@@ -31,7 +31,7 @@ class UserRepositoryRemoteImpl : UserRepositoryRemote {
         TODO("Not yet implemented")
     }
 
-    override fun deleteUser(id: Int): Completable {
+    override fun deleteUser(userEntity: UserEntity): Completable {
         TODO("Not yet implemented")
     }
 }

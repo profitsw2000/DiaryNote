@@ -18,5 +18,5 @@ interface UserRepository {
 
     fun updateUser(userEntity: UserEntity): Completable
 
-    fun deleteUser(id: Int): Completable
+    fun deleteUser(userEntity: UserEntity): Completable
 }
