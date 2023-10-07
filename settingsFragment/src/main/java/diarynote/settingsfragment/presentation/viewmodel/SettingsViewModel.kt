@@ -68,9 +68,8 @@ class SettingsViewModel(
         getUserInfoById(sharedPreferences.getInt(CURRENT_USER_ID, 0))
     }
 
-    fun deleteCurrentUser() {
-        val userEntity = UserEntity(sharedPreferences.getInt(CURRENT_USER_ID, 0), "", "", "", "", "")
-        deleteUser(userEntity)
+    fun deleteCurrentUser(userModel: UserModel) {
+        deleteUser(userMapper.map(userModel))
     }
 
     fun getCurrentTheme(): Int {

@@ -54,7 +54,7 @@ class DeleteAccountFragment : Fragment() {
             val dialoger = DialogerImpl(requireActivity(),
                 object : OnDialogPositiveButtonClickListener{
                     override fun onClick() {
-                        settingsViewModel.deleteCurrentUser()
+                        settingsViewModel.deleteCurrentUser(userModel)
                     }
                 }
             )
