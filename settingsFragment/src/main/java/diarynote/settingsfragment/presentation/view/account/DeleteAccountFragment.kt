@@ -1,5 +1,6 @@
 package diarynote.settingsfragment.presentation.view.account
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import diarynote.core.utils.NAME_MIN_LENGTH
 import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.utils.SURNAME_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
+import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentDeleteAccountBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
@@ -30,6 +32,8 @@ class DeleteAccountFragment : Fragment() {
     private var _binding: FragmentDeleteAccountBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private var isDeleteAccount = false
+    private lateinit var userModel: UserModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +46,6 @@ class DeleteAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         observeData()
     }
 
@@ -75,15 +78,17 @@ class DeleteAccountFragment : Fragment() {
         when(userState) {
             is UserState.Error -> handleError(userState.errorCode, userState.message)
             is UserState.Loading -> setProgressBarVisible(true)
-            is UserState.Success -> handleSuccess()
+            is UserState.Success -> handleSuccess(userState.userModel)
         }
     }
 
-    private fun handleError(code: Int, message: String) = with(binding){
-        val dialoger = DialogerImpl(requireActivity())
-        setProgressBarVisible(false)
+    private fun handleError(code: Int, message: String) {
+        if (isDeleteAccount) {
+            val dialoger = DialogerImpl(requireActivity())
+            setProgressBarVisible(false)
 
-        if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.delete_account_error_message, message), getString(diarynote.core.R.string.dialog_button_ok_text))
+            if((1 shl ROOM_BIT_NUMBER) and code != 0) dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text), getString(diarynote.core.R.string.delete_account_error_message, message), getString(diarynote.core.R.string.dialog_button_ok_text))
+        }
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
@@ -94,7 +99,18 @@ class DeleteAccountFragment : Fragment() {
         }
     }
 
-    private fun handleSuccess() {
+    private fun handleSuccess(userModel: UserModel) {
+        setProgressBarVisible(false)
+        if (isDeleteAccount) {
+            successfullAccountDeletion()
+        } else {
+            this.userModel = userModel
+            isDeleteAccount = true
+            initViews()
+        }
+    }
+
+    private fun successfullAccountDeletion() {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
@@ -102,7 +118,6 @@ class DeleteAccountFragment : Fragment() {
                 }
             })
 
-        setProgressBarVisible(false)
         dialoger.showAlertDialog(
             getString(diarynote.core.R.string.delete_account_dialog_title),
             getString(diarynote.core.R.string.delete_account_successfull_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
@@ -110,9 +125,9 @@ class DeleteAccountFragment : Fragment() {
     }
 
     private fun startMainActivity() {
-        val activityNavigator = ActivityNavigator()
-
-        startActivity(activityNavigator.startMainActivity(requireActivity()))
+/*        val intent = Intent()
+        intent.setClassName(requireActivity(), "ru.profitsw2000.diarynote.presentation.MainActivity")
+        startActivity(intent)*/
     }
 
     override fun onDestroyView() {

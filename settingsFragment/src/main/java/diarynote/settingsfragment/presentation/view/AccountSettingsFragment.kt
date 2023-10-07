@@ -33,6 +33,7 @@ class AccountSettingsFragment : Fragment() {
             when (itemId) {
                 ACCOUNT_CHANGE_PASSWORD_ID -> navigator.navigateToChangePassword()
                 ACCOUNT_CHANGE_ACCOUNT_INFO_ID -> navigator.navigateToChangeUserInfo()
+                DELETE_ACCOUNT_ID -> navigator.navigateToAccountDelete()
             }
         }
     })
