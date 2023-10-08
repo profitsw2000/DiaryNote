@@ -5,6 +5,7 @@
         <activity
             android:name=".presentation.view.NoteActivity"
             android:windowSoftInputMode="adjustPan"
+            android:noHistory="true"
             android:exported="false" />
     </application>
 

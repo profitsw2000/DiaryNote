@@ -19,11 +19,13 @@ import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.utils.SURNAME_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.model.UserModel
+import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentDeleteAccountBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.model.UserState
 import diarynote.template.presentation.ActivityNavigator
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -32,6 +34,7 @@ class DeleteAccountFragment : Fragment() {
     private var _binding: FragmentDeleteAccountBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private val navigator: Navigator by inject()
     private var isDeleteAccount = false
     private lateinit var userModel: UserModel
 
@@ -114,7 +117,7 @@ class DeleteAccountFragment : Fragment() {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
-                    startMainActivity()
+                    navigator.navigateToViewModelCleaner()
                 }
             })
 
@@ -137,5 +140,10 @@ class DeleteAccountFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().viewModelStore.clear()
     }
 }

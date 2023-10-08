@@ -112,6 +112,13 @@ class SettingsViewModel(
             .apply()
     }
 
+    fun setDefaultUserId() {
+        sharedPreferences
+            .edit()
+            .putInt(CURRENT_USER_ID, 0)
+            .apply()
+    }
+
     private fun getUserInfoById(userId: Int) {
         _userLiveData.value = UserState.Loading
         userInteractor.getUserById(userId, false)
@@ -270,6 +277,10 @@ class SettingsViewModel(
 
     fun clear() {
         _userLiveData.value = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

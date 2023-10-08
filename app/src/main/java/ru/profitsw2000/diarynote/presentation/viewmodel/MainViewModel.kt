@@ -14,6 +14,7 @@ import diarynote.data.appsettings.MONTH_INACTIVE_INDEX
 import diarynote.data.appsettings.PASSWORD_REQUIRED_KEY
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
 import diarynote.data.appsettings.WEEK_INACTIVE_INDEX
+import diarynote.data.domain.CURRENT_USER_ID
 import java.util.Calendar
 
 private const val HOUR_IN_MILLIS: Long = 1000*60*60
@@ -54,6 +55,10 @@ class MainViewModel(
 
     private fun getLastEntranceDateInMillis(): Long {
         return sharedPreferences.getLong(LAST_ENTRANCE_TIME_KEY, 0)
+    }
+
+    fun getCurrentUserId() : Int {
+        return sharedPreferences.getInt(CURRENT_USER_ID, 0)
     }
 
     private fun getFromNowPeriodStartTime() : Long {

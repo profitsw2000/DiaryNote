@@ -49,7 +49,11 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-        if (homeViewModel.notesLiveData.value == null) {
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (binding.searchInputEditText.text.toString() == "") {
             homeViewModel.getNotesList()
         }
     }
