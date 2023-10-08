@@ -125,9 +125,13 @@ class DeleteAccountFragment : Fragment() {
     }
 
     private fun startMainActivity() {
-/*        val intent = Intent()
-        intent.setClassName(requireActivity(), "ru.profitsw2000.diarynote.presentation.MainActivity")
-        startActivity(intent)*/
+        try {
+            val intent = Intent()
+            context?.let { intent.setClassName(it, "ru.profitsw2000.diarynote.presentation.MainActivity") }
+            startActivity(intent)
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
     override fun onDestroyView() {

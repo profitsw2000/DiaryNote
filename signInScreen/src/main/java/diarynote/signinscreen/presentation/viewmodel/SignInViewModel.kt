@@ -18,8 +18,8 @@ class SignInViewModel(
 
     private val inputValidator = InputValidator()
 
-    private val _loginResultLiveData = MutableLiveData<LoginState>()
-    val loginResultLiveData: LiveData<LoginState> by this::_loginResultLiveData
+    private val _loginResultLiveData = MutableLiveData<LoginState?>()
+    val loginResultLiveData: LiveData<LoginState?> by this::_loginResultLiveData
 
     fun signIn(login: String, password: String) {
 

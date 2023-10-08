@@ -22,6 +22,7 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     private val binding get() = _binding!!
     private val controller by lazy { activity as Controller }
     private val signInViewModel: SignInViewModel by viewModel()
+    private var isSignIn = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,7 +44,7 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
 
         initViews()
 
-        val observer = Observer<LoginState> { renderData(it) }
+        val observer = Observer<LoginState?> { renderData(it) }
         signInViewModel.loginResultLiveData.observe(viewLifecycleOwner, observer)
     }
 
@@ -65,6 +66,7 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
             val password = passwordInputEditText.text.toString()
             loginTextInputLayout.error = null
             passwordTextInputLayout.error = null
+            isSignIn = true
             signInViewModel.signIn(login, password)
         }
     }
@@ -92,9 +94,11 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
     }
 
     private fun enterApp() {
-        binding.progressBar.visibility = View.GONE
-        binding.loginErrorTextTextView.visibility = View.GONE
-        controller.startNotesActivity()
+        if (isSignIn) {
+            binding.progressBar.visibility = View.GONE
+            binding.loginErrorTextTextView.visibility = View.GONE
+            controller.startNotesActivity()
+        }
     }
 
     override fun onDestroy() {
