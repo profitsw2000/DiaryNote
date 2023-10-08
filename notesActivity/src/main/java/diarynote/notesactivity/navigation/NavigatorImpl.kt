@@ -65,6 +65,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.delete_user_account_fragment)
     }
 
+    override fun navigateToViewModelCleaner() {
+        navController.navigate(R.id.view_model_cleaner_fragment)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

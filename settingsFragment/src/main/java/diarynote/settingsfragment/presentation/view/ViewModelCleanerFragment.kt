@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import diarynote.settingsfragment.R
-class NoteActivityViewModelCleanerFragment : Fragment() {
-
-
+class ViewModelCleanerFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_note_activity_view_model_cleaner, container, false)
+        return inflater.inflate(R.layout.fragment_view_model_cleaner, container, false)
     }
+
+
 }

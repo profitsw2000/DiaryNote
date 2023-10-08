@@ -167,6 +167,16 @@
         android:id="@+id/delete_user_account_fragment"
         android:name="diarynote.settingsfragment.presentation.view.account.DeleteAccountFragment"
         android:label="@string/delete_account_label_text"
-        tools:layout="@layout/fragment_delete_account"/>
+        tools:layout="@layout/fragment_delete_account">
+        <action
+            android:id="@+id/action_delete_user_account_to_view_model_cleaner"
+            app:destination="@+id/delete_user_account_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_model_cleaner_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.ViewModelCleanerFragment"
+        android:label=""
+        tools:layout="@layout/fragment_view_model_cleaner"/>
 
 </navigation>

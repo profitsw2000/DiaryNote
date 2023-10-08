@@ -32,5 +32,7 @@ interface Navigator {
 
     fun navigateToAccountDelete()
 
+    fun navigateToViewModelCleaner()
+
     fun navigateUp()
 }
