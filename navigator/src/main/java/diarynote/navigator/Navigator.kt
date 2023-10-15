@@ -34,5 +34,7 @@ interface Navigator {
 
     fun navigateToViewModelCleaner()
 
+    fun navigateToUserImage()
+
     fun navigateUp()
 }

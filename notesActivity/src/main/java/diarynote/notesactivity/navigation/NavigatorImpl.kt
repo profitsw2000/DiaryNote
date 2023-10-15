@@ -69,6 +69,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.view_model_cleaner_fragment)
     }
 
+    override fun navigateToUserImage() {
+        navController.navigate(R.id.user_image_fragment)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }
