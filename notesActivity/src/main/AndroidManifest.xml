@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+
     <application>
         <activity
             android:name=".presentation.view.NoteActivity"
             android:windowSoftInputMode="adjustPan"
-            android:noHistory="true"
             android:exported="false" />
     </application>
 

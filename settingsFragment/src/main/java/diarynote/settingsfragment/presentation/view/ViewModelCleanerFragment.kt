@@ -2,13 +2,14 @@ package diarynote.settingsfragment.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ViewModelCleanerFragment : Fragment() {
 
@@ -32,6 +33,8 @@ class ViewModelCleanerFragment : Fragment() {
         try {
             val intent = Intent()
             context?.let { intent.setClassName(it, "ru.profitsw2000.diarynote.presentation.MainActivity") }
+            activity?.finish()
+            //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         } catch (e: ClassNotFoundException) {
             e.printStackTrace()

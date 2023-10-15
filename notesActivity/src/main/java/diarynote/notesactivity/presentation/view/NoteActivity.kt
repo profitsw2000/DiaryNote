@@ -1,7 +1,9 @@
 package diarynote.notesactivity.presentation.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -82,6 +84,18 @@ class NoteActivity : AppCompatActivity() {
             else -> diarynote.core.R.style.Theme_DiaryNote
         }
     }
+
+/*    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK && requestCode == 200) {
+            val selectedImageUri = data?.data
+
+            selectedImageUri?.let {
+                Log.d("VVV", "onActivityResult: ${it.encodedPath}")
+            }
+        }
+    }*/
 
     private fun setLanguage() {
         val languageToLoad = noteViewModel.getCurrentLanguage()

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
@@ -16,13 +18,19 @@ import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.model.UserState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private const val SELECT_PICTURE = 200
-
 class UserImageFragment : Fragment() {
 
     private var _binding: FragmentUserImageBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+        if (it != null) {
+            binding.profilePhotoImageView.setImageURI(it)
+            Log.d("VVV", "onActivityResult: ${it.encodedPath}")
+        } else {
+            Log.d("VVV", "No media selected")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,16 +86,22 @@ class UserImageFragment : Fragment() {
     }
 
     private fun chooseImage() {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+/*
+
+        val intent = Intent()
         intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
 
         startActivityForResult(Intent.createChooser(intent, "Выберите фото"), SELECT_PICTURE)
+*/*/
+
+        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode == SELECT_PICTURE) {
+        if (resultCode == RESULT_OK && requestCode == 200) {
             val selectedImageUri = data?.data
 
             selectedImageUri?.let {
@@ -96,4 +110,12 @@ class UserImageFragment : Fragment() {
             }
         }
     }
+
+
 }
+
+// val intent = Intent()
+// intent.type = "image/*"
+// intent.action = Intent.ACTION_GET_CONTENT
+//
+// startActivityForResult(Intent.createChooser(intent, "Выберите фото"), SELECT_PICTURE)
