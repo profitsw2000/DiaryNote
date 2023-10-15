@@ -18,4 +18,5 @@
     <string name="change_password_fragment_label_text">Изменить пароль</string>
     <string name="change_user_info_fragment_label_text">Изменить данные...</string>
     <string name="delete_account_label_text">Удаление учетной записи...</string>
+    <string name="user_image_label_text">Фото профиля...</string>
 </resources>

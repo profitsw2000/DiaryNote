@@ -3,6 +3,7 @@ package diarynote.settingsfragment.presentation.view.account
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class UserImageFragment : Fragment() {
 
     private fun initViews() = with(binding) {
         profilePhotoImageViewBackground.setOnClickListener {
-
+            chooseImage()
         }
     }
 
@@ -58,7 +59,7 @@ class UserImageFragment : Fragment() {
     }
 
     private fun handleError(errorCode: Int, message: String) {
-
+        setProgressBarVisible(false)
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
@@ -72,6 +73,7 @@ class UserImageFragment : Fragment() {
     }
 
     private fun handleSuccess(userModel: UserModel) {
+        setProgressBarVisible(false)
 
     }
 
@@ -88,8 +90,9 @@ class UserImageFragment : Fragment() {
         if (resultCode == RESULT_OK && requestCode == SELECT_PICTURE) {
             val selectedImageUri = data?.data
 
-            selectedImageUri.let {
+            selectedImageUri?.let {
                 binding.profilePhotoImageView.setImageURI(selectedImageUri)
+                Log.d("VVV", "onActivityResult: ${it.encodedPath}")
             }
         }
     }
