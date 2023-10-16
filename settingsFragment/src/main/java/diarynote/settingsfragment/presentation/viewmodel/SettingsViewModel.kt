@@ -214,6 +214,7 @@ class SettingsViewModel(
                 UserModel(id = userModel.id,
                 name = userName,
                 surname = userSurname,
+                imagePath = userModel.imagePath,
                 login = login,
                 email = email,
                 password = userModel.password)

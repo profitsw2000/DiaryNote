@@ -66,6 +66,9 @@ object Versions {
     //Room
     const val room = "2.4.3"
 
+    //Picasso
+    const val picasso = "2.8"
+
     //Test
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.4"
@@ -117,6 +120,10 @@ object Room {
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     const val roomRxJava = "androidx.room:room-rxjava3:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+}
+
+object Picasso {
+    const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 }
 
 object TestImpl {
