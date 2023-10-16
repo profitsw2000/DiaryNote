@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import diarynote.core.utils.FileHelper
 import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentUserImageBinding
@@ -31,10 +32,14 @@ class UserImageFragment : Fragment() {
     private lateinit var userModel: UserModel
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
+            val imagePath = context?.let { it1 -> FileHelper().getRealPathFromURI(it1, it) }
+            if (imagePath != null) {
+                settingsViewModel.changeUserImagePath(imagePath, userModel)
+            }
             //binding.profilePhotoImageView.setImageURI(it)
-            getImageFilePath(it)?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
+            //getImageFilePath(it)?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
             //it.path?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
-            Log.d("VVV", "onActivityResult: ${getImageFilePath(it)}")
+            Log.d("VVV", "onActivityResult: $imagePath")
         } else {
             Log.d("VVV", "No media selected")
         }
@@ -103,16 +108,5 @@ class UserImageFragment : Fragment() {
 
     private fun chooseImage() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-    }
-
-    @SuppressLint("Range")
-    private fun getImageFilePath(uri: Uri): String? {
-        val imagePathColumn: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? = context?.contentResolver?.query(uri, imagePathColumn, null, null, null)
-        cursor?.moveToFirst()
-
-        val imagePath = cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
-        cursor?.close()
-        return imagePath
     }
 }
