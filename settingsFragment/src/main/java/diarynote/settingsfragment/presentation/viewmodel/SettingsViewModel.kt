@@ -224,6 +224,12 @@ class SettingsViewModel(
         }
     }
 
+    fun changeUserImagePath(imagePath: String, userModel: UserModel) {
+        if (imagePath != userModel.imagePath) {
+            updateUserInfo(userModel.copy(imagePath = imagePath))
+        }
+    }
+
     private fun invalidUserInfoInput(nameIsValid: Boolean,
                                      surnameIsValid: Boolean,
                                      loginIsValid: Boolean,

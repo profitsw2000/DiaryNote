@@ -1,8 +1,10 @@
 package diarynote.settingsfragment.presentation.view.account
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,22 +13,28 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentUserImageBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.model.UserState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class UserImageFragment : Fragment() {
 
     private var _binding: FragmentUserImageBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private lateinit var userModel: UserModel
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
-            binding.profilePhotoImageView.setImageURI(it)
-            Log.d("VVV", "onActivityResult: ${it.encodedPath}")
+            //binding.profilePhotoImageView.setImageURI(it)
+            getImageFilePath(it)?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
+            //it.path?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
+            Log.d("VVV", "onActivityResult: ${getImageFilePath(it)}")
         } else {
             Log.d("VVV", "No media selected")
         }
@@ -66,8 +74,11 @@ class UserImageFragment : Fragment() {
         }
     }
 
-    private fun handleError(errorCode: Int, message: String) {
+    private fun handleError(errorCode: Int, message: String) = with(binding)  {
         setProgressBarVisible(false)
+        Snackbar.make(this.userImageRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { settingsViewModel.getCurrentUserInfo() }
+            .show()
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
@@ -80,42 +91,28 @@ class UserImageFragment : Fragment() {
         }
     }
 
-    private fun handleSuccess(userModel: UserModel) {
+    private fun handleSuccess(userModel: UserModel) = with(binding) {
+        val file = File(userModel.imagePath)
+
         setProgressBarVisible(false)
-
-    }
-
-    private fun chooseImage() {
-/*
-
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-
-        startActivityForResult(Intent.createChooser(intent, "Выберите фото"), SELECT_PICTURE)
-*/*/
-
-        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK && requestCode == 200) {
-            val selectedImageUri = data?.data
-
-            selectedImageUri?.let {
-                binding.profilePhotoImageView.setImageURI(selectedImageUri)
-                Log.d("VVV", "onActivityResult: ${it.encodedPath}")
-            }
+        this@UserImageFragment.userModel = userModel
+        if (userModel.imagePath != "" && file.exists()) {
+            Picasso.get().load(file).into(profilePhotoImageView)
         }
     }
 
+    private fun chooseImage() {
+        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
 
+    @SuppressLint("Range")
+    private fun getImageFilePath(uri: Uri): String? {
+        val imagePathColumn: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = context?.contentResolver?.query(uri, imagePathColumn, null, null, null)
+        cursor?.moveToFirst()
+
+        val imagePath = cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+        cursor?.close()
+        return imagePath
+    }
 }
-
-// val intent = Intent()
-// intent.type = "image/*"
-// intent.action = Intent.ACTION_GET_CONTENT
-//
-// startActivityForResult(Intent.createChooser(intent, "Выберите фото"), SELECT_PICTURE)
