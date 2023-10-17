@@ -36,10 +36,6 @@ class UserImageFragment : Fragment() {
             if (imagePath != null) {
                 settingsViewModel.changeUserImagePath(imagePath, userModel)
             }
-            //binding.profilePhotoImageView.setImageURI(it)
-            //getImageFilePath(it)?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
-            //it.path?.let { it1 -> settingsViewModel.changeUserImagePath(it1, userModel) }
-            Log.d("VVV", "onActivityResult: $imagePath")
         } else {
             Log.d("VVV", "No media selected")
         }

@@ -43,12 +43,13 @@
         <TextView
             android:id="@+id/account_login_text_view"
             style="@style/settings_fragment_account_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/settings_main_info_image_interval"
-            tools:text="Lee Dixon"
+            tools:text="ShaCarri Richardson"
             app:layout_constraintBottom_toTopOf="@id/email_text_view"
-            app:layout_constraintLeft_toRightOf="@id/account_icon_image_view"
+            app:layout_constraintStart_toEndOf="@id/account_icon_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/account_login_text_view"
-            app:layout_constraintLeft_toLeftOf="@id/account_login_text_view"
+            app:layout_constraintStart_toStartOf="@id/account_login_text_view"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="lee_dixon@mail.ru"/>
 
@@ -81,6 +82,7 @@
         app:layout_constraintTop_toBottomOf="@id/main_info_constraint_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 

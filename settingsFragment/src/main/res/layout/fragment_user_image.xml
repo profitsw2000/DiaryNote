@@ -39,22 +39,11 @@
         android:layout_marginBottom="@dimen/standard_vertical_margin_between_views"
         android:src="@drawable/photo_icon_48"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/change_user_info_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_vertical_margin_between_views"
-        app:layout_constraintTop_toBottomOf="@id/profile_photo_image_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/save_button_text"/>
-
     <androidx.constraintlayout.widget.Group
         android:id="@+id/main_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="profile_photo_image_view,
-                                        profile_photo_image_view_background,
-                                        change_user_info_button" />
+                                        profile_photo_image_view_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
