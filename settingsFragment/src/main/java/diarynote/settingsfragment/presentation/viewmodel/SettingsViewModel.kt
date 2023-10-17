@@ -21,6 +21,7 @@ import diarynote.core.utils.PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.core.utils.PASSWORD_PATTERN
 import diarynote.core.utils.ROOM_BIT_NUMBER
+import diarynote.core.utils.ROOM_UPDATE_BIT_NUMBER
 import diarynote.core.utils.SURNAME_BIT_NUMBER
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.appsettings.APP_THEME_LIGHT
@@ -262,7 +263,7 @@ class SettingsViewModel(
         return when(errorMessage) {
             "UNIQUE constraint failed: UserEntity.login (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl LOGIN_ALREADY_EXIST_BIT_NUMBER)
             "UNIQUE constraint failed: UserEntity.email (code 2067 SQLITE_CONSTRAINT_UNIQUE)" -> (1 shl EMAIL_ALREADY_EXIST_BIT_NUMBER)
-            else -> (1 shl ROOM_BIT_NUMBER)
+            else -> (1 shl ROOM_BIT_NUMBER) or (1 shl ROOM_UPDATE_BIT_NUMBER)
         }
     }
 

@@ -1,11 +1,6 @@
 package diarynote.settingsfragment.presentation.view.account
 
-import android.annotation.SuppressLint
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.FileHelper
+import diarynote.core.utils.ROOM_UPDATE_BIT_NUMBER
 import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentUserImageBinding
@@ -35,9 +32,9 @@ class UserImageFragment : Fragment() {
             val imagePath = context?.let { it1 -> FileHelper().getRealPathFromURI(it1, it) }
             if (imagePath != null) {
                 settingsViewModel.changeUserImagePath(imagePath, userModel)
+            } else {
+                showErrorDialog()
             }
-        } else {
-            Log.d("VVV", "No media selected")
         }
     }
 
@@ -77,9 +74,21 @@ class UserImageFragment : Fragment() {
 
     private fun handleError(errorCode: Int, message: String) = with(binding)  {
         setProgressBarVisible(false)
-        Snackbar.make(this.userImageRootLayout, message, Snackbar.LENGTH_INDEFINITE)
-            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { settingsViewModel.getCurrentUserInfo() }
-            .show()
+        if ((1 shl ROOM_UPDATE_BIT_NUMBER) and errorCode != 0) {
+            showErrorDialog()
+        } else {
+            Snackbar.make(this.userImageRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { settingsViewModel.getCurrentUserInfo() }
+                .show()
+        }
+    }
+
+    private fun showErrorDialog() {
+        val dialoger = DialogerImpl(requireActivity())
+
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.error_dialog_title_text),
+            getString(diarynote.core.R.string.profile_photo_error_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text))
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {

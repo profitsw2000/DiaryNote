@@ -87,7 +87,6 @@ class ChangePasswordFragment : Fragment() {
     }
 
     private fun handleError(code: Int, message: String) = with(binding){
-
         setProgressBarVisible(false)
 
         if((1 shl CURRENT_PASSWORD_BIT_NUMBER) and code != 0) currentPasswordInputLayout.error = getString(
@@ -97,7 +96,6 @@ class ChangePasswordFragment : Fragment() {
         if((1 shl CONFIRM_PASSWORD_BIT_NUMBER) and code != 0) confirmPasswordTextInputLayout.error = getString(
             diarynote.core.R.string.password_not_confirmed_error_message)
         if((1 shl ROOM_BIT_NUMBER) and code != 0) setErrorMessage(message)
-
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {

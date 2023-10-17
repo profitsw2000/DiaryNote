@@ -104,4 +104,5 @@
     <string name="save_button_text">СОХРАНИТЬ</string>
     <string name="delete_account_dialog_title">Удаление учетной записи</string>
     <string name="delete_account_dialog_content">Удаление учетной записи удалит все заметки и данные. Вы действительно хотите продолжить?</string>
+    <string name="profile_photo_error_dialog_message_text">Не удалось установить фото профиля</string>
 </resources>

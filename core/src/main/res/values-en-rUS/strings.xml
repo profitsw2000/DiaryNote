@@ -105,4 +105,5 @@
     <string name="save_button_text">SAVE</string>
     <string name="delete_account_dialog_title">Delete account</string>
     <string name="delete_account_dialog_content">Deleting account will delete all your notes and data. Do you really want to continue?</string>
+    <string name="profile_photo_error_dialog_message_text">Failed to set profile photo</string>
 </resources>
