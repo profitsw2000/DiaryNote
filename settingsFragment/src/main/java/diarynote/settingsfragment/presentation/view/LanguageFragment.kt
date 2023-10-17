@@ -60,6 +60,11 @@ class LanguageFragment : Fragment() {
             resources.getStringArray(diarynote.core.R.array.language_settings_strings)
         )
         binding.languageListRecyclerView.adapter = adapter
-        settingsViewModel.getCurrentLanguageId()?.let { adapter.setData(languageSettingsList, it) }
+        settingsViewModel.getCurrentLanguageId().let { adapter.setData(languageSettingsList, it) }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

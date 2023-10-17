@@ -18,8 +18,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:helperTextEnabled="true"
-        app:helperText="@string/search_field_helper_text"
-        android:hint="@string/search_field_hint_text"
+        app:helperText="@string/helper_text_text_input_layout"
+        android:hint="@string/search_field_hint_text_input_layout"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/search_icon_24">
 

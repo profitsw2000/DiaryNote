@@ -85,18 +85,6 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
-/*    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK && requestCode == 200) {
-            val selectedImageUri = data?.data
-
-            selectedImageUri?.let {
-                Log.d("VVV", "onActivityResult: ${it.encodedPath}")
-            }
-        }
-    }*/
-
     private fun setLanguage() {
         val languageToLoad = noteViewModel.getCurrentLanguage()
         val locale = Locale(languageToLoad)
