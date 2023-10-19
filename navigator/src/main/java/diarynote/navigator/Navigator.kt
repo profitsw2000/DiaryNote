@@ -36,5 +36,7 @@ interface Navigator {
 
     fun navigateToUserImage()
 
+    fun navigateToBackupRestore()
+
     fun navigateUp()
 }

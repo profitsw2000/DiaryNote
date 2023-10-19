@@ -73,6 +73,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.user_image_fragment)
     }
 
+    override fun navigateToBackupRestore() {
+        navController.navigate(R.id.backup_restore_fragment)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }
