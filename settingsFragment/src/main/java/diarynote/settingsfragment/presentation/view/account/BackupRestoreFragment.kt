@@ -6,14 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import diarynote.settingsfragment.R
+import diarynote.settingsfragment.databinding.FragmentBackupRestoreBinding
 
 class BackupRestoreFragment : Fragment() {
+
+    private var _binding: FragmentBackupRestoreBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_backup_restore, container, false)
+        _binding = FragmentBackupRestoreBinding.bind(inflater.inflate(R.layout.fragment_backup_restore, container, false))
+        return binding.root
     }
+
+
 }
