@@ -121,6 +121,9 @@
         <action
             android:id="@+id/action_settings_to_user_image"
             app:destination="@+id/user_image_fragment" />
+        <action
+            android:id="@+id/action_settings_to_backup_restore"
+            app:destination="@+id/backup_restore_fragment" />
     </fragment>
 
     <fragment
@@ -187,5 +190,11 @@
         android:name="diarynote.settingsfragment.presentation.view.account.UserImageFragment"
         android:label="@string/user_image_label_text"
         tools:layout="@layout/fragment_user_image"/>
+
+    <fragment
+        android:id="@+id/backup_restore_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.BackupRestoreFragment"
+        android:label="@string/backup_restore_fragment_label_text"
+        tools:layout="@layout/fragment_backup_restore"/>
 
 </navigation>

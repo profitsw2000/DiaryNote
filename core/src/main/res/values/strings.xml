@@ -107,4 +107,7 @@
     <string name="delete_account_dialog_title">Удаление учетной записи</string>
     <string name="delete_account_dialog_content">Удаление учетной записи удалит все заметки и данные. Вы действительно хотите продолжить?</string>
     <string name="profile_photo_error_dialog_message_text">Не удалось установить фото профиля</string>
+    <string name="backup_restore_action_explanation_text">Сохраните данные всех локальных пользователей, чтобы восстановить их при переустановке приложения или смене устройства на Android.\n\nДля создания резервной копии сохраните файл с данными на диске.\n\nДля восстановления данных выберите файл с ранее сохранённой резервной копией.\n\nПри восстановлении все текущие данные (заметки, информация о пользователях) будут заменены данными из файла с резервной копией.</string>
+    <string name="restore_button_text">Восстановить</string>
+    <string name="create_copy_button_text">Создать копию</string>
 </resources>

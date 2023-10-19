@@ -108,4 +108,7 @@
     <string name="delete_account_dialog_title">Delete account</string>
     <string name="delete_account_dialog_content">Deleting account will delete all your notes and data. Do you really want to continue?</string>
     <string name="profile_photo_error_dialog_message_text">Failed to set profile photo</string>
+    <string name="backup_restore_action_explanation_text">Сохраните данные всех локальных пользователей, чтобы восстановить их при переустановке приложения или смене устройства на Android.\n\nДля создания резервной копии сохраните файл с данными на диске.\n\nДля восстановления данных выберите файл с ранее сохранённой резервной копией.\n\nПри восстановлении все текущие данные (заметки, информация о пользователях) будут заменены данными из файла с резервной копией.</string>
+    <string name="restore_button_text">Восстановить</string>
+    <string name="create_copy_button_text">Создать копию</string>
 </resources>
