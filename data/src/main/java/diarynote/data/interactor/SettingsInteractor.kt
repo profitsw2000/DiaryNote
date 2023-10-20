@@ -1,13 +1,14 @@
 package diarynote.data.interactor
 
 import android.content.Context
+import android.net.Uri
 import diarynote.core.R
 import diarynote.data.appsettings.accountSettingsIdList
 import diarynote.data.appsettings.createSettingsMenuList
 import diarynote.data.appsettings.settingsIdList
 import diarynote.data.model.SettingsMenuItemModel
 
-class SettingsInteractor() {
+class SettingsInteractor(private val context: Context) {
 
     fun getSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
 
@@ -26,4 +27,11 @@ class SettingsInteractor() {
         )
     }
 
+    fun importDB(uri: Uri) {
+
+    }
+
+    fun exportDB(uri: Uri) {
+
+    }
 }
