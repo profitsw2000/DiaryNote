@@ -12,6 +12,8 @@ import diarynote.data.room.dao.UserDao
 import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
+import java.io.InputStream
+import java.io.OutputStream
 
 @Database(
     entities = [CategoryEntity::class, NoteEntity::class, UserEntity::class],
@@ -35,6 +37,19 @@ abstract class AppDatabase : RoomDatabase() {
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
                     .build()
             }
+        }
+
+        fun exists(context: Context) = context.getDatabasePath(DB_NAME).exists()
+
+        fun copyTo(context: Context, stream: OutputStream) {
+            context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
+        }
+
+        fun copyFrom(context: Context, stream: InputStream) {
+            val dbFile = context.getDatabasePath(DB_NAME)
+
+            dbFile.delete()
+            stream.copyTo(dbFile.outputStream())
         }
     }
 }
