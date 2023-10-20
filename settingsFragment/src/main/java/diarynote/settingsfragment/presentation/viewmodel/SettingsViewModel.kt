@@ -2,6 +2,7 @@ package diarynote.settingsfragment.presentation.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
