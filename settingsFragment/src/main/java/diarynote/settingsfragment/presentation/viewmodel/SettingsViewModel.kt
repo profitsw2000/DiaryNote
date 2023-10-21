@@ -52,6 +52,8 @@ class SettingsViewModel(
     private val userMapper: UserMapper
 ) : CoreViewModel() {
 
+    private val emptyUserModel = UserModel(0, "", "", "", "", "", "")
+
     private val _settingsLiveData = MutableLiveData<List<SettingsMenuItemModel>>()
     val settingsLiveData: LiveData<List<SettingsMenuItemModel>> by this::_settingsLiveData
 
@@ -276,6 +278,38 @@ class SettingsViewModel(
             .subscribe(
                 {
                     _userLiveData.value = UserState.Success(userMapper.map(userEntity))
+                },
+                {
+                    val message = it.message ?: ""
+                    _userLiveData.value = UserState.Error((1 shl ROOM_BIT_NUMBER), message)
+                }
+            )
+    }
+
+    fun importDB(uri: Uri) {
+        _userLiveData.value = UserState.Loading
+        settingsInteractor.importDB(uri)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _userLiveData.value = UserState.Success(emptyUserModel)
+                },
+                {
+                    val message = it.message ?: ""
+                    _userLiveData.value = UserState.Error((1 shl ROOM_BIT_NUMBER), message)
+                }
+            )
+    }
+
+    fun exportDB(uri: Uri) {
+        _userLiveData.value = UserState.Loading
+        settingsInteractor.exportDB(uri)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _userLiveData.value = UserState.Success(emptyUserModel)
                 },
                 {
                     val message = it.message ?: ""
