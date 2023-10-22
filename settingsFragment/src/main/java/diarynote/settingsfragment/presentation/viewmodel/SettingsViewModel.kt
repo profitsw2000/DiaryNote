@@ -322,10 +322,6 @@ class SettingsViewModel(
         _userLiveData.value = null
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
     private fun Boolean.toInt() = if (this) 1 else 0
 
 }
