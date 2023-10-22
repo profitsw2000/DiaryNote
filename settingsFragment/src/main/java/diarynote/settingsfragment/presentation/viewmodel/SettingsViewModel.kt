@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import diarynote.core.utils.BACKUP_BIT_NUMBER
 import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
 import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
 import diarynote.core.utils.EMAIL_ALREADY_EXIST_BIT_NUMBER
@@ -21,6 +22,7 @@ import diarynote.core.utils.NAME_PATTERN
 import diarynote.core.utils.PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.core.utils.PASSWORD_PATTERN
+import diarynote.core.utils.RESTORE_BIT_NUMBER
 import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.utils.ROOM_UPDATE_BIT_NUMBER
 import diarynote.core.utils.SURNAME_BIT_NUMBER
@@ -41,6 +43,7 @@ import diarynote.data.mappers.UserMapper
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.data.room.entity.UserEntity
+import diarynote.template.model.BackupState
 import diarynote.template.model.UserState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -59,6 +62,9 @@ class SettingsViewModel(
 
     private val _userLiveData = MutableLiveData<UserState?>()
     val userLiveData: LiveData<UserState?> by this::_userLiveData
+
+    private val _backupLiveData = MutableLiveData<BackupState?>()
+    val backupLiveData: LiveData<BackupState?> by this::_backupLiveData
 
     fun getSettingsMenuItemList(context: Context) {
         _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(context,false)
@@ -287,35 +293,39 @@ class SettingsViewModel(
     }
 
     fun importDB(uri: Uri) {
-        _userLiveData.value = UserState.Loading
+        _backupLiveData.value = BackupState.Loading
         settingsInteractor.importDB(uri)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _userLiveData.value = UserState.Success(emptyUserModel)
+                    _backupLiveData.value = BackupState.SuccessRestore
                 },
                 {
                     val message = it.message ?: ""
-                    _userLiveData.value = UserState.Error((1 shl ROOM_BIT_NUMBER), message)
+                    _backupLiveData.value = BackupState.Error(message, (1 shl RESTORE_BIT_NUMBER))
                 }
             )
     }
 
     fun exportDB(uri: Uri) {
-        _userLiveData.value = UserState.Loading
+        _backupLiveData.value = BackupState.Loading
         settingsInteractor.exportDB(uri)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _userLiveData.value = UserState.Success(emptyUserModel)
+                    _backupLiveData.value = BackupState.SuccessBackup
                 },
                 {
                     val message = it.message ?: ""
-                    _userLiveData.value = UserState.Error((1 shl ROOM_BIT_NUMBER), message)
+                    _backupLiveData.value = BackupState.Error(message, (1 shl BACKUP_BIT_NUMBER))
                 }
             )
+    }
+
+    fun setBackupIdle() {
+        _backupLiveData.value = BackupState.Idle
     }
 
     fun clear() {

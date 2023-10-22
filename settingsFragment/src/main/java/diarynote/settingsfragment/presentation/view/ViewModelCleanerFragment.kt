@@ -34,7 +34,6 @@ class ViewModelCleanerFragment : Fragment() {
             val intent = Intent()
             context?.let { intent.setClassName(it, "ru.profitsw2000.diarynote.presentation.MainActivity") }
             activity?.finish()
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         } catch (e: ClassNotFoundException) {
             e.printStackTrace()
