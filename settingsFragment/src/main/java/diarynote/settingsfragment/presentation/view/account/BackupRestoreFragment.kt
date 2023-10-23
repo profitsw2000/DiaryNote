@@ -87,8 +87,8 @@ class BackupRestoreFragment : Fragment() {
         setProgressBarVisible(false)
 
         val dialogMessage: String = when(errorCode) {
-            (1 shl BACKUP_BIT_NUMBER) and errorCode -> "Не удалось произвести сохранение базы данных в файл"
-            (1 shl RESTORE_BIT_NUMBER) and errorCode -> "Не удалось произвести восстановление базы данных из файла"
+            (1 shl BACKUP_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_save_error_dialog_message)
+            (1 shl RESTORE_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_restore_error_dialog_message)
             else -> message
         }
 
@@ -112,8 +112,9 @@ class BackupRestoreFragment : Fragment() {
 
         setProgressBarVisible(false)
 
-        dialoger.showAlertDialog("Сохранение базы данных",
-            "Сохранение базы данных в файл произведено успешно!",
+        dialoger.showAlertDialog(
+            getString(diarynote.core.R.string.db_save_success_dialog_title),
+            getString(diarynote.core.R.string.db_save_success_dialog_message),
             getString(diarynote.core.R.string.dialog_button_ok_text))
         settingsViewModel.setBackupIdle()
     }
@@ -127,8 +128,8 @@ class BackupRestoreFragment : Fragment() {
             })
 
         dialoger.showAlertDialog(
-            "Восстановление базы данных",
-            "Восстановление базы данных из выбранного файла произведено успешно. Будет произведён выход из текущей учетной записи.",getString(diarynote.core.R.string.dialog_button_ok_text)
+            getString(diarynote.core.R.string.db_restore_success_dialog_title),
+            getString(diarynote.core.R.string.db_restore_success_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
         )
     }
 

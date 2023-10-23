@@ -110,4 +110,10 @@
     <string name="backup_restore_action_explanation_text">Сохраните данные всех локальных пользователей, чтобы восстановить их при переустановке приложения или смене устройства на Android.\n\nДля создания резервной копии сохраните файл с данными на диске.\n\nДля восстановления данных выберите файл с ранее сохранённой резервной копией.\n\nПри восстановлении все текущие данные (заметки, информация о пользователях) будут заменены данными из файла с резервной копией.</string>
     <string name="restore_button_text">Восстановить</string>
     <string name="create_copy_button_text">Создать копию</string>
+    <string name="db_save_error_dialog_message">Не удалось произвести сохранение базы данных в файл</string>
+    <string name="db_restore_error_dialog_message">Не удалось произвести восстановление базы данных из файла</string>
+    <string name="db_save_success_dialog_title">Сохранение базы данных</string>
+    <string name="db_save_success_dialog_message">Сохранение базы данных в файл произведено успешно!</string>
+    <string name="db_restore_success_dialog_title">Восстановление базы данных</string>
+    <string name="db_restore_success_dialog_message">Восстановление базы данных из выбранного файла произведено успешно. Будет произведён выход из текущей учетной записи.</string>
 </resources>

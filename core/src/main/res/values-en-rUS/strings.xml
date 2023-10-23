@@ -108,7 +108,13 @@
     <string name="delete_account_dialog_title">Delete account</string>
     <string name="delete_account_dialog_content">Deleting account will delete all your notes and data. Do you really want to continue?</string>
     <string name="profile_photo_error_dialog_message_text">Failed to set profile photo</string>
-    <string name="backup_restore_action_explanation_text">Сохраните данные всех локальных пользователей, чтобы восстановить их при переустановке приложения или смене устройства на Android.\n\nДля создания резервной копии сохраните файл с данными на диске.\n\nДля восстановления данных выберите файл с ранее сохранённой резервной копией.\n\nПри восстановлении все текущие данные (заметки, информация о пользователях) будут заменены данными из файла с резервной копией.</string>
+    <string name="backup_restore_action_explanation_text">Save the data of all local users to restore them when you reinstall the application or change the Android device.\n\nTo create a backup copy, save the data file on disk.\n\nTo restore data, select the file with the previously saved backup copy.\n\nRecovery operation will replaced all current data (notes, user information) with data from the backup file.</string>
     <string name="restore_button_text">Restore</string>
     <string name="create_copy_button_text">Create backup</string>
+    <string name="db_save_error_dialog_message">Failed to save database to file</string>
+    <string name="db_restore_error_dialog_message">Failed to restore database from file</string>
+    <string name="db_save_success_dialog_title">Database saving</string>
+    <string name="db_save_success_dialog_message">Database was successfully saved!</string>
+    <string name="db_restore_success_dialog_title">Database restoring</string>
+    <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
 </resources>
