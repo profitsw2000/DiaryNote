@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_fragment_label_text">Главная</string>
+    <string name="categories_fragment_label_text">Категории</string>
+    <string name="calendar_fragment_label_text">Календарь</string>
+    <string name="settings_fragment_label_text">Настройки</string>
+    <string name="create_note_fragment_label_text">Создание...</string>
+    <string name="read_note_fragment_label_text">Заметка...</string>
+    <string name="edit_note_fragment_label_text">Редактирование...</string>
+    <string name="add_category_fragment_label_text">Добавить категорию...</string>
+    <string name="category_notes_fragment_label_text">Категория...</string>
+    <string name="account_fragment_label_text">Учетная запись</string>
+    <string name="appearance_fragment_label_text">Тема</string>
+    <string name="language_fragment_label_text">Язык</string>
+    <string name="general_settings_fragment_label_text">Общие</string>
+    <string name="help_fragment_label_text">Помощь</string>
+    <string name="about_fragment_label_text">О приложении</string>
+    <string name="change_password_fragment_label_text">Изменить пароль</string>
+    <string name="change_user_info_fragment_label_text">Изменить данные...</string>
+    <string name="delete_account_label_text">Удаление учетной записи...</string>
+    <string name="user_image_label_text">Фото профиля...</string>
+    <string name="backup_restore_fragment_label_text">Резервное копирование...</string>
+</resources>

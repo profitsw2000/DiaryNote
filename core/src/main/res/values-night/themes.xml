@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.DiaryNote" parent="Theme.Material3.DayNight">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/deep_purple_A400</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/black</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="colorPrimaryInverse">@color/white</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+
+        <!-- Tertiary brand color. -->
+        <item name="colorTertiary">@color/red</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/red</item>
+        <item name="colorOnTertiaryContainer">@color/white</item>
+
+        <!-- Surface brand color. -->
+        <item name="colorSurface">@color/red</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurfaceVariant">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/grey_600</item>
+        <item name="colorSurfaceInverse">@color/white</item>
+        <item name="colorOnSurfaceInverse">@color/white</item>
+
+        <!-- Error brand color. -->
+        <item name="colorError">@color/red_A700</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorErrorContainer">@color/red_A700</item>
+        <item name="colorOnErrorContainer">@color/white</item>
+
+        <!-- Outline brand color. -->
+        <item name="colorOutline">@color/deep_purple_A400</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+
+        <!-- Background color. -->
+        <item name="android:colorBackground">@color/black</item>
+        <item name="android:textColor">@color/white</item>
+
+        <!--Стили для отдельных компонентов -->
+        <item name="textInputOutlinedStyle">@style/customTextInputOutlinedStyle</item>
+        <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
+        <item name="chipStyle">@style/customMainChipStyle</item>
+        <item name="materialCalendarStyle">@style/customCalendarStyle</item>
+        <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
+    </style>
+</resources>
