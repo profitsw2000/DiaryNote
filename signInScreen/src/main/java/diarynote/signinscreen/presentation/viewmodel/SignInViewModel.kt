@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.appsettings.LANGUAGE_ID_KEY
+import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.UserInteractor
 import diarynote.signinscreen.model.LoginState
@@ -18,8 +20,8 @@ class SignInViewModel(
 
     private val inputValidator = InputValidator()
 
-    private val _loginResultLiveData = MutableLiveData<LoginState>()
-    val loginResultLiveData: LiveData<LoginState> by this::_loginResultLiveData
+    private val _loginResultLiveData = MutableLiveData<LoginState?>()
+    val loginResultLiveData: LiveData<LoginState?> by this::_loginResultLiveData
 
     fun signIn(login: String, password: String) {
 
@@ -31,6 +33,10 @@ class SignInViewModel(
         } else {
             invalidInput(!loginIsValid, !passwordIsValid)
         }
+    }
+
+    fun getCurrentUserId() : Int {
+        return sharedPreferences.getInt(CURRENT_USER_ID, 0)
     }
 
     private fun authenticateUser(login: String, password: String) {

@@ -36,7 +36,7 @@ class RegistrationViewModel(
         val confirmed = (password == confirmPassword) and password.isNotEmpty()
 
         if (loginIsValid && emailIsValid && passwordIsValid && confirmed) {
-            addUser(UserModel(0, login, email, password))
+            addUser(UserModel(0, "", "", "", login, email, password))
         } else {
             invalidInput(!loginIsValid, !emailIsValid, !passwordIsValid, !confirmed)
         }

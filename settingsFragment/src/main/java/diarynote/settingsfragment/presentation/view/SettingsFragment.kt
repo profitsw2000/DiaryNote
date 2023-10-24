@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.squareup.picasso.Picasso
 import diarynote.data.appsettings.SETTINGS_ABOUT_ID
 import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
 import diarynote.data.appsettings.SETTINGS_GENERAL_ID
@@ -23,6 +24,7 @@ import diarynote.template.model.UserState
 import diarynote.template.utils.OnSettingsMenuItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class SettingsFragment : Fragment() {
 
@@ -71,7 +73,7 @@ class SettingsFragment : Fragment() {
     private fun observeData() {
         val settingsMenuObserver = Observer<List<SettingsMenuItemModel>> { renderSettingsMenuData(it) }
         settingsViewModel.settingsLiveData.observe(viewLifecycleOwner, settingsMenuObserver)
-        val userObserver = Observer<UserState> { renderUserData(it) }
+        val userObserver = Observer<UserState?> { renderUserData(it) }
         settingsViewModel.userLiveData.observe(viewLifecycleOwner, userObserver)
     }
 
@@ -88,9 +90,13 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setUserData(userModel: UserModel) = with(binding) {
+        val accountOwnerName = if (userModel.name == "" && userModel.surname == "") userModel.login
+        else "${userModel.name} ${userModel.surname}"
+
         setProgressBarVisible(false)
-        accountLoginTextView.text = userModel.login
+        accountLoginTextView.text = accountOwnerName
         emailTextView.text = userModel.email
+        setAccountImage(userModel.imagePath)
     }
 
     private fun setErrorUserData() = with(binding) {
@@ -108,6 +114,14 @@ class SettingsFragment : Fragment() {
             progressBar.visibility = View.GONE
             accountLoginTextView.visibility = View.VISIBLE
             emailTextView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setAccountImage(imagePath: String) = with(binding) {
+        val imageFile = File(imagePath)
+
+        if (imagePath != "" && imageFile.exists()) {
+            Picasso.get().load(imageFile).into(accountIconImageView)
         }
     }
 

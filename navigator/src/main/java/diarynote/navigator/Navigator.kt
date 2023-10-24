@@ -26,5 +26,17 @@ interface Navigator {
 
     fun navigateToAboutScreen()
 
+    fun navigateToChangePassword()
+
+    fun navigateToChangeUserInfo()
+
+    fun navigateToAccountDelete()
+
+    fun navigateToViewModelCleaner()
+
+    fun navigateToUserImage()
+
+    fun navigateToBackupRestore()
+
     fun navigateUp()
 }

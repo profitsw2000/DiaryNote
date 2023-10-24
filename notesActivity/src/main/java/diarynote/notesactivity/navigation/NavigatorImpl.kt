@@ -53,6 +53,30 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.about)
     }
 
+    override fun navigateToChangePassword() {
+        navController.navigate(R.id.change_password_fragment)
+    }
+
+    override fun navigateToChangeUserInfo() {
+        navController.navigate(R.id.change_user_info_fragment)
+    }
+
+    override fun navigateToAccountDelete() {
+        navController.navigate(R.id.delete_user_account_fragment)
+    }
+
+    override fun navigateToViewModelCleaner() {
+        navController.navigate(R.id.view_model_cleaner_fragment)
+    }
+
+    override fun navigateToUserImage() {
+        navController.navigate(R.id.user_image_fragment)
+    }
+
+    override fun navigateToBackupRestore() {
+        navController.navigate(R.id.backup_restore_fragment)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

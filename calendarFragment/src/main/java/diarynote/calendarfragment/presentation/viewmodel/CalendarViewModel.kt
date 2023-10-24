@@ -84,8 +84,9 @@ class CalendarViewModel(
         getUserNotesInDatePeriod(sharedPreferences.getInt(CURRENT_USER_ID,0), fromDate, toDate, false)
     }
 
-    fun setSelectPeriodChipDefaultText(text: String) {
+    fun setSelectPeriodChipDefaultText(text: String, isSelectPeriodChecked: Boolean) {
         selectPeriodDefaultText = text
+        if (!isSelectPeriodChecked) setSelectPeriodChipText(selectPeriodDefaultText)
     }
 
     private fun setSelectPeriodChipText(text: String) {

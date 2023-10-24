@@ -27,9 +27,13 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(userEntity: UserEntity): Single<Long>
 
+    @Query("UPDATE UserEntity SET password = :password WHERE id =:id")
+    fun updatePassword(password: String, id: Int): Completable
+
     @Update
     fun update(userEntity: UserEntity): Completable
 
     @Delete
     fun delete(userEntity: UserEntity): Completable
+
 }

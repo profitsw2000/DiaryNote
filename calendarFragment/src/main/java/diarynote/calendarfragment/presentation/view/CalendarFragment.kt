@@ -61,7 +61,8 @@ class CalendarFragment : Fragment() {
     private fun initViews() {
         setChipOnClickListeners()
         calendarViewModel.setSelectPeriodChipDefaultText(
-            resources.getString(diarynote.core.R.string.select_period_notes_chip_text)
+            resources.getString(diarynote.core.R.string.select_period_notes_chip_text),
+            binding.selectPeriodNotesChip.isChecked
         )
         binding.pickedDateNotesRecyclerView.adapter = adapter
     }

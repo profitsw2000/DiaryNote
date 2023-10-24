@@ -7,5 +7,5 @@ import org.koin.dsl.module
 val settingsModule = module{
 
     single { SettingsViewModel(get(), get(), get(), get()) }
-    factory { SettingsInteractor() }
+    factory { SettingsInteractor(get(), get()) }
 }

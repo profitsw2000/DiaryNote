@@ -43,4 +43,27 @@ class UserInteractor(
         }
     }
 
+    fun updateUserPassword(password: String, userId: Int, remote: Boolean): Completable {
+        return if (remote) {
+            userRepositoryRemote.updateUserPassword(password, userId)
+        } else {
+            userRepositoryLocal.updateUserPassword(password, userId)
+        }
+    }
+
+    fun updateUser(userEntity: UserEntity, remote: Boolean): Completable {
+        return if (remote) {
+            userRepositoryRemote.updateUser(userEntity)
+        } else {
+            userRepositoryLocal.updateUser(userEntity)
+        }
+    }
+
+    fun deleteUser(userEntity: UserEntity, remote: Boolean): Completable {
+        return if (remote) {
+            userRepositoryRemote.deleteUser(userEntity)
+        } else {
+            userRepositoryLocal.deleteUser(userEntity)
+        }
+    }
 }

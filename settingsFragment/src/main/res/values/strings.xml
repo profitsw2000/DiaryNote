@@ -4,5 +4,6 @@
     <string name="pick_theme_title_text">Выберите тему оформления</string>
     <string name="light_theme_pick_button_text">Светлая</string>
     <string name="dark_theme_pick_button_text">Темная</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="delete_account_warning_text">Удаление учетной записи приведет к удалению всех ваших данных - заметок, данных и настроек учетной записи. Если необходимо сохранить данные для последующего их использования, то это можно сделать с помощью пункта меню Резервная копия раздела Учетная запись.\n\nВнимание! Вы не сможете восстановить данные после их удаления.</string>
+    <string name="delete_account_action_text">УДАЛИТЬ УЧЕТНУЮ ЗАПИСЬ</string>
 </resources>

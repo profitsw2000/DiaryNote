@@ -1,5 +1,6 @@
 package diarynote.data.data.local
 
+import android.content.Context
 import diarynote.data.domain.local.CategoryRepositoryLocal
 import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.entity.CategoryEntity

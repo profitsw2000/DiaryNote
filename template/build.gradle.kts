@@ -13,6 +13,7 @@ dependencies {
     //Modules
     implementation(project(Modules.core))
     implementation(project(Modules.data))
+    //implementation(project(Modules.app))
 
     //Kotlin
     implementation(Kotlin.core)

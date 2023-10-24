@@ -47,11 +47,11 @@
         <item name="android:textColor">@color/black</item>
 
         <!--Стили для отдельных компонентов -->
-        <item name="textInputOutlinedStyle">@style/customTextInputOutlinedStyle</item>
-        <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
-        <item name="chipStyle">@style/customMainChipStyle</item>
-        <item name="materialCalendarStyle">@style/customCalendarStyle</item>
-<!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
+                <item name="textInputOutlinedStyle">@style/customTextInputOutlinedStyle</item>
+                <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
+                <item name="chipStyle">@style/customMainChipStyle</item>
+                <item name="materialCalendarStyle">@style/customCalendarStyle</item>
+        <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
 
         <!-- Action Bar -->
         <item name="toolbarStyle">@style/appBarStyle</item>

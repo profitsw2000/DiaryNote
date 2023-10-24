@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), Controller {
         setLanguage()
         super.onCreate(savedInstanceState)
 
-        if (mainViewModel.isPasswordRequired() == false && !mainViewModel.isInactivePeriodExpired()) {
+        if (!mainViewModel.isPasswordRequired() && !mainViewModel.isInactivePeriodExpired() && mainViewModel.getCurrentUserId() != 0) {
             startNotesActivity()
         } else {
             setContentView(R.layout.activity_main)

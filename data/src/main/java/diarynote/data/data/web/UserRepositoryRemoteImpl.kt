@@ -22,4 +22,16 @@ class UserRepositoryRemoteImpl : UserRepositoryRemote {
     override fun getUserByEmail(email: String): Single<UserEntity> {
         TODO("Not yet implemented")
     }
+
+    override fun updateUserPassword(password: String, userId: Int): Completable {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateUser(userEntity: UserEntity): Completable {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteUser(userEntity: UserEntity): Completable {
+        TODO("Not yet implemented")
+    }
 }

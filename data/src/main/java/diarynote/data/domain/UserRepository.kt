@@ -13,4 +13,10 @@ interface UserRepository {
     fun getUserByLogin(login: String): Single<UserEntity>
 
     fun getUserByEmail(email: String): Single<UserEntity>
+
+    fun updateUserPassword(password: String, userId: Int): Completable
+
+    fun updateUser(userEntity: UserEntity): Completable
+
+    fun deleteUser(userEntity: UserEntity): Completable
 }

@@ -16,4 +16,9 @@
     <string name="general_settings_fragment_label_text">General</string>
     <string name="help_fragment_label_text">Help</string>
     <string name="about_fragment_label_text">About</string>
+    <string name="change_password_fragment_label_text">Change password</string>
+    <string name="change_user_info_fragment_label_text">Change user info...</string>
+    <string name="delete_account_label_text">Delete account...</string>
+    <string name="user_image_label_text">Profile photo...</string>
+    <string name="backup_restore_fragment_label_text">Резервное копирование...</string>
 </resources>
