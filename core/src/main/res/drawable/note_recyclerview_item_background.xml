@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/deep_purple_50"/>
+            <solid android:color="?attr/colorSurface"/>
             <corners android:radius="@dimen/note_recyclerview_item_corner_radius"/>
         </shape>
     </item>
