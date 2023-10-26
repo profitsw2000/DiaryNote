@@ -17,10 +17,10 @@
         <item name="colorOnSecondaryContainer">@color/deep_purple_A400</item>
 
         <!-- Tertiary brand color. -->
-        <item name="colorTertiary">@color/deep_purple_A400</item>
-        <item name="colorOnTertiary">@color/white</item>
-        <item name="colorTertiaryContainer">@color/deep_purple_A400</item>
-        <item name="colorOnTertiaryContainer">@color/white</item>
+        <item name="colorTertiary">@color/red_A700</item>
+        <item name="colorOnTertiary">@color/red_A700</item>
+        <item name="colorTertiaryContainer">@color/grey_300</item>              <!-- Chip -->
+        <item name="colorOnTertiaryContainer">@color/deep_purple_A400</item>
 
         <!-- Surface brand color. -->
         <item name="colorSurface">@color/deep_purple_100</item>

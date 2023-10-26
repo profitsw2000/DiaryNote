@@ -19,8 +19,8 @@
         <!-- Tertiary brand color. -->
         <item name="colorTertiary">@color/red</item>
         <item name="colorOnTertiary">@color/white</item>
-        <item name="colorTertiaryContainer">@color/red</item>
-        <item name="colorOnTertiaryContainer">@color/white</item>
+        <item name="colorTertiaryContainer">@color/semi_black</item>        <!-- Chip -->
+        <item name="colorOnTertiaryContainer">@color/grey_300</item>
 
         <!-- Surface brand color. -->
         <item name="colorSurface">@color/semi_black</item>
