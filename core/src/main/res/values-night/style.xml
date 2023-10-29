@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Text styles-->
-    <style name="authorization_screens_title_text_style">
-        <item name="android:textSize">24sp</item>
+    <style name="bold_text_style">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="semi_transparent_text_style">
+        <item name="android:alpha">0.5</item>
+    </style>
+
+    <style name="quarter_transparent_text_style">
+        <item name="android:alpha">0.75</item>
+    </style>
+
+    <style name="semi_transparent_bold_text_style" parent="bold_text_style">
+        <item name="android:alpha">0.5</item>
+    </style>
+
+    <style name="authorization_screens_title_text_style" parent="bold_text_style">
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
@@ -13,115 +28,97 @@
     </style>
 
     <style name="forgot_password_text_style">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="notes_activity_fragment_title_text">
+    <style name="notes_activity_fragment_title_text" parent="bold_text_style">
         <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <style name="categories_list_item_title_text_style">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
-    <style name="notes_list_item_title_text_style">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
+    <style name="notes_list_item_title_text_style" parent="bold_text_style">
     </style>
 
-    <style name="notes_title_text_style">
-        <item name="android:textColor">@color/white</item>
+    <style name="notes_title_text_style" parent="bold_text_style">
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="notes_content_text_style">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="notes_tags_and_date_text_style">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:alpha">0.5</item>
+    <style name="notes_tags_and_date_text_style" parent="semi_transparent_text_style">
     </style>
 
     <style name="notes_list_item_content_text_style">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="create_note_fragment_input_field_title_style">
-        <item name="android:textColor">@color/white</item>
+    <style name="create_note_fragment_input_field_title_style" parent="bold_text_style">
         <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="horizontal_category_list_item_name_text_style">
-        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="horizontal_category_list_selected_item_name_text_style">
-        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="calendar_chip_text_style">
+    <style name="calendar_chip_text_style" parent="bold_text_style">
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="settings_fragment_account_text_style">
+    <style name="settings_fragment_account_text_style" parent="bold_text_style">
         <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="settings_fragment_email_text_style">
+    <style name="settings_fragment_email_text_style" parent="semi_transparent_text_style">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/grey_300</item>
     </style>
 
-    <style name="settings_menu_item_title_text_style">
+    <style name="settings_menu_item_title_text_style" parent="quarter_transparent_text_style">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/grey_300</item>
     </style>
 
-    <style name="input_form_title_text_style">
+    <style name="input_form_title_text_style" parent="semi_transparent_bold_text_style">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/heavy_black</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="action_explanations_medium_text_style">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/deep_purple_A400</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="action_explanations_small_text_style">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/grey_300</item>
+    <style name="action_explanations_small_text_style" parent="semi_transparent_text_style">
+
     </style>
 
-    <style name="action_explanations_standard_text_style">
+    <style name="action_explanations_standard_text_style" parent="semi_transparent_text_style">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/grey_300</item>
     </style>
 
     <style name="error_message_text_style">
-        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="dangerous_action_text_view_text_style">
-        <item name="android:textColor">@color/red_A700</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14sp</item>
+    <style name="dangerous_action_text_view_text_style" parent="bold_text_style">
+        <item name="android:textColor">?attr/colorError</item>
+    </style>
+
+<!--Button styles-->
+    <style name="lightThemeButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/semi_black</item>
+    </style>
+
+    <style name="darkThemeButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/grey_600</item>
+        <item name="strokeColor">@color/white</item>
     </style>
 
     <!--Component styles-->
@@ -130,7 +127,7 @@
         <item name="boxCornerRadiusTopEnd">@dimen/auth_input_field_corner_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/auth_input_field_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/auth_input_field_corner_radius</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
     <style name="searchFieldTextInputOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
@@ -138,7 +135,7 @@
         <item name="boxCornerRadiusTopEnd">@dimen/search_input_field_corner_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/search_input_field_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/search_input_field_corner_radius</item>
-        <item name="android:editTextColor">@color/white</item>
+        <item name="android:editTextColor">?attr/colorOnSecondary</item>
     </style>
 
     <style name="customMainChipStyle" parent="Widget.Material3.Chip.Suggestion">
@@ -156,7 +153,7 @@
 
     <style name="bottomNavigationStyle" parent="Widget.Material3.BottomNavigationView">
         <item name="itemTextAppearanceActive">?attr/textAppearanceTitleMedium</item>
-        <item name="itemBackground">@color/black</item>
+        <item name="itemBackground">?attr/colorSecondary</item>
     </style>
 
     <style name="dialogStyle" parent="ThemeOverlay.Material3.MaterialAlertDialog">
@@ -164,7 +161,7 @@
     </style>
 
     <style name="appBarStyle" parent="Widget.Material3.Toolbar">
-        <item name="android:background">@color/deep_purple_50</item>
+        <item name="android:background">?attr/colorSecondary</item>
     </style>
 
     <style name="MyDrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -172,8 +169,8 @@
     </style>
 
     <style name="customEditTextInputOutlinedStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
-        <item name="android:textCursorDrawable">@drawable/white_cursor</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/input_cursor</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
     <!-- Shape -->

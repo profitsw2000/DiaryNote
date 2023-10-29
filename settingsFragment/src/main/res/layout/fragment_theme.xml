@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/default_theme_title_text_view" />
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/default_theme_pick_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,6 +79,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/light_theme_button"
+            style="@style/lightThemeButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/pick_theme_title_text_view"
@@ -89,7 +90,7 @@
             android:text="@string/light_theme_pick_button_text"/>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/darkThemeButtonStyle"
             android:id="@+id/dark_theme_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.data.model.NoteModel
 import diarynote.template.databinding.NotesListItemViewBinding
-import diarynote.template.utils.OnItemClickListener
 import diarynote.template.utils.OnNoteItemClickListener
 import java.text.SimpleDateFormat
 
