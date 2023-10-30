@@ -112,11 +112,14 @@
 
 <!--Button styles-->
     <style name="lightThemeButtonStyle" parent="Widget.Material3.Button">
-
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">?attr/colorPrimaryInverse</item>
     </style>
 
     <style name="darkThemeButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
-
+        <item name="android:textColor">?attr/colorOnTertiary</item>
+        <item name="backgroundTint">?attr/colorTertiary</item>
+        <item name="strokeColor">?attr/colorOnTertiary</item>
     </style>
 
     <!--Component styles-->
