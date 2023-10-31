@@ -1,6 +1,7 @@
 package ru.profitsw2000.diarynote.presentation
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import diarynote.core.common.Controller
@@ -90,10 +91,25 @@ class MainActivity : AppCompatActivity(), Controller {
 
     private fun getThemeStyle(): Int {
         return when(mainViewModel.getCurrentThemeId()){
-            APP_THEME_LIGHT -> diarynote.core.R.style.Theme_DiaryNote
-            APP_THEME_DARK -> diarynote.core.R.style.Theme_DiaryNoteDark
+            APP_THEME_LIGHT -> getLightTheme()
+            APP_THEME_DARK -> getDarkTheme()
             else -> diarynote.core.R.style.Theme_DiaryNote
         }
     }
 
+    private fun getLightTheme(): Int {
+        return when(baseContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> diarynote.core.R.style.Theme_DiaryNoteDark
+            Configuration.UI_MODE_NIGHT_NO -> diarynote.core.R.style.Theme_DiaryNote
+            else -> diarynote.core.R.style.Theme_DiaryNote
+        }
+    }
+
+    private fun getDarkTheme(): Int {
+        return when(baseContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> diarynote.core.R.style.Theme_DiaryNote
+            Configuration.UI_MODE_NIGHT_NO -> diarynote.core.R.style.Theme_DiaryNoteDark
+            else -> diarynote.core.R.style.Theme_DiaryNote
+        }
+    }
 }

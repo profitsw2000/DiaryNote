@@ -53,6 +53,10 @@
         <item name="materialCalendarStyle">@style/customCalendarStyle</item>
         <item name="switchStyle">@style/customSwitchStyle</item>
         <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
+
+        <!-- Action Bar -->
+        <item name="toolbarStyle">@style/appBarStyle</item>
+        <item name="drawerArrowStyle">@style/MyDrawerArrowToggleStyle</item>
     </style>
 
     <style name="Theme.DiaryNoteDark" parent="Theme.Material3.DayNight">
@@ -94,7 +98,7 @@
         <item name="colorOutline">@color/deep_purple_A400</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/deep_purple_50</item>
+        <item name="android:statusBarColor">@color/white</item>
 
         <!-- Background color. -->
         <item name="android:colorBackground">@color/white</item>
