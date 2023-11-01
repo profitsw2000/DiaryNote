@@ -1,0 +1,11 @@
+<resources>
+    <string name="default_theme_picker_title_text">Тема по умолчанию</string>
+    <string name="default_theme_picker_content_text">Использовать тему оформления вашего устройства</string>
+    <string name="pick_theme_title_text">Выберите тему оформления</string>
+    <string name="light_theme_pick_button_text">Светлая</string>
+    <string name="dark_theme_pick_button_text">Темная</string>
+    <string name="delete_account_warning_text">Удаление учетной записи приведет к удалению всех ваших данных - заметок, данных и настроек учетной записи. Если необходимо сохранить данные для последующего их использования, то это можно сделать с помощью пункта меню Резервная копия раздела Учетная запись.\n\nВнимание! Вы не сможете восстановить данные после их удаления.</string>
+    <string name="delete_account_action_text">УДАЛИТЬ УЧЕТНУЮ ЗАПИСЬ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
