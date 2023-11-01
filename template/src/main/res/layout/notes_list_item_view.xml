@@ -61,6 +61,7 @@
 
         <TextView
             android:id="@+id/tags_text_view"
+            style="@style/notes_tags_and_date_text_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -71,6 +72,7 @@
 
         <TextView
             android:id="@+id/creation_date_text_view"
+            style="@style/notes_tags_and_date_text_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"

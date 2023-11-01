@@ -47,7 +47,7 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.imageView.setImageResource(getImageFromResources(data[position]))
         if (clickedPosition == position) {
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.deep_purple_100))
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.purple_200))
         } else {
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.white))
         }

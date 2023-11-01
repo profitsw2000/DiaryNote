@@ -66,7 +66,7 @@ class HorizontalCategoryListAdapter(
         private fun selectedItemView() = with(binding) {
             imageConstraintLayout.background = ContextCompat.getDrawable(context, diarynote.core.R.drawable.horizontal_category_list_selected_item_background)
             categoryImageView.setColorFilter(ContextCompat.getColor(context, diarynote.core.R.color.black))
-            categoryNameTextView.setTextColor(ContextCompat.getColor(context, diarynote.core.R.color.black))
+            categoryNameTextView.setTextAppearance(diarynote.core.R.style.horizontal_category_list_selected_item_name_text_style)
         }
 
         private fun getImageFromResources(imgId: Int) : Int {

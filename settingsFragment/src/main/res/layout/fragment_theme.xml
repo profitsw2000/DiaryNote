@@ -5,14 +5,14 @@
     android:id="@+id/fragment_theme_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_300"
+    android:background="?attr/colorTertiaryContainer"
     tools:context=".presentation.view.ThemeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/default_theme_pick_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?attr/colorSecondaryContainer"
         android:padding="@dimen/small_constraint_horizontal_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/default_theme_title_text_view" />
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/default_theme_pick_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/small_constraint_vertical_spacing_between_views"
-        android:background="@color/white"
+        android:background="?attr/colorSecondaryContainer"
         android:padding="@dimen/small_constraint_horizontal_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -79,6 +79,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/light_theme_button"
+            style="@style/lightThemeButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/pick_theme_title_text_view"
@@ -89,7 +90,7 @@
             android:text="@string/light_theme_pick_button_text"/>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/darkThemeButtonStyle"
             android:id="@+id/dark_theme_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
