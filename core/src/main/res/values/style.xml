@@ -107,6 +107,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="help_item_title_text_style">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="dangerous_action_text_view_text_style" parent="bold_text_style">
         <item name="android:textColor">?attr/colorError</item>
     </style>
