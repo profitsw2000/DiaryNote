@@ -1,5 +1,6 @@
 package diarynote.data.appsettings
 
+import diarynote.data.model.HelpItemModel
 import diarynote.data.model.SettingsMenuItemModel
 
 fun createSettingsMenuList(itemIdList: List<Int>, itemNameList: Array<String>): List<SettingsMenuItemModel> {
@@ -15,6 +16,15 @@ fun createSettingsMenuList(itemIdList: List<Int>, itemNameList: Array<String>): 
     }
 
     return settingsMenuItemList
+}
+
+fun createHelpItemsList(itemNameList: Array<String>, itemDescriptionList: Array<String>): List<HelpItemModel> {
+
+    return mutableListOf<HelpItemModel>().apply {
+        itemNameList.forEachIndexed { index, itemName ->
+            this.add(HelpItemModel(index, itemName, itemDescriptionList[index]))
+        }
+    }
 }
 
 val settingsIdList = listOf(

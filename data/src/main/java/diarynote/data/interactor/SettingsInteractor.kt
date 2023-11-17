@@ -26,8 +26,8 @@ class SettingsInteractor(
     }
 
     fun getAccountSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
-        if (remote) return arrayListOf()
-        else return  createSettingsMenuList(
+        return if (remote) arrayListOf()
+        else createSettingsMenuList(
             accountSettingsIdList,
             context.resources.getStringArray(R.array.account_settings_strings)
         )

@@ -1,13 +1,14 @@
 package diarynote.data.domain
 
+import android.content.Context
 import diarynote.data.model.HelpItemModel
 
 interface HelpRepository {
 
-    fun getHelpItemsList(): List<HelpItemModel>
+    fun getHelpItemsList(context: Context): List<HelpItemModel>
 
-    fun getHelpItemsTitleList(): List<String>
+    fun getHelpItemsTitleList(context: Context): List<String>
 
-    fun getHelpItemById(id: Int): HelpItemModel
+    fun getHelpItemById(context: Context, id: Int): HelpItemModel
 
 }
