@@ -5,26 +5,33 @@ import diarynote.core.R
 import diarynote.data.appsettings.createHelpItemsList
 import diarynote.data.domain.local.HelpRepositoryLocal
 import diarynote.data.model.HelpItemModel
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
+import java.lang.Exception
 
 class HelpRepositoryLocalImpl(): HelpRepositoryLocal {
 
-    override fun getHelpItemsList(context: Context): List<HelpItemModel> {
-        return createHelpItemsList(context.resources.getStringArray(R.array.help_menu_strings),
-            context.resources.getStringArray(R.array.help_menu_content_strings)
-        )
-    }
+    override fun getHelpItemsList(context: Context): Single<List<HelpItemModel>> {
 
-    override fun getHelpItemsTitleList(context: Context): List<String> {
-        return mutableListOf<String>().apply {
-            context.resources.getStringArray(R.array.help_menu_strings).forEach {
-                this.add(it)
+        Single.create<List<HelpItemModel>> { emitter ->
+            try {
+                emitter.onSuccess(createHelpItemsList(context.resources.getStringArray(R.array.help_menu_strings),
+                    context.resources.getStringArray(R.array.help_menu_content_strings))
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emitter.onError(e)
             }
         }
-    }
-
-    override fun getHelpItemById(context: Context, id: Int): HelpItemModel {
-        return createHelpItemsList(context.resources.getStringArray(R.array.help_menu_strings),
-            context.resources.getStringArray(R.array.help_menu_content_strings)
-        )[id]
+        return Single.create<List<HelpItemModel>> { emitter ->
+            try {
+                emitter.onSuccess(createHelpItemsList(context.resources.getStringArray(R.array.help_menu_strings),
+                    context.resources.getStringArray(R.array.help_menu_content_strings))
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emitter.onError(e)
+            }
+        }
     }
 }

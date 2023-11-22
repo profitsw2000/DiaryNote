@@ -44,6 +44,7 @@ import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.data.room.entity.UserEntity
 import diarynote.template.model.BackupState
+import diarynote.template.model.HelpState
 import diarynote.template.model.UserState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -65,6 +66,9 @@ class SettingsViewModel(
 
     private val _backupLiveData = MutableLiveData<BackupState?>()
     val backupLiveData: LiveData<BackupState?> by this::_backupLiveData
+
+    private val _helpLiveData = MutableLiveData<HelpState?>()
+    val helpLiveData: LiveData<HelpState?> by this::_helpLiveData
 
     fun getSettingsMenuItemList(context: Context) {
         _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(context,false)
@@ -320,6 +324,22 @@ class SettingsViewModel(
                 {
                     val message = it.message ?: ""
                     _backupLiveData.value = BackupState.Error(message, (1 shl BACKUP_BIT_NUMBER))
+                }
+            )
+    }
+
+    fun getHelpItemsList(context: Context) {
+        _helpLiveData.value = HelpState.Loading
+        settingsInteractor.getHelpItemsList(context, false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _helpLiveData.value = HelpState.Success(it)
+                },
+                {
+                    val message = it.message ?: ""
+                    _helpLiveData.value = HelpState.Error(message)
                 }
             )
     }

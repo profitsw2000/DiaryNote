@@ -12,6 +12,7 @@ import diarynote.data.model.HelpItemModel
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.room.database.AppDatabase
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import java.lang.Exception
 
 class SettingsInteractor(
@@ -38,27 +39,11 @@ class SettingsInteractor(
         )
     }
 
-    fun getHelpItemsList(context: Context, remote: Boolean): List<HelpItemModel> {
+    fun getHelpItemsList(context: Context, remote: Boolean): Single<List<HelpItemModel>> {
         return if (remote) {
             helpRepositoryRemote.getHelpItemsList(context)
         } else {
             helpRepositoryLocal.getHelpItemsList(context)
-        }
-    }
-
-    fun getHelpItemsTitleList(context: Context, remote: Boolean): List<String> {
-        return if (remote) {
-            helpRepositoryRemote.getHelpItemsTitleList(context)
-        } else {
-            helpRepositoryLocal.getHelpItemsTitleList(context)
-        }
-    }
-
-    fun getHelpItemById(context: Context, id: Int, remote: Boolean): HelpItemModel {
-        return if (remote) {
-            helpRepositoryRemote.getHelpItemById(context, id)
-        } else {
-            helpRepositoryLocal.getHelpItemById(context, id)
         }
     }
 
