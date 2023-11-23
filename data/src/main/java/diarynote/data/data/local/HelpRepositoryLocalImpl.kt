@@ -13,16 +13,6 @@ class HelpRepositoryLocalImpl(): HelpRepositoryLocal {
 
     override fun getHelpItemsList(context: Context): Single<List<HelpItemModel>> {
 
-        Single.create<List<HelpItemModel>> { emitter ->
-            try {
-                emitter.onSuccess(createHelpItemsList(context.resources.getStringArray(R.array.help_menu_strings),
-                    context.resources.getStringArray(R.array.help_menu_content_strings))
-                )
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emitter.onError(e)
-            }
-        }
         return Single.create<List<HelpItemModel>> { emitter ->
             try {
                 emitter.onSuccess(createHelpItemsList(context.resources.getStringArray(R.array.help_menu_strings),
