@@ -20,4 +20,5 @@
     <string name="delete_account_label_text">Удаление учетной записи...</string>
     <string name="user_image_label_text">Фото профиля...</string>
     <string name="backup_restore_fragment_label_text">Резервное копирование...</string>
+    <string name="help_item_description_fragment_label_text">Справка</string>
 </resources>

@@ -148,7 +148,11 @@
         android:id="@+id/help"
         android:name="diarynote.settingsfragment.presentation.view.HelpFragment"
         android:label="@string/help_fragment_label_text"
-        tools:layout="@layout/fragment_help"/>
+        tools:layout="@layout/fragment_help">
+        <action
+            android:id="@+id/action_help_to_help_item_description"
+            app:destination="@+id/help_item_description_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/about"
@@ -196,5 +200,13 @@
         android:name="diarynote.settingsfragment.presentation.view.account.BackupRestoreFragment"
         android:label="@string/backup_restore_fragment_label_text"
         tools:layout="@layout/fragment_backup_restore"/>
+
+    <!-- Help settings -->
+    <fragment
+        android:id="@+id/help_item_description_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.HelpItemDescriptionFragment"
+        android:label="@string/help_item_description_fragment_label_text"
+        tools:layout="@layout/fragment_help_item_description"/>
+
 
 </navigation>
