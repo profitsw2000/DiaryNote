@@ -92,7 +92,7 @@ class HelpItemDescriptionFragment : Fragment() {
 
         stringParts.forEach {
             when(it) {
-                "create_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.add_icon_24),
+                "create_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), R.drawable.add_note_icon),
                     ssb.length - 1,
                     ssb.length,
                     0)
@@ -100,15 +100,19 @@ class HelpItemDescriptionFragment : Fragment() {
                     ssb.length - 1,
                     ssb.length,
                     0)
-                "delete_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.delete_icon_24),
+                "delete_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.delete_icon_outline_24),
                     ssb.length - 1,
                     ssb.length,
                     0)
-                "edit_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.edit_icon_24),
+                "edit_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.edit_icon_outlined_24),
                     ssb.length - 1,
                     ssb.length,
                     0)
-                "add_category_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.add_icon_24),
+                "add_category_icon" -> ssb.setSpan(ImageSpan(requireContext(), R.drawable.add_category_icon),
+                    ssb.length - 1,
+                    ssb.length,
+                    0)
+                "add_category_icon_grey" -> ssb.setSpan(ImageSpan(requireContext(), R.drawable.add_category_icon_grey),
                     ssb.length - 1,
                     ssb.length,
                     0)
