@@ -8,6 +8,17 @@
     android:padding="@dimen/notes_activity_fragments_standart_padding"
     tools:context=".presentation.view.HelpItemDescriptionFragment">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        />
+
     <TextView
         android:id="@+id/help_item_title_text_view"
         style="@style/help_item_title_text_style"
