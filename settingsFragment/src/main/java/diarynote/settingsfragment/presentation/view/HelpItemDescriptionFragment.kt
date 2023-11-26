@@ -1,6 +1,9 @@
 package diarynote.settingsfragment.presentation.view
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.style.ImageSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +80,41 @@ class HelpItemDescriptionFragment : Fragment() {
     }
 
     private fun setHelpText(title: String, content: String) = with(binding) {
+        //getStringWithImage(content)
+
         helpItemTitleTextView.text = title
-        helpItemContentTextView.text = content
+        helpItemContentTextView.text = getStringWithImage(content)
+    }
+
+    private fun getStringWithImage(contentText: String): SpannableStringBuilder {
+        val ssb = SpannableStringBuilder()
+        val stringParts = contentText.split("{", "}")
+
+        stringParts.forEach {
+            when(it) {
+                "create_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.add_icon_24),
+                    ssb.length - 1,
+                    ssb.length,
+                    0)
+                "search_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.search_icon_24),
+                    ssb.length - 1,
+                    ssb.length,
+                    0)
+                "delete_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.delete_icon_24),
+                    ssb.length - 1,
+                    ssb.length,
+                    0)
+                "edit_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.edit_icon_24),
+                    ssb.length - 1,
+                    ssb.length,
+                    0)
+                "add_category_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.add_icon_24),
+                    ssb.length - 1,
+                    ssb.length,
+                    0)
+                else -> ssb.append(it)
+            }
+        }
+        return ssb
     }
 }
