@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import diarynote.data.domain.HELP_ITEM_ID_BUNDLE
 import diarynote.data.model.HelpItemModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
@@ -26,7 +27,7 @@ class HelpFragment : Fragment() {
     private val navigator: Navigator by inject()
     private val adapter = HelpAdapter(object : OnSettingsMenuItemClickListener{
         override fun onItemClick(itemId: Int) {
-            openFragmentById()
+            openFragmentById(itemId)
         }
     })
 
@@ -94,9 +95,14 @@ class HelpFragment : Fragment() {
         }
     }
 
+    private fun openFragmentById(itemId: Int) {
 
-    private fun openFragmentById() {
+        val bundle = Bundle().apply {
+            putInt(HELP_ITEM_ID_BUNDLE, itemId)
+        }
 
+        this@HelpFragment.arguments = bundle
+        navigator.navigateToHelpDescription(bundle)
     }
 
     override fun onDestroyView() {
