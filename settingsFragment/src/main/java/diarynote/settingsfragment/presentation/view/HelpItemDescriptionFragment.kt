@@ -87,38 +87,27 @@ class HelpItemDescriptionFragment : Fragment() {
     }
 
     private fun getStringWithImage(contentText: String): SpannableStringBuilder {
-        val ssb = SpannableStringBuilder()
+        var ssb = SpannableStringBuilder()
         val stringParts = contentText.split("{", "}")
 
         stringParts.forEach {
             when(it) {
-                "create_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), R.drawable.add_note_icon),
-                    ssb.length - 1,
-                    ssb.length,
-                    0)
-                "search_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.search_icon_24),
-                    ssb.length - 1,
-                    ssb.length,
-                    0)
-                "delete_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.delete_icon_outline_24),
-                    ssb.length - 1,
-                    ssb.length,
-                    0)
-                "edit_note_icon" -> ssb.setSpan(ImageSpan(requireContext(), diarynote.core.R.drawable.edit_icon_outlined_24),
-                    ssb.length - 1,
-                    ssb.length,
-                    0)
-                "add_category_icon" -> ssb.setSpan(ImageSpan(requireContext(), R.drawable.add_category_icon),
-                    ssb.length - 1,
-                    ssb.length,
-                    0)
-                "add_category_icon_grey" -> ssb.setSpan(ImageSpan(requireContext(), R.drawable.add_category_icon_grey),
-                    ssb.length - 1,
-                    ssb.length,
-                    0)
-                else -> ssb.append(it)
+                "create_note_icon" -> ssb = setImageToSpannableString(ssb, R.drawable.add_note_icon)
+                "search_note_icon" -> ssb = setImageToSpannableString(ssb, diarynote.core.R.drawable.search_icon_24)
+                "delete_note_icon" -> ssb = setImageToSpannableString(ssb, diarynote.core.R.drawable.delete_icon_outline_24)
+                "edit_note_icon" -> ssb = setImageToSpannableString(ssb, diarynote.core.R.drawable.edit_icon_outlined_24)
+                "add_category_icon" ->  ssb = setImageToSpannableString(ssb, R.drawable.add_category_icon)
+                "add_category_icon_grey" -> ssb = setImageToSpannableString(ssb, R.drawable.add_category_icon_grey)
+                else -> ssb.append("$it ")
             }
         }
         return ssb
+    }
+
+    private fun setImageToSpannableString(ssb: SpannableStringBuilder, resourceId: Int): SpannableStringBuilder {
+        return ssb.apply { this.setSpan(ImageSpan(requireContext(), resourceId),
+            ssb.length - 1,
+            ssb.length,
+            0) }
     }
 }
