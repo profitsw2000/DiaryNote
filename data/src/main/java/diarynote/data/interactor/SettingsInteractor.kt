@@ -6,14 +6,20 @@ import diarynote.core.R
 import diarynote.data.appsettings.accountSettingsIdList
 import diarynote.data.appsettings.createSettingsMenuList
 import diarynote.data.appsettings.settingsIdList
+import diarynote.data.domain.local.HelpRepositoryLocal
+import diarynote.data.domain.web.HelpRepositoryRemote
+import diarynote.data.model.HelpItemModel
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.room.database.AppDatabase
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import java.lang.Exception
 
 class SettingsInteractor(
     private val context: Context,
-    private var database: AppDatabase?
+    private var database: AppDatabase?,
+    private val helpRepositoryLocal: HelpRepositoryLocal,
+    private val helpRepositoryRemote: HelpRepositoryRemote
 ) {
 
     fun getSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
@@ -26,11 +32,19 @@ class SettingsInteractor(
     }
 
     fun getAccountSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
-        if (remote) return arrayListOf()
-        else return  createSettingsMenuList(
+        return if (remote) arrayListOf()
+        else createSettingsMenuList(
             accountSettingsIdList,
             context.resources.getStringArray(R.array.account_settings_strings)
         )
+    }
+
+    fun getHelpItemsList(context: Context, remote: Boolean): Single<List<HelpItemModel>> {
+        return if (remote) {
+            helpRepositoryRemote.getHelpItemsList(context)
+        } else {
+            helpRepositoryLocal.getHelpItemsList(context)
+        }
     }
 
     fun importDB(uri: Uri): Completable {

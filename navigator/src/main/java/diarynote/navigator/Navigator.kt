@@ -38,5 +38,7 @@ interface Navigator {
 
     fun navigateToBackupRestore()
 
+    fun navigateToHelpDescription(bundle: Bundle)
+
     fun navigateUp()
 }
