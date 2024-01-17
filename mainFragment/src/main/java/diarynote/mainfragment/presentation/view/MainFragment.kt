@@ -81,6 +81,7 @@ class MainFragment : Fragment() {
             is NotesState.Success -> setList(notesState.noteModelList)
             is NotesState.Loading -> showProgressBar()
             is NotesState.Error -> handleError(notesState.message)
+            else -> {}
         }
     }
 

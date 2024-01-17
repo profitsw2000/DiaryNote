@@ -11,6 +11,7 @@ import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
 import diarynote.template.model.NotesState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeViewModel(
@@ -66,7 +67,11 @@ class HomeViewModel(
 
     private fun getSearchQueryPair(search: String) : SimpleSQLiteQuery {
 
-        val searchQueryBuilder = SearchQueryBuilder(search, sharedPreferences.getInt(CURRENT_USER_ID, 0))
+        val searchQueryBuilder = SearchQueryBuilder(
+            search,
+            sharedPreferences.getInt(CURRENT_USER_ID, 0),
+            0,
+            0)
 
         val queryString: String = searchQueryBuilder.getSearchQueryPair().first
         val queryArgs: Array<Any> = searchQueryBuilder.getSearchQueryPair().second.toTypedArray()

@@ -3,7 +3,6 @@ package diarynote.data.room.dao
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.room.entity.NoteEntity
-import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.related.UserWithCategoriesAndNotes
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable

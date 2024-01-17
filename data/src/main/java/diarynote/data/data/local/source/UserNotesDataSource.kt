@@ -2,6 +2,9 @@ package diarynote.data.data.local.source
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PositionalDataSource
+import androidx.sqlite.db.SimpleSQLiteQuery
+import diarynote.core.utils.SearchQueryBuilder
+import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
@@ -45,7 +48,7 @@ class UserNotesDataSource(
                 .subscribe(
                     {
                         callback.onResult(noteMapper.map(it))
-                        //notesState.postValue(NotesState.Loaded)
+                        notesState.postValue(NotesState.Loaded)
                     },
                     {
                         val message = it.message ?: ""
