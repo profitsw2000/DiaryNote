@@ -18,7 +18,11 @@ interface NoteDao {
     @Query("SELECT * FROM NoteEntity WHERE id LIKE :id")
     fun getNoteById(id: Int): Single<NoteEntity>
 
-    @Query("SELECT * FROM NoteEntity WHERE NoteEntity.user_id = :userId AND NoteEntity.category_id = :categoryId")
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId AND " +
+            "NoteEntity.category_id = :categoryId " +
+            "ORDER BY NoteEntity.editDate DESC")
     fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>>
 
     @Query("SELECT * " +
@@ -50,9 +54,23 @@ interface NoteDao {
 
     @Query("SELECT * " +
             "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate >= :fromDate " +
+            "ORDER BY NoteEntity.editDate DESC " +
+            "LIMIT :loadSize OFFSET :offset")
+    fun getUserNotesFromDate(userId: Int, fromDate: Date, loadSize: Int, offset: Int): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
             "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate BETWEEN :fromDate AND :toDate " +
             "ORDER BY NoteEntity.editDate DESC")
     fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate BETWEEN :fromDate AND :toDate " +
+            "ORDER BY NoteEntity.editDate DESC " +
+            "LIMIT :loadSize OFFSET :offset")
+    fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date, loadSize: Int, offset: Int): Single<List<NoteEntity>>
 
     @Transaction
     @Query("SELECT * " +
