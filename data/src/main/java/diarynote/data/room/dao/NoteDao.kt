@@ -30,6 +30,13 @@ interface NoteDao {
 
     @Query("SELECT * " +
             "FROM NoteEntity " +
+            "WHERE NoteEntity.user_id = :userId " +
+            "ORDER BY NoteEntity.editDate DESC " +
+            "LIMIT :loadSize OFFSET :offset")
+    fun getAllUserNotes(userId: Int, loadSize: Int, offset: Int): Single<List<NoteEntity>>
+
+    @Query("SELECT * " +
+            "FROM NoteEntity " +
             "WHERE NoteEntity.user_id = :userId AND NoteEntity.editDate >= :fromDate " +
             "ORDER BY NoteEntity.editDate DESC")
     fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>>
