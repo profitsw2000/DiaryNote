@@ -67,6 +67,10 @@ class NotesDataSourceFactory(
     ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, fromDate, toDate)
 
     val notesLiveDataSource = MutableLiveData<DataSource<Int, NoteModel>>()
+    val userNotesLiveDataSource = MutableLiveData<UserNotesDataSource>()
+    val categoryNotesLiveDataSource = MutableLiveData<CategoryNotesDataSource>()
+    val dateNotesLiveDataSource = MutableLiveData<DateNotesDataSource>()
+    val searchNotesLiveDataSource = MutableLiveData<SearchNotesDataSource>()
 
     override fun create(): DataSource<Int, NoteModel> {
         val notesDataSource = when(dataSourceType){
@@ -99,6 +103,9 @@ class NotesDataSourceFactory(
                 userId = userId
             )
         }
+
+        notesLiveDataSource.postValue(notesDataSource)
+        return notesDataSource
     }
 
     private fun getCategoryNotesDataSource(
@@ -240,5 +247,4 @@ class NotesDataSourceFactory(
             )
         }
     }
-
 }
