@@ -66,7 +66,6 @@ class NotesDataSourceFactory(
         toDate: Date?
     ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, fromDate, toDate)
 
-    val notesLiveDataSource = MutableLiveData<DataSource<Int, NoteModel>>()
     val userNotesLiveDataSource = MutableLiveData<UserNotesDataSource>()
     val categoryNotesLiveDataSource = MutableLiveData<CategoryNotesDataSource>()
     val dateNotesLiveDataSource = MutableLiveData<DateNotesDataSource>()
@@ -103,8 +102,6 @@ class NotesDataSourceFactory(
                 userId = userId
             )
         }
-
-        notesLiveDataSource.postValue(notesDataSource)
         return notesDataSource
     }
 
@@ -115,21 +112,25 @@ class NotesDataSourceFactory(
         userId: Int,
         categoryId: Int?
     ) : DataSource<Int, NoteModel> {
-        return if (categoryId != null) {
-            CategoryNotesDataSource(
+        if (categoryId != null) {
+            val categoryNotesDataSource = CategoryNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId,
                 categoryId = categoryId
             )
+            categoryNotesLiveDataSource.postValue(categoryNotesDataSource)
+            return categoryNotesDataSource
         } else {
-            UserNotesDataSource(
+            val userNotesDataSource = UserNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId
             )
+            userNotesLiveDataSource.postValue(userNotesDataSource)
+            return userNotesDataSource
         }
     }
 
@@ -139,12 +140,15 @@ class NotesDataSourceFactory(
         database: AppDatabase,
         userId: Int
     ) : DataSource<Int, NoteModel> {
-        return UserNotesDataSource(
-                noteMapper = noteMapper,
-                compositeDisposable = compositeDisposable,
-                database = database,
-                userId = userId
-            )
+        val userNotesDataSource = UserNotesDataSource(
+            noteMapper = noteMapper,
+            compositeDisposable = compositeDisposable,
+            database = database,
+            userId = userId
+        )
+
+        userNotesLiveDataSource.postValue(userNotesDataSource)
+        return userNotesDataSource
     }
 
     private fun getSearchNotesDataSource(
@@ -154,22 +158,26 @@ class NotesDataSourceFactory(
         userId: Int,
         searchString: String?
     ) : DataSource<Int, NoteModel> {
-        return if (searchString != null) {
-            SearchNotesDataSource(
+        if (searchString != null) {
+            val searchNotesDataSource = SearchNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId,
                 searchString = searchString
             )
+            searchNotesLiveDataSource.postValue(searchNotesDataSource)
+            return searchNotesDataSource
         } else {
             //throw NullPointerException()
-            UserNotesDataSource(
+            val userNotesDataSource = UserNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId
             )
+            userNotesLiveDataSource.postValue(userNotesDataSource)
+            return userNotesDataSource
         }
     }
 
@@ -203,21 +211,25 @@ class NotesDataSourceFactory(
         userId: Int,
         fromDate: Date?
     ) : DataSource<Int, NoteModel> {
-        return if (fromDate != null) {
-            DateNotesDataSource(
+        if (fromDate != null) {
+            val dateNotesDataSource = DateNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId,
                 fromDate = fromDate
             )
+            dateNotesLiveDataSource.postValue(dateNotesDataSource)
+            return dateNotesDataSource
         } else {
-            UserNotesDataSource(
+            val userNotesDataSource = UserNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId
             )
+            userNotesLiveDataSource.postValue(userNotesDataSource)
+            return userNotesDataSource
         }
     }
 
@@ -229,22 +241,25 @@ class NotesDataSourceFactory(
         fromDate: Date?,
         toDate: Date?
     ) : DataSource<Int, NoteModel> {
-        return if (fromDate != null && toDate != null) {
-            DateNotesDataSource(
+        if (fromDate != null && toDate != null) {
+            val dateNotesDataSource = DateNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId,
-                fromDate = fromDate,
-                toDate = toDate
+                fromDate = fromDate
             )
+            dateNotesLiveDataSource.postValue(dateNotesDataSource)
+            return dateNotesDataSource
         } else {
-            UserNotesDataSource(
+            val userNotesDataSource = UserNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId
             )
+            userNotesLiveDataSource.postValue(userNotesDataSource)
+            return userNotesDataSource
         }
     }
 }

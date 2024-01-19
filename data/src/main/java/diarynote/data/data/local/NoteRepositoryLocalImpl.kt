@@ -6,7 +6,10 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
+import diarynote.data.data.local.source.CategoryNotesDataSource
+import diarynote.data.data.local.source.DateNotesDataSource
 import diarynote.data.data.local.source.NotesDataSourceFactory
+import diarynote.data.data.local.source.SearchNotesDataSource
 import diarynote.data.data.local.source.UserNotesDataSource
 import diarynote.data.domain.local.NoteRepositoryLocal
 import diarynote.data.mappers.NoteMapper
@@ -152,10 +155,26 @@ class NoteRepositoryLocalImpl(
 
     override fun getNotesState(dataSourceType: DataSourceType): LiveData<NotesState> {
         return when (dataSourceType) {
-            DataSourceType.CategoryNotesDataSource -> UserNotesDataSource::notesState
-            DataSourceType.DateNotesDataSource -> TODO()
-            DataSourceType.SearchNotesDataSource -> TODO()
-            DataSourceType.UserNotesDataSource -> TODO()
+            DataSourceType.CategoryNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.categoryNotesLiveDataSource, CategoryNotesDataSource::notesState
+                )
+            }
+            DataSourceType.DateNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.dateNotesLiveDataSource, DateNotesDataSource::notesState
+                )
+            }
+            DataSourceType.SearchNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.searchNotesLiveDataSource, SearchNotesDataSource::notesState
+                )
+            }
+            DataSourceType.UserNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.userNotesLiveDataSource, UserNotesDataSource::notesState
+                )
+            }
         }
     }
 
@@ -164,7 +183,7 @@ class NoteRepositoryLocalImpl(
             .setEnablePlaceholders(false)
             .setPageSize(40)
             .build()
-        notesPagedList = LivePagedListBuilder(notesDataSourceFactory, config).build()
+        notesPagedList = LivePagedListBuilder(dataSourceFactory, config).build()
 
         return notesPagedList
     }
