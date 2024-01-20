@@ -8,7 +8,6 @@ import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
 import diarynote.data.model.type.DataSourceType
-import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
@@ -113,10 +112,6 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
     }
 
     override fun deleteNote(noteEntity: NoteEntity): Completable {
-        TODO("Not yet implemented")
-    }
-
-    override fun getNotesState(): LiveData<NotesState> {
         TODO("Not yet implemented")
     }
 }

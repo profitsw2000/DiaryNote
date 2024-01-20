@@ -2,7 +2,6 @@ package diarynote.data.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -151,31 +150,6 @@ class NoteRepositoryLocalImpl(
 
     override fun deleteNote(noteEntity: NoteEntity): Completable {
         return database.noteDao.delete(noteEntity)
-    }
-
-    override fun getNotesState(dataSourceType: DataSourceType): LiveData<NotesState> {
-        return when (dataSourceType) {
-            DataSourceType.CategoryNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.categoryNotesLiveDataSource, CategoryNotesDataSource::notesState
-                )
-            }
-            DataSourceType.DateNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.dateNotesLiveDataSource, DateNotesDataSource::notesState
-                )
-            }
-            DataSourceType.SearchNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.searchNotesLiveDataSource, SearchNotesDataSource::notesState
-                )
-            }
-            DataSourceType.UserNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.userNotesLiveDataSource, UserNotesDataSource::notesState
-                )
-            }
-        }
     }
 
     private fun getPagedList(dataSourceFactory: NotesDataSourceFactory): LiveData<PagedList<NoteModel>> {
