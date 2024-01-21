@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 
 class NotesPagedListAdapter(
     private val onNoteItemClickListener: OnNoteItemClickListener
-) : PagingDataAdapter<NoteModel, NotesPagedListAdapter.NoteItemViewHolder>(NoteDiffCallback()) {
+) : PagedListAdapter<NoteModel, NotesPagedListAdapter.NoteItemViewHolder>(NoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteItemViewHolder {
         val binding = NotesListItemViewBinding.inflate(

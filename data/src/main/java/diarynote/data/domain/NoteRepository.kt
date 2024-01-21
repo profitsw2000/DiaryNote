@@ -80,4 +80,6 @@ interface NoteRepository {
 
     fun deleteNote(noteEntity: NoteEntity): Completable
 
+    fun getNotesState(dataSourceType: DataSourceType): LiveData<NotesState>
+
 }

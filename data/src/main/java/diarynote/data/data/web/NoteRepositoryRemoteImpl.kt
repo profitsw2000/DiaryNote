@@ -114,4 +114,8 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
     override fun deleteNote(noteEntity: NoteEntity): Completable {
         TODO("Not yet implemented")
     }
+
+    override fun getNotesState(dataSourceType: DataSourceType): LiveData<NotesState> {
+        TODO("Not yet implemented")
+    }
 }

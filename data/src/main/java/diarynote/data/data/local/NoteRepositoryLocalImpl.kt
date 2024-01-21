@@ -161,4 +161,29 @@ class NoteRepositoryLocalImpl(
 
         return notesPagedList
     }
+
+    override fun getNotesState(dataSourceType: DataSourceType): LiveData<NotesState> {
+        return when (dataSourceType) {
+            DataSourceType.CategoryNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.categoryNotesLiveDataSource, CategoryNotesDataSource::notesState
+                )
+            }
+            DataSourceType.DateNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.dateNotesLiveDataSource, DateNotesDataSource::notesState
+                )
+            }
+            DataSourceType.SearchNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.searchNotesLiveDataSource, SearchNotesDataSource::notesState
+                )
+            }
+            DataSourceType.UserNotesDataSource -> {
+                Transformations.switchMap(
+                    notesDataSourceFactory.userNotesLiveDataSource, UserNotesDataSource::notesState
+                )
+            }
+        }
+    }
 }

@@ -11,11 +11,9 @@ import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.NotesState
 import diarynote.data.model.type.DataSourceType
-import diarynote.template.model.NotesState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeViewModel(
@@ -33,6 +31,10 @@ class HomeViewModel(
     private lateinit var _notesState: LiveData<NotesState>
     val notesState: LiveData<NotesState> by this::_notesState
 
+    init {
+        getUserNotesPagedList()
+    }
+
     fun getNotesList() {
         getAllUserNotes(sharedPreferences.getInt(CURRENT_USER_ID, 0))
     }
@@ -45,6 +47,7 @@ class HomeViewModel(
             getCurrentUserId(sharedPreferences),
             false
         )
+        _notesState = noteInteractor.getNotesState(DataSourceType.UserNotesDataSource, false)
     }
 
     private fun getAllUserNotes(userId: Int) {
@@ -59,7 +62,7 @@ class HomeViewModel(
                     )
                 },{
                     val errorMessage = it.message ?: ""
-                    _notesLiveData.value = NotesState.Error(errorMessage)
+                    //_notesLiveData.value = NotesState.Error(errorMessage)
                 }
             )
     }
@@ -80,7 +83,7 @@ class HomeViewModel(
                 },
                 {
                     val errorMessage = it.message ?: ""
-                    _notesLiveData.value = NotesState.Error(errorMessage)
+                    //_notesLiveData.value = NotesState.Error(errorMessage)
                 }
             )
     }
@@ -89,11 +92,12 @@ class HomeViewModel(
         _notesPagedList = noteInteractor.getSearchNotesPagedList(
             viewLifeCycleCompositeDisposable,
             noteMapper,
-            DataSourceType.UserNotesDataSource,
+            DataSourceType.SearchNotesDataSource,
             getCurrentUserId(sharedPreferences),
             search,
             false
         )
+        _notesState = noteInteractor.getNotesState(DataSourceType.SearchNotesDataSource, false)
     }
 
     private fun getSearchQueryPair(search: String) : SimpleSQLiteQuery {
