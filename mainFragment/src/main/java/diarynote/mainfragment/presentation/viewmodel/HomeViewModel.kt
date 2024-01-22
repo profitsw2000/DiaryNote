@@ -11,6 +11,7 @@ import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.NotesCountChangeState
 import diarynote.data.model.state.NotesState
 import diarynote.data.model.type.DataSourceType
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -22,14 +23,16 @@ class HomeViewModel(
     private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
-    private val _notesLiveData = MutableLiveData<NotesState>()
-    val notesLiveData: LiveData<NotesState> by this::_notesLiveData
+    private var notesCount: Int = 0
+
+/*    private val _notesLiveData = MutableLiveData<NotesState>()
+    val notesLiveData: LiveData<NotesState> by this::_notesLiveData*/
 
     private lateinit var _notesPagedList: LiveData<PagedList<NoteModel>>
     val notesPagedList: LiveData<PagedList<NoteModel>> by this::_notesPagedList
 
-    private val _userNotesCount= MutableLiveData<Int>()
-    val userNotesCount: LiveData<Int> by this::_userNotesCount
+    private val _userNotesCountChanged = MutableLiveData<NotesCountChangeState>()
+    val userNotesCountChanged: LiveData<NotesCountChangeState> by this::_userNotesCountChanged
 
     private lateinit var _notesState: LiveData<NotesState>
     val notesState: LiveData<NotesState> by this::_notesState
@@ -38,20 +41,22 @@ class HomeViewModel(
         getUserNotesPagedList()
     }
 
-    fun getNotesList() {
+/*    fun getNotesList() {
         getAllUserNotes(sharedPreferences.getInt(CURRENT_USER_ID, 0))
-    }
+    }*/
 
-    fun getUserNotesCount() {
+    fun checkUserNotesCountChanged() {
 
+        _userNotesCountChanged.value = NotesCountChangeState.Loading
         noteInteractor.getUserNotesCount(getCurrentUserId(sharedPreferences), false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _userNotesCount.value = it
+                    _userNotesCountChanged.value = NotesCountChangeState.Success(it != this.notesCount)
+                    this.notesCount = it
                 },{
-                    _userNotesCount.value = 0
+                    _userNotesCountChanged.value = NotesCountChangeState.Error(it.message!!)
                 }
             )
     }
@@ -67,7 +72,7 @@ class HomeViewModel(
         _notesState = noteInteractor.getNotesState(DataSourceType.UserNotesDataSource, false)
     }
 
-    private fun getAllUserNotes(userId: Int) {
+/*    private fun getAllUserNotes(userId: Int) {
         _notesLiveData.value = NotesState.Loading
         noteInteractor.getAllUserNotes(userId, false)
             .subscribeOn(Schedulers.io())
@@ -103,7 +108,7 @@ class HomeViewModel(
                     //_notesLiveData.value = NotesState.Error(errorMessage)
                 }
             )
-    }
+    }*/
 
     fun getSearchNotesPagedList(search: String) {
         _notesPagedList = noteInteractor.getSearchNotesPagedList(
@@ -117,7 +122,7 @@ class HomeViewModel(
         _notesState = noteInteractor.getNotesState(DataSourceType.SearchNotesDataSource, false)
     }
 
-    private fun getSearchQueryPair(search: String) : SimpleSQLiteQuery {
+/*    private fun getSearchQueryPair(search: String) : SimpleSQLiteQuery {
 
         val searchQueryBuilder = SearchQueryBuilder(
             search,
@@ -129,7 +134,7 @@ class HomeViewModel(
         val queryArgs: Array<Any> = searchQueryBuilder.getSearchQueryPair().second.toTypedArray()
 
         return SimpleSQLiteQuery(queryString, queryArgs)
-    }
+    }*/
 
     private fun getCurrentUserId(sharedPreferences: SharedPreferences): Int {
         return sharedPreferences.getInt(CURRENT_USER_ID, 0)

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.NotesCountChangeState
 import diarynote.data.model.state.NotesState
 import diarynote.mainfragment.R
 import diarynote.mainfragment.databinding.FragmentMainBinding
@@ -27,15 +28,6 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
     private val navigator: Navigator by inject()
-/*    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
-        override fun onItemClick(noteModel: NoteModel) {
-            val bundle = Bundle().apply {
-                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
-            }
-            this@MainFragment.arguments = bundle
-            navigator.navigateToNoteRead(bundle)
-        }
-    })*/
 
     private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
@@ -46,11 +38,6 @@ class MainFragment : Fragment() {
             navigator.navigateToNoteRead(bundle)
         }
     })
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        homeViewModel.getUserNotesCount()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,14 +52,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
+        homeViewModel.getUserNotesPagedList()
     }
-
-/*    override fun onStart() {
-        super.onStart()
-        if (binding.searchInputEditText.text.toString() == "") {
-            homeViewModel.getNotesList()
-        }
-    }*/
 
     private fun initViews() {
         with(binding) {
@@ -90,13 +71,8 @@ class MainFragment : Fragment() {
     }
 
     private fun observeData() {
-        //val observer = Observer<NotesState> { renderData(it)}
-        //homeViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
         homeViewModel.notesState.observe(this) {
             when (it) {
-/*                is NotesState.Error -> handleError(it.message)
-                NotesState.Loading -> setProgressBarVisible(true)
-                is NotesState.Success -> setProgressBarVisible(false)*/
                 is NotesState.Error -> handleError(it.message)
                 NotesState.Loaded -> setProgressBarVisible(false)
                 NotesState.Loading -> setProgressBarVisible(true)
@@ -108,27 +84,16 @@ class MainFragment : Fragment() {
             adapter.submitList(it)
         }
 
-        homeViewModel.userNotesCount.observe(this) {
-            Toast.makeText(context, "Number of notes: $it", Toast.LENGTH_SHORT).show()
+        homeViewModel.userNotesCountChanged.observe(this) {
+            when(it) {
+                is NotesCountChangeState.Error -> {}
+                NotesCountChangeState.Loading -> {}
+                is NotesCountChangeState.Success -> if (it.notesCountChanged) {
+                    homeViewModel.getUserNotesPagedList()
+                }
+            }
         }
     }
-
-/*    private fun renderData(notesState: NotesState) {
-        when(notesState) {
-            is NotesState.Success -> setList(notesState.noteModelList)
-            is NotesState.Loading -> showProgressBar()
-            is NotesState.Error -> handleError(notesState.message)
-            else -> {}
-        }
-    }*/
-
-/*    private fun setList(noteModelList: List<NoteModel>) {
-        with(binding) {
-            mainNotesListRecyclerView.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
-        }
-        adapter.setData(noteModelList)
-    }*/
 
     private fun handleError(message: String) = with(binding) {
         setProgressBarVisible(false)
@@ -136,14 +101,6 @@ class MainFragment : Fragment() {
             .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { homeViewModel.getUserNotesPagedList() }
             .show()
     }
-
-/*    private fun showProgressBar() {
-        with(binding) {
-            mainNotesListRecyclerView.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
-        }
-    }*/
-
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
         if (visible) {
