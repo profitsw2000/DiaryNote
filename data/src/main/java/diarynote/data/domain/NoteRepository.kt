@@ -24,6 +24,8 @@ interface NoteRepository {
 
     fun getAllUserNotes(id: Int): Single<UserWithNotes>
 
+    fun getUserNotesCount(id: Int): Single<Int>
+
     fun getUserNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,

@@ -42,6 +42,10 @@ class NoteRepositoryLocalImpl(
         return database.noteDao.getUserWithNotes(id)
     }
 
+    override fun getUserNotesCount(id: Int): Single<Int> {
+        return database.noteDao.getUserNotesCount()
+    }
+
     override fun getUserNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,

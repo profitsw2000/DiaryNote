@@ -28,6 +28,9 @@ class HomeViewModel(
     private lateinit var _notesPagedList: LiveData<PagedList<NoteModel>>
     val notesPagedList: LiveData<PagedList<NoteModel>> by this::_notesPagedList
 
+    private val _userNotesCount= MutableLiveData<Int>()
+    val userNotesCount: LiveData<Int> by this::_userNotesCount
+
     private lateinit var _notesState: LiveData<NotesState>
     val notesState: LiveData<NotesState> by this::_notesState
 
@@ -37,6 +40,20 @@ class HomeViewModel(
 
     fun getNotesList() {
         getAllUserNotes(sharedPreferences.getInt(CURRENT_USER_ID, 0))
+    }
+
+    fun getUserNotesCount() {
+
+        noteInteractor.getUserNotesCount(getCurrentUserId(sharedPreferences), false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _userNotesCount.value = it
+                },{
+                    _userNotesCount.value = 0
+                }
+            )
     }
 
     fun getUserNotesPagedList() {

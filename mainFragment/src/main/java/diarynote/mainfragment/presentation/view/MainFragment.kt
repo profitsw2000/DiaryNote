@@ -47,6 +47,11 @@ class MainFragment : Fragment() {
         }
     })
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeViewModel.getUserNotesCount()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -98,8 +103,13 @@ class MainFragment : Fragment() {
                 is NotesState.Success -> setProgressBarVisible(false)
             }
         }
+
         homeViewModel.notesPagedList.observe(this) {
             adapter.submitList(it)
+        }
+
+        homeViewModel.userNotesCount.observe(this) {
+            Toast.makeText(context, "Number of notes: $it", Toast.LENGTH_SHORT).show()
         }
     }
 

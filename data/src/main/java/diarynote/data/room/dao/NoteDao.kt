@@ -18,6 +18,9 @@ interface NoteDao {
     @Query("SELECT * FROM NoteEntity WHERE id LIKE :id")
     fun getNoteById(id: Int): Single<NoteEntity>
 
+    @Query("SELECT COUNT(*) FROM NoteEntity")
+    fun getUserNotesCount(): Single<Int>
+
     @Query("SELECT * " +
             "FROM NoteEntity " +
             "WHERE NoteEntity.user_id = :userId AND " +

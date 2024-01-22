@@ -29,6 +29,10 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         TODO("Not yet implemented")
     }
 
+    override fun getUserNotesCount(id: Int): Single<Int> {
+        TODO("Not yet implemented")
+    }
+
     override fun getUserNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,

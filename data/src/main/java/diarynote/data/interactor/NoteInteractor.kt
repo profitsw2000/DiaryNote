@@ -46,6 +46,14 @@ class NoteInteractor(
         }
     }
 
+    fun getUserNotesCount(id: Int, remote: Boolean): Single<Int> {
+        return if (remote) {
+            noteRepositoryRemote.getUserNotesCount(id)
+        } else {
+            noteRepositoryLocal.getUserNotesCount(id)
+        }
+    }
+
     fun getUserNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,
