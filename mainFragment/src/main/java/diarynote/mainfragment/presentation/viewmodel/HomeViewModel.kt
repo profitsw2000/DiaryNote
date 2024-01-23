@@ -38,7 +38,8 @@ class HomeViewModel(
     val notesState: LiveData<NotesState> by this::_notesState
 
     init {
-        getUserNotesPagedList()
+        _notesPagedList = MutableLiveData<PagedList<NoteModel>>()
+        _notesState = MutableLiveData<NotesState>()
     }
 
 /*    fun getNotesList() {
@@ -53,6 +54,9 @@ class HomeViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    if (it != this.notesCount) {
+                        getUserNotesPagedList()
+                    }
                     _userNotesCountChanged.value = NotesCountChangeState.Success(it != this.notesCount)
                     this.notesCount = it
                 },{

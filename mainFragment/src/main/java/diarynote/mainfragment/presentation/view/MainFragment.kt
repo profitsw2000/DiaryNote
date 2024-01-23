@@ -39,6 +39,10 @@ class MainFragment : Fragment() {
         }
     })
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,9 +54,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homeViewModel.checkUserNotesCountChanged()
         initViews()
-        observeData()
-        homeViewModel.getUserNotesPagedList()
+        observeChanges()
     }
 
     private fun initViews() {
@@ -71,7 +75,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observeData() {
-        homeViewModel.notesState.observe(this) {
+        homeViewModel.notesState.observe(viewLifecycleOwner) {
             when (it) {
                 is NotesState.Error -> handleError(it.message)
                 NotesState.Loaded -> setProgressBarVisible(false)
@@ -80,16 +84,20 @@ class MainFragment : Fragment() {
             }
         }
 
-        homeViewModel.notesPagedList.observe(this) {
+        homeViewModel.notesPagedList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
-        homeViewModel.userNotesCountChanged.observe(this) {
+
+    }
+
+    private fun observeChanges() {
+        homeViewModel.userNotesCountChanged.observe(viewLifecycleOwner) {
             when(it) {
                 is NotesCountChangeState.Error -> {}
                 NotesCountChangeState.Loading -> {}
                 is NotesCountChangeState.Success -> if (it.notesCountChanged) {
-                    homeViewModel.getUserNotesPagedList()
+                    observeData()
                 }
             }
         }
