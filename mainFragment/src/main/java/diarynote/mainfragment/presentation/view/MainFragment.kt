@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
     private val navigator: Navigator by inject()
+    private var isCreated = true
 
     private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
@@ -41,6 +42,7 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isCreated = (savedInstanceState == null)
     }
 
     override fun onCreateView(
@@ -54,9 +56,18 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.checkUserNotesCountChanged()
         initViews()
-        observeChanges()
+        if (savedInstanceState == null) {
+            if (isCreated) {
+                isCreated = false
+                observeData()
+            } else {
+                homeViewModel.checkUserNotesCountChanged()
+                observeChanges()
+            }
+        } else {
+            observeData()
+        }
     }
 
     private fun initViews() {
@@ -87,8 +98,6 @@ class MainFragment : Fragment() {
         homeViewModel.notesPagedList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-
-
     }
 
     private fun observeChanges() {
@@ -96,8 +105,13 @@ class MainFragment : Fragment() {
             when(it) {
                 is NotesCountChangeState.Error -> {}
                 NotesCountChangeState.Loading -> {}
-                is NotesCountChangeState.Success -> if (it.notesCountChanged) {
-                    observeData()
+                is NotesCountChangeState.Success -> {
+                    if (it.notesCountChanged) {
+                        homeViewModel.getUserNotesPagedList()
+                        observeData()
+                    } else {
+                        observeData()
+                    }
                 }
             }
         }
@@ -121,6 +135,11 @@ class MainFragment : Fragment() {
             searchNoteTextInputLayout.visibility = View.VISIBLE
         }
     }
+
+/*    private fun FragmentMainBinding.clearInputForms() {
+        searchInputEditText.editT
+    }*/
+
 
     override fun onDestroyView() {
         super.onDestroyView()
