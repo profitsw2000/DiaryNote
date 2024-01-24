@@ -159,7 +159,7 @@ class NoteRepositoryLocalImpl(
     private fun getPagedList(dataSourceFactory: NotesDataSourceFactory): LiveData<PagedList<NoteModel>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setPageSize(40)
+            .setPageSize(10)
             .build()
         notesPagedList = LivePagedListBuilder(dataSourceFactory, config).build()
 

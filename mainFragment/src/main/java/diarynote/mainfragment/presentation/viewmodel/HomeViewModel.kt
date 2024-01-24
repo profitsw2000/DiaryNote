@@ -1,6 +1,7 @@
 package diarynote.mainfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
@@ -48,6 +49,7 @@ class HomeViewModel(
                 {
                     _userNotesCountChanged.value = NotesCountChangeState.Success(it != this.notesCount)
                     this.notesCount = it
+                    Log.d("VVV", "checkUserNotesCountChanged: $it")
                 },{
                     _userNotesCountChanged.value = NotesCountChangeState.Error(it.message!!)
                 }

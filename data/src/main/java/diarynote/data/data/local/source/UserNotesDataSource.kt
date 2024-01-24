@@ -1,5 +1,6 @@
 package diarynote.data.data.local.source
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PositionalDataSource
 import androidx.sqlite.db.SimpleSQLiteQuery
