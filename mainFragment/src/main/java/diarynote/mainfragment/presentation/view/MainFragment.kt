@@ -109,6 +109,7 @@ class MainFragment : Fragment() {
                     if (it.notesCountChanged) {
                         homeViewModel.getUserNotesPagedList()
                         observeData()
+                        binding.searchNoteTextInputLayout.editText?.setText("")
                     } else {
                         observeData()
                     }
@@ -135,11 +136,6 @@ class MainFragment : Fragment() {
             searchNoteTextInputLayout.visibility = View.VISIBLE
         }
     }
-
-/*    private fun FragmentMainBinding.clearInputForms() {
-        searchInputEditText.editT
-    }*/
-
 
     override fun onDestroyView() {
         super.onDestroyView()
