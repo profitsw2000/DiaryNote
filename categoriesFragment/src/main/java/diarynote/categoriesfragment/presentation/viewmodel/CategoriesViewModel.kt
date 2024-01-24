@@ -84,7 +84,7 @@ class CategoriesViewModel (
         _notesPagedList = noteInteractor.getCategoryNotesPagedList(
             viewLifeCycleCompositeDisposable,
             noteMapper,
-            DataSourceType.UserNotesDataSource,
+            DataSourceType.CategoryNotesDataSource,
             getCurrentUserId(sharedPreferences),
             categoryId,
             false

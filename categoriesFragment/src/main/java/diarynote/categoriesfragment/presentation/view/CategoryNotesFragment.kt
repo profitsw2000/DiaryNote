@@ -15,9 +15,10 @@ import diarynote.data.domain.CATEGORY_ID_BUNDLE
 import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
-import diarynote.template.model.NotesState
 import diarynote.template.presentation.adapter.NotesListAdapter
+import diarynote.template.presentation.adapter.NotesPagedListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,7 +32,16 @@ class CategoryNotesFragment : Fragment() {
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val categoryId: Int? by lazy { arguments?.getInt(CATEGORY_ID_BUNDLE) }
     private val categoryName: String? by lazy { arguments?.getString(CATEGORY_NAME_BUNDLE) }
-    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
+/*    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
+        override fun onItemClick(noteModel: NoteModel) {
+            val bundle = Bundle().apply {
+                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
+            }
+            this@CategoryNotesFragment.arguments = bundle
+            navigator.navigateToNoteRead(bundle)
+        }
+    })*/
+    private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
@@ -57,21 +67,55 @@ class CategoryNotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        categoryId?.let { categoriesViewModel.getCategoryNotesPagedList(it) }
         initViews()
         observeData()
-        categoryId?.let { categoriesViewModel.getNotesList(it) }
     }
 
-    private fun initViews() {
-        binding.categoryNotesRecyclerView.adapter = adapter
+    private fun initViews() = with(binding) {
+        categoryNotesRecyclerView.adapter = adapter
+        categoryNotesRecyclerView.setHasFixedSize(false)
     }
 
     private fun observeData() {
-        val observer = Observer<NotesState> { renderData(it) }
-        categoriesViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
+/*        val observer = Observer<NotesState> { renderData(it) }
+        categoriesViewModel.notesLiveData.observe(viewLifecycleOwner, observer)*/
+        categoriesViewModel.notesState.observe(viewLifecycleOwner) {
+            when (it) {
+                is NotesState.Error -> handleError(it.message)
+                NotesState.Loaded -> setProgressBarVisible(false)
+                NotesState.Loading -> setProgressBarVisible(true)
+                is NotesState.Success -> setProgressBarVisible(false)
+            }
+        }
+
+        categoriesViewModel.notesPagedList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
-    private fun renderData(notesState: NotesState) {
+    private fun handleError(message: String) = with(binding) {
+        setProgressBarVisible(false)
+        Snackbar.make(this.categoryNotesFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { categoryId?.let { it1 ->
+                categoriesViewModel.getCategoryNotesPagedList(
+                    it1
+                )
+            } }
+            .show()
+    }
+
+    private fun setProgressBarVisible(visible: Boolean) = with(binding) {
+        if (visible) {
+            progressBar.visibility = View.VISIBLE
+            categoryNotesRecyclerView.visibility = View.GONE
+        } else {
+            progressBar.visibility = View.GONE
+            categoryNotesRecyclerView.visibility = View.VISIBLE
+        }
+    }
+
+/*    private fun renderData(notesState: NotesState) {
         when(notesState) {
             is NotesState.Success -> { setList(notesState.noteModelList) }
             is NotesState.Loading -> { showProgressBar() }
@@ -103,7 +147,7 @@ class CategoryNotesFragment : Fragment() {
                 )
             } }
             .show()
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
