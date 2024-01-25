@@ -24,7 +24,7 @@ class CalendarViewModel(
 ) : CoreViewModel() {
 
     private val calendar = Calendar.getInstance()
-    private lateinit var selectPeriodDefaultText: String
+    private var selectPeriodDefaultText: String = ""
 
     private val _notesLiveData = MutableLiveData<NotesState>()
     val notesLiveData by this::_notesLiveData
@@ -37,6 +37,10 @@ class CalendarViewModel(
 
     private lateinit var _notesState: LiveData<diarynote.data.model.state.NotesState>
     val notesState: LiveData<diarynote.data.model.state.NotesState> by this::_notesState
+
+    init {
+        getAllNotes()
+    }
 
     fun getAllNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
@@ -135,7 +139,7 @@ class CalendarViewModel(
         }
     }
 
-    fun getUserNotesPagedList(remote: Boolean) {
+    private fun getUserNotesPagedList(remote: Boolean) {
         _notesPagedList = noteInteractor.getUserNotesPagedList(
             viewLifeCycleCompositeDisposable,
             noteMapper,
@@ -146,7 +150,7 @@ class CalendarViewModel(
         _notesState = noteInteractor.getNotesState(DataSourceType.UserNotesDataSource, false)
     }
 
-    fun getUserNotesFromDatePagedList(fromDate: Date, remote: Boolean) {
+    private fun getUserNotesFromDatePagedList(fromDate: Date, remote: Boolean) {
         _notesPagedList = noteInteractor.getDateNotesPagedList(
             viewLifeCycleCompositeDisposable,
             noteMapper,
@@ -158,7 +162,7 @@ class CalendarViewModel(
         _notesState = noteInteractor.getNotesState(DataSourceType.DateNotesDataSource, false)
     }
 
-    fun getUserNotesInDatePeriodPagedList(fromDate: Date, toDate: Date, remote: Boolean) {
+    private fun getUserNotesInDatePeriodPagedList(fromDate: Date, toDate: Date, remote: Boolean) {
         _notesPagedList = noteInteractor.getDateNotesPagedList(
             viewLifeCycleCompositeDisposable,
             noteMapper,
@@ -171,7 +175,7 @@ class CalendarViewModel(
         _notesState = noteInteractor.getNotesState(DataSourceType.DateNotesDataSource, false)
     }
 
-    private fun getAllUserNotes(userId: Int, remote: Boolean) {
+/*    private fun getAllUserNotes(userId: Int, remote: Boolean) {
         _notesLiveData.value = NotesState.Loading
         noteInteractor.getAllUserNotes(userId, remote)
             .subscribeOn(Schedulers.io())
@@ -213,7 +217,7 @@ class CalendarViewModel(
                     _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
                 }
             )
-    }
+    }*/
 
     private fun getCurrentUserId(sharedPreferences: SharedPreferences): Int {
         return sharedPreferences.getInt(CURRENT_USER_ID, 0)
