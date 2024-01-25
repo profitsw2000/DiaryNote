@@ -29,9 +29,6 @@ class CategoriesViewModel (
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
     val categoriesLiveData: LiveData<CategoriesState> by this::_categoriesLiveData
 
-    private val _notesLiveData = MutableLiveData<NotesState>()
-    val notesLiveData: LiveData<NotesState> by this::_notesLiveData
-
     private lateinit var _notesPagedList: LiveData<PagedList<NoteModel>>
     val notesPagedList: LiveData<PagedList<NoteModel>> by this::_notesPagedList
 
@@ -40,10 +37,6 @@ class CategoriesViewModel (
 
     fun getCategoriesList() {
         getAllUserCategories(sharedPreferences.getInt(CURRENT_USER_ID,0))
-    }
-
-    fun getNotesList(categoryId: Int) {
-        getUserNotesByCategory(sharedPreferences.getInt(CURRENT_USER_ID, 0), categoryId)
     }
 
     private fun getAllUserCategories(userId: Int) {
@@ -61,23 +54,7 @@ class CategoriesViewModel (
                     _categoriesLiveData.value = CategoriesState.Error(errorMessage)
                 }
             )
-    }
-
-    private fun getUserNotesByCategory(userId: Int, categoryId: Int) {
-        _notesLiveData.value = NotesState.Loading
-        noteInteractor.getUserNotesByCategory(userId, categoryId, false)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _notesLiveData.value = NotesState.Success(
-                        noteMapper.map(it)
-                    )
-                },{
-                    val errorMessage = it.message ?: ""
-                    _notesLiveData.value = NotesState.Error(errorMessage)
-                }
-            )
+            .addViewLifeCycle()
     }
 
     fun getCategoryNotesPagedList(categoryId: Int) {
@@ -90,23 +67,6 @@ class CategoriesViewModel (
             false
         )
         _notesState = noteInteractor.getNotesState(DataSourceType.CategoryNotesDataSource, false)
-    }
-
-    private fun getAllCategories() {
-        _categoriesLiveData.value = CategoriesState.Loading
-        categoryInteractor.getAllCategories(false)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _categoriesLiveData.value = CategoriesState.Success(
-                        categoryMapper.map(it)
-                    )
-                }, {
-                    val errorMessage = it.message ?: ""
-                    _categoriesLiveData.value = CategoriesState.Error(errorMessage)
-                }
-            )
     }
 
     private fun getCurrentUserId(sharedPreferences: SharedPreferences): Int {

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
@@ -17,7 +16,6 @@ import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
-import diarynote.template.presentation.adapter.NotesListAdapter
 import diarynote.template.presentation.adapter.NotesPagedListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.android.ext.android.inject
@@ -32,15 +30,6 @@ class CategoryNotesFragment : Fragment() {
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val categoryId: Int? by lazy { arguments?.getInt(CATEGORY_ID_BUNDLE) }
     private val categoryName: String? by lazy { arguments?.getString(CATEGORY_NAME_BUNDLE) }
-/*    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
-        override fun onItemClick(noteModel: NoteModel) {
-            val bundle = Bundle().apply {
-                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
-            }
-            this@CategoryNotesFragment.arguments = bundle
-            navigator.navigateToNoteRead(bundle)
-        }
-    })*/
     private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
@@ -78,8 +67,6 @@ class CategoryNotesFragment : Fragment() {
     }
 
     private fun observeData() {
-/*        val observer = Observer<NotesState> { renderData(it) }
-        categoriesViewModel.notesLiveData.observe(viewLifecycleOwner, observer)*/
         categoriesViewModel.notesState.observe(viewLifecycleOwner) {
             when (it) {
                 is NotesState.Error -> handleError(it.message)
@@ -114,40 +101,6 @@ class CategoryNotesFragment : Fragment() {
             categoryNotesRecyclerView.visibility = View.VISIBLE
         }
     }
-
-/*    private fun renderData(notesState: NotesState) {
-        when(notesState) {
-            is NotesState.Success -> { setList(notesState.noteModelList) }
-            is NotesState.Loading -> { showProgressBar() }
-            is NotesState.Error -> { handleError(notesState.message) }
-        }
-    }
-
-    private fun setList(noteModelList: List<NoteModel>) {
-        with(binding){
-            categoryNotesRecyclerView.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
-        }
-
-        if (noteModelList.isEmpty()) binding.textView.visibility = View.VISIBLE
-        else adapter.setData(noteModelList)
-
-    }
-
-    private fun showProgressBar() = with(binding) {
-        categoryNotesRecyclerView.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
-    }
-
-    private fun handleError(message: String) = with(binding) {
-        Snackbar.make(this.categoryNotesFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
-            .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { categoryId?.let { it1 ->
-                categoriesViewModel.getNotesList(
-                    it1
-                )
-            } }
-            .show()
-    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
