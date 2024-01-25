@@ -17,7 +17,6 @@ import diarynote.data.model.state.NotesState
 import diarynote.data.model.type.DataSourceType
 import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.entity.NoteEntity
-import diarynote.data.room.related.UserWithNotes
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable

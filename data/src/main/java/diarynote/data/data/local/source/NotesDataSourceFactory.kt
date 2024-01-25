@@ -123,14 +123,7 @@ class NotesDataSourceFactory(
             categoryNotesLiveDataSource.postValue(categoryNotesDataSource)
             return categoryNotesDataSource
         } else {
-            val userNotesDataSource = UserNotesDataSource(
-                noteMapper = noteMapper,
-                compositeDisposable = compositeDisposable,
-                database = database,
-                userId = userId
-            )
-            userNotesLiveDataSource.postValue(userNotesDataSource)
-            return userNotesDataSource
+            throw NullPointerException()
         }
     }
 
@@ -146,6 +139,12 @@ class NotesDataSourceFactory(
             database = database,
             userId = userId
         )
+
+        if (categoryId != null
+            || searchString != null
+            || fromDate != null
+            || toDate != null
+        ) throw NullPointerException()
 
         userNotesLiveDataSource.postValue(userNotesDataSource)
         return userNotesDataSource
@@ -169,15 +168,7 @@ class NotesDataSourceFactory(
             searchNotesLiveDataSource.postValue(searchNotesDataSource)
             return searchNotesDataSource
         } else {
-            //throw NullPointerException()
-            val userNotesDataSource = UserNotesDataSource(
-                noteMapper = noteMapper,
-                compositeDisposable = compositeDisposable,
-                database = database,
-                userId = userId
-            )
-            userNotesLiveDataSource.postValue(userNotesDataSource)
-            return userNotesDataSource
+            throw NullPointerException()
         }
     }
 
@@ -222,14 +213,7 @@ class NotesDataSourceFactory(
             dateNotesLiveDataSource.postValue(dateNotesDataSource)
             return dateNotesDataSource
         } else {
-            val userNotesDataSource = UserNotesDataSource(
-                noteMapper = noteMapper,
-                compositeDisposable = compositeDisposable,
-                database = database,
-                userId = userId
-            )
-            userNotesLiveDataSource.postValue(userNotesDataSource)
-            return userNotesDataSource
+            throw NullPointerException()
         }
     }
 
@@ -253,14 +237,7 @@ class NotesDataSourceFactory(
             dateNotesLiveDataSource.postValue(dateNotesDataSource)
             return dateNotesDataSource
         } else {
-            val userNotesDataSource = UserNotesDataSource(
-                noteMapper = noteMapper,
-                compositeDisposable = compositeDisposable,
-                database = database,
-                userId = userId
-            )
-            userNotesLiveDataSource.postValue(userNotesDataSource)
-            return userNotesDataSource
+            throw NullPointerException()
         }
     }
 }
