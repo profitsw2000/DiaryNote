@@ -14,12 +14,10 @@ import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.core.utils.ROOM_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.model.UserModel
-import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentChangePasswordBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.template.model.UserState
-import org.koin.android.ext.android.inject
+import diarynote.data.model.state.UserState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangePasswordFragment : Fragment() {

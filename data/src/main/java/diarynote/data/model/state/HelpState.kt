@@ -1,4 +1,4 @@
-package diarynote.template.model
+package diarynote.data.model.state
 
 import diarynote.data.model.HelpItemModel
 

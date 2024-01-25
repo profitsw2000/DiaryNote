@@ -17,7 +17,7 @@ import diarynote.data.model.UserModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentUserImageBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.template.model.UserState
+import diarynote.data.model.state.UserState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 

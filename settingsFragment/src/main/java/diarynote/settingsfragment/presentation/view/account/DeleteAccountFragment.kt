@@ -8,23 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
-import diarynote.core.utils.EMAIL_ALREADY_EXIST_BIT_NUMBER
-import diarynote.core.utils.EMAIL_BIT_NUMBER
-import diarynote.core.utils.LOGIN_ALREADY_EXIST_BIT_NUMBER
-import diarynote.core.utils.LOGIN_BIT_NUMBER
-import diarynote.core.utils.LOGIN_MIN_LENGTH
-import diarynote.core.utils.NAME_BIT_NUMBER
-import diarynote.core.utils.NAME_MIN_LENGTH
 import diarynote.core.utils.ROOM_BIT_NUMBER
-import diarynote.core.utils.SURNAME_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.model.UserModel
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentDeleteAccountBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.template.model.UserState
-import diarynote.template.presentation.ActivityNavigator
+import diarynote.data.model.state.UserState
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

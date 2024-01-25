@@ -30,16 +30,8 @@ class NoteRepositoryLocalImpl(
     private lateinit var notesPagedList: LiveData<PagedList<NoteModel>>
     private lateinit var notesDataSourceFactory: NotesDataSourceFactory
 
-    override fun getAllNotes(): Single<List<NoteEntity>> {
-        return database.noteDao.all()
-    }
-
     override fun getNoteById(id: Int): Single<NoteEntity> {
         return database.noteDao.getNoteById(id)
-    }
-
-    override fun getAllUserNotes(id: Int): Single<UserWithNotes> {
-        return database.noteDao.getUserWithNotes(id)
     }
 
     override fun getUserNotesCount(id: Int): Single<Int> {
@@ -59,10 +51,6 @@ class NoteRepositoryLocalImpl(
         return getPagedList(notesDataSourceFactory)
     }
 
-    override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>> {
-        return database.noteDao.getUserNotesByCategory(userId, categoryId)
-    }
-
     override fun getCategoryNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,
@@ -76,10 +64,6 @@ class NoteRepositoryLocalImpl(
         )
 
         return getPagedList(notesDataSourceFactory)
-    }
-
-    override fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>> {
-        return database.noteDao.getUserNotesFromDate(userId, fromDate)
     }
 
     override fun getDateNotesPagedList(
@@ -113,24 +97,12 @@ class NoteRepositoryLocalImpl(
         return getPagedList(notesDataSourceFactory)
     }
 
-    override fun getUserNotesInDatePeriod(
-        userId: Int,
-        fromDate: Date,
-        toDate: Date
-    ): Single<List<NoteEntity>> {
-        return database.noteDao.getUserNotesInDatePeriod(userId, fromDate, toDate)
-    }
-
     override fun addNote(noteEntity: NoteEntity): Completable {
         return database.noteDao.insert(noteEntity)
     }
 
     override fun addNoteList(noteEntityList: List<NoteEntity>): Completable {
         return database.noteDao.insert(noteEntityList)
-    }
-
-    override fun searchUserNotesByString(query: SupportSQLiteQuery): Single<List<NoteEntity>> {
-        return database.noteDao.searchUserNotesByStringWithPriority(query)
     }
 
     override fun getSearchNotesPagedList(

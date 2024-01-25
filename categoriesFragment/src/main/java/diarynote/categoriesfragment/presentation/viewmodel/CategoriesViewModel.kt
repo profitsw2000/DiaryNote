@@ -1,7 +1,6 @@
 package diarynote.categoriesfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
@@ -14,7 +13,6 @@ import diarynote.data.mappers.CategoryMapper
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import diarynote.data.model.type.DataSourceType
-import diarynote.template.model.NotesState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 

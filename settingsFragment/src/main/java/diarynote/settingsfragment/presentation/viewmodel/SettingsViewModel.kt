@@ -43,9 +43,9 @@ import diarynote.data.mappers.UserMapper
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.data.room.entity.UserEntity
-import diarynote.template.model.BackupState
-import diarynote.template.model.HelpState
-import diarynote.template.model.UserState
+import diarynote.data.model.state.BackupState
+import diarynote.data.model.state.HelpState
+import diarynote.data.model.state.UserState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 

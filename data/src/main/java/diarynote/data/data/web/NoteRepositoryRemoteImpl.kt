@@ -17,15 +17,7 @@ import java.util.Date
 
 class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
 
-    override fun getAllNotes(): Single<List<NoteEntity>> {
-        TODO("Not yet implemented")
-    }
-
     override fun getNoteById(id: Int): Single<NoteEntity> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllUserNotes(id: Int): Single<UserWithNotes> {
         TODO("Not yet implemented")
     }
 
@@ -42,10 +34,6 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         TODO("Not yet implemented")
     }
 
-    override fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>> {
-        TODO("Not yet implemented")
-    }
-
     override fun getCategoryNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,
@@ -53,10 +41,6 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         userId: Int,
         categoryId: Int
     ): LiveData<PagedList<NoteModel>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>> {
         TODO("Not yet implemented")
     }
 
@@ -81,23 +65,11 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         TODO("Not yet implemented")
     }
 
-    override fun getUserNotesInDatePeriod(
-        userId: Int,
-        fromDate: Date,
-        toDate: Date
-    ): Single<List<NoteEntity>> {
-        TODO("Not yet implemented")
-    }
-
     override fun addNote(noteEntity: NoteEntity): Completable {
         TODO("Not yet implemented")
     }
 
     override fun addNoteList(noteEntityList: List<NoteEntity>): Completable {
-        TODO("Not yet implemented")
-    }
-
-    override fun searchUserNotesByString(query: SupportSQLiteQuery): Single<List<NoteEntity>> {
         TODO("Not yet implemented")
     }
 

@@ -18,11 +18,7 @@ import java.util.Date
 
 interface NoteRepository {
 
-    fun getAllNotes(): Single<List<NoteEntity>>
-
     fun getNoteById(id: Int): Single<NoteEntity>
-
-    fun getAllUserNotes(id: Int): Single<UserWithNotes>
 
     fun getUserNotesCount(id: Int): Single<Int>
 
@@ -33,8 +29,6 @@ interface NoteRepository {
         userId: Int
     ): LiveData<PagedList<NoteModel>>
 
-    fun getUserNotesByCategory(userId: Int, categoryId: Int): Single<List<NoteEntity>>
-
     fun getCategoryNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,
@@ -43,8 +37,6 @@ interface NoteRepository {
         categoryId: Int
     ): LiveData<PagedList<NoteModel>>
 
-    fun getUserNotesFromDate(userId: Int, fromDate: Date): Single<List<NoteEntity>>
-
     fun getDateNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,
@@ -52,8 +44,6 @@ interface NoteRepository {
         userId: Int,
         fromDate: Date
     ): LiveData<PagedList<NoteModel>>
-
-    fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date): Single<List<NoteEntity>>
 
     fun getDateNotesPagedList(
         compositeDisposable: CompositeDisposable,
@@ -67,8 +57,6 @@ interface NoteRepository {
     fun addNote(noteEntity: NoteEntity): Completable
 
     fun addNoteList(noteEntityList: List<NoteEntity>): Completable
-
-    fun searchUserNotesByString(query: SupportSQLiteQuery): Single<List<NoteEntity>>
 
     fun getSearchNotesPagedList(
         compositeDisposable: CompositeDisposable,

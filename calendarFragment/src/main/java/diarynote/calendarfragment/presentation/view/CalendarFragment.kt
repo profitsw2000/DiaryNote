@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.lifecycle.Observer
-import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import diarynote.calendarfragment.R
@@ -17,12 +16,10 @@ import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
-import diarynote.template.presentation.adapter.NotesListAdapter
 import diarynote.template.presentation.adapter.NotesPagedListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
 import java.util.Date
 
 class CalendarFragment : Fragment() {
@@ -31,15 +28,6 @@ class CalendarFragment : Fragment() {
     private val binding get() = _binding!!
     private val calendarViewModel: CalendarViewModel by viewModel()
     private val navigator: Navigator by inject()
-/*    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
-        override fun onItemClick(noteModel: NoteModel) {
-            val bundle = Bundle().apply {
-                putParcelable(NOTE_MODEL_BUNDLE, noteModel)
-            }
-            this@CalendarFragment.arguments = bundle
-            navigator.navigateToNoteRead(bundle)
-        }
-    })*/
     private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
@@ -64,9 +52,6 @@ class CalendarFragment : Fragment() {
         initViews()
         observeData()
         observeChipText()
-/*        if (calendarViewModel.notesLiveData.value == null) {
-            calendarViewModel.getAllNotes()
-        }*/
     }
 
     private fun initViews() = with(binding) {
@@ -93,23 +78,12 @@ class CalendarFragment : Fragment() {
                 is NotesState.Success -> setProgressBarVisible(false)
             }
         }
-/*        val observer = Observer<NotesState> { renderData(it) }
-        calendarViewModel.notesLiveData.observe(viewLifecycleOwner, observer)*/
     }
 
     private fun observeChipText() {
         val chipTextObserver = Observer<String> { setSelectPeriodChipText(it) }
         calendarViewModel.selectPeriodChipTextLiveData.observe(viewLifecycleOwner, chipTextObserver)
     }
-
-/*    private fun renderData(notesState: NotesState) {
-        when(notesState) {
-            is NotesState.Success -> setList(notesState.noteModelList)
-            is NotesState.Loading -> showProgressBar()
-            is NotesState.Error -> handleError(notesState.message)
-            else -> {}
-        }
-    }*/
 
     private fun setChipOnClickListeners() = with(binding) {
         allTimeNotesChip.setOnClickListener {
@@ -162,17 +136,6 @@ class CalendarFragment : Fragment() {
     private fun setSelectPeriodChipText(text: String) = with(binding) {
         selectPeriodNotesChip.text = text
     }
-
-/*    private fun setList(noteModelList: List<NoteModel>) = with(binding) {
-        progressBar.visibility = View.GONE
-        pickedDateNotesRecyclerView.visibility = View.VISIBLE
-        adapter.setData(noteModelList)
-    }
-
-    private fun showProgressBar() = with(binding) {
-        pickedDateNotesRecyclerView.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
-    }*/
 
     private fun handleError(message: String) = with(binding) {
         pickedDateNotesRecyclerView.visibility = View.GONE

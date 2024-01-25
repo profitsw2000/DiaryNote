@@ -28,24 +28,6 @@ class NoteInteractor(
     private val noteRepositoryRemote: NoteRepositoryRemote
 ) {
 
-    private lateinit var notesDataSourceFactory: NotesDataSourceFactory
-
-    fun getAllNotes(remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.getAllNotes()
-        } else {
-            noteRepositoryLocal.getAllNotes()
-        }
-    }
-
-    fun getAllUserNotes(id: Int, remote: Boolean): Single<UserWithNotes> {
-        return if (remote) {
-            noteRepositoryRemote.getAllUserNotes(id)
-        } else {
-            noteRepositoryLocal.getAllUserNotes(id)
-        }
-    }
-
     fun getUserNotesCount(id: Int, remote: Boolean): Single<Int> {
         return if (remote) {
             noteRepositoryRemote.getUserNotesCount(id)
@@ -75,14 +57,6 @@ class NoteInteractor(
         )
     }
 
-    fun getUserNotesByCategory(userId: Int, categoryId: Int, remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.getUserNotesByCategory(userId, categoryId)
-        } else {
-            noteRepositoryLocal.getUserNotesByCategory(userId, categoryId)
-        }
-    }
-
     fun getCategoryNotesPagedList(
         compositeDisposable: CompositeDisposable,
         noteMapper: NoteMapper,
@@ -105,14 +79,6 @@ class NoteInteractor(
             userId = userId,
             categoryId = categoryId
         )
-    }
-
-    fun getUserNotesFromDate(userId: Int, fromDate: Date, remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.getUserNotesFromDate(userId, fromDate)
-        } else {
-            noteRepositoryLocal.getUserNotesFromDate(userId, fromDate)
-        }
     }
 
     fun getDateNotesPagedList(
@@ -166,14 +132,6 @@ class NoteInteractor(
         )
     }
 
-    fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date, remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.getUserNotesInDatePeriod(userId, fromDate, toDate)
-        } else {
-            noteRepositoryLocal.getUserNotesInDatePeriod(userId, fromDate, toDate)
-        }
-    }
-
     fun getNoteById(id: Int, remote: Boolean) : Single<NoteEntity> {
         return if (remote) {
             noteRepositoryRemote.getNoteById(id)
@@ -195,14 +153,6 @@ class NoteInteractor(
             noteRepositoryRemote.addNoteList(noteEntityList)
         } else {
             noteRepositoryLocal.addNoteList(noteEntityList)
-        }
-    }
-
-    fun getUserNotesByString(query: SupportSQLiteQuery, remote: Boolean): Single<List<NoteEntity>> {
-        return if (remote) {
-            noteRepositoryRemote.searchUserNotesByString(query)
-        } else {
-            noteRepositoryLocal.searchUserNotesByString(query)
         }
     }
 

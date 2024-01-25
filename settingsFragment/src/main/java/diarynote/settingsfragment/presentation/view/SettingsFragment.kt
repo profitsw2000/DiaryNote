@@ -20,7 +20,7 @@ import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentSettingsBinding
 import diarynote.settingsfragment.presentation.view.adapter.SettingsAdapter
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.template.model.UserState
+import diarynote.data.model.state.UserState
 import diarynote.template.utils.OnSettingsMenuItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
