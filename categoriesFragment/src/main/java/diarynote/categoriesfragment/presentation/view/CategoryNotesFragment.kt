@@ -23,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryNotesFragment : Fragment() {
 
-    private val TAG = "VVV"
     private var _binding: FragmentCategoryNotesBinding? = null
     private val binding get() = _binding!!
     private val navigator: Navigator by inject()
