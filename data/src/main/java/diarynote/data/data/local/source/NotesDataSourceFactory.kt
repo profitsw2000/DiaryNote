@@ -247,7 +247,8 @@ class NotesDataSourceFactory(
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId,
-                fromDate = fromDate
+                fromDate = fromDate,
+                toDate = toDate
             )
             dateNotesLiveDataSource.postValue(dateNotesDataSource)
             return dateNotesDataSource

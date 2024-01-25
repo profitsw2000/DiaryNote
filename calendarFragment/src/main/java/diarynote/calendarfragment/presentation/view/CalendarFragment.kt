@@ -112,7 +112,10 @@ class CalendarFragment : Fragment() {
     }*/
 
     private fun setChipOnClickListeners() = with(binding) {
-        allTimeNotesChip.setOnClickListener { calendarViewModel.getAllNotes() }
+        allTimeNotesChip.setOnClickListener {
+            calendarViewModel.getAllNotes()
+            observeData()
+        }
         todayNotesChip.setOnClickListener {
             calendarViewModel.getTodayNotes()
             observeData()
