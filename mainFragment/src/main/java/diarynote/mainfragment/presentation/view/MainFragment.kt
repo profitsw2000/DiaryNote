@@ -125,12 +125,8 @@ class MainFragment : Fragment() {
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
         if (visible) {
             progressBar.visibility = View.VISIBLE
-            mainNotesListRecyclerView.visibility = View.GONE
-            searchNoteTextInputLayout.visibility = View.GONE
         } else {
             progressBar.visibility = View.GONE
-            mainNotesListRecyclerView.visibility = View.VISIBLE
-            searchNoteTextInputLayout.visibility = View.VISIBLE
         }
     }
 

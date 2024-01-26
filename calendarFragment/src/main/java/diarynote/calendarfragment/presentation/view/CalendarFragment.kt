@@ -158,10 +158,8 @@ class CalendarFragment : Fragment() {
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
         if (visible) {
             progressBar.visibility = View.VISIBLE
-            pickedDateNotesRecyclerView.visibility = View.GONE
         } else {
             progressBar.visibility = View.GONE
-            pickedDateNotesRecyclerView.visibility = View.VISIBLE
         }
     }
 

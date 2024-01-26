@@ -94,10 +94,8 @@ class CategoryNotesFragment : Fragment() {
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
         if (visible) {
             progressBar.visibility = View.VISIBLE
-            categoryNotesRecyclerView.visibility = View.GONE
         } else {
             progressBar.visibility = View.GONE
-            categoryNotesRecyclerView.visibility = View.VISIBLE
         }
     }
 

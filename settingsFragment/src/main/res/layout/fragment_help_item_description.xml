@@ -8,7 +8,7 @@
     android:padding="@dimen/notes_activity_fragments_standart_padding"
     tools:context=".presentation.view.HelpItemDescriptionFragment">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

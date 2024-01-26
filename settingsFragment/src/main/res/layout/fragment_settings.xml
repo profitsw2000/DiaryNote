@@ -62,7 +62,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="lee_dixon@mail.ru"/>
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

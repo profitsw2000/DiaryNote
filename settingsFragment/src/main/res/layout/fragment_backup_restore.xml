@@ -9,7 +9,7 @@
     android:padding="@dimen/standard_vertical_margin_between_views"
     tools:context=".presentation.view.account.BackupRestoreFragment">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
