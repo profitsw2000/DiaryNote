@@ -1,12 +1,14 @@
 package diarynote.calendarfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.lifecycle.Observer
+import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import diarynote.calendarfragment.R
@@ -28,6 +30,7 @@ class CalendarFragment : Fragment() {
     private val binding get() = _binding!!
     private val calendarViewModel: CalendarViewModel by viewModel()
     private val navigator: Navigator by inject()
+    private var isCreated = true
     private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
@@ -37,6 +40,11 @@ class CalendarFragment : Fragment() {
             navigator.navigateToNoteRead(bundle)
         }
     })
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isCreated = (savedInstanceState == null)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +64,9 @@ class CalendarFragment : Fragment() {
 
     private fun initViews() = with(binding) {
         setChipOnClickListeners()
-        calendarViewModel.setSelectPeriodChipDefaultText(
+        if(isCreated) calendarViewModel.setSelectPeriodChipDefaultText(
             resources.getString(diarynote.core.R.string.select_period_notes_chip_text),
-            binding.selectPeriodNotesChip.isChecked
+            pickDateChipGroup.checkedChipId == selectPeriodNotesChip.id//selectPeriodNotesChip.isSelected
         )
         pickedDateNotesRecyclerView.adapter = adapter
         pickedDateNotesRecyclerView.setHasFixedSize(false)
