@@ -7,8 +7,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class CoreViewModel : ViewModel(), DefaultLifecycleObserver {
-    private val fullLifeCycleCompositeDisposable = CompositeDisposable()
-    private val viewLifeCycleCompositeDisposable = CompositeDisposable()
+    protected val fullLifeCycleCompositeDisposable = CompositeDisposable()
+    protected val viewLifeCycleCompositeDisposable = CompositeDisposable()
 
     override fun onDestroy(owner: LifecycleOwner) {
         viewLifeCycleCompositeDisposable.clear()

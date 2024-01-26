@@ -32,6 +32,10 @@ dependencies {
     implementation(RxJava.rxKotlin)
     //Koin
     implementation(Koin.koin)
+    //Paging
+    implementation(Paging.pagingRuntime)
+    implementation(Paging.pagingKtx)
+    implementation(Paging.pagingRxJava)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

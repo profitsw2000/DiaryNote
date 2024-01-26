@@ -2,7 +2,9 @@ package diarynote.core.utils
 
 class SearchQueryBuilder(
     searchString: String,
-    private val userId: Int
+    private val userId: Int,
+    private val loadSize: Int,
+    private val offset: Int
 ) {
     private val queryBegin = "SELECT DISTINCT " +
             "id,category,title,text,tags,image,date,edited,editDate,category_id,user_id FROM ("
@@ -29,7 +31,7 @@ class SearchQueryBuilder(
     private var queryString: String = queryBegin +
             getFullStringQueryWithArgs(searchString) +
             getQueriesForParticularWordsWithArgs(searchString) +
-            queryEnd
+            queryEnd + getQueryEnd(loadSize, offset)
     private val queryPair: Pair<String, List<Any>> = Pair(queryString, args)
 
     private fun getQueryWordsList(searchQuery: String): List<String> {
@@ -67,6 +69,11 @@ class SearchQueryBuilder(
             )
         )
         return queryBase
+    }
+
+    private fun getQueryEnd(loadSize: Int, offset: Int): String {
+        args.addAll(listOf(loadSize, offset))
+        return "LIMIT :loadSize OFFSET :offset"
     }
 
     fun getSearchQueryPair(): Pair<String, List<Any>> {

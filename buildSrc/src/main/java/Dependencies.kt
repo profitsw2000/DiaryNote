@@ -66,6 +66,9 @@ object Versions {
     //Room
     const val room = "2.4.3"
 
+    //Paging
+    const val paging = "3.2.1"
+
     //Picasso
     const val picasso = "2.8"
 
@@ -120,6 +123,12 @@ object Room {
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     const val roomRxJava = "androidx.room:room-rxjava3:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+}
+
+object Paging {
+    const val pagingRuntime = "androidx.paging:paging-runtime:${Versions.paging}"
+    const val pagingKtx = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
+    const val pagingRxJava = "androidx.paging:paging-rxjava3:${Versions.paging}"
 }
 
 object Picasso {

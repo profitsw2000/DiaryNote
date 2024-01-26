@@ -1,14 +1,15 @@
 package diarynote.calendarfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
-import diarynote.template.model.NotesState
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import diarynote.data.model.NoteModel
+import diarynote.data.model.type.DataSourceType
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -20,17 +21,24 @@ class CalendarViewModel(
 ) : CoreViewModel() {
 
     private val calendar = Calendar.getInstance()
-    private lateinit var selectPeriodDefaultText: String
-
-    private val _notesLiveData = MutableLiveData<NotesState>()
-    val notesLiveData by this::_notesLiveData
+    private var selectPeriodDefaultText: String = ""
 
     private val _selectPeriodChipTextLiveData = MutableLiveData<String>()
     val selectPeriodChipTextLiveData by this::_selectPeriodChipTextLiveData
 
+    private lateinit var _notesPagedList: LiveData<PagedList<NoteModel>>
+    val notesPagedList: LiveData<PagedList<NoteModel>> by this::_notesPagedList
+
+    private lateinit var _notesState: LiveData<diarynote.data.model.state.NotesState>
+    val notesState: LiveData<diarynote.data.model.state.NotesState> by this::_notesState
+
+    init {
+        getAllNotes()
+    }
+
     fun getAllNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
-        getAllUserNotes(sharedPreferences.getInt(CURRENT_USER_ID,0), false)
+        getUserNotesPagedList(false)
     }
 
     fun getTodayNotes() {
@@ -40,8 +48,7 @@ class CalendarViewModel(
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
-
-        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), today, false)
+        getUserNotesFromDatePagedList(today, false)
     }
 
     fun getLastWeekNotes() {
@@ -51,8 +58,7 @@ class CalendarViewModel(
             dateWeekAgoMilliseconds.month,
             dateWeekAgoMilliseconds.date
         )
-
-        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), dateWeekAgo, false)
+        getUserNotesFromDatePagedList(dateWeekAgo, false)
     }
 
     fun getLastMonthNotes() {
@@ -61,8 +67,7 @@ class CalendarViewModel(
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
-
-        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), dateMonthAgo, false)
+        getUserNotesFromDatePagedList(dateMonthAgo, false)
     }
 
     fun getLastYearNotes() {
@@ -74,14 +79,13 @@ class CalendarViewModel(
             dateYearAgoMilliseconds.month,
             dateYearAgoMilliseconds.date
         )
-
-        getUserNotesFromDate(sharedPreferences.getInt(CURRENT_USER_ID,0), dateYearAgo, false)
+        getUserNotesFromDatePagedList(dateYearAgo, false)
     }
 
     fun getNotesInDatePeriod(fromDate: Date, toDate: Date) {
         val sdf = SimpleDateFormat("dd.MM.yyyy")
         setSelectPeriodChipText(sdf.format(fromDate) + "-" + sdf.format(toDate))
-        getUserNotesInDatePeriod(sharedPreferences.getInt(CURRENT_USER_ID,0), fromDate, toDate, false)
+        getUserNotesInDatePeriodPagedList(fromDate, toDate, false)
     }
 
     fun setSelectPeriodChipDefaultText(text: String, isSelectPeriodChecked: Boolean) {
@@ -124,47 +128,43 @@ class CalendarViewModel(
         }
     }
 
-    private fun getAllUserNotes(userId: Int, remote: Boolean) {
-        _notesLiveData.value = NotesState.Loading
-        noteInteractor.getAllUserNotes(userId, remote)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _notesLiveData.value = NotesState.Success(noteMapper.map(it.notesList))
-                }, {
-                    _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
-                }
-            )
+    private fun getUserNotesPagedList(remote: Boolean) {
+        _notesPagedList = noteInteractor.getUserNotesPagedList(
+            viewLifeCycleCompositeDisposable,
+            noteMapper,
+            DataSourceType.UserNotesDataSource,
+            getCurrentUserId(sharedPreferences),
+            remote
+        )
+        _notesState = noteInteractor.getNotesState(DataSourceType.UserNotesDataSource, false)
     }
 
-    private fun getUserNotesFromDate(userId: Int, fromDate: Date, remote: Boolean) {
-        _notesLiveData.value = NotesState.Loading
-        noteInteractor.getUserNotesFromDate(userId, fromDate, remote)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _notesLiveData.value = NotesState.Success(noteMapper.map(it))
-                },
-                {
-                    _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
-                }
-            )
+    private fun getUserNotesFromDatePagedList(fromDate: Date, remote: Boolean) {
+        _notesPagedList = noteInteractor.getDateNotesPagedList(
+            viewLifeCycleCompositeDisposable,
+            noteMapper,
+            DataSourceType.DateNotesDataSource,
+            getCurrentUserId(sharedPreferences),
+            fromDate,
+            remote
+        )
+        _notesState = noteInteractor.getNotesState(DataSourceType.DateNotesDataSource, false)
     }
 
-    private fun getUserNotesInDatePeriod(userId: Int, fromDate: Date, toDate: Date, remote: Boolean) {
-        _notesLiveData.value = NotesState.Loading
-        noteInteractor.getUserNotesInDatePeriod(userId, fromDate, toDate, remote)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _notesLiveData.value = NotesState.Success(noteMapper.map(it))
-                },
-                {
-                    _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1) }
-                }
-            )
+    private fun getUserNotesInDatePeriodPagedList(fromDate: Date, toDate: Date, remote: Boolean) {
+        _notesPagedList = noteInteractor.getDateNotesPagedList(
+            viewLifeCycleCompositeDisposable,
+            noteMapper,
+            DataSourceType.DateNotesDataSource,
+            getCurrentUserId(sharedPreferences),
+            fromDate,
+            toDate,
+            remote
+        )
+        _notesState = noteInteractor.getNotesState(DataSourceType.DateNotesDataSource, false)
+    }
+
+    private fun getCurrentUserId(sharedPreferences: SharedPreferences): Int {
+        return sharedPreferences.getInt(CURRENT_USER_ID, 0)
     }
 }

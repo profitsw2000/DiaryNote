@@ -7,19 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
-import androidx.room.Database
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.BACKUP_BIT_NUMBER
-import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
 import diarynote.core.utils.RESTORE_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
-import diarynote.data.room.database.AppDatabase
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentBackupRestoreBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.template.model.BackupState
-import diarynote.template.model.UserState
+import diarynote.data.model.state.BackupState
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

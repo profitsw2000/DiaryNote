@@ -37,6 +37,10 @@ dependencies {
     implementation(Room.roomKtx)
     implementation(Room.roomRxJava)
     kapt(Room.roomCompiler)
+    //Paging
+    implementation(Paging.pagingRuntime)
+    implementation(Paging.pagingKtx)
+    implementation(Paging.pagingRxJava)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

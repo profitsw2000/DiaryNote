@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
@@ -15,23 +14,22 @@ import diarynote.data.domain.CATEGORY_ID_BUNDLE
 import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
-import diarynote.template.model.NotesState
-import diarynote.template.presentation.adapter.NotesListAdapter
+import diarynote.template.presentation.adapter.NotesPagedListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryNotesFragment : Fragment() {
 
-    private val TAG = "VVV"
     private var _binding: FragmentCategoryNotesBinding? = null
     private val binding get() = _binding!!
     private val navigator: Navigator by inject()
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val categoryId: Int? by lazy { arguments?.getInt(CATEGORY_ID_BUNDLE) }
     private val categoryName: String? by lazy { arguments?.getString(CATEGORY_NAME_BUNDLE) }
-    private val adapter = NotesListAdapter(object : OnNoteItemClickListener{
+    private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
@@ -57,52 +55,48 @@ class CategoryNotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        categoryId?.let { categoriesViewModel.getCategoryNotesPagedList(it) }
         initViews()
         observeData()
-        categoryId?.let { categoriesViewModel.getNotesList(it) }
     }
 
-    private fun initViews() {
-        binding.categoryNotesRecyclerView.adapter = adapter
+    private fun initViews() = with(binding) {
+        categoryNotesRecyclerView.adapter = adapter
+        categoryNotesRecyclerView.setHasFixedSize(false)
     }
 
     private fun observeData() {
-        val observer = Observer<NotesState> { renderData(it) }
-        categoriesViewModel.notesLiveData.observe(viewLifecycleOwner, observer)
-    }
-
-    private fun renderData(notesState: NotesState) {
-        when(notesState) {
-            is NotesState.Success -> { setList(notesState.noteModelList) }
-            is NotesState.Loading -> { showProgressBar() }
-            is NotesState.Error -> { handleError(notesState.message) }
-        }
-    }
-
-    private fun setList(noteModelList: List<NoteModel>) {
-        with(binding){
-            categoryNotesRecyclerView.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
+        categoriesViewModel.notesState.observe(viewLifecycleOwner) {
+            when (it) {
+                is NotesState.Error -> handleError(it.message)
+                NotesState.Loaded -> setProgressBarVisible(false)
+                NotesState.Loading -> setProgressBarVisible(true)
+                is NotesState.Success -> setProgressBarVisible(false)
+            }
         }
 
-        if (noteModelList.isEmpty()) binding.textView.visibility = View.VISIBLE
-        else adapter.setData(noteModelList)
-
-    }
-
-    private fun showProgressBar() = with(binding) {
-        categoryNotesRecyclerView.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
+        categoriesViewModel.notesPagedList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
     private fun handleError(message: String) = with(binding) {
+        setProgressBarVisible(false)
         Snackbar.make(this.categoryNotesFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { categoryId?.let { it1 ->
-                categoriesViewModel.getNotesList(
+                categoriesViewModel.getCategoryNotesPagedList(
                     it1
                 )
             } }
             .show()
+    }
+
+    private fun setProgressBarVisible(visible: Boolean) = with(binding) {
+        if (visible) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

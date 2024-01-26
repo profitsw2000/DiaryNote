@@ -3,7 +3,6 @@ package diarynote.settingsfragment.presentation.view
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import diarynote.data.model.HelpItemModel
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentHelpItemDescriptionBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.template.model.HelpState
+import diarynote.data.model.state.HelpState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HelpItemDescriptionFragment : Fragment() {

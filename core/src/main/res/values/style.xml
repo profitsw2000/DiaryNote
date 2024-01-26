@@ -184,6 +184,12 @@
         <item name="trackTint">@color/custom_switch_track_color</item>
     </style>
 
+    <style name="progressBarStyle" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">@color/deep_purple_A400</item>
+        <item name="trackColor">@color/purple_200</item>
+    </style>
+
     <!-- Shape -->
     <style name="searchInputShapeAppearance" parent="">
         <item name="cornerFamily">rounded</item>
