@@ -2,6 +2,7 @@ package diarynote.data.data.local.source
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import diarynote.core.common.exception.InvalidDataSourceTypeException
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import diarynote.data.model.type.DataSourceType
@@ -123,7 +124,7 @@ class NotesDataSourceFactory(
             categoryNotesLiveDataSource.postValue(categoryNotesDataSource)
             return categoryNotesDataSource
         } else {
-            throw NullPointerException()
+            throw InvalidDataSourceTypeException("Incompatible data source type and given constructor parameters")
         }
     }
 
@@ -144,7 +145,7 @@ class NotesDataSourceFactory(
             || searchString != null
             || fromDate != null
             || toDate != null
-        ) throw NullPointerException()
+        ) throw InvalidDataSourceTypeException("Incompatible data source type and given constructor parameters")
 
         userNotesLiveDataSource.postValue(userNotesDataSource)
         return userNotesDataSource
@@ -168,7 +169,7 @@ class NotesDataSourceFactory(
             searchNotesLiveDataSource.postValue(searchNotesDataSource)
             return searchNotesDataSource
         } else {
-            throw NullPointerException()
+            throw InvalidDataSourceTypeException("Incompatible data source type and given constructor parameters")
         }
     }
 
@@ -213,7 +214,7 @@ class NotesDataSourceFactory(
             dateNotesLiveDataSource.postValue(dateNotesDataSource)
             return dateNotesDataSource
         } else {
-            throw NullPointerException()
+            throw InvalidDataSourceTypeException("Incompatible data source type and given constructor parameters")
         }
     }
 
@@ -237,7 +238,7 @@ class NotesDataSourceFactory(
             dateNotesLiveDataSource.postValue(dateNotesDataSource)
             return dateNotesDataSource
         } else {
-            throw NullPointerException()
+            throw InvalidDataSourceTypeException("Incompatible data source type and given constructor parameters")
         }
     }
 }
