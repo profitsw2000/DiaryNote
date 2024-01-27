@@ -76,7 +76,8 @@ class MainFragment : Fragment() {
             }
             searchNoteTextInputLayout.setEndIconOnClickListener {
                 val search = searchInputEditText.text.toString()
-                homeViewModel.getSearchNotesPagedList(search)
+                if (search != "") homeViewModel.getSearchNotesPagedList(search)
+                else homeViewModel.getUserNotesPagedList()
                 observeData()
             }
         }

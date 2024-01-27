@@ -29,6 +29,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.edit_note, bundle, navOptions)
     }
 
+    override fun actionReadNoteToEditNote(bundle: Bundle) {
+        navController.navigate(R.id.action_read_note_to_edit_note, bundle)
+    }
+
     override fun navigateToCategoryCreation() {
         navController.navigate(R.id.add_category)
     }

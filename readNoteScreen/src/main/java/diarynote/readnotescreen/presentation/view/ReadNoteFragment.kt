@@ -134,7 +134,7 @@ class ReadNoteFragment : Fragment() {
                         putParcelable(NOTE_MODEL_BUNDLE, noteModel)
                     }
                     this@ReadNoteFragment.arguments = bundle
-                    navigator.navigateToNoteEdit(bundle)
+                    navigator.actionReadNoteToEditNote(bundle)
                 }
             }
         )

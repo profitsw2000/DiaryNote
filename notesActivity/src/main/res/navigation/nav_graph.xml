@@ -84,6 +84,10 @@
         <action
             android:id="@+id/action_read_note_to_edit_note"
             app:destination="@+id/edit_note"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:popUpTo="@id/read_note"
             app:popUpToInclusive="true"/>
     </fragment>
