@@ -49,6 +49,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.action_category_notes_to_read_note, bundle)
     }
 
+    override fun actionCalendarToReadNote(bundle: Bundle) {
+        navController.navigate(R.id.action_calendar_to_read_note, bundle)
+    }
+
     override fun navigateToAccountSettings() {
         navController.navigate(R.id.account_settings)
     }

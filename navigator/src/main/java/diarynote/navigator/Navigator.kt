@@ -24,6 +24,8 @@ interface Navigator {
 
     fun actionCategoryNotesToReadNote(bundle: Bundle)
 
+    fun actionCalendarToReadNote(bundle: Bundle)
+
     fun navigateToAccountSettings()
 
     fun navigateToThemeSettings()

@@ -54,7 +54,11 @@
         tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendar_to_read_note"
-            app:destination="@id/read_note" />
+            app:destination="@id/read_note"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <include app:graph="@navigation/settings"/>
