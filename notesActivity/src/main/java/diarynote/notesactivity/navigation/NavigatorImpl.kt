@@ -37,6 +37,18 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.category_notes, bundle)
     }
 
+    override fun actionCategoriesToCreteCategory() {
+        navController.navigate(R.id.action_categories_to_create_category)
+    }
+
+    override fun actionCategoriesToCategoryNotes(bundle: Bundle) {
+        navController.navigate(R.id.action_categories_to_category_notes, bundle)
+    }
+
+    override fun actionCategoryNotesToReadNote(bundle: Bundle) {
+        navController.navigate(R.id.action_category_notes_to_read_note, bundle)
+    }
+
     override fun navigateToAccountSettings() {
         navController.navigate(R.id.account_settings)
     }

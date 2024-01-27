@@ -89,6 +89,7 @@ class MainFragment : Fragment() {
                 NotesState.Loaded -> setProgressBarVisible(false)
                 NotesState.Loading -> setProgressBarVisible(true)
                 is NotesState.Success -> setProgressBarVisible(false)
+                else -> {}
             }
         }
 
@@ -111,6 +112,7 @@ class MainFragment : Fragment() {
                         observeData()
                     }
                 }
+                else -> {}
             }
         }
     }

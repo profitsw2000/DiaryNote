@@ -18,6 +18,12 @@ interface Navigator {
 
     fun navigateToCategoryNotesList(bundle: Bundle)
 
+    fun actionCategoriesToCreteCategory()
+
+    fun actionCategoriesToCategoryNotes(bundle: Bundle)
+
+    fun actionCategoryNotesToReadNote(bundle: Bundle)
+
     fun navigateToAccountSettings()
 
     fun navigateToThemeSettings()

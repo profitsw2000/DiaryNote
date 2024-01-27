@@ -33,10 +33,18 @@
         tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/action_categories_to_create_category"
-            app:destination="@+id/add_category" />
+            app:destination="@+id/add_category"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_categories_to_category_notes"
-            app:destination="@id/category_notes" />
+            app:destination="@id/category_notes"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
@@ -99,7 +107,11 @@
         tools:layout="@layout/fragment_category_notes">
         <action
             android:id="@+id/action_category_notes_to_read_note"
-            app:destination="@id/read_note" />
+            app:destination="@id/read_note"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
 </navigation>
