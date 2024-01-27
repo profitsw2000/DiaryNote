@@ -35,7 +35,7 @@ class CategoryNotesFragment : Fragment() {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
             }
             this@CategoryNotesFragment.arguments = bundle
-            navigator.navigateToNoteRead(bundle)
+            navigator.actionCategoryNotesToReadNote(bundle)
         }
     })
 

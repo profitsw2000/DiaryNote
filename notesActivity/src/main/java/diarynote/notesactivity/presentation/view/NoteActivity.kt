@@ -47,7 +47,7 @@ class NoteActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.main, R.id.categories, R.id.calendar, R.id.settings)
+            setOf(R.id.main, R.id.categories, R.id.calendar, R.id.main_settings)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -58,7 +58,7 @@ class NoteActivity : AppCompatActivity() {
             if (destination.id == R.id.main ||
                 destination.id == R.id.categories ||
                 destination.id == R.id.calendar ||
-                destination.id == R.id.settings) {
+                destination.id == R.id.main_settings) {
                 binding.bottomNav.visibility = View.VISIBLE
                 actionBar?.hide()
             } else if (destination.id == R.id.about) {

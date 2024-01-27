@@ -37,7 +37,7 @@ class CalendarFragment : Fragment() {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
             }
             this@CalendarFragment.arguments = bundle
-            navigator.navigateToNoteRead(bundle)
+            navigator.actionCalendarToReadNote(bundle)
         }
     })
 

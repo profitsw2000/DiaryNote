@@ -57,12 +57,12 @@ class SettingsFragment : Fragment() {
 
     private fun openFragmentById(itemId: Int) {
         when(itemId) {
-            SETTINGS_ACCOUNT_ID -> navigator.navigateToAccountSettings()
-            SETTINGS_THEME_ID -> navigator.navigateToThemeSettings()
-            SETTINGS_LANGUAGE_ID -> navigator.navigateToLanguageSettings()
-            SETTINGS_GENERAL_ID -> navigator.navigateToGeneralSettings()
-            SETTINGS_HELP_ID -> navigator.navigateToHelpScreen()
-            SETTINGS_ABOUT_ID -> navigator.navigateToAboutScreen()
+            SETTINGS_ACCOUNT_ID -> navigator.actionSettingsToAccountSettings()
+            SETTINGS_THEME_ID -> navigator.actionSettingsToThemeSettings()
+            SETTINGS_LANGUAGE_ID -> navigator.actionSettingsToLanguageSettings()
+            SETTINGS_GENERAL_ID -> navigator.actionSettingsToGeneralSettings()
+            SETTINGS_HELP_ID -> navigator.actionSettingsToHelp()
+            SETTINGS_ABOUT_ID -> navigator.actionSettingsToAbout()
         }
     }
 

@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
                 putParcelable(NOTE_MODEL_BUNDLE, noteModel)
             }
             this@MainFragment.arguments = bundle
-            navigator.navigateToNoteRead(bundle)
+            navigator.actionMainToReadNote(bundle)
         }
     })
 
@@ -72,11 +72,12 @@ class MainFragment : Fragment() {
             mainNotesListRecyclerView.adapter = adapter
             mainNotesListRecyclerView.setHasFixedSize(false)
             addNoteFab.setOnClickListener {
-                navigator.navigateToNoteCreation()
+                navigator.actionMainToCreateNote()
             }
             searchNoteTextInputLayout.setEndIconOnClickListener {
                 val search = searchInputEditText.text.toString()
-                homeViewModel.getSearchNotesPagedList(search)
+                if (search != "") homeViewModel.getSearchNotesPagedList(search)
+                else homeViewModel.getUserNotesPagedList()
                 observeData()
             }
         }
@@ -89,6 +90,7 @@ class MainFragment : Fragment() {
                 NotesState.Loaded -> setProgressBarVisible(false)
                 NotesState.Loading -> setProgressBarVisible(true)
                 is NotesState.Success -> setProgressBarVisible(false)
+                else -> {}
             }
         }
 
@@ -111,6 +113,7 @@ class MainFragment : Fragment() {
                         observeData()
                     }
                 }
+                else -> {}
             }
         }
     }

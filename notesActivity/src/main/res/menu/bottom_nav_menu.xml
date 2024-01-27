@@ -17,7 +17,7 @@
         android:title="@string/bottom_nav_menu_calendar_title_text"/>
 
     <item
-        android:id="@+id/settings"
+        android:id="@id/settings"
         android:icon="@drawable/bottom_nav_settings_icon"
         android:title="@string/bottom_nav_menu_settings_title_text"/>
 

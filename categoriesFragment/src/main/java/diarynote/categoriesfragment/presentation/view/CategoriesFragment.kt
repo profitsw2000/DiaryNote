@@ -34,7 +34,7 @@ class CategoriesFragment : Fragment() {
                 putString(CATEGORY_NAME_BUNDLE, categoryModel.categoryName)
             }
             this@CategoriesFragment.arguments = bundle
-            navigator.navigateToCategoryNotesList(bundle)
+            navigator.actionCategoriesToCategoryNotes(bundle)
         }
 
     })
@@ -59,7 +59,7 @@ class CategoriesFragment : Fragment() {
         with(binding) {
             categoriesListRecyclerView.adapter = adapter
             addCategoryFab.setOnClickListener {
-                navigator.navigateToCategoryCreation()
+                navigator.actionCategoriesToCreteCategory()
             }
         }
     }

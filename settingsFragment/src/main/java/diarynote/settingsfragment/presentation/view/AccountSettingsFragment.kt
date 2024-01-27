@@ -33,11 +33,11 @@ class AccountSettingsFragment : Fragment() {
     private val adapter = SubSettingsAdapter(object : OnSettingsMenuItemClickListener{
         override fun onItemClick(itemId: Int) {
             when (itemId) {
-                ACCOUNT_CHANGE_PASSWORD_ID -> navigator.navigateToChangePassword()
-                ACCOUNT_CHANGE_ACCOUNT_INFO_ID -> navigator.navigateToChangeUserInfo()
-                DELETE_ACCOUNT_ID -> navigator.navigateToAccountDelete()
-                ACCOUNT_PROFILE_PHOTO_ID -> navigator.navigateToUserImage()
-                ACCOUNT_BACKUP_ID -> navigator.navigateToBackupRestore()
+                ACCOUNT_CHANGE_PASSWORD_ID -> navigator.actionSettingsToChangePassword()
+                ACCOUNT_CHANGE_ACCOUNT_INFO_ID -> navigator.actionSettingsToChangeUserInfo()
+                DELETE_ACCOUNT_ID -> navigator.actionSettingsToDeleteAccountInfo()
+                ACCOUNT_PROFILE_PHOTO_ID -> navigator.actionSettingsToUserImage()
+                ACCOUNT_BACKUP_ID -> navigator.actionSettingsToBackupRestore()
             }
         }
     })
