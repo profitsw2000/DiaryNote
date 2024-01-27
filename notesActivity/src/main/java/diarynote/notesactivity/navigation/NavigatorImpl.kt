@@ -13,7 +13,7 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
     }
 
     override fun navigateToNoteRead(bundle: Bundle) {
-        navController.navigate(R.id.action_main_to_read_note, bundle)
+        navController.navigate(R.id.read_note, bundle)
     }
 
     override fun navigateToNoteEdit(bundle: Bundle) {
