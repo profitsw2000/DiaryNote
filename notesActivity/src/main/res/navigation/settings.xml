@@ -12,22 +12,46 @@
         tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settings_to_account_settings"
-            app:destination="@id/account_settings"/>
+            app:destination="@id/account_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_settings_to_theme_settings"
-            app:destination="@id/theme_settings"/>
+            app:destination="@id/theme_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_settings_to_language_settings"
-            app:destination="@id/language_settings"/>
+            app:destination="@id/language_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_settings_to_help"
-            app:destination="@id/help"/>
+            app:destination="@id/help"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_settings_to_about"
-            app:destination="@id/about"/>
+            app:destination="@id/about"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_settings_to_general_settings"
-            app:destination="@id/general_settings" />
+            app:destination="@id/general_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <!--  Settings  -->
@@ -58,7 +82,11 @@
         tools:layout="@layout/fragment_help">
         <action
             android:id="@+id/action_help_to_help_item_description"
-            app:destination="@+id/help_item_description_fragment" />
+            app:destination="@+id/help_item_description_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment

@@ -30,29 +30,53 @@ interface Navigator {
 
     fun navigateToAccountSettings()
 
+    fun actionSettingsToAccountSettings()
+
     fun navigateToThemeSettings()
+
+    fun actionSettingsToThemeSettings()
 
     fun navigateToLanguageSettings()
 
+    fun actionSettingsToLanguageSettings()
+
     fun navigateToGeneralSettings()
+
+    fun actionSettingsToGeneralSettings()
 
     fun navigateToHelpScreen()
 
+    fun actionSettingsToHelp()
+
     fun navigateToAboutScreen()
+
+    fun actionSettingsToAbout()
 
     fun navigateToChangePassword()
 
+    fun actionSettingsToChangePassword()
+
     fun navigateToChangeUserInfo()
 
+    fun actionSettingsToChangeUserInfo()
+
     fun navigateToAccountDelete()
+
+    fun actionSettingsToDeleteAccountInfo()
 
     fun navigateToViewModelCleaner()
 
     fun navigateToUserImage()
 
+    fun actionSettingsToUserImage()
+
     fun navigateToBackupRestore()
 
+    fun actionSettingsToBackupRestore()
+
     fun navigateToHelpDescription(bundle: Bundle)
+
+    fun actionHelpToHelpItemDescription(bundle: Bundle)
 
     fun navigateUp()
 }

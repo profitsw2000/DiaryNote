@@ -12,19 +12,39 @@
         tools:layout="@layout/fragment_account_settings">
         <action
             android:id="@+id/action_settings_to_change_password"
-            app:destination="@+id/change_password_fragment" />
+            app:destination="@+id/change_password_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_settings_to_change_user_info"
-            app:destination="@+id/change_user_info_fragment" />
+            app:destination="@+id/change_user_info_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_settings_to_delete_account_info"
-            app:destination="@+id/delete_user_account_fragment" />
+            app:destination="@+id/delete_user_account_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_settings_to_user_image"
-            app:destination="@+id/user_image_fragment" />
+            app:destination="@+id/user_image_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_settings_to_backup_restore"
-            app:destination="@+id/backup_restore_fragment" />
+            app:destination="@+id/backup_restore_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <!-- Account settings -->

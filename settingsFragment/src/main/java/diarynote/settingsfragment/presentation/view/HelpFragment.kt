@@ -102,7 +102,7 @@ class HelpFragment : Fragment() {
         }
 
         this@HelpFragment.arguments = bundle
-        navigator.navigateToHelpDescription(bundle)
+        navigator.actionHelpToHelpItemDescription(bundle)
     }
 
     override fun onDestroyView() {
