@@ -6,6 +6,10 @@ interface Navigator {
 
     fun navigateToNoteCreation()
 
+    fun actionMainToCreateNote()
+
+    fun actionMainToReadNote(bundle: Bundle)
+
     fun navigateToNoteRead(bundle: Bundle)
 
     fun navigateToNoteEdit(bundle: Bundle)

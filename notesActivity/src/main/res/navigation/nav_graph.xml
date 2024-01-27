@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_main_to_create_note"
-            app:destination="@+id/create_note" />
+            app:destination="@+id/create_note"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_main_to_read_note"
             app:destination="@+id/read_note"
