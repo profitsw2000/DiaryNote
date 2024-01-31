@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/help_item_description_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/notes_activity_fragments_standart_padding"
+    tools:context=".presentation.view.HelpItemDescriptionFragment">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/help_item_title_text_view"
+        style="@style/help_item_title_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Создание заметки"/>
+
+    <TextView
+        android:id="@+id/help_item_content_text_view"
+        style="@style/notes_content_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_vertical_margin_between_views"
+        app:layout_constraintTop_toBottomOf="@id/help_item_title_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Для того, чтобы создать заметку, нажмите кнопку добавить. Произойдет переход на экран создания заметки.\nВведите заголовок для заметки (не менее 2-х символов), текст заметки (должен содержать не менее 10 символов) и теги к данной замтеке (ключевые слова для поиска).\nКоличество тегов для заметки не должно превышать 20 штук, каждый тег должен содержать не менее двух символов, а количество слов в одном теге не более двух. Теги разделяются между собой запятыми."/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
