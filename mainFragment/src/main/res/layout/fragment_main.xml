@@ -5,7 +5,7 @@
     android:id="@+id/main_fragment_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/notes_activity_fragments_standart_padding"
+    android:paddingHorizontal="@dimen/notes_activity_fragments_standart_padding"
     app:layoutDescription="@xml/fragment_main_scene"
     tools:context=".presentation.view.MainFragment">
 
@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/add_note_fab_description_text"
         android:src="@drawable/edit_icon_24"
+        android:layout_marginBottom="@dimen/standard_vertical_margin_between_views"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
