@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import diarynote.addcategoryscreen.R
@@ -20,6 +21,7 @@ import diarynote.addcategoryscreen.presentation.viewmodel.AddCategoryViewModel
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
+import diarynote.core.utils.listener.OnItemClickListener
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
 import diarynote.navigator.Navigator
@@ -36,7 +38,12 @@ class AddCategoryFragment : Fragment() {
     private val colorData = colorCodeList
     private val iconData = iconCodeList
     private val colorListAdapter = ColorListAdapter()
-    private val iconListAdapter = IconListAdapter()
+    private val iconListAdapter = IconListAdapter(object : OnItemClickListener {
+        override fun onItemClick(position: Int) {
+            if (position == (iconData.size -1)) chooseImage()
+        }
+
+    })
     private val pickSvgFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
             val svgFilePath = FileHelper().getRealPathFromURI(requireActivity(), it)
@@ -168,6 +175,11 @@ class AddCategoryFragment : Fragment() {
         colorListAdapter.clickedPosition = 0
         iconListAdapter.clickedPosition = 0
         navigator.navigateUp()
+    }
+
+    private fun chooseImage() {
+        val mimeType = "image/svg+xml"
+        pickSvgFile.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
     }
 
     override fun onStop() {

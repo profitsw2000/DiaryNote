@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
+import diarynote.core.utils.listener.OnItemClickListener
 
-class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
+class IconListAdapter (
+    private val onItemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
 
     private lateinit var binding: CategoryIconPickerRecyclerviewItemBinding
     private var data: List<Int> = arrayListOf()
@@ -36,6 +39,7 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
                 notifyItemChanged(position)
                 notifyItemChanged(oldPosition)
             }
+            onItemClickListener.onItemClick(position)
         }
         return iconViewHolder
     }
