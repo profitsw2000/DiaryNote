@@ -1,74 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calendar_fragment_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/notes_activity_fragments_standart_padding"
+    android:layout_marginHorizontal="@dimen/notes_activity_fragments_standart_padding"
+    app:layoutDescription="@xml/fragment_calendar_scene"
     tools:context=".presentation.view.CalendarFragment">
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/pick_date_chip_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:chipSpacingHorizontal="@dimen/calendar_horizontal_chip_spacing"
-        app:chipSpacingVertical="@dimen/calendar_vertical_chip_spacing"
         android:orientation="horizontal"
         app:checkedChip="@id/all_time_notes_chip"
+        app:chipSpacingHorizontal="@dimen/calendar_horizontal_chip_spacing"
+        app:chipSpacingVertical="@dimen/calendar_vertical_chip_spacing"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="true"
-        app:selectionRequired="true">
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/all_time_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/all_time_notes_chip_text"
             app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding"
-            android:text="@string/all_time_notes_chip_text"/>
+            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/today_notes_chip"
             style="@style/customMainChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/todays_notes_chip_text"
             app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding"
-            android:text="@string/todays_notes_chip_text"/>
+            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/last_week_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/last_week_notes_chip_text"
             app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding"
-            android:text="@string/last_week_notes_chip_text"/>
+            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/last_month_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/last_month_notes_chip_text"
             app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding"
-            android:text="@string/last_month_notes_chip_text"/>
+            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/last_year_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/last_year_notes_chip_text"
             app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding"
-            android:text="@string/last_year_notes_chip_text"/>
+            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/select_period_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/select_period_notes_chip_text"
             app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding"
-            android:text="@string/select_period_notes_chip_text"/>
+            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
 
     </com.google.android.material.chip.ChipGroup>
 
@@ -76,12 +77,12 @@
         android:id="@+id/picked_date_notes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="@dimen/picked_date_notes_rv_top_padding"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pick_date_chip_group"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/pick_date_chip_group" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar"
@@ -90,6 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
