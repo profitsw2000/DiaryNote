@@ -1,6 +1,9 @@
 package diarynote.addcategoryscreen.presentation.view
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -10,6 +13,8 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import diarynote.addcategoryscreen.R
 import diarynote.addcategoryscreen.data.colorCodeList
@@ -28,6 +33,8 @@ import diarynote.navigator.Navigator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
+import java.io.IOException
+import java.util.jar.Manifest
 
 class AddCategoryFragment : Fragment() {
 
@@ -47,9 +54,21 @@ class AddCategoryFragment : Fragment() {
     private val pickSvgFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
             val svgFilePath = FileHelper().getRealPathFromURI(requireActivity(), it)
+
             svgFilePath?.let {
-                Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                copyFile(
+                    it,
+                    getAppFileFullPath(getFileNameFromFullPath(it))
+                )
+                //Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                Log.d("VVV", "file name: ${getFileNameFromFullPath(it)}")
+                Log.d("VVV", "file name: ${getAppFileFullPath(getFileNameFromFullPath(it))}")
             }
+/*            createFolder("icons")
+            val splittedPathList = svgFilePath?.split("/")
+            splittedPathList?.let {
+                Log.d("VVV", "file name: ${it.last()}")
+            }*/
         }
     }
 
@@ -180,6 +199,48 @@ class AddCategoryFragment : Fragment() {
     private fun chooseImage() {
         val mimeType = "image/svg+xml"
         pickSvgFile.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
+    }
+
+    private fun createFolder(path: String) {
+        val dir = File(requireActivity().filesDir, path)
+
+        if (dir.exists()) {
+            Log.d("VVV", "createFolder: Directory already exists!!!")
+        } else {
+            if (dir.mkdir()) {
+                Log.d("VVV", "createFolder: Directory created successfully.")
+            } else {
+                Log.d("VVV", "createFolder: Error occurred when creating directory.")
+            }
+        }
+    }
+
+    private fun copyFile(sourcePath: String, targetPath: String) {
+        val sourceFile = File(sourcePath)
+        val targetFile = File(targetPath)
+
+        try {
+            sourceFile.copyTo(targetFile, true)
+        } catch (noSuchFileException: NoSuchFileException) {
+            Log.d("VVV", "copyFile: NoSuchFileException")
+        } catch (fileAlreadyExistsExeption: FileAlreadyExistsException) {
+            Log.d("VVV", "copyFile: FileAlreadyExistsException")
+        } catch (ioException: IOException) {
+            Log.d("VVV", "copyFile: IOException, ${ioException.message}")
+        }
+    }
+
+    private fun getFileNameFromFullPath(fullFilePath: String): String {
+        val splittedPathList = fullFilePath.split("/")
+        return splittedPathList.last()
+    }
+
+    private fun getAppFileFullPath(fileName: String): String {
+        return "${requireActivity().filesDir.absolutePath}/icons/$fileName"
+    }
+
+    private fun getExternalStorageReadPermission() {
+
     }
 
     override fun onStop() {
