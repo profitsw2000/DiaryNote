@@ -70,6 +70,12 @@
     <string name="dialog_button_no_text">No</string>
     <string name="delete_note_dialog_title_text">Delete note</string>
     <string name="delete_note_dialog_message_text">Are you sure you want to delete this note?</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Files access permission</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">To add a category icon, you have to allow read access to your files</string>
+    <string name="permission_dialog_allow_button_text">Allow</string>
+    <string name="permission_dialog_deny_button_text">Deny</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Files access denied</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Adding a custom icon for a created category is not available. You have to allow access to files.</string>
     <string name="edit_note_dialog_title_text">Edit note</string>
     <string name="edit_note_dialog_message_text">Are you sure you want to edit this note?</string>
     <string name="add_category_name_title_text">Category name</string>
@@ -117,4 +123,5 @@
     <string name="db_save_success_dialog_message">Database was successfully saved!</string>
     <string name="db_restore_success_dialog_title">Database restoring</string>
     <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
+    <string name="file_reading_error_toast_text">Error reading file</string>
 </resources>

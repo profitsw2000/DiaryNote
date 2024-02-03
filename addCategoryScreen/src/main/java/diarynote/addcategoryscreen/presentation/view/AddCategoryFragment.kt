@@ -27,6 +27,7 @@ import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.utils.listener.OnItemClickListener
+import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
 import diarynote.navigator.Navigator
@@ -47,30 +48,30 @@ class AddCategoryFragment : Fragment() {
     private val colorListAdapter = ColorListAdapter()
     private val iconListAdapter = IconListAdapter(object : OnItemClickListener {
         override fun onItemClick(position: Int) {
-            if (position == (iconData.size -1)) chooseImage()
+            if (position == (iconData.size -1)) getExternalStorageReadPermission()
         }
-
     })
-    private val pickSvgFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
-        if (it != null) {
-            val svgFilePath = FileHelper().getRealPathFromURI(requireActivity(), it)
+    private val pickSvgFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) {
+            val svgFilePath = FileHelper().getRealPathFromURI(requireActivity(), uri)
 
             svgFilePath?.let {
                 copyFile(
                     it,
                     getAppFileFullPath(getFileNameFromFullPath(it))
                 )
-                //Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
-                Log.d("VVV", "file name: ${getFileNameFromFullPath(it)}")
-                Log.d("VVV", "file name: ${getAppFileFullPath(getFileNameFromFullPath(it))}")
             }
-/*            createFolder("icons")
-            val splittedPathList = svgFilePath?.split("/")
-            splittedPathList?.let {
-                Log.d("VVV", "file name: ${it.last()}")
-            }*/
         }
     }
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            isGranted: Boolean ->
+            if (isGranted) {
+                chooseImage()
+            } else {
+                showExplanationDialog()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -201,32 +202,15 @@ class AddCategoryFragment : Fragment() {
         pickSvgFile.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
     }
 
-    private fun createFolder(path: String) {
-        val dir = File(requireActivity().filesDir, path)
-
-        if (dir.exists()) {
-            Log.d("VVV", "createFolder: Directory already exists!!!")
-        } else {
-            if (dir.mkdir()) {
-                Log.d("VVV", "createFolder: Directory created successfully.")
-            } else {
-                Log.d("VVV", "createFolder: Error occurred when creating directory.")
-            }
-        }
-    }
-
     private fun copyFile(sourcePath: String, targetPath: String) {
         val sourceFile = File(sourcePath)
         val targetFile = File(targetPath)
 
         try {
             sourceFile.copyTo(targetFile, true)
-        } catch (noSuchFileException: NoSuchFileException) {
-            Log.d("VVV", "copyFile: NoSuchFileException")
-        } catch (fileAlreadyExistsExeption: FileAlreadyExistsException) {
-            Log.d("VVV", "copyFile: FileAlreadyExistsException")
-        } catch (ioException: IOException) {
-            Log.d("VVV", "copyFile: IOException, ${ioException.message}")
+        } catch (exception: Exception) {
+            Toast.makeText(requireActivity(),
+                getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -240,7 +224,49 @@ class AddCategoryFragment : Fragment() {
     }
 
     private fun getExternalStorageReadPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED -> chooseImage()
 
+            //////////////////////////////////////////////////////////////////
+
+            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> showRationaleDialog()
+
+            //////////////////////////////////////////////////////////////////
+
+            else -> requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun showRationaleDialog() {
+        val dialoger = DialogerImpl(
+            requireActivity(),
+            onDialogPositiveButtonClickListener = object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    requestPermissionLauncher.launch(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                }
+            }
+        )
+
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.read_external_storage_permission_to_add_category_icon_dialog_title_text),
+            getString(diarynote.core.R.string.read_external_storage_permission_to_add_category_icon_dialog_message_text),
+            getString(diarynote.core.R.string.permission_dialog_allow_button_text),
+            getString(diarynote.core.R.string.permission_dialog_deny_button_text)
+        )
+    }
+
+    private fun showExplanationDialog() {
+        val dialoger = DialogerImpl(requireActivity())
+
+        dialoger.showAlertDialog(
+            getString(diarynote.core.R.string.read_external_storage_permission_denied_explanation_dialog_title_text),
+            getString(diarynote.core.R.string.read_external_storage_permission_denied_explanation_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text)
+        )
     }
 
     override fun onStop() {
@@ -252,10 +278,5 @@ class AddCategoryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = AddCategoryFragment()
     }
 }

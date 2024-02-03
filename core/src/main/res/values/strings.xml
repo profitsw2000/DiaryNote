@@ -69,6 +69,12 @@
     <string name="dialog_button_no_text">Нет</string>
     <string name="delete_note_dialog_title_text">Удаление заметки</string>
     <string name="delete_note_dialog_message_text">Вы действительно хотите удалить данную заметку?</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Доступ к файлам</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">Для добавления иконки категории необходимо разрешить доступ к чтению ваших файлов</string>
+    <string name="permission_dialog_allow_button_text">Разрешить</string>
+    <string name="permission_dialog_deny_button_text">Отклонить</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Отказ доступа к файлам</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Добавление пользовательской иконки для создаваемой категории недоступно. Необходимо разрешить доступ к файлам.</string>
     <string name="edit_note_dialog_title_text">Редактирование заметки</string>
     <string name="edit_note_dialog_message_text">Вы действительно хотите изменить данную заметку?</string>
     <string name="add_category_name_title_text">Название категории</string>
@@ -116,4 +122,5 @@
     <string name="db_save_success_dialog_message">Сохранение базы данных в файл произведено успешно!</string>
     <string name="db_restore_success_dialog_title">Восстановление базы данных</string>
     <string name="db_restore_success_dialog_message">Восстановление базы данных из выбранного файла произведено успешно. Будет произведён выход из текущей учетной записи.</string>
+    <string name="file_reading_error_toast_text">Ошибка чтения файла</string>
 </resources>
