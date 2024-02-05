@@ -30,6 +30,7 @@ import diarynote.core.utils.listener.OnItemClickListener
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
+import diarynote.data.model.state.CopyFileState
 import diarynote.navigator.Navigator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -131,11 +132,25 @@ class AddCategoryFragment : Fragment() {
         addCategoryViewModel.categoryLiveData.observe(viewLifecycleOwner, observer)
     }
 
+    private fun observeCopyFileData() {
+        val observer = Observer<CopyFileState?> { renderCopyFileData(it) }
+        addCategoryViewModel.copyFileLiveData.observe(viewLifecycleOwner, observer)
+    }
+
     private fun renderData(categoriesState: CategoriesState?) {
         when(categoriesState) {
             is CategoriesState.Success -> addCategorySuccess()
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
+            else -> {}
+        }
+    }
+
+    private fun renderCopyFileData(copyFileState: CopyFileState?) {
+        when(copyFileState) {
+            is CopyFileState.Error -> Toast.makeText(requireActivity(),
+                getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
+            is CopyFileState.Success -> {}
             else -> {}
         }
     }
