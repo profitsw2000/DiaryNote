@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
 import diarynote.core.utils.listener.OnItemClickListener
 
@@ -16,11 +17,17 @@ class IconListAdapter (
     private var data: List<Int> = arrayListOf()
     private lateinit var context: Context
     var clickedPosition = 0
+    private var pickedIconPath = ""
 
     fun setData(data: List<Int>, clickedPosition: Int) {
         this.data = data
         this.clickedPosition = clickedPosition
         notifyDataSetChanged()
+    }
+
+    fun updateIconImage(iconPath: String) {
+        pickedIconPath = iconPath
+        notifyItemChanged(data.last())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,7 +56,10 @@ class IconListAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.imageView.setImageResource(getImageFromResources(data[position]))
+
+        if (position != data.last()) holder.imageView.setImageResource(getImageFromResources(data[position]))
+        else setLastItemIcon(holder, position)
+
         if (clickedPosition == position) {
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.purple_200))
         } else {
@@ -66,6 +76,14 @@ class IconListAdapter (
             4 -> diarynote.core.R.drawable.docs_icon_24
             5 -> diarynote.core.R.drawable.android_icon_24
             else -> diarynote.core.R.drawable.add_icon_24
+        }
+    }
+
+    private fun setLastItemIcon(holder: ViewHolder, position: Int) {
+        if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
+        else {
+            //set image by it's path using Picasso or smthng that kind
+            Picasso.get().load(pickedIconPath).into(holder.imageView)
         }
     }
 
