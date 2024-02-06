@@ -71,6 +71,7 @@ class AddCategoryViewModel(
 
     fun clear() {
         _categoryLiveData.value = null
+        _copyFileLiveData.value = null
     }
 
 /*    fun navigateUp() {

@@ -57,7 +57,7 @@ class AddCategoryFragment : Fragment() {
             val svgFilePath = FileHelper().getRealPathFromURI(requireActivity(), uri)
 
             svgFilePath?.let {
-                copyFile(
+                addCategoryViewModel.copyFile(
                     it,
                     getAppFileFullPath(getFileNameFromFullPath(it))
                 )
@@ -98,6 +98,7 @@ class AddCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
+        observeCopyFileData()
     }
 
     override fun onResume() {
@@ -150,7 +151,7 @@ class AddCategoryFragment : Fragment() {
         when(copyFileState) {
             is CopyFileState.Error -> Toast.makeText(requireActivity(),
                 getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
-            is CopyFileState.Success -> {}
+            is CopyFileState.Success -> iconListAdapter.updateIconImage(copyFileState.filePath)
             else -> {}
         }
     }
@@ -196,6 +197,7 @@ class AddCategoryFragment : Fragment() {
         val dialoger =
             DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
+                    addCategoryViewModel.clear()
                     clearData()
                 }
             })

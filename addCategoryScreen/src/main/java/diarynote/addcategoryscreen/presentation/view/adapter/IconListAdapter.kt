@@ -1,13 +1,19 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
 import diarynote.core.utils.listener.OnItemClickListener
+import java.io.File
 
 class IconListAdapter (
     private val onItemClickListener: OnItemClickListener
@@ -27,7 +33,7 @@ class IconListAdapter (
 
     fun updateIconImage(iconPath: String) {
         pickedIconPath = iconPath
-        notifyItemChanged(data.last())
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,7 +47,7 @@ class IconListAdapter (
         binding.root.setOnClickListener {
             val position = iconViewHolder.adapterPosition
             val oldPosition = clickedPosition
-            if (position != clickedPosition) {
+            if (position != clickedPosition && position != (data.size - 1)) {
                 clickedPosition = position
                 notifyItemChanged(position)
                 notifyItemChanged(oldPosition)
@@ -57,8 +63,28 @@ class IconListAdapter (
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if (position != data.last()) holder.imageView.setImageResource(getImageFromResources(data[position]))
-        else setLastItemIcon(holder, position)
+/*        Picasso.get().load(diarynote.core.R.drawable.auto_icon_24)
+            .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+            .into(holder.imageView)*/
+/*        Picasso.get()
+            .load(diarynote.core.R.drawable.auto_icon_24)
+            .into(holder.imageView, object : Callback {
+                override fun onSuccess() {
+                    Log.d("VVV", "onSuccess: ")
+                }
+                override fun onError(e: Exception?) {
+                    Log.d("VVV", "onError: ${e?.toString()}")
+                }
+            })*/
+        //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
+        if (position != (data.size - 1)) {
+            holder.imageView.setImageResource(getImageFromResources(data[position]))
+        }
+        else {
+            holder.upload(pickedIconPath)
+            //setLastItemIcon(holder, position)
+            //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
+        }
 
         if (clickedPosition == position) {
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.purple_200))
@@ -83,7 +109,16 @@ class IconListAdapter (
         if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
         else {
             //set image by it's path using Picasso or smthng that kind
-            Picasso.get().load(pickedIconPath).into(holder.imageView)
+            val file = File(pickedIconPath)
+            val uri = Uri.fromFile(file)
+            //Glide.with(holder.imageView).load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
+
+            Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
+/*            Picasso.get()
+                .load("file://"+pickedIconPath) // Add this
+                .config(Bitmap.Config.RGB_565)
+                .fit().centerCrop()
+                .into(holder.imageView)*/
         }
     }
 
@@ -92,5 +127,11 @@ class IconListAdapter (
         val cardView = binding.iconPickerRecyclerViewItemCardView
         val imageView = binding.iconPickerItemImageView
 
+        fun upload(filePath: String) {
+            //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(binding.iconPickerItemImageView)
+            val file = File(pickedIconPath)
+            val uri = Uri.fromFile(file)
+            Glide.with(binding.iconPickerItemImageView).load(uri).into(binding.iconPickerItemImageView)
+        }
     }
 }

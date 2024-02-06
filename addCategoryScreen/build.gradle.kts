@@ -39,6 +39,8 @@ dependencies {
     kapt(Room.roomCompiler)
     //Picasso
     implementation(Picasso.picasso)
+    //Glide
+    implementation(Glide.glide)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

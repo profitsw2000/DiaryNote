@@ -72,6 +72,9 @@ object Versions {
     //Picasso
     const val picasso = "2.8"
 
+    //Glide
+    const val glide = "4.16.0"
+
     //Test
     const val jUnit = "4.13.2"
     const val extJUnit = "1.1.4"
@@ -133,6 +136,10 @@ object Paging {
 
 object Picasso {
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
+}
+
+object Glide {
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 }
 
 object TestImpl {
