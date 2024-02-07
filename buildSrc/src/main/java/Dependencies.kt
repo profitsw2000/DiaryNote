@@ -35,7 +35,7 @@ object Modules {
 
 object Versions {
     //Design
-    const val appcompat = "1.6.0"
+    const val appcompat = "1.6.1"
     const val material = "1.6.1"
     const val constraintLayout = "2.1.4"
     const val fragment ="1.3.0"
@@ -74,6 +74,9 @@ object Versions {
 
     //Glide
     const val glide = "4.16.0"
+
+    //Coil
+    const val coil = "2.5.0"
 
     //Test
     const val jUnit = "4.13.2"
@@ -140,6 +143,11 @@ object Picasso {
 
 object Glide {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+}
+
+object Coil {
+    const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val coilSvg = "io.coil-kt:coil-svg:${Versions.coil}"
 }
 
 object TestImpl {

@@ -1,7 +1,6 @@
 package diarynote.addcategoryscreen.presentation.viewmodel
 
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.viewmodel.CoreViewModel
@@ -11,7 +10,6 @@ import diarynote.data.mappers.CategoryMapper
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
 import diarynote.data.model.state.CopyFileState
-import diarynote.navigator.Navigator
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
