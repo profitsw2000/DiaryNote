@@ -43,11 +43,12 @@ class HelpItemDescriptionFragment : Fragment() {
         settingsViewModel.helpLiveData.observe(viewLifecycleOwner, observer)
     }
 
-    private fun renderData(helpState: HelpState) {
+    private fun renderData(helpState: HelpState?) {
         when(helpState) {
             is HelpState.Error -> handleError(helpState.message)
             HelpState.Loading -> setProgressBarVisible(true)
             is HelpState.Success -> handleSuccess(helpState.helpItemModelList)
+            else -> {}
         }
     }
 

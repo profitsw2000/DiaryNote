@@ -81,11 +81,12 @@ class SettingsFragment : Fragment() {
         adapter.setData(settingsMenuItemModelList)
     }
 
-    private fun renderUserData(userState: UserState) {
+    private fun renderUserData(userState: UserState?) {
         when(userState) {
             is UserState.Success -> { setUserData(userState.userModel) }
             is UserState.Error -> { setErrorUserData() }
             is UserState.Loading -> { setProgressBarVisible(true) }
+            else -> {}
         }
     }
 

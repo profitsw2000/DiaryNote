@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object Config{
     const val application_id = "ru.profitsw2000.diarynote"
-    const val compile_sdk = 33
+    const val compile_sdk = 34
     const val min_sdk = 23
     const val target_sdk = 33
     val java_version = JavaVersion.VERSION_17
@@ -44,7 +44,7 @@ object Versions {
     const val core = "1.9.0"
 
     //Lifecycle
-    const val viewModel = "2.5.1"
+    const val viewModel = "2.6.2"
 
     //Navigation
     const val navigation = "2.6.0-alpha04"

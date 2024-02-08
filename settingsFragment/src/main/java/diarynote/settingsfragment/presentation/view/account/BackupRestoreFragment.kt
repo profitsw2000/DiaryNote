@@ -68,13 +68,14 @@ class BackupRestoreFragment : Fragment() {
         settingsViewModel.backupLiveData.observe(viewLifecycleOwner, observer)
     }
 
-    private fun renderData(backupState: BackupState) {
+    private fun renderData(backupState: BackupState?) {
         when(backupState) {
             is BackupState.Error -> handleError(backupState.message, backupState.errorCode)
             BackupState.Idle -> {}
             BackupState.Loading -> setProgressBarVisible(true)
             BackupState.SuccessBackup -> handleBackupSuccess()
             BackupState.SuccessRestore -> handleRestoreSuccess()
+            else -> {}
         }
     }
 

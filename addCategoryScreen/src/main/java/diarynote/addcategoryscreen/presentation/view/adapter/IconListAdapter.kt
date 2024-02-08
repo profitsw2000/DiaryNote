@@ -127,11 +127,11 @@ class IconListAdapter (
         val cardView = binding.iconPickerRecyclerViewItemCardView
         val imageView = binding.iconPickerItemImageView
 
-        fun upload(filePath: String) {
+/*        fun upload(filePath: String) {
             //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(binding.iconPickerItemImageView)
             val file = File(pickedIconPath)
             val uri = Uri.fromFile(file)
             Glide.with(binding.iconPickerItemImageView).load(uri).into(binding.iconPickerItemImageView)
-        }
+        }*/
     }
 }

@@ -1,7 +1,7 @@
 package diarynote.data.data.local
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.switchMap
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -140,23 +140,23 @@ class NoteRepositoryLocalImpl(
     override fun getNotesState(dataSourceType: DataSourceType): LiveData<NotesState> {
         return when (dataSourceType) {
             DataSourceType.CategoryNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.categoryNotesLiveDataSource, CategoryNotesDataSource::notesState
+                notesDataSourceFactory.categoryNotesLiveDataSource.switchMap(
+                    CategoryNotesDataSource::notesState
                 )
             }
             DataSourceType.DateNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.dateNotesLiveDataSource, DateNotesDataSource::notesState
+                notesDataSourceFactory.dateNotesLiveDataSource.switchMap(
+                    DateNotesDataSource::notesState
                 )
             }
             DataSourceType.SearchNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.searchNotesLiveDataSource, SearchNotesDataSource::notesState
+                notesDataSourceFactory.searchNotesLiveDataSource.switchMap(
+                    SearchNotesDataSource::notesState
                 )
             }
             DataSourceType.UserNotesDataSource -> {
-                Transformations.switchMap(
-                    notesDataSourceFactory.userNotesLiveDataSource, UserNotesDataSource::notesState
+                notesDataSourceFactory.userNotesLiveDataSource.switchMap(
+                    UserNotesDataSource::notesState
                 )
             }
         }

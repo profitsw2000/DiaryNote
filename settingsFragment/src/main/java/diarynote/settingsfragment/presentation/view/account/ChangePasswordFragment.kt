@@ -76,11 +76,12 @@ class ChangePasswordFragment : Fragment() {
         settingsViewModel.userLiveData.observe(viewLifecycleOwner, observer)
     }
 
-    private fun renderData(userState: UserState) {
+    private fun renderData(userState: UserState?) {
         when(userState) {
             is UserState.Error -> handleError(userState.errorCode, userState.message)
             is UserState.Loading -> setProgressBarVisible(true)
             is UserState.Success -> handleSuccess(userState.userModel)
+            else -> {}
         }
     }
 
