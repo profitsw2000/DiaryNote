@@ -8,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
 import com.bumptech.glide.Glide
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -63,27 +66,11 @@ class IconListAdapter (
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-/*        Picasso.get().load(diarynote.core.R.drawable.auto_icon_24)
-            .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
-            .into(holder.imageView)*/
-/*        Picasso.get()
-            .load(diarynote.core.R.drawable.auto_icon_24)
-            .into(holder.imageView, object : Callback {
-                override fun onSuccess() {
-                    Log.d("VVV", "onSuccess: ")
-                }
-                override fun onError(e: Exception?) {
-                    Log.d("VVV", "onError: ${e?.toString()}")
-                }
-            })*/
-        //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
         if (position != (data.size - 1)) {
             holder.imageView.setImageResource(getImageFromResources(data[position]))
         }
         else {
-            holder.upload(pickedIconPath)
-            //setLastItemIcon(holder, position)
-            //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
+            setLastItemIcon(holder, position)
         }
 
         if (clickedPosition == position) {
@@ -108,17 +95,9 @@ class IconListAdapter (
     private fun setLastItemIcon(holder: ViewHolder, position: Int) {
         if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
         else {
-            //set image by it's path using Picasso or smthng that kind
-            val file = File(pickedIconPath)
-            val uri = Uri.fromFile(file)
-            //Glide.with(holder.imageView).load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
-
-            Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(holder.imageView)
-/*            Picasso.get()
-                .load("file://"+pickedIconPath) // Add this
-                .config(Bitmap.Config.RGB_565)
-                .fit().centerCrop()
-                .into(holder.imageView)*/
+            holder.imageView.load(pickedIconPath) {
+                decoderFactory{ result, options, _ -> SvgDecoder( result.source, options)}
+            }
         }
     }
 
@@ -126,12 +105,5 @@ class IconListAdapter (
 
         val cardView = binding.iconPickerRecyclerViewItemCardView
         val imageView = binding.iconPickerItemImageView
-
-/*        fun upload(filePath: String) {
-            //Picasso.get().load(diarynote.core.R.drawable.auto_icon_24).into(binding.iconPickerItemImageView)
-            val file = File(pickedIconPath)
-            val uri = Uri.fromFile(file)
-            Glide.with(binding.iconPickerItemImageView).load(uri).into(binding.iconPickerItemImageView)
-        }*/
     }
 }
