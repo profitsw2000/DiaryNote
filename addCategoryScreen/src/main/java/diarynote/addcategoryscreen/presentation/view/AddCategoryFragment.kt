@@ -215,7 +215,7 @@ class AddCategoryFragment : Fragment() {
     }
 
     private fun chooseImage() {
-        val mimeType = "image/svg+xml"
+        val mimeType = "image/*"
         pickSvgFile.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
     }
 

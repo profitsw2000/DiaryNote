@@ -22,9 +22,8 @@ class IconListAdapter (
     private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
 
-    private lateinit var binding: CategoryIconPickerRecyclerviewItemBinding
     private var data: List<Int> = arrayListOf()
-    private lateinit var context: Context
+    //private lateinit var context: Context
     var clickedPosition = 0
     private var pickedIconPath = ""
 
@@ -36,15 +35,16 @@ class IconListAdapter (
 
     fun updateIconImage(iconPath: String) {
         pickedIconPath = iconPath
-        notifyDataSetChanged()
+        clickedPosition = data.size - 1
+        notifyItemChanged(clickedPosition)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = CategoryIconPickerRecyclerviewItemBinding.inflate(
+        val binding = CategoryIconPickerRecyclerviewItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        context = parent.context
+        //context = parent.context
         val iconViewHolder = ViewHolder(binding)
 
         binding.root.setOnClickListener {
@@ -74,9 +74,9 @@ class IconListAdapter (
         }
 
         if (clickedPosition == position) {
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.purple_200))
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.imageView.context, diarynote.core.R.color.purple_200))
         } else {
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.white))
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.imageView.context, diarynote.core.R.color.white))
         }
     }
 
@@ -101,7 +101,7 @@ class IconListAdapter (
         }
     }
 
-    inner class ViewHolder(binding: CategoryIconPickerRecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: CategoryIconPickerRecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         val cardView = binding.iconPickerRecyclerViewItemCardView
         val imageView = binding.iconPickerItemImageView
