@@ -7,20 +7,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.decode.SvgDecoder
-import coil.load
 import coil.request.ImageRequest
-import coil.size.ViewSizeResolver
 import coil.util.CoilUtils
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
 import diarynote.core.utils.listener.OnItemClickListener
-import java.io.File
 
 class IconListAdapter (
     private val onItemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<IconListAdapter.IconViewHolder>() {
 
     private var data: List<Int> = arrayListOf()
-    //private lateinit var context: Context
     var clickedPosition = 0
     private var pickedIconPath = ""
 
@@ -37,16 +33,15 @@ class IconListAdapter (
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewHolder {
         val binding = CategoryIconPickerRecyclerviewItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        //context = parent.context
-        val viewHolder = ViewHolder(binding)
+        val IconViewHolder = IconViewHolder(binding)
 
         binding.root.setOnClickListener {
-            val position = viewHolder.adapterPosition
+            val position = IconViewHolder.adapterPosition
             val oldPosition = clickedPosition
             if (position != clickedPosition && position != (data.size - 1)) {
                 clickedPosition = position
@@ -55,14 +50,14 @@ class IconListAdapter (
             }
             onItemClickListener.onItemClick(position)
         }
-        return viewHolder
+        return IconViewHolder
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
 
         if (position != (data.size - 1)) {
             holder.imageView.setImageResource(getImageFromResources(data[position]))
@@ -78,7 +73,7 @@ class IconListAdapter (
         }
     }
 
-    override fun onViewRecycled(holder: ViewHolder) {
+    override fun onViewRecycled(holder: IconViewHolder) {
         CoilUtils.dispose(holder.imageView)
     }
 
@@ -94,7 +89,7 @@ class IconListAdapter (
         }
     }
 
-    private fun setLastItemIcon(holder: ViewHolder, position: Int) {
+    private fun setLastItemIcon(holder: IconViewHolder, position: Int) {
         if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
         else {
             val imageLoader = ImageLoader.Builder(holder.imageView.context)
@@ -105,28 +100,13 @@ class IconListAdapter (
             val request = ImageRequest.Builder(holder.imageView.context)
                 .data(pickedIconPath)
                 .target(holder.imageView)
-                .listener(
-                    onError = { request, throwable ->
-                        Log.d("VVV", "setLastItemIcon: Request: ${request.data} | throwable: ${throwable.throwable.message}")
-                    },
-                    onSuccess = { request, metadata ->
-                        // can't access bitmap here as far as I see
-                        // because I can only access ImageResult::Metadata and not the ImageResult itself...
-                        Log.d("VVV", "Request: ${request.data} | metadata: ${metadata.dataSource} | key: ${metadata.memoryCacheKey}")
-                    }
-                )
                 .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
                 .build()
             imageLoader.enqueue(request)
-
-/*            holder.imageView.setImageDrawable(null)
-            holder.imageView.load(File(pickedIconPath)) {
-                decoderFactory{ result, options, _ -> SvgDecoder( result.source, options)}
-            }*/
         }
     }
 
-    inner class ViewHolder(val binding: CategoryIconPickerRecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class IconViewHolder(val binding: CategoryIconPickerRecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         val cardView = binding.iconPickerRecyclerViewItemCardView
         val imageView = binding.iconPickerItemImageView

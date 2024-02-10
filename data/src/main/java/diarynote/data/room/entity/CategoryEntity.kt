@@ -14,6 +14,7 @@ data class CategoryEntity(
     val color: Int,
     val categoryName: String,
     val categoryImage: Int,
+    val imagePath: String,
     @ColumnInfo(name = "user_id")
     val userId: Int
 )

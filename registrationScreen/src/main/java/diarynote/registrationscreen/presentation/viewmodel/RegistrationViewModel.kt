@@ -96,26 +96,7 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
                 }
             )
-    }
-
-    private fun getDefaultNotesList(userId: Int) : List<NoteEntity> {
-        return baseNotesList.map {
-            it.copy(userId = userId)
-        }
-    }
-
-    fun insertDefaultNotes(userModel: UserModel) {
-        noteInteractor.addNoteList(getDefaultNotesList(userModel.id), false)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (
-                {
-
-                },
-                {
-                    _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
-                }
-            )
+            .addViewLifeCycle()
     }
 
     fun clear() {
