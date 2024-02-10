@@ -1,8 +1,5 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load
-import com.bumptech.glide.Glide
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
+import coil.request.ImageRequest
+import coil.size.ViewSizeResolver
+import coil.util.CoilUtils
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
 import diarynote.core.utils.listener.OnItemClickListener
 import java.io.File
@@ -27,6 +24,7 @@ class IconListAdapter (
     var clickedPosition = 0
     private var pickedIconPath = ""
 
+
     fun setData(data: List<Int>, clickedPosition: Int) {
         this.data = data
         this.clickedPosition = clickedPosition
@@ -36,7 +34,7 @@ class IconListAdapter (
     fun updateIconImage(iconPath: String) {
         pickedIconPath = iconPath
         clickedPosition = data.size - 1
-        notifyItemChanged(clickedPosition)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,10 +43,10 @@ class IconListAdapter (
             parent,
             false)
         //context = parent.context
-        val iconViewHolder = ViewHolder(binding)
+        val viewHolder = ViewHolder(binding)
 
         binding.root.setOnClickListener {
-            val position = iconViewHolder.adapterPosition
+            val position = viewHolder.adapterPosition
             val oldPosition = clickedPosition
             if (position != clickedPosition && position != (data.size - 1)) {
                 clickedPosition = position
@@ -57,7 +55,7 @@ class IconListAdapter (
             }
             onItemClickListener.onItemClick(position)
         }
-        return iconViewHolder
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -80,6 +78,10 @@ class IconListAdapter (
         }
     }
 
+    override fun onViewRecycled(holder: ViewHolder) {
+        CoilUtils.dispose(holder.imageView)
+    }
+
     private fun getImageFromResources(imgId: Int) : Int {
         return when(imgId) {
             0 -> diarynote.core.R.drawable.bottom_nav_categories_icon
@@ -95,9 +97,32 @@ class IconListAdapter (
     private fun setLastItemIcon(holder: ViewHolder, position: Int) {
         if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
         else {
-            holder.imageView.load(pickedIconPath) {
+            val imageLoader = ImageLoader.Builder(holder.imageView.context)
+                .components {
+                    add(SvgDecoder.Factory())
+                }
+                .build()
+            val request = ImageRequest.Builder(holder.imageView.context)
+                .data(pickedIconPath)
+                .target(holder.imageView)
+                .listener(
+                    onError = { request, throwable ->
+                        Log.d("VVV", "setLastItemIcon: Request: ${request.data} | throwable: ${throwable.throwable.message}")
+                    },
+                    onSuccess = { request, metadata ->
+                        // can't access bitmap here as far as I see
+                        // because I can only access ImageResult::Metadata and not the ImageResult itself...
+                        Log.d("VVV", "Request: ${request.data} | metadata: ${metadata.dataSource} | key: ${metadata.memoryCacheKey}")
+                    }
+                )
+                .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+                .build()
+            imageLoader.enqueue(request)
+
+/*            holder.imageView.setImageDrawable(null)
+            holder.imageView.load(File(pickedIconPath)) {
                 decoderFactory{ result, options, _ -> SvgDecoder( result.source, options)}
-            }
+            }*/
         }
     }
 

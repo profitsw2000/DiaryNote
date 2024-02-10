@@ -1,5 +1,6 @@
 package diarynote.registrationscreen.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
@@ -62,9 +63,11 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Success(userModel.copy(id = it.toInt()))
                 },
                 {
+                    Log.d("VVV", "addUser: ${it.message}")
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
                 }
             )
+            .addViewLifeCycle()
     }
 
     private fun getErrorCode(errorMessage: String) : Int {

@@ -61,6 +61,7 @@ class AddCategoryFragment : Fragment() {
                     it,
                     getAppFileFullPath(getFileNameFromFullPath(it))
                 )
+                iconListAdapter.updateIconImage(it)
             }
         }
     }
@@ -151,7 +152,7 @@ class AddCategoryFragment : Fragment() {
         when(copyFileState) {
             is CopyFileState.Error -> Toast.makeText(requireActivity(),
                 getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
-            is CopyFileState.Success -> iconListAdapter.updateIconImage(copyFileState.filePath)
+            is CopyFileState.Success -> {}//iconListAdapter.updateIconImage(copyFileState.filePath)
             else -> {}
         }
     }
