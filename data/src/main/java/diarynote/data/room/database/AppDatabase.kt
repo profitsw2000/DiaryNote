@@ -20,7 +20,7 @@ import java.io.OutputStream
 
 @Database(
     entities = [CategoryEntity::class, NoteEntity::class, UserEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converter::class)
