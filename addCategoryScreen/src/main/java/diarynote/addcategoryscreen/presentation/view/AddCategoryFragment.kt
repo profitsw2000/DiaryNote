@@ -47,9 +47,10 @@ class AddCategoryFragment : Fragment() {
     private val colorData = colorCodeList
     private val iconData = iconCodeList
     private val colorListAdapter = ColorListAdapter()
+    private lateinit var imagePath: String
     private val iconListAdapter = IconListAdapter(object : OnItemClickListener {
         override fun onItemClick(position: Int) {
-            if (position == (iconData.size -1)) getExternalStorageReadPermission()
+            if (position == (iconData.size - 1)) getExternalStorageReadPermission()
         }
     })
     private val pickSvgFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -61,7 +62,6 @@ class AddCategoryFragment : Fragment() {
                     it,
                     getAppFileFullPath(getFileNameFromFullPath(it))
                 )
-                iconListAdapter.updateIconImage(it)
             }
         }
     }
@@ -119,11 +119,12 @@ class AddCategoryFragment : Fragment() {
 
         addCategoryButton.setOnClickListener {
             val categoryModel = CategoryModel(
-                0,
-                colorData[colorListAdapter.clickedPosition],
-                categoryTitleInputLayout.editText?.text.toString(),
-                iconData[iconListAdapter.clickedPosition],
-                0
+                id = 0,
+                color = colorData[colorListAdapter.clickedPosition],
+                categoryName = categoryTitleInputLayout.editText?.text.toString(),
+                categoryImage = iconData[iconListAdapter.clickedPosition],
+                imagePath = imagePath,
+                userId = 0
             )
             addCategoryViewModel.addCategory(categoryModel)
         }
@@ -152,7 +153,10 @@ class AddCategoryFragment : Fragment() {
         when(copyFileState) {
             is CopyFileState.Error -> Toast.makeText(requireActivity(),
                 getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
-            is CopyFileState.Success -> {}//iconListAdapter.updateIconImage(copyFileState.filePath)
+            is CopyFileState.Success -> {
+                iconListAdapter.updateIconImage(copyFileState.filePath)
+                imagePath = copyFileState.filePath
+            }
             else -> {}
         }
     }
