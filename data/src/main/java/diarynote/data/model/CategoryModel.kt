@@ -5,5 +5,6 @@ data class CategoryModel(
     val color: Int = 0,
     val categoryName: String = "",
     val categoryImage: Int = 0,
+    val imagePath: String = "",
     val userId: Int = 0
 )
