@@ -37,6 +37,9 @@ dependencies {
     implementation(Room.roomKtx)
     implementation(Room.roomRxJava)
     kapt(Room.roomCompiler)
+    //Coil
+    implementation(Coil.coil)
+    implementation(Coil.coilSvg)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)
