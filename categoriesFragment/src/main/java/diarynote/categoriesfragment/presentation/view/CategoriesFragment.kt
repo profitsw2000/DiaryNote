@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import coil.ImageLoader
 import com.google.android.material.snackbar.Snackbar
 import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoriesBinding
@@ -26,18 +27,21 @@ class CategoriesFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
     private val navigator: Navigator by inject()
+    private val imageLoader: ImageLoader by inject()
     private val categoriesViewModel: CategoriesViewModel by viewModel()
-    private val adapter = CategoriesListAdapter(object : OnCategoryItemClickListener{
+    private val adapter = CategoriesListAdapter(
+        onCategoryItemClickListener = object : OnCategoryItemClickListener{
         override fun onItemClick(categoryModel: CategoryModel) {
-            val bundle = Bundle().apply {
-                putInt(CATEGORY_ID_BUNDLE, categoryModel.id)
-                putString(CATEGORY_NAME_BUNDLE, categoryModel.categoryName)
+                val bundle = Bundle().apply {
+                    putInt(CATEGORY_ID_BUNDLE, categoryModel.id)
+                    putString(CATEGORY_NAME_BUNDLE, categoryModel.categoryName)
+                }
+                this@CategoriesFragment.arguments = bundle
+                navigator.actionCategoriesToCategoryNotes(bundle)
             }
-            this@CategoriesFragment.arguments = bundle
-            navigator.actionCategoriesToCategoryNotes(bundle)
-        }
-
-    })
+        },
+        imageLoader = imageLoader
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

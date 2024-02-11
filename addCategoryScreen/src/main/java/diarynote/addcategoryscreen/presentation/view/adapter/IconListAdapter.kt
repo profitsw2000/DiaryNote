@@ -13,13 +13,13 @@ import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewIte
 import diarynote.core.utils.listener.OnItemClickListener
 
 class IconListAdapter (
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickListener: OnItemClickListener,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<IconListAdapter.IconViewHolder>() {
 
     private var data: List<Int> = arrayListOf()
     var clickedPosition = 0
     private var pickedIconPath = ""
-
 
     fun setData(data: List<Int>, clickedPosition: Int) {
         this.data = data
@@ -92,11 +92,6 @@ class IconListAdapter (
     private fun setLastItemIcon(holder: IconViewHolder, position: Int) {
         if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
         else {
-            val imageLoader = ImageLoader.Builder(holder.imageView.context)
-                .components {
-                    add(SvgDecoder.Factory())
-                }
-                .build()
             val request = ImageRequest.Builder(holder.imageView.context)
                 .data(pickedIconPath)
                 .target(holder.imageView)

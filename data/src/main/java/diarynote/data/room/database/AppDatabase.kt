@@ -34,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
         private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE Category ADD COLUMN imagePath STRING DEFAULT '%''%' NOT NULL")
+                database.execSQL("ALTER TABLE CategoryEntity ADD COLUMN imagePath TEXT NOT NULL DEFAULT ''")
             }
         }
 

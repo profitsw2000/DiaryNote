@@ -17,7 +17,7 @@ class HorizontalCategoryListAdapter(
     private lateinit var binding: HorizontalCategoryListItemRecyclerViewBinding
     private var lastClickedPosition = 0
     private var data: List<CategoryModel> = arrayListOf()
-    private val addElement = CategoryModel(0, 0, "", 333, 0)
+    private val addElement = CategoryModel(0, 0, "", 333, "",0)
     private lateinit var context: Context
 
     fun setData(data: List<CategoryModel>) {

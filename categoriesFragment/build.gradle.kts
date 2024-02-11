@@ -41,6 +41,9 @@ dependencies {
     implementation(Paging.pagingRuntime)
     implementation(Paging.pagingKtx)
     implementation(Paging.pagingRxJava)
+    //Coil
+    implementation(Coil.coil)
+    implementation(Coil.coilSvg)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)

@@ -9,6 +9,7 @@ val baseCategoriesList = listOf(
         color = R.color.yellow,
         categoryName = "Без категории",
         categoryImage = 0,
+        imagePath = "",
         0
     )
 /*    CategoryEntity(

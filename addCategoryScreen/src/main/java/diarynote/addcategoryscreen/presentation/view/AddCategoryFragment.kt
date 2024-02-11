@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import coil.ImageLoader
 import diarynote.addcategoryscreen.R
 import diarynote.addcategoryscreen.data.colorCodeList
 import diarynote.addcategoryscreen.data.iconCodeList
@@ -44,15 +45,19 @@ class AddCategoryFragment : Fragment() {
     private val binding get() = _binding!!
     private val addCategoryViewModel: AddCategoryViewModel by viewModel()
     private val navigator: Navigator by inject()
+    private val imageLoader: ImageLoader by inject()
     private val colorData = colorCodeList
     private val iconData = iconCodeList
     private val colorListAdapter = ColorListAdapter()
     private lateinit var imagePath: String
-    private val iconListAdapter = IconListAdapter(object : OnItemClickListener {
-        override fun onItemClick(position: Int) {
-            if (position == (iconData.size - 1)) getExternalStorageReadPermission()
-        }
-    })
+    private val iconListAdapter = IconListAdapter(
+        onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                if (position == (iconData.size - 1)) getExternalStorageReadPermission()
+            }
+        },
+        imageLoader = imageLoader
+    )
     private val pickSvgFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
             val svgFilePath = FileHelper().getRealPathFromURI(requireActivity(), uri)
