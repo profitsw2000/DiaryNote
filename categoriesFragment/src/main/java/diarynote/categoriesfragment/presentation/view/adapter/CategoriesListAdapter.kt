@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import diarynote.categoriesfragment.databinding.CategoriesListItemBinding
@@ -45,7 +46,7 @@ class CategoriesListAdapter(
         with(holder){
             cardView.setCardBackgroundColor(categoryModel.color)
             cardView.layoutParams = getViewParams(position)
-            imageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
+            setCategoryImage(imageView, data[position])
             title.text = categoryModel.categoryName
         }
     }
@@ -74,6 +75,14 @@ class CategoriesListAdapter(
             dip.toFloat(),
             r.displayMetrics
         ).toInt()
+    }
+
+    private fun setCategoryImage(imageView: ImageView, categoryModel: CategoryModel) {
+        if (categoryModel.imagePath == "") {
+            imageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
+        } else {
+            //set image by Coil
+        }
     }
 
     private fun getImageFromResources(imgId: Int) : Int {
