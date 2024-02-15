@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
+import coil.ImageLoader
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.*
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
@@ -32,11 +33,15 @@ class CreateNoteFragment : Fragment() {
     private var selectedCategoryIndex = 0
     private val createNoteViewModel: CreateNoteViewModel by viewModel()
     private val navigator: Navigator by inject()
-    private val adapter = HorizontalCategoryListAdapter(object : OnItemClickListener {
-        override fun onItemClick(position: Int) {
-            updateListItem(position)
-        }
-    })
+    private val imageLoader: ImageLoader by inject()
+    private val adapter = HorizontalCategoryListAdapter(
+        object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                updateListItem(position)
+            }
+        },
+        imageLoader
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
