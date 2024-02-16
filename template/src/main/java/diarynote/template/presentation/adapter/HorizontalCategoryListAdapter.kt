@@ -9,9 +9,11 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.util.CoilUtils
 import diarynote.data.model.CategoryModel
+import diarynote.template.databinding.HorizontalCategoryListItemRecyclerViewBinding
+import diarynote.template.utils.OnHorizontalCategoryListItemClickListener
 
 class HorizontalCategoryListAdapter(
-    private val onItemClickListener: OnItemClickListener,
+    private val onHorizontalCategoryListItemClickListener: OnHorizontalCategoryListItemClickListener,
     private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<HorizontalCategoryListAdapter.ViewHolder>() {
 
@@ -37,7 +39,7 @@ class HorizontalCategoryListAdapter(
                 notifyItemChanged(position)
                 notifyItemChanged(clickedPositionNumber)
                 clickedPositionNumber = position
-                onItemClickListener.onItemClick(viewHolder.adapterPosition)
+                onHorizontalCategoryListItemClickListener.onItemClick(viewHolder.adapterPosition)
             }
         }
         return viewHolder

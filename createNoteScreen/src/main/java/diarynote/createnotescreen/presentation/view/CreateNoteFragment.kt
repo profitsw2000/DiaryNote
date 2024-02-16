@@ -17,11 +17,11 @@ import diarynote.createnotescreen.R
 import diarynote.createnotescreen.databinding.FragmentCreateNoteBinding
 import diarynote.createnotescreen.model.CategoriesState
 import diarynote.createnotescreen.model.NotesState
-import diarynote.createnotescreen.presentation.view.adapter.HorizontalCategoryListAdapter
-import diarynote.createnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.createnotescreen.presentation.viewmodel.CreateNoteViewModel
 import diarynote.data.model.CategoryModel
 import diarynote.navigator.Navigator
+import diarynote.template.presentation.adapter.HorizontalCategoryListAdapter
+import diarynote.template.utils.OnHorizontalCategoryListItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,7 +34,7 @@ class CreateNoteFragment : Fragment() {
     private val navigator: Navigator by inject()
     private val imageLoader: ImageLoader by inject()
     private val adapter = HorizontalCategoryListAdapter(
-        object : OnItemClickListener {
+        object : OnHorizontalCategoryListItemClickListener {
             override fun onItemClick(position: Int) {
                 if(position < data.size) {
                     createNoteViewModel.clickedPositionNumber = position

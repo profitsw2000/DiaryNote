@@ -1,12 +1,14 @@
 package diarynote.editnotescreen.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import coil.ImageLoader
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.*
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
@@ -17,10 +19,10 @@ import diarynote.data.model.state.CategoriesState
 import diarynote.data.model.state.NotesState
 import diarynote.editnotescreen.R
 import diarynote.editnotescreen.databinding.FragmentEditNoteBinding
-import diarynote.editnotescreen.presentation.view.adapter.HorizontalCategoryListAdapter
-import diarynote.editnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.editnotescreen.presentation.viewmodel.EditNoteViewModel
 import diarynote.navigator.Navigator
+import diarynote.template.presentation.adapter.HorizontalCategoryListAdapter
+import diarynote.template.utils.OnHorizontalCategoryListItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -29,16 +31,24 @@ class EditNoteFragment : Fragment() {
 
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
+    private lateinit var data: List<CategoryModel>
     private val editNoteViewModel: EditNoteViewModel by viewModel()
     private val navigator: Navigator by inject()
-    private var selectedCategoryIndex = 0
-    private lateinit var data: List<CategoryModel>
+    private val imageLoader: ImageLoader by inject()
     private val noteModel: NoteModel? by lazy { arguments?.getParcelable(NOTE_MODEL_BUNDLE) }
-    private val adapter = HorizontalCategoryListAdapter(object : OnItemClickListener {
-        override fun onItemClick(position: Int) {
-            updateListItem(position)
-        }
-    })
+    private val adapter = HorizontalCategoryListAdapter(
+        object : OnHorizontalCategoryListItemClickListener {
+            override fun onItemClick(position: Int) {
+                if(position < data.size) {
+                    editNoteViewModel.clickedPositionNumber = position
+                } else {
+                    navigator.navigateToCategoryCreation()
+                }
+            }
+        },
+        imageLoader
+    )
+    private var isRecreated = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +61,8 @@ class EditNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("VVV", "savedInstanceState == null: ${savedInstanceState == null}")
+        isRecreated = (savedInstanceState != null)
         initViews()
         observeData()
         editNoteViewModel.getCategoriesList()
@@ -66,7 +78,7 @@ class EditNoteFragment : Fragment() {
             editNoteButton.setOnClickListener {
                 editNoteViewModel.getNotesData(
                     noteModel!!.copy(
-                        category = data[selectedCategoryIndex].categoryName,
+                        category = data[editNoteViewModel.clickedPositionNumber].categoryName,
                         title = noteTitleInputLayout.editText?.text.toString(),
                         text = noteContentInputLayout.editText?.text.toString(),
                         tags = getNoteTagsList(noteTagsInputLayout.editText?.text.toString()),
@@ -145,8 +157,12 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun getEditedNoteCategoryIndex() : Int {
-        data.forEachIndexed { index, element ->
-            if (element.categoryName == noteModel?.category) return index
+        if (isRecreated) {
+           return editNoteViewModel.clickedPositionNumber
+        } else {
+            data.forEachIndexed { index, element ->
+                if (element.categoryName == noteModel?.category) return index
+            }
         }
         return 0
     }
@@ -159,16 +175,6 @@ class EditNoteFragment : Fragment() {
             newTagsList.add(it.trimStart())
         }
         return newTagsList
-    }
-
-    private fun updateListItem(position: Int) {
-        if(position < data.size) {
-            binding.horizontalCategoryListRecyclerView.removeAllViews()
-            adapter.setData(data, position)
-            selectedCategoryIndex = position
-        } else {
-            navigator.navigateToCategoryCreation()
-        }
     }
 
     override fun onDestroyView() {
