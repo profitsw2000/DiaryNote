@@ -28,6 +28,7 @@ class CreateNoteViewModel(
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
+    var clickedPositionNumber = 0
 
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
     val categoriesLiveData: LiveData<CategoriesState> by this::_categoriesLiveData
@@ -54,6 +55,7 @@ class CreateNoteViewModel(
                     _categoriesLiveData.value = CategoriesState.Error(errorMessage)
                 }
             )
+            .addViewLifeCycle()
     }
 
     fun getNotesData(noteTitle: String,
@@ -134,10 +136,12 @@ class CreateNoteViewModel(
                     Log.d("VVV", "addNote: $it")
                 }
             )
+            .addViewLifeCycle()
     }
 
     fun clear() {
         _notesLiveData.value = null
+        clickedPositionNumber = 0
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

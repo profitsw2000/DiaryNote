@@ -1,8 +1,6 @@
-package diarynote.createnotescreen.presentation.view.adapter
+package diarynote.template.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -10,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.util.CoilUtils
-import diarynote.createnotescreen.databinding.HorizontalCategoryListItemRecyclerViewBinding
-import diarynote.createnotescreen.presentation.view.utils.OnItemClickListener
 import diarynote.data.model.CategoryModel
 
 class HorizontalCategoryListAdapter(

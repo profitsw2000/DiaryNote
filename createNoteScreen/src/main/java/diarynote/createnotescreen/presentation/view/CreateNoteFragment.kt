@@ -30,14 +30,17 @@ class CreateNoteFragment : Fragment() {
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding get() = _binding!!
     private lateinit var data: List<CategoryModel>
-    private var selectedCategoryIndex = 0
     private val createNoteViewModel: CreateNoteViewModel by viewModel()
     private val navigator: Navigator by inject()
     private val imageLoader: ImageLoader by inject()
     private val adapter = HorizontalCategoryListAdapter(
         object : OnItemClickListener {
             override fun onItemClick(position: Int) {
-                updateListItem(position)
+                if(position < data.size) {
+                    createNoteViewModel.clickedPositionNumber = position
+                } else {
+                    navigator.navigateToCategoryCreation()
+                }
             }
         },
         imageLoader
@@ -65,6 +68,7 @@ class CreateNoteFragment : Fragment() {
         val dialoger =
             DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
+                    createNoteViewModel.clear()
                     navigator.navigateUp()
                 }
             })
@@ -105,8 +109,8 @@ class CreateNoteFragment : Fragment() {
                 noteTitle,
                 noteContent,
                 noteTags,
-                data[selectedCategoryIndex].categoryName,
-                data[selectedCategoryIndex].id
+                data[createNoteViewModel.clickedPositionNumber].categoryName,
+                data[createNoteViewModel.clickedPositionNumber].id
             )
         }
     }
@@ -172,7 +176,7 @@ class CreateNoteFragment : Fragment() {
     private fun loadingCategoriesSuccess(categoriesState: CategoriesState.Success)  = with(binding) {
         progressBar.visibility = View.GONE
         data = categoriesState.categoryModelList
-        adapter.setData(data)
+        adapter.setData(data, createNoteViewModel.clickedPositionNumber)
     }
 
     private fun noteCreationError(notesState: NotesState.Error) = with(binding) {
@@ -195,24 +199,8 @@ class CreateNoteFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun updateListItem(position: Int) {
-        if(position < data.size) {
-            binding.horizontalCategoryListRecyclerView.removeAllViews()
-            adapter.updateData(data, position)
-            selectedCategoryIndex = position
-        } else {
-            navigator.navigateToCategoryCreation()
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = CreateNoteFragment()
     }
 }
