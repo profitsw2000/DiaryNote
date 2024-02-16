@@ -1,12 +1,10 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
-import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import coil.util.CoilUtils
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding

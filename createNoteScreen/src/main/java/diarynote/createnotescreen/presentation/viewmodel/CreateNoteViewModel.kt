@@ -133,7 +133,6 @@ class CreateNoteViewModel(
                     _notesLiveData.value = NotesState.Success(arrayListOf())
                 },{
                     _notesLiveData.value = NotesState.Error(it.message!!, (1 shl ROOM_BIT_NUMBER))
-                    Log.d("VVV", "addNote: $it")
                 }
             )
             .addViewLifeCycle()
