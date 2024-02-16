@@ -80,6 +80,7 @@
     <string name="add_category_name_title_text">Название категории</string>
     <string name="add_category_color_title_text">Цвет</string>
     <string name="icon_picker_item_image_content_description">Pick icon</string>
+    <string name="add_category_icon_title_text">Иконка</string>
     <string name="add_category_success_dialog_title_text">Добавление категории</string>
     <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
     <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>

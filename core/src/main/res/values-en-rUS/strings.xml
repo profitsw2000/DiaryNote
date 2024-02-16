@@ -81,6 +81,7 @@
     <string name="add_category_name_title_text">Category name</string>
     <string name="add_category_color_title_text">Color</string>
     <string name="icon_picker_item_image_content_description">Pick icon</string>
+    <string name="add_category_icon_title_text">Icon</string>
     <string name="add_category_success_dialog_title_text">Add category</string>
     <string name="add_category_success_dialog_content_text">Category created successfully</string>
     <string name="category_input_layout_error_text">Category at least 2 letters</string>
