@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:contentDescription="Добавить категорию...">
+    android:contentDescription="Добавить/изменить категорию...">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_constraint_layout"

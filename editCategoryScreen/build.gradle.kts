@@ -1,43 +1,53 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt") version "1.8.0"
 }
 
 android {
     namespace = "ru.profitsw2000.editcategoryscreen"
-    compileSdk = 34
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    //Modules
+    implementation(project(Modules.core))
+    implementation(project(Modules.data))
+    implementation(project(Modules.navigator))
+
+    //Kotlin
+    implementation(Kotlin.core)
+    //Design
+    implementation(Design.appCompat)
+    implementation(Design.material)
+    implementation(Design.constraintLayout)
+    //ViewModel
+    implementation(ViewModel.liveData)
+    implementation(ViewModel.viewModel)
+    //Legacy
+    implementation(Legacy.legacy)
+    //RxJava
+    implementation(RxJava.rxJava)
+    implementation(RxJava.rxAndroid)
+    implementation(RxJava.rxKotlin)
+    //Koin
+    implementation(Koin.koin)
+    //Room
+    implementation(Room.roomRuntime)
+    implementation(Room.roomKtx)
+    implementation(Room.roomRxJava)
+    kapt(Room.roomCompiler)
+    //Picasso
+    implementation(Picasso.picasso)
+    //Glide
+    implementation(Glide.glide)
+    //Coil
+    implementation(Coil.coil)
+    implementation(Coil.coilSvg)
+    //Test
+    testImplementation(TestImpl.jUnit)
+    androidTestImplementation(TestImpl.extJUnit)
+    androidTestImplementation(TestImpl.espresso)
 }
