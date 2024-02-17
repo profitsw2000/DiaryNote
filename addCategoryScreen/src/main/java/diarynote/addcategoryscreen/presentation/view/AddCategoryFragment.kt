@@ -229,18 +229,6 @@ class AddCategoryFragment : Fragment() {
         pickSvgFile.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
     }
 
-    private fun copyFile(sourcePath: String, targetPath: String) {
-        val sourceFile = File(sourcePath)
-        val targetFile = File(targetPath)
-
-        try {
-            sourceFile.copyTo(targetFile, true)
-        } catch (exception: Exception) {
-            Toast.makeText(requireActivity(),
-                getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun getFileNameFromFullPath(fullFilePath: String): String {
         val splittedPathList = fullFilePath.split("/")
         return splittedPathList.last()
