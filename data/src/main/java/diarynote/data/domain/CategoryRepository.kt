@@ -15,4 +15,6 @@ interface CategoryRepository {
     fun addCategory(categoryEntity: CategoryEntity): Completable
 
     fun addCategoryList(categoryEntityList: List<CategoryEntity>): Completable
+
+    fun updateCategory(categoryEntity: CategoryEntity): Completable
 }

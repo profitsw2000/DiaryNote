@@ -3,6 +3,7 @@ package ru.profitsw2000.editcategoryscreen.presentation.viewmodel
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import diarynote.core.utils.CATEGORY_NAME_LENGTH_ERROR
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
@@ -30,7 +31,7 @@ class EditCategoryViewModel(
 
     fun editCategory(categoryModel: CategoryModel) {
         if (categoryModel.categoryName.length < 2) {
-            _categoryLiveData.value = CategoriesState.Error("Название категории не менее 2 символов")
+            _categoryLiveData.value = CategoriesState.Error(CATEGORY_NAME_LENGTH_ERROR)
         } else {
             updateCategory(categoryModel)
         }
@@ -38,7 +39,7 @@ class EditCategoryViewModel(
 
     private fun updateCategory(categoryModel: CategoryModel) {
         _categoryLiveData.value = CategoriesState.Loading
-        categoryInteractor.addCategory(categoryMapper.map(categoryModel.copy(userId = sharedPreferences.getInt(
+        categoryInteractor.updateCategory(categoryMapper.map(categoryModel.copy(userId = sharedPreferences.getInt(
             CURRENT_USER_ID, 0))), false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

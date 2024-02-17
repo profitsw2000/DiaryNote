@@ -34,3 +34,5 @@ const val NOTE_TITLE_MIN_LENGTH = 2
 const val NOTE_CONTENT_MIN_LENGTH = 10
 const val NOTE_TAGS_MIN_LENGTH = 2
 const val NOTE_TAG_WORDS_LIMIT = 2
+
+const val CATEGORY_NAME_LENGTH_ERROR = "short_category_name_error"

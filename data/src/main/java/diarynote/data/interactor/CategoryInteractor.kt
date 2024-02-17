@@ -44,4 +44,12 @@ class CategoryInteractor(
             categoryRepositoryLocal.addCategoryList(categoryEntityList)
         }
     }
+
+    fun updateCategory(categoryEntity: CategoryEntity, remote: Boolean): Completable {
+        return if (remote) {
+            categoryRepositoryRemote.updateCategory(categoryEntity)
+        } else {
+            categoryRepositoryLocal.updateCategory(categoryEntity)
+        }
+    }
 }

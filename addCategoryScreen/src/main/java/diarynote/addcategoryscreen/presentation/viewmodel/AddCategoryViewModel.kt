@@ -3,6 +3,7 @@ package diarynote.addcategoryscreen.presentation.viewmodel
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import diarynote.core.utils.CATEGORY_NAME_LENGTH_ERROR
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
@@ -31,7 +32,7 @@ class AddCategoryViewModel(
 
     fun addCategory(categoryModel: CategoryModel) {
         if (categoryModel.categoryName.length < 2) {
-            _categoryLiveData.value = CategoriesState.Error("Название категории не менее 2 символов")
+            _categoryLiveData.value = CategoriesState.Error(CATEGORY_NAME_LENGTH_ERROR)
         } else {
             insertCategory(categoryModel)
         }

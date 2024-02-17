@@ -25,6 +25,7 @@ import diarynote.addcategoryscreen.presentation.view.adapter.ColorListAdapter
 import diarynote.addcategoryscreen.presentation.view.adapter.IconListAdapter
 import diarynote.addcategoryscreen.presentation.viewmodel.AddCategoryViewModel
 import diarynote.core.common.dialog.data.DialogerImpl
+import diarynote.core.utils.CATEGORY_NAME_LENGTH_ERROR
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.utils.listener.OnItemClickListener
@@ -183,7 +184,8 @@ class AddCategoryFragment : Fragment() {
 
     private fun handleError(message: String) = with(binding) {
         progressBar.visibility = View.GONE
-        if (message == getString(diarynote.core.R.string.category_input_layout_error_text)) categoryTitleInputLayout.error = message
+        if (message == CATEGORY_NAME_LENGTH_ERROR)
+            categoryTitleInputLayout.error = getString(diarynote.core.R.string.category_input_layout_error_text)
         else Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 

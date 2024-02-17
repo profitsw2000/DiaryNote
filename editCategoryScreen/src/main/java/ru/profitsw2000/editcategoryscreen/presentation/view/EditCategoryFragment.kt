@@ -14,9 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import coil.ImageLoader
 import diarynote.core.common.dialog.data.DialogerImpl
+import diarynote.core.utils.CATEGORY_NAME_LENGTH_ERROR
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.utils.listener.OnItemClickListener
+import diarynote.data.domain.CATEGORY_MODEL_BUNDLE
 import diarynote.data.hardcodeddata.colorCodeList
 import diarynote.data.hardcodeddata.iconCodeList
 import diarynote.data.model.CategoryModel
@@ -40,8 +42,12 @@ class EditCategoryFragment : Fragment() {
     private val imageLoader: ImageLoader by inject()
     private val colorData = colorCodeList
     private val iconData = iconCodeList
+    private val categoryModel: CategoryModel? by lazy { 
+        arguments?.getParcelable(CATEGORY_MODEL_BUNDLE)
+    }
     private val colorListAdapter = ColorListAdapter()
     private lateinit var imagePath: String
+    private var isRecreated = false
     private val iconListAdapter = IconListAdapter(
         onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(position: Int) {
@@ -84,6 +90,7 @@ class EditCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isRecreated = (savedInstanceState != null)
         initViews()
         observeData()
         observeCopyFileData()
@@ -95,14 +102,31 @@ class EditCategoryFragment : Fragment() {
     }
 
     private fun initViews() = with(binding) {
+        if (categoryModel != null) {
+            initInputLayout()
+            initColorListAdapter()
+            initIconListAdapter()
+            initEditCategoryButton()
+        }
+    }
 
+    private fun initInputLayout() = with(binding) {
+        categoryTitleInputLayout.editText?.setText(categoryModel?.categoryName)
+    }
+
+    private fun initColorListAdapter() = with(binding) {
         colorPickerRecyclerView.adapter = colorListAdapter
-        colorListAdapter.setData(colorData, editCategoryViewModel.selectedColorPosition)
-        colorPickerRecyclerView.scrollToPosition(editCategoryViewModel.selectedColorPosition)
+        colorListAdapter.setData(colorData, getEditedCategoryColorIndex())
+        colorPickerRecyclerView.scrollToPosition(getEditedCategoryColorIndex())
+    }
 
+    private fun initIconListAdapter() = with(binding) {
         iconPickerRecyclerView.adapter = iconListAdapter
-        iconListAdapter.setData(iconData, editCategoryViewModel.selectedIconPosition)
-        iconPickerRecyclerView.scrollToPosition(editCategoryViewModel.selectedIconPosition)
+        iconListAdapter.setData(iconData, getEditedCategoryIconIndex())
+        iconPickerRecyclerView.scrollToPosition(getEditedCategoryIconIndex())
+    }
+
+    private fun initEditCategoryButton() = with(binding) {
 
         addCategoryButton.setOnClickListener {
             val categoryModel = CategoryModel(
@@ -115,6 +139,7 @@ class EditCategoryFragment : Fragment() {
             )
             editCategoryViewModel.editCategory(categoryModel)
         }
+
     }
 
     private fun observeData() {
@@ -165,7 +190,8 @@ class EditCategoryFragment : Fragment() {
 
     private fun handleError(message: String) = with(binding) {
         progressBar.visibility = View.GONE
-        if (message == getString(diarynote.core.R.string.category_input_layout_error_text)) categoryTitleInputLayout.error = message
+        if (message == CATEGORY_NAME_LENGTH_ERROR)
+            categoryTitleInputLayout.error = getString(diarynote.core.R.string.category_input_layout_error_text)
         else Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
@@ -264,6 +290,28 @@ class EditCategoryFragment : Fragment() {
             getString(diarynote.core.R.string.read_external_storage_permission_denied_explanation_dialog_message_text),
             getString(diarynote.core.R.string.dialog_button_ok_text)
         )
+    }
+
+    private fun getEditedCategoryColorIndex() : Int {
+        if (isRecreated) {
+            return editCategoryViewModel.selectedColorPosition
+        } else {
+            colorData.forEachIndexed { index, element ->
+                if (element == categoryModel?.color) return index
+            }
+            return 0
+        }
+    }
+
+    private fun getEditedCategoryIconIndex() : Int {
+        if (isRecreated) {
+            return editCategoryViewModel.selectedIconPosition
+        } else {
+            iconData.forEachIndexed { index, element ->
+                if (element == categoryModel?.categoryImage) return index
+            }
+            return 0
+        }
     }
 
     override fun onStop() {
