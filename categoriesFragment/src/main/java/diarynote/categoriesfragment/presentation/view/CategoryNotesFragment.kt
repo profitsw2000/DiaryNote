@@ -14,9 +14,13 @@ import com.google.android.material.snackbar.Snackbar
 import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
+import diarynote.core.common.dialog.data.DialogerImpl
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.domain.CATEGORY_ID_BUNDLE
+import diarynote.data.domain.CATEGORY_MODEL_BUNDLE
 import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
+import diarynote.data.model.CategoryModel
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
@@ -33,6 +37,7 @@ class CategoryNotesFragment : Fragment() {
     private val categoriesViewModel: CategoriesViewModel by viewModel()
     private val categoryId: Int? by lazy { arguments?.getInt(CATEGORY_ID_BUNDLE) }
     private val categoryName: String? by lazy { arguments?.getString(CATEGORY_NAME_BUNDLE) }
+    private val categoryModel: CategoryModel? by lazy { arguments?.getParcelable(CATEGORY_MODEL_BUNDLE) }
     private val adapter = NotesPagedListAdapter(object : OnNoteItemClickListener{
         override fun onItemClick(noteModel: NoteModel) {
             val bundle = Bundle().apply {
@@ -126,6 +131,24 @@ class CategoryNotesFragment : Fragment() {
     }
 
     private fun editCategory() {
+        val dialoger = DialogerImpl(
+            requireActivity(),
+            onDialogPositiveButtonClickListener = object  : OnDialogPositiveButtonClickListener{
+                override fun onClick() {
+                    val bundle = Bundle().apply {
+                        putParcelable(CATEGORY_MODEL_BUNDLE, categoryModel)
+                    }
+                    this@CategoryNotesFragment.arguments = bundle
+                    //navigate to editcategory screen
+                }
+            }
+        )
+
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.edit_category_dialog_title_text),
+            getString(diarynote.core.R.string.edit_category_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_yes_text),
+            getString(diarynote.core.R.string.dialog_button_no_text)
+        )
     }
 
     override fun onDestroyView() {

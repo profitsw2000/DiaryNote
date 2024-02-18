@@ -14,6 +14,7 @@ import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
 import diarynote.data.domain.CATEGORY_ID_BUNDLE
+import diarynote.data.domain.CATEGORY_MODEL_BUNDLE
 import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.model.CategoryModel
 import diarynote.navigator.Navigator
@@ -35,6 +36,7 @@ class CategoriesFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putInt(CATEGORY_ID_BUNDLE, categoryModel.id)
                     putString(CATEGORY_NAME_BUNDLE, categoryModel.categoryName)
+                    putParcelable(CATEGORY_MODEL_BUNDLE, categoryModel)
                 }
                 this@CategoriesFragment.arguments = bundle
                 navigator.actionCategoriesToCategoryNotes(bundle)

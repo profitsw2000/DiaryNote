@@ -77,6 +77,8 @@
     <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Добавление пользовательской иконки для создаваемой категории недоступно. Необходимо разрешить доступ к файлам.</string>
     <string name="edit_note_dialog_title_text">Редактирование заметки</string>
     <string name="edit_note_dialog_message_text">Вы действительно хотите изменить данную заметку?</string>
+    <string name="edit_category_dialog_title_text">Редактирование категории</string>
+    <string name="edit_category_dialog_message_text">Вы действительно хотите внести изменения в данную категорию?</string>
     <string name="add_category_name_title_text">Название категории</string>
     <string name="add_category_color_title_text">Цвет</string>
     <string name="icon_picker_item_image_content_description">Pick icon</string>

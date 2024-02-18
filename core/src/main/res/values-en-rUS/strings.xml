@@ -78,6 +78,8 @@
     <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Adding a custom icon for a created category is not available. You have to allow access to files.</string>
     <string name="edit_note_dialog_title_text">Edit note</string>
     <string name="edit_note_dialog_message_text">Are you sure you want to edit this note?</string>
+    <string name="edit_category_dialog_title_text">Edit category</string>
+    <string name="edit_category_dialog_message_text">Are you sure you want to edit this note?</string>
     <string name="add_category_name_title_text">Category name</string>
     <string name="add_category_color_title_text">Color</string>
     <string name="icon_picker_item_image_content_description">Pick icon</string>
