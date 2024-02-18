@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoryNotesBinding
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
 import diarynote.data.domain.CATEGORY_ID_BUNDLE
@@ -42,6 +46,7 @@ class CategoryNotesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = categoryName
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -58,6 +63,24 @@ class CategoryNotesFragment : Fragment() {
         categoryId?.let { categoriesViewModel.getCategoryNotesPagedList(it) }
         initViews()
         observeData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.delete -> {
+                deleteCategory()
+                true
+            }
+            R.id.edit -> {
+                editCategory()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initViews() = with(binding) {
@@ -97,6 +120,12 @@ class CategoryNotesFragment : Fragment() {
         } else {
             progressBar.visibility = View.GONE
         }
+    }
+
+    private fun deleteCategory() {
+    }
+
+    private fun editCategory() {
     }
 
     override fun onDestroyView() {

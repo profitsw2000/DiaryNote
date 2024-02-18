@@ -36,6 +36,11 @@ class CategoriesListAdapter(
             onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
         }
 
+        binding.root.setOnLongClickListener {
+            onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
+            return@setOnLongClickListener true
+        }
+
         return categoryViewHolder
     }
 
