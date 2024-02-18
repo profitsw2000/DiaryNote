@@ -9,6 +9,7 @@
     <string name="edit_note_fragment_label_text">Редактирование...</string>
     <string name="add_category_fragment_label_text">Добавить категорию...</string>
     <string name="category_notes_fragment_label_text">Категория...</string>
+    <string name="edit_category_fragment_label_text">Редактирование категории...</string>
     <string name="account_fragment_label_text">Учетная запись</string>
     <string name="appearance_fragment_label_text">Тема</string>
     <string name="language_fragment_label_text">Язык</string>

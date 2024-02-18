@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DiaryNote</string>
+    <string name="app_name">Дневник заметок</string>
     <string name="main_bottom_nav_title">Главная</string>
     <string name="history_bottom_nav_title">История</string>
     <string name="more_bottom_nav_title">Ещё</string>
