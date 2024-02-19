@@ -139,7 +139,7 @@ class CategoryNotesFragment : Fragment() {
                         putParcelable(CATEGORY_MODEL_BUNDLE, categoryModel)
                     }
                     this@CategoryNotesFragment.arguments = bundle
-                    //navigate to editcategory screen
+                    navigator.actionCategoryNotesToEditCategory(bundle)
                 }
             }
         )

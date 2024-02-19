@@ -17,6 +17,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.profitsw2000.diarynote.di.appModule
+import ru.profitsw2000.editcategoryscreen.di.editCategoryModule
 
 //модуль App
 class App : Application() {
@@ -37,7 +38,8 @@ class App : Application() {
                 addCategoryModule,
                 calendarModule,
                 settingsModule,
-                noteModule
+                noteModule,
+                editCategoryModule
             )
         }
     }

@@ -127,17 +127,17 @@ class EditCategoryFragment : Fragment() {
     }
 
     private fun initEditCategoryButton() = with(binding) {
-
+        addCategoryButton.text = "Изменить"
         addCategoryButton.setOnClickListener {
-            val categoryModel = CategoryModel(
-                id = 0,
-                color = colorData[colorListAdapter.clickedPosition],
-                categoryName = categoryTitleInputLayout.editText?.text.toString(),
-                categoryImage = iconData[iconListAdapter.clickedPosition],
-                imagePath = imagePath,
-                userId = 0
-            )
-            editCategoryViewModel.editCategory(categoryModel)
+            categoryModel?.let { it1 ->
+                editCategoryViewModel.editCategory(
+                    it1.copy(
+                        color = colorData[colorListAdapter.clickedPosition],
+                        categoryName = categoryTitleInputLayout.editText?.text.toString(),
+                        categoryImage = iconData[iconListAdapter.clickedPosition],
+                        imagePath = imagePath)
+                )
+            }
         }
 
     }

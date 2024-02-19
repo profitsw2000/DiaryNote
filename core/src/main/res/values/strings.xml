@@ -20,6 +20,7 @@
     <string name="confirm_password_hint_text">Подтвердить пароль</string>
     <string name="send_password_title_text">Отправить пароль на почту</string>
     <string name="send_button_text">ОТПРАВИТЬ</string>
+    <string name="edit_button_text">ИЗМЕНИТЬ</string>
     <string name="sign_in_input_forms_error_text">Неверный логин и/или пароль</string>
     <string name="invalid_input_error_text">Неверный ввод: %1$s%2$s%3$s</string>
     <string name="comma_string">, </string>
@@ -87,6 +88,8 @@
     <string name="add_category_success_dialog_title_text">Добавление категории</string>
     <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
     <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>
+    <string name="edit_category_success_dialog_title_text">Изменение категории</string>
+    <string name="edit_category_success_dialog_content_text">Изменение категории завершено успешно</string>
     <string name="no_notes_by_this_category_message_text">По выбранной категории заметок нет</string>
     <string name="all_time_notes_chip_text">Все</string>
     <string name="todays_notes_chip_text">Сегодня</string>

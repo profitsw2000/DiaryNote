@@ -47,7 +47,7 @@
             app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_categories_to_editCategoryFragment"
-            app:destination="@id/editCategoryFragment"
+            app:destination="@id/edit_category"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"

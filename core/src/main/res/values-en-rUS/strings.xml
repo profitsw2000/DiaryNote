@@ -20,6 +20,7 @@
     <string name="confirm_password_hint_text">Confirm password</string>
     <string name="send_password_title_text">Send password by e-mail</string>
     <string name="send_button_text">SEND</string>
+    <string name="edit_button_text">EDIT</string>
     <string name="sign_in_input_forms_error_text">Invalid login and/or password</string>
     <string name="invalid_input_error_text">Invalid input: %1$s%2$s%3$s</string>
     <string name="comma_string">, </string>
@@ -86,6 +87,8 @@
     <string name="add_category_icon_title_text">Icon</string>
     <string name="add_category_success_dialog_title_text">Add category</string>
     <string name="add_category_success_dialog_content_text">Category created successfully</string>
+    <string name="edit_category_success_dialog_title_text">Edit category</string>
+    <string name="edit_category_success_dialog_content_text">Category edited successfully</string>
     <string name="category_input_layout_error_text">Category at least 2 letters</string>
     <string name="no_notes_by_this_category_message_text">here are no notes for the selected category</string>
     <string name="all_time_notes_chip_text">All</string>

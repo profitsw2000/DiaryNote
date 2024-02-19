@@ -43,5 +43,5 @@ dependencies {
     implementation project(path: Modules.addcategoryscreen)
     implementation project(path: Modules.calendarfragment)
     implementation project(path: Modules.settingsfragment)
-
+    implementation project(path: Modules.editcategoryscreen)
 }

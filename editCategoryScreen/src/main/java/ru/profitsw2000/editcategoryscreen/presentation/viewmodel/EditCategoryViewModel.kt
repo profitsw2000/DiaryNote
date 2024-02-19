@@ -17,8 +17,7 @@ import java.io.File
 
 class EditCategoryViewModel(
     private val categoryInteractor: CategoryInteractor,
-    private val categoryMapper: CategoryMapper,
-    private val sharedPreferences: SharedPreferences
+    private val categoryMapper: CategoryMapper
 ) : CoreViewModel() {
     var selectedColorPosition = 0
     var selectedIconPosition = 0
@@ -39,8 +38,7 @@ class EditCategoryViewModel(
 
     private fun updateCategory(categoryModel: CategoryModel) {
         _categoryLiveData.value = CategoriesState.Loading
-        categoryInteractor.updateCategory(categoryMapper.map(categoryModel.copy(userId = sharedPreferences.getInt(
-            CURRENT_USER_ID, 0))), false)
+        categoryInteractor.updateCategory(categoryMapper.map(categoryModel), false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
