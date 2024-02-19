@@ -128,6 +128,20 @@ class CategoryNotesFragment : Fragment() {
     }
 
     private fun deleteCategory() {
+        val dialoger = DialogerImpl(
+            requireActivity(),
+            onDialogPositiveButtonClickListener = object  : OnDialogPositiveButtonClickListener{
+                override fun onClick() {
+
+                }
+            }
+        )
+
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.edit_category_dialog_title_text),
+            getString(diarynote.core.R.string.edit_category_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_yes_text),
+            getString(diarynote.core.R.string.dialog_button_no_text)
+        )
     }
 
     private fun editCategory() {

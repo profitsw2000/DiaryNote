@@ -31,4 +31,8 @@ class CategoryRepositoryLocalImpl(
     override fun updateCategory(categoryEntity: CategoryEntity): Completable {
         return database.categoryDao.update(categoryEntity)
     }
+
+    override fun deleteCategory(categoryEntity: CategoryEntity): Completable {
+        return database.categoryDao.delete(categoryEntity)
+    }
 }
