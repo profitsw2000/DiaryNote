@@ -78,5 +78,7 @@ interface Navigator {
 
     fun actionHelpToHelpItemDescription(bundle: Bundle)
 
+    fun actionCategoryNotesToEditCategory(bundle: Bundle)
+
     fun navigateUp()
 }
