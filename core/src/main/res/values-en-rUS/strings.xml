@@ -90,7 +90,10 @@
     <string name="edit_category_success_dialog_title_text">Edit category</string>
     <string name="edit_category_success_dialog_content_text">Category edited successfully</string>
     <string name="category_input_layout_error_text">Category at least 2 letters</string>
-    <string name="no_notes_by_this_category_message_text">here are no notes for the selected category</string>
+    <string name="no_notes_by_this_category_message_text">No notes found for selected category</string>
+    <string name="delete_category_dialog_title_text">Deleting category</string>
+    <string name="delete_category_dialog_message_text">Deleting a given category will delete all notes associated with it. Are you sure you want to delete this category?</string>
+    <string name="delete_category_success_dialog_message_text">The category was deleted successfully!</string>
     <string name="all_time_notes_chip_text">All</string>
     <string name="todays_notes_chip_text">Today</string>
     <string name="last_week_notes_chip_text">Week</string>

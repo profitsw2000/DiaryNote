@@ -91,6 +91,9 @@
     <string name="edit_category_success_dialog_title_text">Изменение категории</string>
     <string name="edit_category_success_dialog_content_text">Изменение категории завершено успешно</string>
     <string name="no_notes_by_this_category_message_text">По выбранной категории заметок нет</string>
+    <string name="delete_category_dialog_title_text">Удаление категории</string>
+    <string name="delete_category_dialog_message_text">Удаление данной категории удалит все заметки, связанные с ней. Вы действительно хотите удалить данную категорию?</string>
+    <string name="delete_category_success_dialog_message_text">Удаление категории произведено успешно!</string>
     <string name="all_time_notes_chip_text">Все</string>
     <string name="todays_notes_chip_text">Сегодня</string>
     <string name="last_week_notes_chip_text">Неделя</string>

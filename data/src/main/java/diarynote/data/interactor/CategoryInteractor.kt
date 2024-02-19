@@ -55,9 +55,9 @@ class CategoryInteractor(
 
     fun deleteCategory(categoryEntity: CategoryEntity, remote: Boolean): Completable {
         return if (remote) {
-            categoryRepositoryRemote.updateCategory(categoryEntity)
+            categoryRepositoryRemote.deleteCategory(categoryEntity)
         } else {
-            categoryRepositoryLocal.updateCategory(categoryEntity)
+            categoryRepositoryLocal.deleteCategory(categoryEntity)
         }
     }
 }

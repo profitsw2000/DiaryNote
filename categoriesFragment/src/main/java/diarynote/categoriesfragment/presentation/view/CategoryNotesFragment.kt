@@ -22,6 +22,7 @@ import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.CategoryDeleteState
 import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
 import diarynote.template.presentation.adapter.NotesPagedListAdapter
@@ -68,6 +69,7 @@ class CategoryNotesFragment : Fragment() {
         categoryId?.let { categoriesViewModel.getCategoryNotesPagedList(it) }
         initViews()
         observeData()
+        observeCategoryDeleteData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -108,6 +110,21 @@ class CategoryNotesFragment : Fragment() {
         }
     }
 
+    private fun observeCategoryDeleteData() {
+        categoriesViewModel.categoryDeleteLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                CategoryDeleteState.Deleting -> setProgressBarVisible(true)
+                is CategoryDeleteState.Error -> handleError(it.message)
+                CategoryDeleteState.Idle -> {}
+                CategoryDeleteState.Success -> successfulCategoryDelete()
+            }
+        }
+
+        categoriesViewModel.notesPagedList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+    }
+
     private fun handleError(message: String) = with(binding) {
         setProgressBarVisible(false)
         Snackbar.make(this.categoryNotesFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
@@ -132,13 +149,13 @@ class CategoryNotesFragment : Fragment() {
             requireActivity(),
             onDialogPositiveButtonClickListener = object  : OnDialogPositiveButtonClickListener{
                 override fun onClick() {
-
+                    categoryModel?.let { categoriesViewModel.deleteCategory(it) }
                 }
             }
         )
 
-        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.edit_category_dialog_title_text),
-            getString(diarynote.core.R.string.edit_category_dialog_message_text),
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.delete_category_dialog_title_text),
+            getString(diarynote.core.R.string.delete_category_dialog_message_text),
             getString(diarynote.core.R.string.dialog_button_yes_text),
             getString(diarynote.core.R.string.dialog_button_no_text)
         )
@@ -162,6 +179,22 @@ class CategoryNotesFragment : Fragment() {
             getString(diarynote.core.R.string.edit_category_dialog_message_text),
             getString(diarynote.core.R.string.dialog_button_yes_text),
             getString(diarynote.core.R.string.dialog_button_no_text)
+        )
+    }
+
+    private fun successfulCategoryDelete() = with(binding) {
+        val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+            override fun onClick() {
+                navigator.navigateUp()
+            }
+        })
+
+        setProgressBarVisible(false)
+        categoriesViewModel.idleDelete()
+
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.delete_category_dialog_title_text),
+            getString(diarynote.core.R.string.delete_category_success_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text)
         )
     }
 
