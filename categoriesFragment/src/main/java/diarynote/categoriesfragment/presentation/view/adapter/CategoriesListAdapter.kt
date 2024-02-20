@@ -4,14 +4,18 @@ import android.content.res.Resources
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.request.ImageRequest
 import diarynote.categoriesfragment.databinding.CategoriesListItemBinding
 import diarynote.data.model.CategoryModel
 import diarynote.template.utils.OnCategoryItemClickListener
 
 class CategoriesListAdapter(
-    private val onCategoryItemClickListener: OnCategoryItemClickListener
+    private val onCategoryItemClickListener: OnCategoryItemClickListener,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     private var data: List<CategoryModel> = arrayListOf()
@@ -32,6 +36,11 @@ class CategoriesListAdapter(
             onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
         }
 
+        binding.root.setOnLongClickListener {
+            onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
+            return@setOnLongClickListener true
+        }
+
         return categoryViewHolder
     }
 
@@ -45,7 +54,7 @@ class CategoriesListAdapter(
         with(holder){
             cardView.setCardBackgroundColor(categoryModel.color)
             cardView.layoutParams = getViewParams(position)
-            imageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
+            setCategoryImage(imageView, data[position])
             title.text = categoryModel.categoryName
         }
     }
@@ -74,6 +83,20 @@ class CategoriesListAdapter(
             dip.toFloat(),
             r.displayMetrics
         ).toInt()
+    }
+
+    private fun setCategoryImage(imageView: ImageView, categoryModel: CategoryModel) {
+        if (categoryModel.imagePath == "") {
+            imageView.setImageResource(getImageFromResources(categoryModel.categoryImage))
+        } else {
+            //set image by Coil
+            val request = ImageRequest.Builder(imageView.context)
+                .data(categoryModel.imagePath)
+                .target(imageView)
+                .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+                .build()
+            imageLoader.enqueue(request)
+        }
     }
 
     private fun getImageFromResources(imgId: Int) : Int {

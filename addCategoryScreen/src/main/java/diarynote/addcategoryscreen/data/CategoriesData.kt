@@ -55,4 +55,4 @@ val colorCodeList: List<Int> = arrayListOf(
     0xFFFF9100.toInt()
 )
 
-val iconCodeList: List<Int> = arrayListOf(1, 2, 3, 4, 5)
+val iconCodeList: List<Int> = arrayListOf(1, 2, 3, 4, 5, 6)

@@ -64,11 +64,12 @@ class UserImageFragment : Fragment() {
         settingsViewModel.userLiveData.observe(viewLifecycleOwner, observer)
     }
 
-    private fun renderData(userState: UserState) {
+    private fun renderData(userState: UserState?) {
         when(userState) {
             is UserState.Error -> handleError(userState.errorCode, userState.message)
             UserState.Loading -> setProgressBarVisible(true)
             is UserState.Success -> handleSuccess(userState.userModel)
+            else -> {}
         }
     }
 
@@ -113,5 +114,7 @@ class UserImageFragment : Fragment() {
 
     private fun chooseImage() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+/*        val mimeType = "image/.svg"
+        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))*/
     }
 }

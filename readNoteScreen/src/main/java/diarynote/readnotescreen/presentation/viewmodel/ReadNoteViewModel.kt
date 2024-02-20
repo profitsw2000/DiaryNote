@@ -36,6 +36,7 @@ class ReadNoteViewModel(
                     _notesLiveData.value = NotesState.Error(errorMessage, 0)
                 }
             )
+            .addViewLifeCycle()
     }
 
     fun deleteNote(noteModel: NoteModel) {
@@ -50,6 +51,7 @@ class ReadNoteViewModel(
                     _notesLiveData.value = it.message?.let { it1 -> NotesState.Error(it1, 0) }
                 }
             )
+            .addViewLifeCycle()
     }
 
     fun clear() {

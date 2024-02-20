@@ -1,7 +1,6 @@
 package diarynote.data.interactor
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.data.local.source.CategoryNotesDataSource

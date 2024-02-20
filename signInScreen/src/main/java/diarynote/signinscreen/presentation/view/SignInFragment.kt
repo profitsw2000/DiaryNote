@@ -69,11 +69,12 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
         }
     }
 
-    private fun renderData(loginState: LoginState) {
+    private fun renderData(loginState: LoginState?) {
         when(loginState) {
             is LoginState.Loading -> {binding.progressBar.visibility = View.VISIBLE}
             is LoginState.LoginSuccess -> enterApp()
             is LoginState.Error -> setErrorMessage(loginState.errorCode)
+            else -> {}
         }
     }
 

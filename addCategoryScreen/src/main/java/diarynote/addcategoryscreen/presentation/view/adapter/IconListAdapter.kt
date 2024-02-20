@@ -1,18 +1,23 @@
 package diarynote.addcategoryscreen.presentation.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.util.CoilUtils
 import diarynote.addcategoryscreen.databinding.CategoryIconPickerRecyclerviewItemBinding
+import diarynote.core.utils.listener.OnItemClickListener
 
-class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
+class IconListAdapter (
+    private val onItemClickListener: OnItemClickListener,
+    private val imageLoader: ImageLoader
+) : RecyclerView.Adapter<IconListAdapter.IconViewHolder>() {
 
-    private lateinit var binding: CategoryIconPickerRecyclerviewItemBinding
     private var data: List<Int> = arrayListOf()
-    private lateinit var context: Context
     var clickedPosition = 0
+    private var pickedIconPath = ""
 
     fun setData(data: List<Int>, clickedPosition: Int) {
         this.data = data
@@ -20,37 +25,54 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = CategoryIconPickerRecyclerviewItemBinding.inflate(
+    fun updateIconImage(iconPath: String) {
+        pickedIconPath = iconPath
+        clickedPosition = data.size - 1
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewHolder {
+        val binding = CategoryIconPickerRecyclerviewItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        context = parent.context
-        val iconViewHolder = ViewHolder(binding)
+        val IconViewHolder = IconViewHolder(binding)
 
         binding.root.setOnClickListener {
-            val position = iconViewHolder.adapterPosition
+            val position = IconViewHolder.adapterPosition
             val oldPosition = clickedPosition
-            if (position != clickedPosition) {
+            if (position != clickedPosition && position != (data.size - 1)) {
                 clickedPosition = position
                 notifyItemChanged(position)
                 notifyItemChanged(oldPosition)
             }
+            onItemClickListener.onItemClick(position)
         }
-        return iconViewHolder
+        return IconViewHolder
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.imageView.setImageResource(getImageFromResources(data[position]))
-        if (clickedPosition == position) {
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.purple_200))
-        } else {
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, diarynote.core.R.color.white))
+    override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
+
+        if (position != (data.size - 1)) {
+            holder.imageView.setImageResource(getImageFromResources(data[position]))
         }
+        else {
+            setLastItemIcon(holder, position)
+        }
+
+        if (clickedPosition == position) {
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.imageView.context, diarynote.core.R.color.purple_200))
+        } else {
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.imageView.context, diarynote.core.R.color.white))
+        }
+    }
+
+    override fun onViewRecycled(holder: IconViewHolder) {
+        CoilUtils.dispose(holder.imageView)
     }
 
     private fun getImageFromResources(imgId: Int) : Int {
@@ -65,10 +87,21 @@ class IconListAdapter () : RecyclerView.Adapter<IconListAdapter.ViewHolder>() {
         }
     }
 
-    inner class ViewHolder(binding: CategoryIconPickerRecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    private fun setLastItemIcon(holder: IconViewHolder, position: Int) {
+        if (pickedIconPath == "") holder.imageView.setImageResource(getImageFromResources(data[position]))
+        else {
+            val request = ImageRequest.Builder(holder.imageView.context)
+                .data(pickedIconPath)
+                .target(holder.imageView)
+                .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+                .build()
+            imageLoader.enqueue(request)
+        }
+    }
+
+    inner class IconViewHolder(val binding: CategoryIconPickerRecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         val cardView = binding.iconPickerRecyclerViewItemCardView
         val imageView = binding.iconPickerItemImageView
-
     }
 }

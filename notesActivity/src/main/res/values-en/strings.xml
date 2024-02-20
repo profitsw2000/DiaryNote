@@ -10,6 +10,7 @@
     <string name="edit_note_fragment_label_text">Edit...</string>
     <string name="add_category_fragment_label_text">Add category...</string>
     <string name="category_notes_fragment_label_text">Category...</string>
+    <string name="edit_category_fragment_label_text">Edit category...</string>
     <string name="account_fragment_label_text">Account</string>
     <string name="appearance_fragment_label_text">Appearance</string>
     <string name="language_fragment_label_text">Language</string>

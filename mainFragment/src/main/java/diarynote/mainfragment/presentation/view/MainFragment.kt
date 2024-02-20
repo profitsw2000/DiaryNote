@@ -1,6 +1,7 @@
 package diarynote.mainfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -123,6 +124,7 @@ class MainFragment : Fragment() {
         Snackbar.make(this.mainFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { homeViewModel.getUserNotesPagedList() }
             .show()
+        Log.d("VVV", "handleError: $message")
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {

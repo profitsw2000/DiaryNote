@@ -45,6 +45,13 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_categories_to_editCategoryFragment"
+            app:destination="@id/edit_category"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
@@ -120,6 +127,19 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_category_notes_to_edit_category"
+            app:destination="@id/edit_category"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/edit_category"
+        android:name="ru.profitsw2000.editcategoryscreen.presentation.view.EditCategoryFragment"
+        android:label="@string/edit_category_fragment_label_text"
+        tools:layout="@layout/fragment_category_creation"/>
 
 </navigation>

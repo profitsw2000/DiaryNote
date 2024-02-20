@@ -157,6 +157,10 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(R.id.action_help_to_help_item_description, bundle)
     }
 
+    override fun actionCategoryNotesToEditCategory(bundle: Bundle) {
+        navController.navigate(R.id.action_category_notes_to_edit_category, bundle)
+    }
+
     override fun navigateUp() {
         navController.navigateUp()
     }

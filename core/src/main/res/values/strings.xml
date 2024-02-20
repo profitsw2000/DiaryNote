@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DiaryNote</string>
+    <string name="app_name">Дневник заметок</string>
     <string name="main_bottom_nav_title">Главная</string>
     <string name="history_bottom_nav_title">История</string>
     <string name="more_bottom_nav_title">Ещё</string>
@@ -19,6 +20,7 @@
     <string name="confirm_password_hint_text">Подтвердить пароль</string>
     <string name="send_password_title_text">Отправить пароль на почту</string>
     <string name="send_button_text">ОТПРАВИТЬ</string>
+    <string name="edit_button_text">ИЗМЕНИТЬ</string>
     <string name="sign_in_input_forms_error_text">Неверный логин и/или пароль</string>
     <string name="invalid_input_error_text">Неверный ввод: %1$s%2$s%3$s</string>
     <string name="comma_string">, </string>
@@ -69,15 +71,29 @@
     <string name="dialog_button_no_text">Нет</string>
     <string name="delete_note_dialog_title_text">Удаление заметки</string>
     <string name="delete_note_dialog_message_text">Вы действительно хотите удалить данную заметку?</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Доступ к файлам</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">Для добавления иконки категории необходимо разрешить доступ к чтению ваших файлов</string>
+    <string name="permission_dialog_allow_button_text">Разрешить</string>
+    <string name="permission_dialog_deny_button_text">Отклонить</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Отказ доступа к файлам</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Добавление пользовательской иконки для создаваемой категории недоступно. Необходимо разрешить доступ к файлам.</string>
     <string name="edit_note_dialog_title_text">Редактирование заметки</string>
     <string name="edit_note_dialog_message_text">Вы действительно хотите изменить данную заметку?</string>
+    <string name="edit_category_dialog_title_text">Редактирование категории</string>
+    <string name="edit_category_dialog_message_text">Вы действительно хотите внести изменения в данную категорию?</string>
     <string name="add_category_name_title_text">Название категории</string>
     <string name="add_category_color_title_text">Цвет</string>
     <string name="icon_picker_item_image_content_description">Pick icon</string>
+    <string name="add_category_icon_title_text">Иконка</string>
     <string name="add_category_success_dialog_title_text">Добавление категории</string>
     <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
     <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>
+    <string name="edit_category_success_dialog_title_text">Изменение категории</string>
+    <string name="edit_category_success_dialog_content_text">Изменение категории завершено успешно</string>
     <string name="no_notes_by_this_category_message_text">По выбранной категории заметок нет</string>
+    <string name="delete_category_dialog_title_text">Удаление категории</string>
+    <string name="delete_category_dialog_message_text">Удаление данной категории удалит все заметки, связанные с ней. Вы действительно хотите удалить данную категорию?</string>
+    <string name="delete_category_success_dialog_message_text">Удаление категории произведено успешно!</string>
     <string name="all_time_notes_chip_text">Все</string>
     <string name="todays_notes_chip_text">Сегодня</string>
     <string name="last_week_notes_chip_text">Неделя</string>
@@ -116,4 +132,6 @@
     <string name="db_save_success_dialog_message">Сохранение базы данных в файл произведено успешно!</string>
     <string name="db_restore_success_dialog_title">Восстановление базы данных</string>
     <string name="db_restore_success_dialog_message">Восстановление базы данных из выбранного файла произведено успешно. Будет произведён выход из текущей учетной записи.</string>
+    <string name="file_reading_error_toast_text">Ошибка чтения файла</string>
+    <string name="change_item_button_text">ИЗМЕНИТЬ</string>
 </resources>

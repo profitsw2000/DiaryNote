@@ -1,5 +1,6 @@
 package diarynote.registrationscreen.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
@@ -62,9 +63,11 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Success(userModel.copy(id = it.toInt()))
                 },
                 {
+                    Log.d("VVV", "addUser: ${it.message}")
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
                 }
             )
+            .addViewLifeCycle()
     }
 
     private fun getErrorCode(errorMessage: String) : Int {
@@ -93,26 +96,7 @@ class RegistrationViewModel(
                     _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
                 }
             )
-    }
-
-    private fun getDefaultNotesList(userId: Int) : List<NoteEntity> {
-        return baseNotesList.map {
-            it.copy(userId = userId)
-        }
-    }
-
-    fun insertDefaultNotes(userModel: UserModel) {
-        noteInteractor.addNoteList(getDefaultNotesList(userModel.id), false)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (
-                {
-
-                },
-                {
-                    _registrationLiveData.value = RegState.Error(getErrorCode(it.message.toString()))
-                }
-            )
+            .addViewLifeCycle()
     }
 
     fun clear() {

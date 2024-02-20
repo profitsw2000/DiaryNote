@@ -21,6 +21,7 @@ dependencies {
     implementation(project(Modules.readnotescreen))
     implementation(project(Modules.editnotescreen))
     implementation(project(Modules.addcategoryscreen))
+    implementation(project(Modules.editcategoryscreen))
 
     //Kotlin
     implementation(Kotlin.core)

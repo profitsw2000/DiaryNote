@@ -21,6 +21,10 @@ dependencies {
     //Koin
     implementation Koin.koin
     implementation Legacy.legacy
+    //Coil
+    implementation(Coil.coil)
+    implementation(Coil.coilSvg)
+    //Test
     testImplementation TestImpl.jUnit
     androidTestImplementation TestImpl.extJUnit
     androidTestImplementation TestImpl.espresso
@@ -39,5 +43,5 @@ dependencies {
     implementation project(path: Modules.addcategoryscreen)
     implementation project(path: Modules.calendarfragment)
     implementation project(path: Modules.settingsfragment)
-
+    implementation project(path: Modules.editcategoryscreen)
 }

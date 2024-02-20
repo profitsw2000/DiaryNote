@@ -10,6 +10,7 @@ class CategoryMapper {
             color = categoryModel.color,
             categoryName = categoryModel.categoryName,
             categoryImage = categoryModel.categoryImage,
+            imagePath = categoryModel.imagePath,
             userId = categoryModel.userId
         )
     }
@@ -20,6 +21,7 @@ class CategoryMapper {
             color = categoryEntity.color,
             categoryName = categoryEntity.categoryName,
             categoryImage = categoryEntity.categoryImage,
+            imagePath = categoryEntity.imagePath,
             userId = categoryEntity.userId
         )
     }

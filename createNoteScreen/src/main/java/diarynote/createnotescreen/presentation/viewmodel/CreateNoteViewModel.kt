@@ -28,6 +28,7 @@ class CreateNoteViewModel(
 ) : CoreViewModel() {
 
     private val inputValidator = InputValidator()
+    var clickedPositionNumber = 0
 
     private val _categoriesLiveData = MutableLiveData<CategoriesState>()
     val categoriesLiveData: LiveData<CategoriesState> by this::_categoriesLiveData
@@ -54,6 +55,7 @@ class CreateNoteViewModel(
                     _categoriesLiveData.value = CategoriesState.Error(errorMessage)
                 }
             )
+            .addViewLifeCycle()
     }
 
     fun getNotesData(noteTitle: String,
@@ -131,13 +133,14 @@ class CreateNoteViewModel(
                     _notesLiveData.value = NotesState.Success(arrayListOf())
                 },{
                     _notesLiveData.value = NotesState.Error(it.message!!, (1 shl ROOM_BIT_NUMBER))
-                    Log.d("VVV", "addNote: $it")
                 }
             )
+            .addViewLifeCycle()
     }
 
     fun clear() {
         _notesLiveData.value = null
+        clickedPositionNumber = 0
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

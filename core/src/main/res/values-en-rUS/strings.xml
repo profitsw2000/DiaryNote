@@ -20,6 +20,7 @@
     <string name="confirm_password_hint_text">Confirm password</string>
     <string name="send_password_title_text">Send password by e-mail</string>
     <string name="send_button_text">SEND</string>
+    <string name="edit_button_text">EDIT</string>
     <string name="sign_in_input_forms_error_text">Invalid login and/or password</string>
     <string name="invalid_input_error_text">Invalid input: %1$s%2$s%3$s</string>
     <string name="comma_string">, </string>
@@ -70,15 +71,29 @@
     <string name="dialog_button_no_text">No</string>
     <string name="delete_note_dialog_title_text">Delete note</string>
     <string name="delete_note_dialog_message_text">Are you sure you want to delete this note?</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Files access permission</string>
+    <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">To add a category icon, you have to allow read access to your files</string>
+    <string name="permission_dialog_allow_button_text">Allow</string>
+    <string name="permission_dialog_deny_button_text">Deny</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Files access denied</string>
+    <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Adding a custom icon for a created category is not available. You have to allow access to files.</string>
     <string name="edit_note_dialog_title_text">Edit note</string>
     <string name="edit_note_dialog_message_text">Are you sure you want to edit this note?</string>
+    <string name="edit_category_dialog_title_text">Edit category</string>
+    <string name="edit_category_dialog_message_text">Are you sure you want to edit this note?</string>
     <string name="add_category_name_title_text">Category name</string>
     <string name="add_category_color_title_text">Color</string>
     <string name="icon_picker_item_image_content_description">Pick icon</string>
+    <string name="add_category_icon_title_text">Icon</string>
     <string name="add_category_success_dialog_title_text">Add category</string>
     <string name="add_category_success_dialog_content_text">Category created successfully</string>
+    <string name="edit_category_success_dialog_title_text">Edit category</string>
+    <string name="edit_category_success_dialog_content_text">Category edited successfully</string>
     <string name="category_input_layout_error_text">Category at least 2 letters</string>
-    <string name="no_notes_by_this_category_message_text">here are no notes for the selected category</string>
+    <string name="no_notes_by_this_category_message_text">No notes found for selected category</string>
+    <string name="delete_category_dialog_title_text">Deleting category</string>
+    <string name="delete_category_dialog_message_text">Deleting a given category will delete all notes associated with it. Are you sure you want to delete this category?</string>
+    <string name="delete_category_success_dialog_message_text">The category was deleted successfully!</string>
     <string name="all_time_notes_chip_text">All</string>
     <string name="todays_notes_chip_text">Today</string>
     <string name="last_week_notes_chip_text">Week</string>
@@ -117,4 +132,6 @@
     <string name="db_save_success_dialog_message">Database was successfully saved!</string>
     <string name="db_restore_success_dialog_title">Database restoring</string>
     <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
+    <string name="file_reading_error_toast_text">Error reading file</string>
+    <string name="change_item_button_text">EDIT</string>
 </resources>
