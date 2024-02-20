@@ -30,6 +30,7 @@ import diarynote.template.presentation.adapter.ColorListAdapter
 import diarynote.template.presentation.adapter.IconListAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.profitsw2000.editcategoryscreen.R
 import ru.profitsw2000.editcategoryscreen.presentation.viewmodel.EditCategoryViewModel
 
 
@@ -101,7 +102,7 @@ class EditCategoryFragment : Fragment() {
         clearInputErrors()
     }
 
-    private fun initViews() = with(binding) {
+    private fun initViews() {
         if (categoryModel != null) {
             initInputLayout()
             initColorListAdapter()
@@ -121,13 +122,14 @@ class EditCategoryFragment : Fragment() {
     }
 
     private fun initIconListAdapter() = with(binding) {
+        imagePath = categoryModel?.imagePath ?: ""
         iconPickerRecyclerView.adapter = iconListAdapter
         iconListAdapter.setData(iconData, getEditedCategoryIconIndex())
         iconPickerRecyclerView.scrollToPosition(getEditedCategoryIconIndex())
     }
 
     private fun initEditCategoryButton() = with(binding) {
-        addCategoryButton.text = "Изменить"
+        addCategoryButton.text = getString(diarynote.core.R.string.change_item_button_text)
         addCategoryButton.setOnClickListener {
             categoryModel?.let { it1 ->
                 editCategoryViewModel.editCategory(
@@ -182,8 +184,8 @@ class EditCategoryFragment : Fragment() {
         })
         progressBar.visibility = View.GONE
 
-        dialoger.showAlertDialog(getString(diarynote.core.R.string.add_category_success_dialog_title_text),
-            getString(diarynote.core.R.string.add_category_success_dialog_content_text),
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.edit_category_success_dialog_title_text),
+            getString(diarynote.core.R.string.edit_category_success_dialog_content_text),
             getString(diarynote.core.R.string.dialog_button_ok_text)
         )
     }

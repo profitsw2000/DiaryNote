@@ -133,4 +133,5 @@
     <string name="db_restore_success_dialog_title">Database restoring</string>
     <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
     <string name="file_reading_error_toast_text">Error reading file</string>
+    <string name="change_item_button_text">EDIT</string>
 </resources>
