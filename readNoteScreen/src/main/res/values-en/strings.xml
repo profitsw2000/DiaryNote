@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="edit_note_date_text">Edited: %1$s</string>
+    <string name="read_note_error_text">Note load failed. Try again.</string>
+</resources>
