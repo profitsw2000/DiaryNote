@@ -39,7 +39,7 @@ class HomeViewModel(
     init {
         getUserNotesPagedList()
         allNotesList.observeForever {
-            Log.d("VVV", "Database was updated!")
+            getUserNotesPagedList()
         }
     }
 

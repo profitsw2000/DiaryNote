@@ -50,7 +50,7 @@ class AddCategoryFragment : Fragment() {
     private val colorData = colorCodeList
     private val iconData = iconCodeList
     private val colorListAdapter = ColorListAdapter()
-    private lateinit var imagePath: String
+    private var imagePath = ""
     private val iconListAdapter = IconListAdapter(
         onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(position: Int) {

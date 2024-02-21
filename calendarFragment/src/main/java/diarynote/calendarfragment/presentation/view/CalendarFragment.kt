@@ -14,6 +14,12 @@ import com.google.android.material.snackbar.Snackbar
 import diarynote.calendarfragment.R
 import diarynote.calendarfragment.databinding.FragmentCalendarBinding
 import diarynote.calendarfragment.presentation.viewmodel.CalendarViewModel
+import diarynote.core.utils.ALL_NOTES_CHIP_SELECTED
+import diarynote.core.utils.FOR_DATE_PERIOD_NOTES_CHIP_SELECTED
+import diarynote.core.utils.LAST_MONTH_NOTES_CHIP_SELECTED
+import diarynote.core.utils.LAST_WEEK_NOTES_CHIP_SELECTED
+import diarynote.core.utils.LAST_YEAR_NOTES_CHIP_SELECTED
+import diarynote.core.utils.TODAY_NOTES_CHIP_SELECTED
 import diarynote.data.domain.NOTE_MODEL_BUNDLE
 import diarynote.data.model.NoteModel
 import diarynote.data.model.state.NotesState
@@ -95,23 +101,28 @@ class CalendarFragment : Fragment() {
 
     private fun setChipOnClickListeners() = with(binding) {
         allTimeNotesChip.setOnClickListener {
-            calendarViewModel.getAllNotes()
+            calendarViewModel.selectedChip = ALL_NOTES_CHIP_SELECTED
+            calendarViewModel.getNotesList(ALL_NOTES_CHIP_SELECTED)
             observeData()
         }
         todayNotesChip.setOnClickListener {
-            calendarViewModel.getTodayNotes()
+            calendarViewModel.selectedChip = TODAY_NOTES_CHIP_SELECTED
+            calendarViewModel.getNotesList(TODAY_NOTES_CHIP_SELECTED)
             observeData()
         }
         lastWeekNotesChip.setOnClickListener {
-            calendarViewModel.getLastWeekNotes()
+            calendarViewModel.selectedChip = LAST_WEEK_NOTES_CHIP_SELECTED
+            calendarViewModel.getNotesList(LAST_WEEK_NOTES_CHIP_SELECTED)
             observeData()
         }
         lastMonthNotesChip.setOnClickListener {
-            calendarViewModel.getLastMonthNotes()
+            calendarViewModel.selectedChip = LAST_MONTH_NOTES_CHIP_SELECTED
+            calendarViewModel.getNotesList(LAST_MONTH_NOTES_CHIP_SELECTED)
             observeData()
         }
         lastYearNotesChip.setOnClickListener {
-            calendarViewModel.getLastYearNotes()
+            calendarViewModel.selectedChip = LAST_YEAR_NOTES_CHIP_SELECTED
+            calendarViewModel.getNotesList(LAST_YEAR_NOTES_CHIP_SELECTED)
             observeData()
         }
         selectPeriodNotesChip.setOnClickListener {
@@ -136,7 +147,11 @@ class CalendarFragment : Fragment() {
         dateRangePicker.addOnPositiveButtonClickListener {
             val beginDate = Date(it.first)
             val endDate = Date(it.second)
-            calendarViewModel.getNotesInDatePeriod(beginDate, endDate)
+            calendarViewModel.selectedChip = FOR_DATE_PERIOD_NOTES_CHIP_SELECTED
+            calendarViewModel.getNotesList(
+                FOR_DATE_PERIOD_NOTES_CHIP_SELECTED,
+                beginDate,
+                endDate)
             observeData()
         }
     }
