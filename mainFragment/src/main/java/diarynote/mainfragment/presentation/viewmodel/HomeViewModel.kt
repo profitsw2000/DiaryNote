@@ -23,15 +23,10 @@ class HomeViewModel(
     private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
-    private var notesCount: Int = 0
-
     val allNotesList: LiveData<List<NoteEntity>> = noteInteractor.getAll(false)
 
     private lateinit var _notesPagedList: LiveData<PagedList<NoteModel>>
     val notesPagedList: LiveData<PagedList<NoteModel>> by this::_notesPagedList
-
-    private val _userNotesCountChanged = MutableLiveData<NotesCountChangeState>()
-    val userNotesCountChanged: LiveData<NotesCountChangeState> by this::_userNotesCountChanged
 
     private lateinit var _notesState: LiveData<NotesState>
     val notesState: LiveData<NotesState> by this::_notesState
@@ -41,24 +36,6 @@ class HomeViewModel(
         allNotesList.observeForever {
             getUserNotesPagedList()
         }
-    }
-
-    fun checkUserNotesCountChanged() {
-
-        _userNotesCountChanged.value = NotesCountChangeState.Loading
-        noteInteractor.getUserNotesCount(getCurrentUserId(sharedPreferences), false)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    _userNotesCountChanged.value = NotesCountChangeState.Success(it != this.notesCount)
-                    this.notesCount = it
-                    //Log.d("VVV", "checkUserNotesCountChanged: $it")
-                },{
-                    _userNotesCountChanged.value = NotesCountChangeState.Error(it.message!!)
-                }
-            )
-            .addViewLifeCycle()
     }
 
     fun getUserNotesPagedList() {

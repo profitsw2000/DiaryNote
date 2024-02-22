@@ -57,17 +57,6 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
-/*        if (savedInstanceState == null) {
-            if (isCreated) {
-                isCreated = false
-                observeData()
-            } else {
-                homeViewModel.checkUserNotesCountChanged()
-                observeChanges()
-            }
-        } else {
-            observeData()
-        }*/
     }
 
     private fun initViews() {
@@ -99,25 +88,6 @@ class MainFragment : Fragment() {
 
         homeViewModel.notesPagedList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        }
-    }
-
-    private fun observeChanges() {
-        homeViewModel.userNotesCountChanged.observe(viewLifecycleOwner) {
-            when(it) {
-                is NotesCountChangeState.Error -> {}
-                NotesCountChangeState.Loading -> {}
-                is NotesCountChangeState.Success -> {
-                    if (it.notesCountChanged) {
-                        homeViewModel.getUserNotesPagedList()
-                        observeData()
-                        binding.searchNoteTextInputLayout.editText?.setText("")
-                    } else {
-                        observeData()
-                    }
-                }
-                else -> {}
-            }
         }
     }
 
