@@ -50,7 +50,6 @@ class CalendarViewModel(
         getAllNotes()
         allNotesList.observeForever {
             getNotesList(selectedChip, fromDate, toDate)
-            Log.d("VVV", "Db updated! ")
         }
     }
 
@@ -72,10 +71,9 @@ class CalendarViewModel(
             LAST_WEEK_NOTES_CHIP_SELECTED -> getLastWeekNotes()
             LAST_MONTH_NOTES_CHIP_SELECTED -> getLastMonthNotes()
             LAST_YEAR_NOTES_CHIP_SELECTED -> getLastYearNotes()
-            FOR_DATE_PERIOD_NOTES_CHIP_SELECTED -> getUserNotesInDatePeriodPagedList(
+            FOR_DATE_PERIOD_NOTES_CHIP_SELECTED -> getNotesInDatePeriod(
                 fromDate,
-                toDate,
-                false
+                toDate
             )
             else -> {}
         }

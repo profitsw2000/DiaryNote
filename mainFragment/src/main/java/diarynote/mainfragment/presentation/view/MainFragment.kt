@@ -56,8 +56,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        observeDbChanges()
-        if (savedInstanceState == null) {
+        observeData()
+/*        if (savedInstanceState == null) {
             if (isCreated) {
                 isCreated = false
                 observeData()
@@ -67,13 +67,7 @@ class MainFragment : Fragment() {
             }
         } else {
             observeData()
-        }
-    }
-
-    private fun observeDbChanges() {
-        homeViewModel.allNotesList.observe(viewLifecycleOwner) {
-            //Log.d("VVV", "observeDbChanges: DB was changed!!! Notes count = ${it.size}")
-        }
+        }*/
     }
 
     private fun initViews() {

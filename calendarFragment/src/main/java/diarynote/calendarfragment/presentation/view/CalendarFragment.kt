@@ -90,6 +90,7 @@ class CalendarFragment : Fragment() {
                 NotesState.Loaded -> setProgressBarVisible(false)
                 NotesState.Loading -> setProgressBarVisible(true)
                 is NotesState.Success -> setProgressBarVisible(false)
+                else -> {}
             }
         }
     }
@@ -148,6 +149,8 @@ class CalendarFragment : Fragment() {
             val beginDate = Date(it.first)
             val endDate = Date(it.second)
             calendarViewModel.selectedChip = FOR_DATE_PERIOD_NOTES_CHIP_SELECTED
+            calendarViewModel.fromDate = beginDate
+            calendarViewModel.toDate = endDate
             calendarViewModel.getNotesList(
                 FOR_DATE_PERIOD_NOTES_CHIP_SELECTED,
                 beginDate,

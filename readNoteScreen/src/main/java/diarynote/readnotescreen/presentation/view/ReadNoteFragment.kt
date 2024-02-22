@@ -83,8 +83,7 @@ class ReadNoteFragment : Fragment() {
     private fun renderData(notesState: NotesState?) {
         when (notesState) {
             is NotesState.Success -> {
-                readNoteViewModel.clear()
-                requireActivity().onBackPressed()
+                deleteNoteSuccess()
             }
             is NotesState.Loading -> {}
             is NotesState.Error -> Toast.makeText(requireActivity(), notesState.message, Toast.LENGTH_SHORT).show()
@@ -143,6 +142,20 @@ class ReadNoteFragment : Fragment() {
             getString(diarynote.core.R.string.edit_note_dialog_message_text),
             getString(diarynote.core.R.string.dialog_button_yes_text),
             getString(diarynote.core.R.string.dialog_button_no_text)
+        )
+    }
+
+    private fun deleteNoteSuccess() {
+        val dialoger = DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+            override fun onClick() {
+                readNoteViewModel.clear()
+                requireActivity().onBackPressed()
+            }
+        })
+
+        dialoger.showAlertDialog(getString(diarynote.core.R.string.delete_note_dialog_title_text),
+            getString(diarynote.core.R.string.delete_note_success_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text)
         )
     }
 
