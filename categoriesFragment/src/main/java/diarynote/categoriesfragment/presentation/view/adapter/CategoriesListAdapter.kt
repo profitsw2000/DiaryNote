@@ -2,9 +2,12 @@ package diarynote.categoriesfragment.presentation.view.adapter
 
 import android.content.res.Resources
 import android.util.TypedValue
+import android.view.ContextMenu
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
@@ -16,7 +19,7 @@ import diarynote.template.utils.OnCategoryItemClickListener
 class CategoriesListAdapter(
     private val onCategoryItemClickListener: OnCategoryItemClickListener,
     private val imageLoader: ImageLoader
-) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>(), View.OnCreateContextMenuListener {
 
     private var data: List<CategoryModel> = arrayListOf()
 
@@ -32,13 +35,29 @@ class CategoriesListAdapter(
 
         val categoryViewHolder = ViewHolder(binding)
 
-        binding.root.setOnClickListener {
-            onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
-        }
+        with(binding) {
+            root.setOnClickListener {
+                onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
+            }
+/*            root.setOnLongClickListener {
+                onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
+                return@setOnLongClickListener true
+            }*/
+            //root.setOnCreateContextMenuListener(this@CategoriesListAdapter)
+            root.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
+                val deleteItem = contextMenu.add("Удалить")
+                val editItem = contextMenu.add("Редактировать")
 
-        binding.root.setOnLongClickListener {
-            onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
-            return@setOnLongClickListener true
+                deleteItem.setOnMenuItemClickListener {
+                    Toast.makeText(parent.context, "Delete clicked!!", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                editItem.setOnMenuItemClickListener {
+                    Toast.makeText(parent.context, "Edit clicked!!", Toast.LENGTH_SHORT).show()
+                    true
+                }
+            }
         }
 
         return categoryViewHolder
@@ -110,4 +129,13 @@ class CategoriesListAdapter(
             else -> diarynote.core.R.drawable.bottom_nav_categories_icon
         }
     }
+
+    override fun onCreateContextMenu(
+        p0: ContextMenu?,
+        p1: View?,
+        p2: ContextMenu.ContextMenuInfo?
+    ) {
+        TODO("Not yet implemented")
+    }
 }
+

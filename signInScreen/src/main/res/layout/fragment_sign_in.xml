@@ -24,28 +24,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/app_icon_constraint_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/standart_constraint_vertical_padding"
-            android:paddingBottom="@dimen/standart_constraint_vertical_padding"
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/app_icon_image_view"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline_30"
+            android:src="@drawable/diary_note_app_icon"
+            android:contentDescription="@string/main_application_icon_text" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/app_icon_image_view"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/diary_note_app_icon"
-                android:contentDescription="@string/main_application_icon_text" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_constraint_layout"
@@ -55,7 +52,7 @@
             android:paddingTop="@dimen/standart_constraint_vertical_padding"
             android:paddingRight="@dimen/standart_constraint_horizontal_padding"
             android:paddingLeft="@dimen/standart_constraint_horizontal_padding"
-            app:layout_constraintTop_toBottomOf="@+id/app_icon_constraint_layout"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_guideline_30"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 

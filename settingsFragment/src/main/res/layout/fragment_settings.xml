@@ -32,6 +32,8 @@
             android:layout_width="@dimen/account_image_size"
             android:layout_height="@dimen/account_image_size"
             android:src="@drawable/person_icon"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
