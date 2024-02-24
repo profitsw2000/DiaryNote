@@ -19,7 +19,7 @@ import diarynote.template.utils.OnCategoryItemClickListener
 class CategoriesListAdapter(
     private val onCategoryItemClickListener: OnCategoryItemClickListener,
     private val imageLoader: ImageLoader
-) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>(), View.OnCreateContextMenuListener {
+) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     private var data: List<CategoryModel> = arrayListOf()
 
@@ -39,25 +39,20 @@ class CategoriesListAdapter(
             root.setOnClickListener {
                 onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
             }
-/*            root.setOnLongClickListener {
-                onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
-                return@setOnLongClickListener true
-            }*/
-            //root.setOnCreateContextMenuListener(this@CategoriesListAdapter)
-            root.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
+/*            root.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
                 val deleteItem = contextMenu.add("Удалить")
                 val editItem = contextMenu.add("Редактировать")
 
                 deleteItem.setOnMenuItemClickListener {
-                    Toast.makeText(parent.context, "Delete clicked!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(parent.context, "Delete ${data[categoryViewHolder.adapterPosition].categoryName} clicked!!", Toast.LENGTH_SHORT).show()
                     true
                 }
 
                 editItem.setOnMenuItemClickListener {
-                    Toast.makeText(parent.context, "Edit clicked!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(parent.context, "Edit ${data[categoryViewHolder.adapterPosition].categoryName} clicked!!", Toast.LENGTH_SHORT).show()
                     true
                 }
-            }
+            }*/
         }
 
         return categoryViewHolder
@@ -128,14 +123,6 @@ class CategoriesListAdapter(
             5 -> diarynote.core.R.drawable.android_icon_24
             else -> diarynote.core.R.drawable.bottom_nav_categories_icon
         }
-    }
-
-    override fun onCreateContextMenu(
-        p0: ContextMenu?,
-        p1: View?,
-        p2: ContextMenu.ContextMenuInfo?
-    ) {
-        TODO("Not yet implemented")
     }
 }
 
