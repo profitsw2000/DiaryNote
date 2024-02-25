@@ -2,7 +2,14 @@ package ru.profitsw2000.diarynote.presentation
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE
+import android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK
+import android.content.res.Configuration.SCREENLAYOUT_SIZE_NORMAL
+import android.content.res.Configuration.SCREENLAYOUT_SIZE_SMALL
+import android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import diarynote.core.common.Controller
 import diarynote.data.appsettings.APP_THEME_DARK

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Text styles-->
+
+    <style name="input_layout_error_text_style" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">8sp</item>
+    </style>
+
     <style name="bold_text_style">
         <item name="android:textStyle">bold</item>
     </style>
@@ -18,7 +23,7 @@
     </style>
 
     <style name="authorization_screens_title_text_style" parent="bold_text_style">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/authorization_screens_title_text_size</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
@@ -28,7 +33,7 @@
     </style>
 
     <style name="forgot_password_text_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/forgot_password_text_size</item>
     </style>
 
     <style name="notes_activity_fragment_title_text" parent="bold_text_style">
@@ -173,9 +178,16 @@
     <style name="MyDrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/grey_600</item>
     </style>
+
+    <style name="customTextInputLayoutOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="errorTextAppearance">@style/input_layout_error_text_style</item>
+    </style>
     
     <style name="customEditTextInputOutlinedStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
         <item name="android:textCursorDrawable">@drawable/input_cursor</item>
+        <item name="android:paddingTop">@dimen/outlined_custom_edit_text_vertical_padding_size</item>
+        <item name="android:paddingBottom">@dimen/outlined_custom_edit_text_vertical_padding_size</item>
+        <item name="android:textSize">@dimen/outlined_custom_edit_text_text_size</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
