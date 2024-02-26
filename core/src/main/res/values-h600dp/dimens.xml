@@ -69,4 +69,5 @@
     <dimen name="calendar_horizontal_chip_spacing">12dp</dimen>
     <dimen name="notes_activity_fragments_standart_padding">24dp</dimen>
     <dimen name="calendar_chip_horizontal_padding">18dp</dimen>
+    <dimen name="custom_chip_text_size">13sp</dimen>
 </resources>
