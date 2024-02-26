@@ -46,7 +46,7 @@
         android:layout_marginTop="@dimen/extra_small_constraint_vertical_spacing_between_views"
         app:layout_constraintTop_toBottomOf="@+id/title_line_constraint_layout"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:maxLines="5"
+        android:maxLines="@dimen/note_list_content_text_max_lines"
         android:ellipsize="end"
         tools:text="Каждый имеет право получить в доступной для него форме имеющуюся в медицинской организации информацию о состоянии своего здоровья, в том числе сведения о результатах медицинского обследования, наличии заболевания, об установленном диагнозе и о прогнозе развития заболевания, методах оказания медицинской помощи, связанном с ними риске, возможных видах медицинского вмешательства, его последствиях и результатах оказания медицинской помощи."/>
 

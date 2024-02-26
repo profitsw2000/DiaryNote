@@ -26,50 +26,37 @@
             android:id="@+id/all_time_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/all_time_notes_chip_text"
-            app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
+            android:text="@string/all_time_notes_chip_text"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/today_notes_chip"
-            style="@style/customMainChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/todays_notes_chip_text"
-            app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
+            android:text="@string/todays_notes_chip_text" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/last_week_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/last_week_notes_chip_text"
-            app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
+            android:text="@string/last_week_notes_chip_text" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/last_month_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/last_month_notes_chip_text"
-            app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
+            android:text="@string/last_month_notes_chip_text"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/last_year_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/last_year_notes_chip_text"
-            app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
+            android:text="@string/last_year_notes_chip_text" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/select_period_notes_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_period_notes_chip_text"
-            app:chipEndPadding="@dimen/calendar_chip_horizontal_padding"
-            app:chipStartPadding="@dimen/calendar_chip_horizontal_padding" />
+            android:text="@string/select_period_notes_chip_text" />
 
     </com.google.android.material.chip.ChipGroup>
 
