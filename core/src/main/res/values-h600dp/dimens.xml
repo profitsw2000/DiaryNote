@@ -7,10 +7,8 @@
     <dimen name="standart_constraint_vertical_spacing_between_views">15dp</dimen>
     <dimen name="small_constraint_vertical_spacing_between_views">9dp</dimen>
     <dimen name="extra_small_constraint_vertical_spacing_between_views">8dp</dimen>
-    <dimen name="extra_small_constraint_horizontal_spacing_between_views">8dp</dimen>
     <dimen name="extra_large_constraint_vertical_padding">24dp</dimen>
     <dimen name="extra_large_constraint_horizontal_padding">32dp</dimen>
-    <dimen name="small_constraint_horizontal_padding">16dp</dimen>
     <dimen name="medium_horizontal_spacing_between_views">16dp</dimen>
     <dimen name="delimeter_line_height">3dp</dimen>
     <dimen name="auth_input_field_corner_radius">16dp</dimen>
@@ -65,4 +63,7 @@
     <dimen name="standart_constraint_horizontal_padding">28dp</dimen>
     <dimen name="standart_constraint_vertical_padding">9dp</dimen>
     <dimen name="outlined_text_input_layout_error_text_size">10sp</dimen>
+    <dimen name="small_constraint_horizontal_padding">12dp</dimen>
+    <dimen name="extra_small_constraint_horizontal_spacing_between_views">6dp</dimen>
+    <dimen name="action_explanations_standard_text_size">15sp</dimen>
 </resources>

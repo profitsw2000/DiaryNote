@@ -64,4 +64,5 @@
     <dimen name="password_eye_icon_size">24dp</dimen>
     <dimen name="outlined_custom_edit_text_text_size">16sp</dimen>
     <dimen name="outlined_text_input_layout_error_text_size">12sp</dimen>
+    <dimen name="action_explanations_standard_text_size">16sp</dimen>
 </resources>
