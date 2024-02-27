@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Text styles-->
+
+    <style name="input_layout_error_text_style" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">8sp</item>
+    </style>
+
     <style name="bold_text_style">
         <item name="android:textStyle">bold</item>
     </style>
@@ -18,7 +23,7 @@
     </style>
 
     <style name="authorization_screens_title_text_style" parent="bold_text_style">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/authorization_screens_title_text_size</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
@@ -28,7 +33,7 @@
     </style>
 
     <style name="forgot_password_text_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/forgot_password_text_size</item>
     </style>
 
     <style name="notes_activity_fragment_title_text" parent="bold_text_style">
@@ -50,6 +55,7 @@
     </style>
 
     <style name="notes_content_text_style">
+        <item name="android:textSize">@dimen/help_item_content_text_size</item>
     </style>
 
     <style name="notes_tags_and_date_text_style" parent="semi_transparent_text_style">
@@ -100,7 +106,7 @@
     </style>
 
     <style name="action_explanations_standard_text_style" parent="semi_transparent_text_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/action_explanations_standard_text_size</item>
     </style>
 
     <style name="error_message_text_style">
@@ -108,7 +114,7 @@
     </style>
 
     <style name="help_item_title_text_style">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/help_item_title_text_size</item>
     </style>
 
     <style name="dangerous_action_text_view_text_style" parent="bold_text_style">
@@ -149,8 +155,12 @@
         <item name="chipStrokeColor">@color/deep_purple_A400</item>
         <item name="android:textColor">@color/calendar_chip_text_color</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">18sp</item>
-        <item name="chipCornerRadius">20dp</item>
+        <item name="android:textSize">@dimen/custom_chip_text_size</item>
+        <item name="textStartPadding">0dp</item>
+        <item name="textEndPadding">0dp</item>
+        <item name="chipStartPadding">@dimen/calendar_chip_horizontal_padding</item>
+        <item name="chipEndPadding">@dimen/calendar_chip_horizontal_padding</item>
+        <item name="chipCornerRadius">16dp</item>
     </style>
 
     <style name="customCalendarStyle" parent="Widget.Material3.MaterialCalendar">
@@ -173,9 +183,16 @@
     <style name="MyDrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/grey_600</item>
     </style>
+
+    <style name="customTextInputLayoutOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="errorTextAppearance">@style/input_layout_error_text_style</item>
+    </style>
     
     <style name="customEditTextInputOutlinedStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
         <item name="android:textCursorDrawable">@drawable/input_cursor</item>
+        <item name="android:paddingTop">@dimen/outlined_custom_edit_text_vertical_padding_size</item>
+        <item name="android:paddingBottom">@dimen/outlined_custom_edit_text_vertical_padding_size</item>
+        <item name="android:textSize">@dimen/outlined_custom_edit_text_text_size</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 

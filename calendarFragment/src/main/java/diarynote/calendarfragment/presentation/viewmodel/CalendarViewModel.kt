@@ -1,15 +1,23 @@
 package diarynote.calendarfragment.presentation.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
+import diarynote.core.utils.ALL_NOTES_CHIP_SELECTED
+import diarynote.core.utils.FOR_DATE_PERIOD_NOTES_CHIP_SELECTED
+import diarynote.core.utils.LAST_MONTH_NOTES_CHIP_SELECTED
+import diarynote.core.utils.LAST_WEEK_NOTES_CHIP_SELECTED
+import diarynote.core.utils.LAST_YEAR_NOTES_CHIP_SELECTED
+import diarynote.core.utils.TODAY_NOTES_CHIP_SELECTED
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
 import diarynote.data.model.type.DataSourceType
+import diarynote.data.room.entity.NoteEntity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -20,8 +28,14 @@ class CalendarViewModel(
     private val noteMapper: NoteMapper
 ) : CoreViewModel() {
 
+    var selectedChip = 0
+    var fromDate: Date = Date(0L)
+    var toDate: Date = Date(0L)
+
     private val calendar = Calendar.getInstance()
     private var selectPeriodDefaultText: String = ""
+
+    val allNotesList: LiveData<List<NoteEntity>> = noteInteractor.getAll(false)
 
     private val _selectPeriodChipTextLiveData = MutableLiveData<String>()
     val selectPeriodChipTextLiveData by this::_selectPeriodChipTextLiveData
@@ -34,14 +48,43 @@ class CalendarViewModel(
 
     init {
         getAllNotes()
+        allNotesList.observeForever {
+            getNotesList(selectedChip, fromDate, toDate)
+        }
     }
 
-    fun getAllNotes() {
+    fun getNotesList(selectedChip: Int) {
+        when(selectedChip) {
+            ALL_NOTES_CHIP_SELECTED -> getAllNotes()
+            TODAY_NOTES_CHIP_SELECTED -> getTodayNotes()
+            LAST_WEEK_NOTES_CHIP_SELECTED -> getLastWeekNotes()
+            LAST_MONTH_NOTES_CHIP_SELECTED -> getLastMonthNotes()
+            LAST_YEAR_NOTES_CHIP_SELECTED -> getLastYearNotes()
+            else -> {}
+        }
+    }
+
+    fun getNotesList(selectedChip: Int, fromDate: Date, toDate: Date) {
+        when(selectedChip) {
+            ALL_NOTES_CHIP_SELECTED -> getAllNotes()
+            TODAY_NOTES_CHIP_SELECTED -> getTodayNotes()
+            LAST_WEEK_NOTES_CHIP_SELECTED -> getLastWeekNotes()
+            LAST_MONTH_NOTES_CHIP_SELECTED -> getLastMonthNotes()
+            LAST_YEAR_NOTES_CHIP_SELECTED -> getLastYearNotes()
+            FOR_DATE_PERIOD_NOTES_CHIP_SELECTED -> getNotesInDatePeriod(
+                fromDate,
+                toDate
+            )
+            else -> {}
+        }
+    }
+
+    private fun getAllNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
         getUserNotesPagedList(false)
     }
 
-    fun getTodayNotes() {
+    private fun getTodayNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
         val today = Date(
             calendar.get(Calendar.YEAR) - 1900,
@@ -51,7 +94,7 @@ class CalendarViewModel(
         getUserNotesFromDatePagedList(today, false)
     }
 
-    fun getLastWeekNotes() {
+    private fun getLastWeekNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
         val dateWeekAgoMilliseconds = Date(calendar.timeInMillis - (6*24*60*60*1000))                   //учитываем текущий день как полный
         val dateWeekAgo = Date(dateWeekAgoMilliseconds.year,
@@ -61,7 +104,7 @@ class CalendarViewModel(
         getUserNotesFromDatePagedList(dateWeekAgo, false)
     }
 
-    fun getLastMonthNotes() {
+    private fun getLastMonthNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
         val dateMonthAgo = getMonthAgoDate(calendar.get(Calendar.YEAR) - 1900,
             calendar.get(Calendar.MONTH),
@@ -70,7 +113,7 @@ class CalendarViewModel(
         getUserNotesFromDatePagedList(dateMonthAgo, false)
     }
 
-    fun getLastYearNotes() {
+    private fun getLastYearNotes() {
         setSelectPeriodChipText(selectPeriodDefaultText)
         val daysInYear: Long = if ((calendar.get(Calendar.YEAR)) % 4 == 0) 366
         else 365

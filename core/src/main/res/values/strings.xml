@@ -71,6 +71,7 @@
     <string name="dialog_button_no_text">Нет</string>
     <string name="delete_note_dialog_title_text">Удаление заметки</string>
     <string name="delete_note_dialog_message_text">Вы действительно хотите удалить данную заметку?</string>
+    <string name="delete_note_success_dialog_message_text">Удаление заметки произведено успешно!</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Доступ к файлам</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">Для добавления иконки категории необходимо разрешить доступ к чтению ваших файлов</string>
     <string name="permission_dialog_allow_button_text">Разрешить</string>

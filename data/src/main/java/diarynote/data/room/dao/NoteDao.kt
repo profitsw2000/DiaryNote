@@ -1,5 +1,6 @@
 package diarynote.data.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import diarynote.data.room.entity.NoteEntity
@@ -13,7 +14,7 @@ import java.util.Date
 interface NoteDao {
 
     @Query("SELECT * FROM NoteEntity")
-    fun all(): Single<List<NoteEntity>>
+    fun all(): LiveData<List<NoteEntity>>
 
     @Query("SELECT * FROM NoteEntity WHERE id LIKE :id")
     fun getNoteById(id: Int): Single<NoteEntity>

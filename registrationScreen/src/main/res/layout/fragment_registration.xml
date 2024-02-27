@@ -25,35 +25,31 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/registration_icon_constraint_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:paddingTop="@dimen/registration_screen_top_padding">
+            app:layout_constraintBottom_toTopOf="@id/horizontal_image_guideline"
+            android:src="@drawable/registration_icon"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:src="@drawable/registration_icon"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_image_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="@dimen/auth_horizontal_image_guideline_percentage"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/registration_icon_constraint_layout"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_image_guideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:paddingLeft="@dimen/standart_constraint_horizontal_padding"
             android:paddingRight="@dimen/standart_constraint_horizontal_padding"
-            android:paddingBottom="@dimen/standart_constraint_vertical_padding"
             android:paddingTop="@dimen/standart_constraint_vertical_padding">
 
             <TextView
@@ -76,7 +72,7 @@
                 app:layout_constraintLeft_toLeftOf="parent">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="?attr/textInputOutlinedStyle"
+                    style="@style/customTextInputLayoutOutlinedStyle"
                     android:id="@+id/login_text_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +93,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="?attr/textInputOutlinedStyle"
+                    style="@style/customTextInputLayoutOutlinedStyle"
                     android:id="@+id/email_text_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +114,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="?attr/textInputOutlinedStyle"
+                    style="@style/customTextInputLayoutOutlinedStyle"
                     android:id="@+id/password_text_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,7 +137,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="?attr/textInputOutlinedStyle"
+                    style="@style/customTextInputLayoutOutlinedStyle"
                     android:id="@+id/confirm_password_text_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -169,7 +165,6 @@
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standart_constraint_vertical_spacing_between_views"
                 app:layout_constraintTop_toBottomOf="@id/input_forms_constraint_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

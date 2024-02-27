@@ -29,6 +29,10 @@ class NoteRepositoryLocalImpl(
     private lateinit var notesPagedList: LiveData<PagedList<NoteModel>>
     private lateinit var notesDataSourceFactory: NotesDataSourceFactory
 
+    override fun getAll(): LiveData<List<NoteEntity>> {
+        return database.noteDao.all()
+    }
+
     override fun getNoteById(id: Int): Single<NoteEntity> {
         return database.noteDao.getNoteById(id)
     }

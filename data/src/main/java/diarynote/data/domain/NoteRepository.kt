@@ -18,6 +18,8 @@ import java.util.Date
 
 interface NoteRepository {
 
+    fun getAll(): LiveData<List<NoteEntity>>
+
     fun getNoteById(id: Int): Single<NoteEntity>
 
     fun getUserNotesCount(id: Int): Single<Int>

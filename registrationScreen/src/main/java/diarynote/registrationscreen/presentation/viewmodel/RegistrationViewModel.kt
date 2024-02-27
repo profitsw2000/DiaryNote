@@ -11,9 +11,7 @@ import diarynote.data.interactor.UserInteractor
 import diarynote.data.mappers.UserMapper
 import diarynote.data.model.UserModel
 import diarynote.data.room.baseCategoriesList
-import diarynote.data.room.baseNotesList
 import diarynote.data.room.entity.CategoryEntity
-import diarynote.data.room.entity.NoteEntity
 import diarynote.registrationscreen.model.RegState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -21,7 +19,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class RegistrationViewModel(
     private val userInteractor: UserInteractor,
     private val categoryInteractor: CategoryInteractor,
-    private val noteInteractor: NoteInteractor,
     private val userMapper: UserMapper
 ) : CoreViewModel() {
 

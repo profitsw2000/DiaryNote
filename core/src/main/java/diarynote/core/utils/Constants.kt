@@ -36,3 +36,11 @@ const val NOTE_TAGS_MIN_LENGTH = 2
 const val NOTE_TAG_WORDS_LIMIT = 2
 
 const val CATEGORY_NAME_LENGTH_ERROR = "short_category_name_error"
+
+//Selected chip constants to use in CalendarFragment
+const val ALL_NOTES_CHIP_SELECTED = 0
+const val TODAY_NOTES_CHIP_SELECTED = 1
+const val LAST_WEEK_NOTES_CHIP_SELECTED = 2
+const val LAST_MONTH_NOTES_CHIP_SELECTED = 3
+const val LAST_YEAR_NOTES_CHIP_SELECTED = 4
+const val FOR_DATE_PERIOD_NOTES_CHIP_SELECTED = 5

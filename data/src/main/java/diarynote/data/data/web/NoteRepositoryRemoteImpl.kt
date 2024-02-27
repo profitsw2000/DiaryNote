@@ -16,6 +16,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.Date
 
 class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
+    override fun getAll(): LiveData<List<NoteEntity>> {
+        TODO("Not yet implemented")
+    }
 
     override fun getNoteById(id: Int): Single<NoteEntity> {
         TODO("Not yet implemented")

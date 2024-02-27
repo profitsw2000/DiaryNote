@@ -1,17 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="main_fragment_search_note_input_margin">8dp</dimen>
-    <dimen name="standart_constraint_vertical_spacing_between_views">18dp</dimen>
-    <dimen name="small_constraint_vertical_spacing_between_views">12dp</dimen>
-    <dimen name="extra_small_constraint_vertical_spacing_between_views">8dp</dimen>
-    <dimen name="extra_small_constraint_horizontal_spacing_between_views">8dp</dimen>
+    <dimen name="standart_constraint_vertical_spacing_between_views">15dp</dimen>
+    <dimen name="small_constraint_vertical_spacing_between_views">9dp</dimen>
+    <dimen name="extra_small_constraint_vertical_spacing_between_views">6dp</dimen>
     <dimen name="extra_large_constraint_vertical_padding">24dp</dimen>
     <dimen name="extra_large_constraint_horizontal_padding">32dp</dimen>
-    <dimen name="standart_constraint_vertical_padding">12dp</dimen>
-    <dimen name="standart_constraint_horizontal_padding">32dp</dimen>
-    <dimen name="small_constraint_horizontal_padding">16dp</dimen>
     <dimen name="medium_horizontal_spacing_between_views">16dp</dimen>
     <dimen name="delimeter_line_height">3dp</dimen>
     <dimen name="auth_input_field_corner_radius">16dp</dimen>
@@ -53,20 +50,24 @@
     <dimen name="developer_logo_text_size">24sp</dimen>
     <dimen name="sub_settings_content_padding_size">6dp</dimen>
     <!-- Variable res. -->
-    <dimen name="outlined_custom_edit_text_vertical_padding_size">18dp</dimen>
-    <dimen name="auth_horizontal_image_guideline_percentage">0.2</dimen>
-    <dimen name="authorization_screens_title_text_size">24sp</dimen>
-    <dimen name="forgot_password_text_size">16sp</dimen>
-    <dimen name="password_eye_icon_size">24dp</dimen>
-    <dimen name="outlined_custom_edit_text_text_size">16sp</dimen>
-    <dimen name="outlined_text_input_layout_error_text_size">12sp</dimen>
-    <dimen name="action_explanations_standard_text_size">16sp</dimen>
-    <dimen name="help_item_title_text_size">20sp</dimen>
-    <dimen name="help_item_content_text_size">14sp</dimen>
-    <dimen name="note_list_content_text_max_lines">2</dimen>
-    <dimen name="notes_item_vertical_padding">16dp</dimen>
-    <dimen name="calendar_horizontal_chip_spacing">16dp</dimen>
-    <dimen name="notes_activity_fragments_standart_padding">30dp</dimen>
-    <dimen name="calendar_chip_horizontal_padding">24dp</dimen>
-    <dimen name="custom_chip_text_size">14sp</dimen>
+    <dimen name="outlined_custom_edit_text_vertical_padding_size">15dp</dimen>
+    <dimen name="auth_horizontal_image_guideline_percentage">0.3</dimen>
+    <dimen name="authorization_screens_title_text_size">22sp</dimen>
+    <dimen name="forgot_password_text_size">14sp</dimen>
+    <dimen name="password_eye_icon_size">21dp</dimen>
+    <dimen name="outlined_custom_edit_text_text_size">15sp</dimen>
+    <dimen name="standart_constraint_horizontal_padding">28dp</dimen>
+    <dimen name="standart_constraint_vertical_padding">9dp</dimen>
+    <dimen name="outlined_text_input_layout_error_text_size">10sp</dimen>
+    <dimen name="small_constraint_horizontal_padding">12dp</dimen>
+    <dimen name="extra_small_constraint_horizontal_spacing_between_views">6dp</dimen>
+    <dimen name="action_explanations_standard_text_size">15sp</dimen>
+    <dimen name="help_item_title_text_size">18sp</dimen>
+    <dimen name="help_item_content_text_size">13sp</dimen>
+    <dimen name="note_list_content_text_max_lines">4</dimen>
+    <dimen name="notes_item_vertical_padding">12dp</dimen>
+    <dimen name="calendar_horizontal_chip_spacing">12dp</dimen>
+    <dimen name="notes_activity_fragments_standart_padding">24dp</dimen>
+    <dimen name="calendar_chip_horizontal_padding">18dp</dimen>
+    <dimen name="custom_chip_text_size">13sp</dimen>
 </resources>

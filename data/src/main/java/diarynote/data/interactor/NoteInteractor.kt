@@ -27,6 +27,14 @@ class NoteInteractor(
     private val noteRepositoryRemote: NoteRepositoryRemote
 ) {
 
+    fun getAll(remote: Boolean): LiveData<List<NoteEntity>> {
+        return if (remote) {
+            noteRepositoryRemote.getAll()
+        } else {
+            noteRepositoryLocal.getAll()
+        }
+    }
+
     fun getUserNotesCount(id: Int, remote: Boolean): Single<Int> {
         return if (remote) {
             noteRepositoryRemote.getUserNotesCount(id)

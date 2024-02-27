@@ -129,6 +129,11 @@ class RegistrationFragment : CoreFragment(R.layout.fragment_registration) {
         confirmPasswordInputEditText.setText("")
     }
 
+    override fun onPause() {
+        super.onPause()
+        registrationViewModel.clear()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

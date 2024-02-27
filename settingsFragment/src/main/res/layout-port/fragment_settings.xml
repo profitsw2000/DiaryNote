@@ -19,13 +19,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_info_constraint_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/settings_screen_title_text_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:paddingTop="@dimen/account_main_info_vertical_padding"
-        android:paddingBottom="@dimen/account_main_info_vertical_padding"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_screen_title_text_view">
+        android:paddingBottom="@dimen/account_main_info_vertical_padding">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/account_icon_image_view"
@@ -38,8 +38,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeWidth="@dimen/account_image_stroke_size"
             app:strokeColor="?attr/colorPrimary"
-            app:strokeWidth="@dimen/account_image_stroke_size" />
+            />
 
         <TextView
             android:id="@+id/account_login_text_view"
@@ -47,52 +48,44 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/settings_main_info_image_interval"
+            tools:text="ShaCarri Richardson"
             app:layout_constraintBottom_toTopOf="@id/email_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/account_icon_image_view"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="ShaCarri Richardson" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/email_text_view"
             style="@style/settings_fragment_email_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/account_login_text_view"
             app:layout_constraintTop_toBottomOf="@id/account_login_text_view"
-            tools:text="lee_dixon@mail.ru" />
+            app:layout_constraintStart_toStartOf="@id/account_login_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="lee_dixon@mail.ru"/>
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/account_icon_image_view"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="gone"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/settings_menu_recycler_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/main_info_constraint_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/main_info_constraint_layout"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

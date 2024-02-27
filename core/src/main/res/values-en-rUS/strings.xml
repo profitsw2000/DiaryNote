@@ -71,6 +71,7 @@
     <string name="dialog_button_no_text">No</string>
     <string name="delete_note_dialog_title_text">Delete note</string>
     <string name="delete_note_dialog_message_text">Are you sure you want to delete this note?</string>
+    <string name="delete_note_success_dialog_message_text">Note deleted successfully!</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Files access permission</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">To add a category icon, you have to allow read access to your files</string>
     <string name="permission_dialog_allow_button_text">Allow</string>

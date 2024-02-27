@@ -19,6 +19,7 @@ import diarynote.template.presentation.adapter.NotesPagedListAdapter
 import diarynote.template.utils.OnNoteItemClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 class MainFragment : Fragment() {
 
@@ -55,17 +56,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        if (savedInstanceState == null) {
-            if (isCreated) {
-                isCreated = false
-                observeData()
-            } else {
-                homeViewModel.checkUserNotesCountChanged()
-                observeChanges()
-            }
-        } else {
-            observeData()
-        }
+        observeData()
     }
 
     private fun initViews() {
@@ -100,31 +91,11 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun observeChanges() {
-        homeViewModel.userNotesCountChanged.observe(viewLifecycleOwner) {
-            when(it) {
-                is NotesCountChangeState.Error -> {}
-                NotesCountChangeState.Loading -> {}
-                is NotesCountChangeState.Success -> {
-                    if (it.notesCountChanged) {
-                        homeViewModel.getUserNotesPagedList()
-                        observeData()
-                        binding.searchNoteTextInputLayout.editText?.setText("")
-                    } else {
-                        observeData()
-                    }
-                }
-                else -> {}
-            }
-        }
-    }
-
     private fun handleError(message: String) = with(binding) {
         setProgressBarVisible(false)
         Snackbar.make(this.mainFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { homeViewModel.getUserNotesPagedList() }
             .show()
-        Log.d("VVV", "handleError: $message")
     }
 
     private fun setProgressBarVisible(visible: Boolean) = with(binding) {
