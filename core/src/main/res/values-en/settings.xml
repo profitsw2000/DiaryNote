@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_strings">
+        <item>Account</item>
+        <item>Theme</item>
+        <item>Language</item>
+        <item>General</item>
+        <item>Help</item>
+        <item>About</item>
+    </string-array>
+
+    <string-array name="account_settings_strings">
+        <item>Change password</item>
+        <item>Profile photo</item>
+        <item>Change account info</item>
+        <item>Delete account</item>
+        <item>Backup</item>
+    </string-array>
+
+    <string-array name="language_settings_strings">
+        <item>Russian</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="unactive_time_period_strings">
+        <item>Hour</item>
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+
+    <string-array name="help_menu_strings">
+        <item>How to create note</item>
+        <item>Search note</item>
+        <item>Edit or delete note</item>
+        <item>Create notes category</item>
+        <item>View notes by category</item>
+        <item>View notes for a specific time period</item>
+        <item>Changing your account information</item>
+    </string-array>
+
+    <string-array name="help_menu_content_strings">
+        <item>To create new note click the {create_note_icon} button on the Home tab. You will be taken to the note creation screen.\nEnter a title for the note (at least 2 characters), note text (must contain at least 10 characters) and tags for this note (search keywords).\nMaximum number of tags are 20, each tag must contain at least two characters, and the number of words in one tag is no more than two. Tags are separated by commas.</item>
+        <item>You can search for a note on the Home tab. In the search field at the top of the screen, enter the word and press {search_note_icon}.\nIf the search query contains several words, then first the search will be made for notes whose tags, title and text contain a phrase that fully matches the search query.\nFirst, the search is carried out in note tags, then in the note titles, and lastly - in the text of the notes.\nTherefore, to quickly find the desired note, it is important to correctly fill out the tags field when creating notes. Also, order of search can be adjusted in Settings.</item>
+        <item>To edit or delete a note, open it for reading (click the note).\nIn the upper right corner, click on the corresponding icon: deleting - {delete_note_icon}, editing - {edit_note_icon}. In the dialog box that appears, confirm the selected action.\nEditing the note will be carried out on a new opened screen. Fill in all fields in the same way as when creating a note and click the CHANGE button.</item>
+        <item>To create new category of notes, click on the Category tab, click {add_category_icon}. Or, on the screen for creating or editing a note, click {add_category_icon_grey}.\nEnter the name of the new category, select an icon from the list provided and the color with which this category of notes will be associated. It is possible to add your own icon by uploading your .svg file. To do this, click {add_category_icon_grey} and select the desired file.\nAfter filling in all the required fields, click the ADD button and confirm the selected action in the dialog box that appears.</item>
+        <item>Go to the Category tab. Select the desired category from the list. A screen will open with notes related to the selected category.</item>
+        <item>Go to the Calendar tab. Use the filter chips to select the desired time period. You can watch list of notes created at all time period, at the last year, month, week or day.\nIt is also possible to show notes for a user-selected period. To do this, click the "Select period" chip. A calendar dialog box will open. Select the start date of the period and the end date of the period. Click SAVE button</item>
+        <item>To change account information, open the Settings tab, select Account. On the opened tab, you can change your password, set/change your profile photo, change your login or email, add/change your username.</item>
+    </string-array>
+
+</resources>

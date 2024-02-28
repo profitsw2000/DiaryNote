@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_settings"
+    app:startDestination="@id/main_account_settings">
+
+    <fragment
+        android:id="@+id/main_account_settings"
+        android:name="diarynote.settingsfragment.presentation.view.AccountSettingsFragment"
+        android:label="@string/account_fragment_label_text"
+        tools:layout="@layout/fragment_account_settings">
+        <action
+            android:id="@+id/action_settings_to_change_password"
+            app:destination="@+id/change_password_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_settings_to_change_user_info"
+            app:destination="@+id/change_user_info_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_settings_to_delete_account_info"
+            app:destination="@+id/delete_user_account_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_settings_to_user_image"
+            app:destination="@+id/user_image_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_settings_to_backup_restore"
+            app:destination="@+id/backup_restore_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <!-- Account settings -->
+    <fragment
+        android:id="@+id/change_password_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.ChangePasswordFragment"
+        android:label="@string/change_password_fragment_label_text"
+        tools:layout="@layout/fragment_change_password"/>
+
+    <fragment
+        android:id="@+id/change_user_info_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.ChangeUserInfoFragment"
+        android:label="@string/change_user_info_fragment_label_text"
+        tools:layout="@layout/fragment_change_user_info"/>
+
+    <fragment
+        android:id="@+id/delete_user_account_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.DeleteAccountFragment"
+        android:label="@string/delete_account_label_text"
+        tools:layout="@layout/fragment_delete_account">
+        <action
+            android:id="@+id/action_delete_user_account_to_view_model_cleaner"
+            app:destination="@+id/view_model_cleaner_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_model_cleaner_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.ViewModelCleanerFragment"
+        android:label=""
+        tools:layout="@layout/fragment_view_model_cleaner"/>
+
+    <fragment
+        android:id="@+id/user_image_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.UserImageFragment"
+        android:label="@string/user_image_label_text"
+        tools:layout="@layout/fragment_user_image"/>
+
+    <fragment
+        android:id="@+id/backup_restore_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.account.BackupRestoreFragment"
+        android:label="@string/backup_restore_fragment_label_text"
+        tools:layout="@layout/fragment_backup_restore"/>
+
+</navigation>
