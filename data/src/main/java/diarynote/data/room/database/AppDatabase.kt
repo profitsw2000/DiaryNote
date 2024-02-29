@@ -14,6 +14,8 @@ import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.mappers.Converter
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -28,6 +30,10 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val categoryDao: CategoryDao
     abstract val noteDao: NoteDao
     abstract val userDao: UserDao
+
+    val state: ByteArray = SQLiteDatabase.getBytes(charArrayOf('f', 'd'))
+    val factory = SupportFactory(state)
+
 
     companion object {
         private const val DB_NAME = "database.db"

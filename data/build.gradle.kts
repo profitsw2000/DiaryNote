@@ -30,6 +30,7 @@ dependencies {
     //SqlCipher
     implementation(SqlCipher.sqlCipher)
     implementation(Sqlite.sqlite)
+    implementation(CryptoSecurity.cryptoSecurity)
     //Paging
     implementation(Paging.pagingRuntime)
     implementation(Paging.pagingKtx)

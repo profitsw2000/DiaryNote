@@ -67,9 +67,10 @@ object Versions {
     //Room
     const val room = "2.4.3"
 
+    //SQLCipher
     const val sqlCipher = "4.5.3"
-
     const val sqlite = "2.1.0"
+    const val cryptoSecurity = "1.0.0"
 
     //Paging
     const val paging = "3.2.1"
@@ -142,6 +143,10 @@ object SqlCipher {
 
 object Sqlite {
     const val sqlite = "androidx.sqlite:sqlite:${Versions.sqlite}"
+}
+
+object CryptoSecurity {
+    const val cryptoSecurity = "androidx.security:security-crypto:${Versions.cryptoSecurity}"
 }
 
 object Paging {
