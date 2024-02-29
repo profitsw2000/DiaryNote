@@ -14,6 +14,7 @@ import diarynote.data.room.entity.CategoryEntity
 import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.mappers.Converter
+import diarynote.data.room.utils.SQLCipherUtils
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import java.io.InputStream
@@ -47,7 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance() = instance
             ?: throw java.lang.RuntimeException("Database has not been created. Please call create(context)")
 
-        fun create(context: Context) {
+        fun create(context: Context, passphrase: ByteArray) {
             if (instance == null) {
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
                     .addMigrations(MIGRATION_1_2)
@@ -66,6 +67,22 @@ abstract class AppDatabase : RoomDatabase() {
 
             dbFile.delete()
             stream.copyTo(dbFile.outputStream())
+        }
+
+        private fun addMigrationAndEncrypt(context: Context, passphrase: ByteArray, klass: Class<out RoomDatabase>, dbName: String) {
+            val factory = SupportFactory(passphrase)
+            val state = SQLCipherUtils.getDatabaseState(context, dbName)
+
+            val installedVersion = try {
+                SQLiteDatabase.openDatabase(
+                    context.getDatabasePath(dbName).path,
+                    userPassphrase,
+                    null,
+                    SQLiteDatabase.OPEN_READONLY
+                ).version
+            } catch () {
+                MIGRATION_1_2.invoke().maxOf { migration -> migration.endVersion }
+            }
         }
     }
 }

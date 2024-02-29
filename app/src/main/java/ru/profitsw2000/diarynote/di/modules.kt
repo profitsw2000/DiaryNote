@@ -5,14 +5,18 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import diarynote.core.utils.SHARED_PREFERENCE_NAME
 import diarynote.data.room.database.AppDatabase
+import diarynote.data.room.utils.PassphraseGenerator
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.profitsw2000.diarynote.presentation.viewmodel.MainViewModel
 
 
 val appModule = module {
+
     single {
-        AppDatabase.create(androidContext())
+        val passphraseGenerator: PassphraseGenerator = get()
+
+        AppDatabase.create(androidContext(), passphraseGenerator.getPassphrase())
         AppDatabase.getInstance()
     }
 
