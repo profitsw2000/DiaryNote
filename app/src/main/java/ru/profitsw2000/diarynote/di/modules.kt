@@ -14,9 +14,7 @@ import ru.profitsw2000.diarynote.presentation.viewmodel.MainViewModel
 val appModule = module {
 
     single {
-        val passphraseGenerator: PassphraseGenerator = get()
-
-        AppDatabase.create(androidContext(), passphraseGenerator.getPassphrase())
+        AppDatabase.create(androidContext(), get())
         AppDatabase.getInstance()
     }
 
@@ -36,4 +34,5 @@ val appModule = module {
     }
 
     single { MainViewModel(get()) }
+    factory { PassphraseGenerator(androidContext()) }
 }

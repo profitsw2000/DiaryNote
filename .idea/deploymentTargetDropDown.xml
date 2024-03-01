@@ -3,7 +3,20 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="app">
-        <State />
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\ÐÐ½Ð°Ð»Ð¸Ð·Ð°ÑÐ¾Ñ ÑÐ¿ÐµÐºÑÑÐ°\.android\avd\Galaxy_Nexus_API_30.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-03-01T13:15:52.180495400Z" />
+        </State>
       </entry>
     </value>
   </component>
