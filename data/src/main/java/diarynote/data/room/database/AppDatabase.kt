@@ -1,6 +1,7 @@
 package diarynote.data.room.database
 
 import android.content.Context
+import android.widget.Toast
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -17,6 +18,7 @@ import diarynote.data.room.mappers.Converter
 import diarynote.data.room.utils.PassphraseGenerator
 import diarynote.data.room.utils.SQLCipherUtils
 import net.sqlcipher.database.SupportFactory
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -47,10 +49,13 @@ abstract class AppDatabase : RoomDatabase() {
         fun create(context: Context, passphraseGenerator: PassphraseGenerator) {
             val factory = SupportFactory(passphraseGenerator.getPassphrase())
             if (instance == null) {
-                addMigrationAndEncrypt(context, passphraseGenerator.getPassphrase(), AppDatabase::class.java, DB_NAME)
-                instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-                    .openHelperFactory(factory)
-                    .build()
+                if (addMigrationAndEncrypt(context, passphraseGenerator.getPassphrase(), AppDatabase::class.java, DB_NAME)) {
+                    instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
+                        .openHelperFactory(factory)
+                        .build()
+                } else {
+                    Toast.makeText(context, "Ошибка базы данных", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -72,12 +77,17 @@ abstract class AppDatabase : RoomDatabase() {
             passphrase: ByteArray,
             klass: Class<out RoomDatabase>,
             dbName: String
-        ) {
+        ): Boolean {
             val state = SQLCipherUtils.getDatabaseState(context, dbName)
 
             //Decrypt DB if it is
             if(state == SQLCipherUtils.State.ENCRYPTED) {
-                SQLCipherUtils.decrypt(context, context.getDatabasePath(dbName), passphrase)
+                try {
+                    SQLCipherUtils.decrypt(context, context.getDatabasePath(dbName), passphrase)
+                } catch (ioException: IOException) {
+                    Toast.makeText(context, "Ошибка базы данных", Toast.LENGTH_SHORT).show()
+                    return false
+                }
             }
 
             //Perform the migration
@@ -87,8 +97,15 @@ abstract class AppDatabase : RoomDatabase() {
             //Encrypt it again
             if (db.isOpen) db.close()
             if (state == SQLCipherUtils.State.UNENCRYPTED) {
-                SQLCipherUtils.encrypt(context, context.getDatabasePath(dbName), passphrase)
+                try {
+                    SQLCipherUtils.encrypt(context, context.getDatabasePath(dbName), passphrase)
+                }
+                catch (ioException: IOException) {
+                    Toast.makeText(context, "Ошибка базы данных", Toast.LENGTH_SHORT).show()
+                    return false
+                }
             }
+            return true
         }
     }
 }
