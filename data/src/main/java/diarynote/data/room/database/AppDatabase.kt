@@ -15,6 +15,7 @@ import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.mappers.Converter
 import diarynote.data.room.utils.SQLCipherUtils
+import net.sqlcipher.database.SupportFactory
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -43,9 +44,11 @@ abstract class AppDatabase : RoomDatabase() {
             ?: throw java.lang.RuntimeException("Database has not been created. Please call create(context)")
 
         fun create(context: Context, passphrase: ByteArray) {
+            val factory = SupportFactory(passphrase)
             if (instance == null) {
                 addMigrationAndEncrypt(context, passphrase, AppDatabase::class.java, DB_NAME)
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
+                    .openHelperFactory(factory)
                     .build()
             }
         }
