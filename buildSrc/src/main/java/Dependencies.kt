@@ -4,7 +4,7 @@ object Config{
     const val application_id = "ru.profitsw2000.diarynote"
     const val compile_sdk = 34
     const val min_sdk = 23
-    const val target_sdk = 33
+    const val target_sdk = 34
     val java_version = JavaVersion.VERSION_17
 }
 

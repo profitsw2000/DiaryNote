@@ -15,8 +15,6 @@ import diarynote.data.room.entity.NoteEntity
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.room.mappers.Converter
 import diarynote.data.room.utils.SQLCipherUtils
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SupportFactory
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -32,10 +30,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val noteDao: NoteDao
     abstract val userDao: UserDao
 
-    val state: ByteArray = SQLiteDatabase.getBytes(charArrayOf('f', 'd'))
-    val factory = SupportFactory(state)
-
-
     companion object {
         private const val DB_NAME = "database.db"
         private var instance: AppDatabase? = null
@@ -50,8 +44,8 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun create(context: Context, passphrase: ByteArray) {
             if (instance == null) {
+                addMigrationAndEncrypt(context, passphrase, AppDatabase::class.java, DB_NAME)
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-                    .addMigrations(MIGRATION_1_2)
                     .build()
             }
         }
@@ -69,19 +63,27 @@ abstract class AppDatabase : RoomDatabase() {
             stream.copyTo(dbFile.outputStream())
         }
 
-        private fun addMigrationAndEncrypt(context: Context, passphrase: ByteArray, klass: Class<out RoomDatabase>, dbName: String) {
-            val factory = SupportFactory(passphrase)
+        private fun addMigrationAndEncrypt(
+            context: Context,
+            passphrase: ByteArray,
+            klass: Class<out RoomDatabase>,
+            dbName: String
+        ) {
             val state = SQLCipherUtils.getDatabaseState(context, dbName)
 
-            val installedVersion = try {
-                SQLiteDatabase.openDatabase(
-                    context.getDatabasePath(dbName).path,
-                    userPassphrase,
-                    null,
-                    SQLiteDatabase.OPEN_READONLY
-                ).version
-            } catch () {
-                MIGRATION_1_2.invoke().maxOf { migration -> migration.endVersion }
+            //Decrypt DB if it is
+            if(state == SQLCipherUtils.State.ENCRYPTED) {
+                SQLCipherUtils.decrypt(context, context.getDatabasePath(dbName), passphrase)
+            }
+
+            //Perform the migration
+            var db = Room.databaseBuilder(context, klass, dbName)
+                .addMigrations(MIGRATION_1_2)
+                .build()
+            //Encrypt it again
+            if (db.isOpen) db.close()
+            if (state == SQLCipherUtils.State.UNENCRYPTED) {
+                SQLCipherUtils.encrypt(context, context.getDatabasePath(dbName), passphrase)
             }
         }
     }
