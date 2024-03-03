@@ -59,7 +59,7 @@
     <dimen name="outlined_custom_edit_text_text_size">16sp</dimen>
     <dimen name="standart_constraint_vertical_padding">12dp</dimen>
     <dimen name="outlined_text_input_layout_error_text_size">12sp</dimen>
-    <dimen name="small_constraint_horizontal_padding">8dp</dimen>
+    <dimen name="small_constraint_horizontal_padding">12dp</dimen>
     <dimen name="extra_small_constraint_horizontal_spacing_between_views">4dp</dimen>
     <dimen name="action_explanations_standard_text_size">16sp</dimen>
     <dimen name="help_item_title_text_size">20sp</dimen>
