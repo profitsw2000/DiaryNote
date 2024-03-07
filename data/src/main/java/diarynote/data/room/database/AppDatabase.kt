@@ -73,10 +73,8 @@ abstract class AppDatabase : RoomDatabase() {
             klass: Class<out RoomDatabase>,
             dbName: String
         ) {
-            val state = SQLCipherUtils.getDatabaseState(context, dbName)
-
             //Decrypt DB if it is
-            if(state == SQLCipherUtils.State.ENCRYPTED) {
+            if(SQLCipherUtils.getDatabaseState(context, dbName) == SQLCipherUtils.State.ENCRYPTED) {
                 SQLCipherUtils.decrypt(context, context.getDatabasePath(dbName), passphrase)
             }
 
@@ -86,7 +84,7 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
             //Encrypt it again
             if (db.isOpen) db.close()
-            if (state == SQLCipherUtils.State.UNENCRYPTED) {
+            if (SQLCipherUtils.getDatabaseState(context, dbName) == SQLCipherUtils.State.UNENCRYPTED) {
                 SQLCipherUtils.encrypt(context, context.getDatabasePath(dbName), passphrase)
             }
         }
