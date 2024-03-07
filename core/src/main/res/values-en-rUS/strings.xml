@@ -124,7 +124,7 @@
     <string name="delete_account_dialog_title">Delete account</string>
     <string name="delete_account_dialog_content">Deleting account will delete all your notes and data. Do you really want to continue?</string>
     <string name="profile_photo_error_dialog_message_text">Failed to set profile photo</string>
-    <string name="backup_restore_action_explanation_text">Save the data of all local users to restore them when you reinstall the application or change the Android device.\n\nTo create a backup copy, save the data file on disk.\n\nTo restore data, select the file with the previously saved backup copy.\n\nRecovery operation will replaced all current data (notes, user information) with data from the backup file.</string>
+    <string name="backup_restore_action_explanation_text">Save the data of all local users to restore them when you reinstall the application or change the Android device.\n\nTo create a backup copy, save the data file on disk.\n\nTo restore data, select the file with the previously saved backup copy.\n\nRecovery operation will replaced all current data (notes, user information) with data from the backup file.\n\nIf necessary, use data encryption. To do this, enter the password when creating a backup copy (password - at least 8 digital and/or alphabetic characters)\nAttention: if you lose your password, data recovery will not be possible!</string>
     <string name="restore_button_text">Restore</string>
     <string name="create_copy_button_text">Create backup</string>
     <string name="db_save_error_dialog_message">Failed to save database to file</string>
@@ -135,4 +135,5 @@
     <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
     <string name="file_reading_error_toast_text">Error reading file</string>
     <string name="change_item_button_text">EDIT</string>
+    <string name="encrypt_data_switch_text">Encrypt data</string>
 </resources>

@@ -69,7 +69,7 @@ object Versions {
 
     //SQLCipher
     const val sqlCipher = "4.5.3"
-    const val sqlite = "2.1.0"
+    const val sqlite = "2.2.0"
     const val cryptoSecurity = "1.0.0"
 
     //Paging

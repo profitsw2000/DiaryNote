@@ -59,6 +59,12 @@
     </style>
 
     <style name="notes_tags_and_date_text_style" parent="semi_transparent_text_style">
+        <item name="android:textSize">@dimen/help_item_content_text_size</item>
+    </style>
+
+    <style name="encrypt_data_switch_text_style">
+        <item name="android:textSize">@dimen/help_item_content_text_size</item>
+        <item name="android:textColor">@color/deep_purple_A400</item>
     </style>
 
     <style name="notes_list_item_content_text_style">
