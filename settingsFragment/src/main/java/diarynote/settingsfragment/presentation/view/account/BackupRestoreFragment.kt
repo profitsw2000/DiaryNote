@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val DEFAULT_EXPORT_TITLE = "BackupDatabase.db"
 
-class BackupRestoreFragment : Fragment() {
+class BackupRestoreFragment() : Fragment() {
 
     private var _binding: FragmentBackupRestoreBinding? = null
     private val binding get() = _binding!!
@@ -56,7 +56,9 @@ class BackupRestoreFragment : Fragment() {
 
     private fun initViews() = with(binding) {
         createBackupButton.setOnClickListener {
-            createFile.launch(DEFAULT_EXPORT_TITLE)
+            if (defaultThemePickSwitch.isChecked) {
+                //launch dialog
+            } else createFile.launch(DEFAULT_EXPORT_TITLE)
         }
         restoreButton.setOnClickListener {
             openFile.launch(arrayOf("application/octet-stream"))
@@ -128,6 +130,10 @@ class BackupRestoreFragment : Fragment() {
             getString(diarynote.core.R.string.db_restore_success_dialog_title),
             getString(diarynote.core.R.string.db_restore_success_dialog_message),getString(diarynote.core.R.string.dialog_button_ok_text)
         )
+    }
+
+    private fun showPasswordDialog() {
+
     }
 
 }

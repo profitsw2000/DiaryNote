@@ -115,6 +115,11 @@
         <item name="android:textSize">@dimen/action_explanations_standard_text_size</item>
     </style>
 
+    <style name="backup_encrypt_explanation_text_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
     <style name="error_message_text_style">
         <item name="android:textSize">16sp</item>
     </style>

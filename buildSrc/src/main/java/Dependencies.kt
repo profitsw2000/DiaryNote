@@ -37,7 +37,7 @@ object Modules {
 object Versions {
     //Design
     const val appcompat = "1.6.1"
-    const val material = "1.6.1"
+    const val material = "1.11.0"
     const val constraintLayout = "2.1.4"
     const val fragment ="1.3.0"
 

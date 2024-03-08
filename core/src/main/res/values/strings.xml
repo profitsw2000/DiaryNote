@@ -136,4 +136,5 @@
     <string name="file_reading_error_toast_text">Ошибка чтения файла</string>
     <string name="change_item_button_text">ИЗМЕНИТЬ</string>
     <string name="encrypt_data_switch_text">Шифровать данные</string>
+    <string name="backup_encryption_password_dialog_explanation_text">Устанавливайте пароль для резервной копии только при крайней необходимости. Пароль должен содержать не менее 8 цифровых и/или буквенных символов. В случае утери пароля восстановление данных будет невозможно.</string>
 </resources>

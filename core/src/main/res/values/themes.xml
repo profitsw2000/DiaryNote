@@ -29,6 +29,7 @@
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
         <item name="colorSurfaceInverse">@color/white</item>
         <item name="colorOnSurfaceInverse">@color/grey_600</item>
+        <item name="colorSurfaceContainerHigh">@color/deep_purple_100</item>            <!-- Dialog -->
 
         <!-- Error brand color. -->
         <item name="colorError">@color/red_A700</item>
@@ -88,6 +89,7 @@
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
         <item name="colorSurfaceInverse">@color/white</item>
         <item name="colorOnSurfaceInverse">@color/white</item>
+        <item name="colorSurfaceContainerHigh">@color/semi_black</item>            <!-- Dialog -->
 
         <!-- Error brand color. -->
         <item name="colorError">@color/red_A700</item>
