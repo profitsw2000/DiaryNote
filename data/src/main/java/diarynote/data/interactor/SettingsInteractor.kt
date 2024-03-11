@@ -64,7 +64,7 @@ class SettingsInteractor(
         }
     }
 
-    fun exportDB(uri: Uri): Completable {
+    fun exportDB(uri: Uri, backupPassword: String): Completable {
         database?.close()
         database = null
 

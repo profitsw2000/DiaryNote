@@ -327,9 +327,9 @@ class SettingsViewModel(
             .addViewLifeCycle()
     }
 
-    fun exportDB(uri: Uri) {
+    fun exportDB(uri: Uri, backupPassword: String) {
         _backupLiveData.value = BackupState.Loading
-        settingsInteractor.exportDB(uri)
+        settingsInteractor.exportDB(uri, backupPassword)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

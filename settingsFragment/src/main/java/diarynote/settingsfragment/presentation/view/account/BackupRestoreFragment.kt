@@ -16,10 +16,13 @@ import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentBackupRestoreBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.data.model.state.BackupState
+import diarynote.settingsfragment.presentation.view.dialog.PasswordDialogFragment
+import diarynote.template.utils.OnSetPasswordButtonClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val DEFAULT_EXPORT_TITLE = "BackupDatabase.db"
+private const val DIALOG_FRAGMENT = "Dialog fragment"
 
 class BackupRestoreFragment() : Fragment() {
 
@@ -27,9 +30,10 @@ class BackupRestoreFragment() : Fragment() {
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val navigator: Navigator by inject()
+    private var backupPassword = ""
     private val createFile = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
         if (it != null) {
-            settingsViewModel.exportDB(it)
+            settingsViewModel.exportDB(it, backupPassword)
         }
     }
 
@@ -133,7 +137,13 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun showPasswordDialog() {
-
+        val passwordDialog = PasswordDialogFragment(object : OnSetPasswordButtonClickListener{
+            override fun onClick(password: String) {
+                backupPassword = password
+                createFile.launch(DEFAULT_EXPORT_TITLE)
+            }
+        })
+        passwordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
 }
