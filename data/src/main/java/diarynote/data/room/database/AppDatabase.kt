@@ -60,6 +60,20 @@ abstract class AppDatabase : RoomDatabase() {
             context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
         }
 
+        fun copyTo(context: Context, stream: OutputStream, passphrase: String) {
+            //check, if DB is encrypted and decrypt it
+            if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
+                SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), passphrase.toByteArray())
+            }
+            //encrypt DB with passphrase
+            if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
+                SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), passphrase.toByteArray())
+            }
+
+            //write DB to file
+            context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
+        }
+
         fun copyFrom(context: Context, stream: InputStream) {
             val dbFile = context.getDatabasePath(DB_NAME)
 
