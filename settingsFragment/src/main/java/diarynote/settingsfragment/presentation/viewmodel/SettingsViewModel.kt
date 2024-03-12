@@ -344,6 +344,8 @@ class SettingsViewModel(
             .addViewLifeCycle()
     }
 
+    //Check encryption of database
+
     fun getHelpItemsList(context: Context) {
         _helpLiveData.value = HelpState.Loading
         settingsInteractor.getHelpItemsList(context, false)

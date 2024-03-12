@@ -12,6 +12,7 @@ import diarynote.data.model.HelpItemModel
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.room.database.AppDatabase
 import diarynote.data.room.utils.PassphraseGenerator
+import diarynote.data.room.utils.SQLCipherUtils
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import java.lang.Exception
@@ -64,6 +65,12 @@ class SettingsInteractor(
                 emitter.onError(e)
             }
         }
+    }
+
+    //check database encryption
+    fun checkDbEncryption() {
+        val sqlCipherUtils: SQLCipherUtils = SQLCipherUtils()
+
     }
 
     fun exportDB(uri: Uri, backupPassword: String): Completable {

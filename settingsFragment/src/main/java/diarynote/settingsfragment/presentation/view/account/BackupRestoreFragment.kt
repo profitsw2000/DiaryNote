@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
@@ -34,6 +35,13 @@ class BackupRestoreFragment() : Fragment() {
     private val createFile = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
         if (it != null) {
             settingsViewModel.exportDB(it, backupPassword)
+            //check file extension
+            //if it .db then check if it encrypted or not
+            if(MimeTypeMap.getFileExtensionFromUrl(it.toString()) == "db") {
+
+            } else {
+                handleError("Неверное расширение файла", 0)
+            }
         }
     }
 
