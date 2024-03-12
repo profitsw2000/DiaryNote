@@ -17,6 +17,7 @@ import diarynote.data.room.mappers.Converter
 import diarynote.data.room.utils.PassphraseGenerator
 import diarynote.data.room.utils.SQLCipherUtils
 import net.sqlcipher.database.SupportFactory
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -60,16 +61,16 @@ abstract class AppDatabase : RoomDatabase() {
             context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
         }
 
-        fun copyTo(context: Context, stream: OutputStream, passphrase: String) {
+        fun copyTo(context: Context, stream: OutputStream, backupPassword: String, defaultPassword: ByteArray) {
             //check, if DB is encrypted and decrypt it
             if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
-                SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), passphrase.toByteArray())
+                //throw IOException()
+                SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), defaultPassword)
             }
-            //encrypt DB with passphrase
+            //encrypt DB with user password
             if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
-                SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), passphrase.toByteArray())
+                SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), backupPassword.toByteArray())
             }
-
             //write DB to file
             context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
         }

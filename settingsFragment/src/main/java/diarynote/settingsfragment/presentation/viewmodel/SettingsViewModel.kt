@@ -310,7 +310,7 @@ class SettingsViewModel(
             .addViewLifeCycle()
     }
 
-    fun importDB(uri: Uri) {
+    fun importDB(uri: Uri, backupPassword: String) {
         _backupLiveData.value = BackupState.Loading
         settingsInteractor.importDB(uri)
             .subscribeOn(Schedulers.io())

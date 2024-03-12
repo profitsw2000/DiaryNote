@@ -11,6 +11,7 @@ import diarynote.data.domain.web.HelpRepositoryRemote
 import diarynote.data.model.HelpItemModel
 import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.room.database.AppDatabase
+import diarynote.data.room.utils.PassphraseGenerator
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import java.lang.Exception
@@ -19,7 +20,8 @@ class SettingsInteractor(
     private val context: Context,
     private var database: AppDatabase?,
     private val helpRepositoryLocal: HelpRepositoryLocal,
-    private val helpRepositoryRemote: HelpRepositoryRemote
+    private val helpRepositoryRemote: HelpRepositoryRemote,
+    private val passphraseGenerator: PassphraseGenerator
 ) {
 
     fun getSettingsMenuItemsList(context: Context, remote: Boolean)  : List<SettingsMenuItemModel>{
@@ -47,7 +49,7 @@ class SettingsInteractor(
         }
     }
 
-    fun importDB(uri: Uri): Completable {
+    fun importDB(uri: Uri, backupPassword: String): Completable {
         database?.close()
         database = null
 
@@ -71,7 +73,11 @@ class SettingsInteractor(
         return Completable.create { emitter ->
             try {
                 context.contentResolver.openOutputStream(uri)?.use {
-                    AppDatabase.copyTo(context, it)
+                    if (backupPassword.isNullOrEmpty()) {
+                        AppDatabase.copyTo(context, it)
+                    } else {
+                        AppDatabase.copyTo(context, it, backupPassword, passphraseGenerator.getPassphrase())
+                    }
                 }
                 emitter.onComplete()
             } catch (e: Exception) {
