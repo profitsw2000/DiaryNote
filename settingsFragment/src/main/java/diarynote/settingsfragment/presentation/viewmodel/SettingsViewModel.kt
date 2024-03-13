@@ -3,14 +3,17 @@ package diarynote.settingsfragment.presentation.viewmodel
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import android.webkit.MimeTypeMap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.BACKUP_BIT_NUMBER
 import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
 import diarynote.core.utils.CURRENT_PASSWORD_BIT_NUMBER
+import diarynote.core.utils.DB_FILE_OPEN_ERROR
 import diarynote.core.utils.EMAIL_ALREADY_EXIST_BIT_NUMBER
 import diarynote.core.utils.EMAIL_BIT_NUMBER
 import diarynote.core.utils.EMAIL_PATTERN
+import diarynote.core.utils.INVALID_FILE_EXTENSION_BIT_NUMBER
 import diarynote.core.utils.InputValidator
 import diarynote.core.utils.LOGIN_ALREADY_EXIST_BIT_NUMBER
 import diarynote.core.utils.LOGIN_BIT_NUMBER
@@ -46,8 +49,11 @@ import diarynote.data.room.entity.UserEntity
 import diarynote.data.model.state.BackupState
 import diarynote.data.model.state.HelpState
 import diarynote.data.model.state.UserState
+import diarynote.data.room.utils.SQLCipherUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.File
+import java.lang.Exception
 
 class SettingsViewModel(
     private val settingsInteractor: SettingsInteractor,
@@ -310,9 +316,26 @@ class SettingsViewModel(
             .addViewLifeCycle()
     }
 
-    fun importDB(uri: Uri, backupPassword: String) {
+    fun importDB(uri: Uri) {
         _backupLiveData.value = BackupState.Loading
         settingsInteractor.importDB(uri)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _backupLiveData.value = BackupState.SuccessRestore
+                },
+                {
+                    val message = it.message ?: ""
+                    _backupLiveData.value = BackupState.Error(message, (1 shl RESTORE_BIT_NUMBER))
+                }
+            )
+            .addViewLifeCycle()
+    }
+
+    fun importEncryptedDB(uri: Uri, backupPassword: String) {
+        _backupLiveData.value = BackupState.Loading
+        settingsInteractor.importEncryptedDB(uri, backupPassword)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -345,6 +368,26 @@ class SettingsViewModel(
     }
 
     //Check encryption of database
+    fun checkPickedFile(uri: Uri) {
+        _backupLiveData.value = BackupState.Loading
+        if(MimeTypeMap.getFileExtensionFromUrl(uri.toString()) == "db") {
+            settingsInteractor.checkPickedFile(uri)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        _backupLiveData.value = BackupState.DbState(it, uri)
+                    },
+                    {
+                        val message = it.message ?: ""
+                        _backupLiveData.value = BackupState.Error(message, (1 shl DB_FILE_OPEN_ERROR))
+                    }
+                )
+        } else {
+            _backupLiveData.value = BackupState.Error("", (1 shl INVALID_FILE_EXTENSION_BIT_NUMBER))
+        }
+
+    }
 
     fun getHelpItemsList(context: Context) {
         _helpLiveData.value = HelpState.Loading

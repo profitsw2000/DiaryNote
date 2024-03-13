@@ -82,6 +82,13 @@ abstract class AppDatabase : RoomDatabase() {
             stream.copyTo(dbFile.outputStream())
         }
 
+        fun copyFrom(context: Context, stream: InputStream, userPassword: String) {
+            val dbFile = context.getDatabasePath(DB_NAME)
+
+            dbFile.delete()
+            stream.copyTo(dbFile.outputStream())
+        }
+
         private fun addMigrationAndEncrypt(
             context: Context,
             passphrase: ByteArray,

@@ -2,6 +2,7 @@ package diarynote.data.interactor
 
 import android.content.Context
 import android.net.Uri
+import android.webkit.MimeTypeMap
 import diarynote.core.R
 import diarynote.data.appsettings.accountSettingsIdList
 import diarynote.data.appsettings.createSettingsMenuList
@@ -15,6 +16,7 @@ import diarynote.data.room.utils.PassphraseGenerator
 import diarynote.data.room.utils.SQLCipherUtils
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import java.io.File
 import java.lang.Exception
 
 class SettingsInteractor(
@@ -50,10 +52,7 @@ class SettingsInteractor(
         }
     }
 
-    fun importDB(uri: Uri, backupPassword: String): Completable {
-        database?.close()
-        database = null
-
+    fun importDB(uri: Uri): Completable {
         return Completable.create { emitter ->
             try {
                 context.contentResolver.openInputStream(uri)?.use {
@@ -67,10 +66,27 @@ class SettingsInteractor(
         }
     }
 
-    //check database encryption
-    fun checkDbEncryption() {
-        val sqlCipherUtils: SQLCipherUtils = SQLCipherUtils()
+    fun importEncryptedDB(uri: Uri, backupPassword: String): Completable {
+        SQLCipherUtils.decrypt(context, context.getDatabasePath(File(uri.path).name), backupPassword.toByteArray())
+        return importDB(uri)
+    }
 
+    //check database encryption
+    fun checkPickedFile(uri: Uri): Single<Boolean> {
+        database?.close()
+        database = null
+
+        return Single.create { emitter ->
+            try {
+                if(SQLCipherUtils.getDatabaseState(context, File(uri.path).name) == SQLCipherUtils.State.ENCRYPTED) {
+                    emitter.onSuccess(true)
+                } else {
+                    emitter.onSuccess(false)
+                }
+            } catch (e: Exception) {
+                emitter.onError(e)
+            }
+        }
     }
 
     fun exportDB(uri: Uri, backupPassword: String): Completable {

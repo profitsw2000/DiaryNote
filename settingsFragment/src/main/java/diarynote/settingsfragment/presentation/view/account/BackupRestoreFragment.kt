@@ -1,5 +1,6 @@
 package diarynote.settingsfragment.presentation.view.account
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.BACKUP_BIT_NUMBER
+import diarynote.core.utils.INVALID_FILE_EXTENSION_BIT_NUMBER
 import diarynote.core.utils.RESTORE_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.navigator.Navigator
@@ -35,6 +37,12 @@ class BackupRestoreFragment() : Fragment() {
     private val createFile = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
         if (it != null) {
             settingsViewModel.exportDB(it, backupPassword)
+        }
+    }
+
+    private val openFile = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
+        if (it != null) {
+            settingsViewModel.importDB(it)
             //check file extension
             //if it .db then check if it encrypted or not
             if(MimeTypeMap.getFileExtensionFromUrl(it.toString()) == "db") {
@@ -42,12 +50,6 @@ class BackupRestoreFragment() : Fragment() {
             } else {
                 handleError("Неверное расширение файла", 0)
             }
-        }
-    }
-
-    private val openFile = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
-        if (it != null) {
-            settingsViewModel.importDB(it)
         }
     }
 
@@ -89,8 +91,27 @@ class BackupRestoreFragment() : Fragment() {
             BackupState.Loading -> setProgressBarVisible(true)
             BackupState.SuccessBackup -> handleBackupSuccess()
             BackupState.SuccessRestore -> handleRestoreSuccess()
+            is BackupState.DbState -> importDB(backupState.isEncrypted, backupState.uri)
             else -> {}
         }
+    }
+
+    private fun importDB(isEncrypted: Boolean, uri: Uri) {
+        if (isEncrypted) {
+            settingsViewModel.importDB(uri)
+        } else {
+            importEncryptedDB(isEncrypted, uri)
+        }
+    }
+
+    private fun importEncryptedDB(isEncrypted: Boolean, uri: Uri) {
+        val passwordDialog = PasswordDialogFragment(object : OnSetPasswordButtonClickListener{
+            override fun onClick(password: String) {
+                backupPassword = password
+                settingsViewModel.importDB(uri, backupPassword)
+            }
+        })
+        passwordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
     private fun handleError(message: String, errorCode: Int) {
@@ -100,6 +121,7 @@ class BackupRestoreFragment() : Fragment() {
         val dialogMessage: String = when(errorCode) {
             (1 shl BACKUP_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_save_error_dialog_message)
             (1 shl RESTORE_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_restore_error_dialog_message)
+            (1 shl INVALID_FILE_EXTENSION_BIT_NUMBER) and errorCode -> "Неверное расширение файла"
             else -> message
         }
 
