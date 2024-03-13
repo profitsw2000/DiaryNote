@@ -137,4 +137,5 @@
     <string name="change_item_button_text">EDIT</string>
     <string name="encrypt_data_switch_text">Encrypt data</string>
     <string name="backup_encryption_password_dialog_explanation_text">Set a backup password only if absolutely necessary. The password must contain at least 8 numeric and/or alphabetic characters. If you lose your password, data recovery will not be possible.</string>
+    <string name="restore_encrypted_data_password_explanation_text">The backup data is encrypted. To restore data, enter the password:</string>
 </resources>

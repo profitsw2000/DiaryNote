@@ -204,6 +204,15 @@ class SettingsViewModel(
                 ((enteredPassword == confirmedPassword).toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
     }
 
+    /**
+     * Проверка пароля на соответствие требованиям - не менее 8 цифровых или буквенных символов и
+     * правильно подтвержденный пароль
+     * @return число, содержащее код результата проверки
+     */
+    fun recoveryPasswordValidationCode(enteredPassword: String): Int {
+        return InputValidator().checkInputIsValid(enteredPassword, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN).toInt() shl PASSWORD_BIT_NUMBER
+    }
+
     private fun invalidInput(currentPasswordIsValid: Boolean, passwordIsValid: Boolean, confirmed: Boolean) {
         val errorCode = (currentPasswordIsValid.toInt() shl CURRENT_PASSWORD_BIT_NUMBER) or
                 (passwordIsValid.toInt() shl PASSWORD_BIT_NUMBER) or

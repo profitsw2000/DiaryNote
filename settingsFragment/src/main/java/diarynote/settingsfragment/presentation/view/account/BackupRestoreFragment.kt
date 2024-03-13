@@ -20,6 +20,7 @@ import diarynote.settingsfragment.databinding.FragmentBackupRestoreBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.data.model.state.BackupState
 import diarynote.settingsfragment.presentation.view.dialog.PasswordDialogFragment
+import diarynote.settingsfragment.presentation.view.dialog.RestorePasswordDialogFragment
 import diarynote.template.utils.OnSetPasswordButtonClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,14 +43,8 @@ class BackupRestoreFragment() : Fragment() {
 
     private val openFile = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
         if (it != null) {
-            settingsViewModel.importDB(it)
-            //check file extension
-            //if it .db then check if it encrypted or not
-            if(MimeTypeMap.getFileExtensionFromUrl(it.toString()) == "db") {
-
-            } else {
-                handleError("Неверное расширение файла", 0)
-            }
+            //check file for right extension and check if it encrypted or not
+            settingsViewModel.checkPickedFile(it)
         }
     }
 
@@ -72,6 +67,7 @@ class BackupRestoreFragment() : Fragment() {
         createBackupButton.setOnClickListener {
             if (defaultThemePickSwitch.isChecked) {
                 //launch dialog
+                showPasswordDialog()
             } else createFile.launch(DEFAULT_EXPORT_TITLE)
         }
         restoreButton.setOnClickListener {
@@ -98,20 +94,20 @@ class BackupRestoreFragment() : Fragment() {
 
     private fun importDB(isEncrypted: Boolean, uri: Uri) {
         if (isEncrypted) {
-            settingsViewModel.importDB(uri)
+            importEncryptedDB(uri)
         } else {
-            importEncryptedDB(isEncrypted, uri)
+            settingsViewModel.importDB(uri)
         }
     }
 
-    private fun importEncryptedDB(isEncrypted: Boolean, uri: Uri) {
-        val passwordDialog = PasswordDialogFragment(object : OnSetPasswordButtonClickListener{
+    private fun importEncryptedDB(uri: Uri) {
+        val restorePasswordDialog = RestorePasswordDialogFragment(object : OnSetPasswordButtonClickListener{
             override fun onClick(password: String) {
                 backupPassword = password
-                settingsViewModel.importDB(uri, backupPassword)
+                settingsViewModel.importEncryptedDB(uri, backupPassword)
             }
         })
-        passwordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
+        restorePasswordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
     private fun handleError(message: String, errorCode: Int) {
@@ -149,6 +145,7 @@ class BackupRestoreFragment() : Fragment() {
             getString(diarynote.core.R.string.db_save_success_dialog_title),
             getString(diarynote.core.R.string.db_save_success_dialog_message),
             getString(diarynote.core.R.string.dialog_button_ok_text))
+        backupPassword = ""
         settingsViewModel.setBackupIdle()
     }
 
