@@ -16,7 +16,9 @@
     <color name="semi_black">#202020</color>
     <color name="heavy_black">#C0000000</color>
     <color name="black">#FF000000</color>
+    <color name="transparent_black">#A0000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
     //category list base colors
     <color name="yellow">#FFFFFF00</color>
     <color name="violet">#FFE040FB</color>
@@ -24,6 +26,5 @@
     <color name="teal">#FF18FFFF</color>
     <color name="red">#FFD50000</color>
     <color name="dark_blue">#FF2962FF</color>
-
 
 </resources>

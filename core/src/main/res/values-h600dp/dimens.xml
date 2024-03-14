@@ -45,7 +45,6 @@
     <dimen name="sub_settings_item_image_view_margin_end">32dp</dimen>
     <dimen name="general_settings_item_image_size">18dp</dimen>
     <dimen name="extra_large_vertical_margin_between_views">32dp</dimen>
-    <dimen name="standard_vertical_margin_between_views">16dp</dimen>
     <dimen name="developer_logo_text_size">24sp</dimen>
     <dimen name="sub_settings_content_padding_size">6dp</dimen>
     <!-- Variable res. -->
@@ -70,4 +69,8 @@
     <dimen name="calendar_chip_horizontal_padding">18dp</dimen>
     <dimen name="custom_chip_text_size">13sp</dimen>
     <dimen name="large_vertical_margin_between_views">18dp</dimen>
+    <dimen name="standard_vertical_margin_between_views">12dp</dimen>
+    <dimen name="notes_activity_fragment_title_text_size">22sp</dimen>
+    <dimen name="backup_password_dialog_explanation_text_size">13sp</dimen>
+    <dimen name="custom_dialog_corner_radius">18dp</dimen>
 </resources>

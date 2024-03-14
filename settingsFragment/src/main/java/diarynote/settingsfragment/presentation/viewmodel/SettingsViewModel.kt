@@ -200,8 +200,8 @@ class SettingsViewModel(
      * @return число, содержащее код результата проверки
      */
     fun backupPasswordEncryptionValidationCode(enteredPassword: String, confirmedPassword: String): Int {
-        return (InputValidator().checkInputIsValid(enteredPassword, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN).toInt() shl PASSWORD_BIT_NUMBER) or
-                ((enteredPassword == confirmedPassword).toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
+        return ((!InputValidator().checkInputIsValid(enteredPassword, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)).toInt() shl PASSWORD_BIT_NUMBER) or
+                ((!(enteredPassword == confirmedPassword)).toInt() shl CONFIRM_PASSWORD_BIT_NUMBER)
     }
 
     /**
