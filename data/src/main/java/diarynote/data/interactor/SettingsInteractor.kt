@@ -97,9 +97,9 @@ class SettingsInteractor(
             try {
                 context.contentResolver.openOutputStream(uri)?.use {
                     if (backupPassword.isNullOrEmpty()) {
-                        AppDatabase.copyTo(context, it)
+                        AppDatabase.copyTo(context, uri, it, passphraseGenerator)
                     } else {
-                        AppDatabase.copyTo(context, it, backupPassword, passphraseGenerator.getPassphrase())
+                        AppDatabase.copyTo(context, uri, it, backupPassword, passphraseGenerator.getPassphrase())
                     }
                 }
                 emitter.onComplete()

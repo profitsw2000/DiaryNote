@@ -1,12 +1,15 @@
 package diarynote.data.room.database
 
 import android.content.Context
+import android.net.Uri
+import androidx.core.net.toFile
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import diarynote.core.utils.FileHelper
 import diarynote.data.room.dao.CategoryDao
 import diarynote.data.room.dao.NoteDao
 import diarynote.data.room.dao.UserDao
@@ -17,6 +20,7 @@ import diarynote.data.room.mappers.Converter
 import diarynote.data.room.utils.PassphraseGenerator
 import diarynote.data.room.utils.SQLCipherUtils
 import net.sqlcipher.database.SupportFactory
+import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -51,28 +55,57 @@ abstract class AppDatabase : RoomDatabase() {
                 addMigrationAndEncrypt(context, passphraseGenerator.getPassphrase(), AppDatabase::class.java, DB_NAME)
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
                     .openHelperFactory(factory)
+                    .addMigrations(MIGRATION_1_2)
                     .build()
             }
         }
 
         fun exists(context: Context) = context.getDatabasePath(DB_NAME).exists()
 
-        fun copyTo(context: Context, stream: OutputStream) {
-            context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
-        }
+        fun copyTo(context: Context, uri: Uri, stream: OutputStream, passphraseGenerator: PassphraseGenerator) {
 
-        fun copyTo(context: Context, stream: OutputStream, backupPassword: String, defaultPassword: ByteArray) {
-            //check, if DB is encrypted and decrypt it
+            //val fileHelper = FileHelper()
+
+            val db = getInstance()
+
+            if (db.isOpen) db.close()
+            //Decrypt DB if it is
             if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
-                //throw IOException()
-                SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), defaultPassword)
+                SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
             }
-            //encrypt DB with user password
-            if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
-                SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), backupPassword.toByteArray())
-            }
+
             //write DB to file
             context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
+            stream.close()
+
+            if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
+                SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
+            }
+            if (db.isOpen) db.close()
+            create(context, passphraseGenerator)
+            //check, if DB is encrypted and decrypt it
+/*            if(SQLCipherUtils.getDatabaseState(context, fileHelper.getRealPathFromURI(context, uri)) == SQLCipherUtils.State.ENCRYPTED) {
+                //throw IOException()
+                SQLCipherUtils.decrypt(context, context.getDatabasePath(fileHelper.getRealPathFromURI(context, uri)), defaultPassword)
+            }*/
+        }
+
+        fun copyTo(context: Context, uri: Uri, stream: OutputStream, backupPassword: String, defaultPassword: ByteArray) {
+
+            //write DB to file
+            context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
+            stream.close()
+
+            //check, if DB is encrypted and decrypt it
+            if(SQLCipherUtils.getDatabaseState(context, File(uri.path).name) == SQLCipherUtils.State.ENCRYPTED) {
+                //throw IOException()
+                SQLCipherUtils.decrypt(context, context.getDatabasePath(File(uri.path).name), defaultPassword)
+            }
+            //encrypt DB with user password
+            if (SQLCipherUtils.getDatabaseState(context, File(uri.path).name) == SQLCipherUtils.State.UNENCRYPTED) {
+                SQLCipherUtils.encrypt(context, context.getDatabasePath(File(uri.path).name), backupPassword.toByteArray())
+            }
+
         }
 
         fun copyFrom(context: Context, stream: InputStream) {

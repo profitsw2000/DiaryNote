@@ -1,29 +1,34 @@
 package diarynote.settingsfragment.presentation.view.account
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.BACKUP_BIT_NUMBER
+import diarynote.core.utils.FileHelper
 import diarynote.core.utils.INVALID_FILE_EXTENSION_BIT_NUMBER
 import diarynote.core.utils.RESTORE_BIT_NUMBER
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
+import diarynote.data.model.state.BackupState
 import diarynote.navigator.Navigator
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentBackupRestoreBinding
-import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
-import diarynote.data.model.state.BackupState
 import diarynote.settingsfragment.presentation.view.dialog.PasswordDialogFragment
 import diarynote.settingsfragment.presentation.view.dialog.RestorePasswordDialogFragment
+import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.utils.OnSetPasswordButtonClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+
 
 private const val DEFAULT_EXPORT_TITLE = "BackupDatabase.db"
 private const val DIALOG_FRAGMENT = "Dialog fragment"
@@ -37,14 +42,20 @@ class BackupRestoreFragment() : Fragment() {
     private var backupPassword = ""
     private val createFile = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
         if (it != null) {
+            //val fileHelper = FileHelper()
+
             settingsViewModel.exportDB(it, backupPassword)
+/*            val filePath = fileHelper.getRealPathFromURI(requireContext(), it)
+            Log.d("VVV", "file path: $filePath")*/
         }
     }
 
     private val openFile = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
         if (it != null) {
             //check file for right extension and check if it encrypted or not
-            settingsViewModel.checkPickedFile(it)
+            //settingsViewModel.checkPickedFile(it)
+            Log.d("VVV", "file path: ${File(it.path).absolutePath}")
+            Log.d("VVV", "uri path: $it")
         }
     }
 
