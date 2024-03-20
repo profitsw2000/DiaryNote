@@ -90,8 +90,8 @@ class SettingsInteractor(
     }
 
     fun exportDB(uri: Uri, backupPassword: String): Completable {
-        database?.close()
-        database = null
+        //database?.close()
+        //database = null
 
         return Completable.create { emitter ->
             try {

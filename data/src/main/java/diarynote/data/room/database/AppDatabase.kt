@@ -2,6 +2,7 @@ package diarynote.data.room.database
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.core.net.toFile
 import androidx.room.Database
 import androidx.room.Room
@@ -51,6 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun create(context: Context, passphraseGenerator: PassphraseGenerator) {
             val factory = SupportFactory(passphraseGenerator.getPassphrase())
+            Log.d("VVV", "passphrase: ${passphraseGenerator.getPassphrase()}")
             if (instance == null) {
                 addMigrationAndEncrypt(context, passphraseGenerator.getPassphrase(), AppDatabase::class.java, DB_NAME)
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
@@ -66,11 +68,9 @@ abstract class AppDatabase : RoomDatabase() {
 
             //val fileHelper = FileHelper()
 
-            val db = getInstance()
-
-            if (db.isOpen) db.close()
             //Decrypt DB if it is
             if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
+                Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
                 SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
             }
 
@@ -79,9 +79,10 @@ abstract class AppDatabase : RoomDatabase() {
             stream.close()
 
             if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
+                Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
                 SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
             }
-            if (db.isOpen) db.close()
+            //instance = null
             create(context, passphraseGenerator)
             //check, if DB is encrypted and decrypt it
 /*            if(SQLCipherUtils.getDatabaseState(context, fileHelper.getRealPathFromURI(context, uri)) == SQLCipherUtils.State.ENCRYPTED) {
