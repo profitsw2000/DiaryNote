@@ -6,6 +6,7 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import androidx.activity.result.contract.ActivityResultContracts
 import diarynote.core.R
+import diarynote.core.utils.FileHelper
 import diarynote.data.appsettings.accountSettingsIdList
 import diarynote.data.appsettings.createSettingsMenuList
 import diarynote.data.appsettings.settingsIdList
@@ -75,12 +76,15 @@ class SettingsInteractor(
 
     //check database encryption
     fun checkPickedFile(uri: Uri): Single<Boolean> {
+/*        val fileHelper = FileHelper()
+        val file = File(fileHelper.getRealPathFromURI(context, uri))*/
+
         database?.close()
         database = null
 
         return Single.create { emitter ->
             try {
-                if(SQLCipherUtils.getDatabaseState(context, File(uri.path).name) == SQLCipherUtils.State.ENCRYPTED) {
+                if(SQLCipherUtils.getDatabaseState(File(FileHelper().getRealPathFromURI(context, uri))) == SQLCipherUtils.State.ENCRYPTED) {
                     emitter.onSuccess(true)
                 } else {
                     emitter.onSuccess(false)

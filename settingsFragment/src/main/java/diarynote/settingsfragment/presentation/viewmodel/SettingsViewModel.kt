@@ -404,22 +404,23 @@ class SettingsViewModel(
     //Check encryption of database
     fun checkPickedFile(uri: Uri) {
         _backupLiveData.value = BackupState.Loading
-        if(MimeTypeMap.getFileExtensionFromUrl(uri.toString()) == "db") {
-            settingsInteractor.checkPickedFile(uri)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        _backupLiveData.value = BackupState.DbState(it, uri)
-                    },
-                    {
-                        val message = it.message ?: ""
-                        _backupLiveData.value = BackupState.Error(message, (1 shl DB_FILE_OPEN_ERROR))
-                    }
-                )
-        } else {
+/*        if(MimeTypeMap.getFileExtensionFromUrl(uri.toString()) == "db") {*/
+        settingsInteractor.checkPickedFile(uri)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _backupLiveData.value = BackupState.DbState(it, uri)
+                },
+                {
+                    val message = it.message ?: ""
+                    _backupLiveData.value = BackupState.Error(message, (1 shl DB_FILE_OPEN_ERROR))
+                }
+            )
+            .addViewLifeCycle()
+/*        } else {
             _backupLiveData.value = BackupState.Error("", (1 shl INVALID_FILE_EXTENSION_BIT_NUMBER))
-        }
+        }*/
 
     }
 

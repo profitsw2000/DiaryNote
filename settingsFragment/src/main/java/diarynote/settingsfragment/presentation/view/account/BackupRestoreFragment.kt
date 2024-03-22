@@ -49,9 +49,7 @@ class BackupRestoreFragment() : Fragment() {
     private val openFile = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
         if (it != null) {
             //check file for right extension and check if it encrypted or not
-            //settingsViewModel.checkPickedFile(it)
-            Log.d("VVV", "file path: ${File(it.path).absolutePath}")
-            Log.d("VVV", "uri path: $it")
+            settingsViewModel.checkPickedFile(it)
         }
     }
 
@@ -90,7 +88,7 @@ class BackupRestoreFragment() : Fragment() {
     private fun renderData(backupState: BackupState?) {
         when(backupState) {
             is BackupState.Error -> handleError(backupState.message, backupState.errorCode)
-            BackupState.Idle -> {}
+            BackupState.Idle -> setProgressBarVisible(false)
             BackupState.Loading -> setProgressBarVisible(true)
             BackupState.SuccessBackup -> handleBackupSuccess()
             BackupState.SuccessRestore -> handleRestoreSuccess()
@@ -101,9 +99,13 @@ class BackupRestoreFragment() : Fragment() {
 
     private fun importDB(isEncrypted: Boolean, uri: Uri) {
         if (isEncrypted) {
-            importEncryptedDB(uri)
+            Log.d("VVV", "importDB: encrypted")
+            settingsViewModel.setBackupIdle()
+            //importEncryptedDB(uri)
         } else {
-            settingsViewModel.importDB(uri)
+            Log.d("VVV", "importDB: decrypted")
+            settingsViewModel.setBackupIdle()
+            //settingsViewModel.importDB(uri)
         }
     }
 
