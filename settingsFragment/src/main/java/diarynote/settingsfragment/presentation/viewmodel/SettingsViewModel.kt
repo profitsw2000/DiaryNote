@@ -3,6 +3,7 @@ package diarynote.settingsfragment.presentation.viewmodel
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -361,7 +362,31 @@ class SettingsViewModel(
 
     fun exportDB(uri: Uri, backupPassword: String) {
         _backupLiveData.value = BackupState.Loading
+        if (backupPassword.isNullOrEmpty()) {
+            exportDecryptedDB(uri)
+        } else {
+            exportEncryptedDB(uri, backupPassword)
+        }
+    }
+
+    private fun exportEncryptedDB(uri: Uri, backupPassword: String) {
         settingsInteractor.exportDB(uri, backupPassword)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    _backupLiveData.value = BackupState.SuccessBackup
+                },
+                {
+                    val message = it.message ?: ""
+                    _backupLiveData.value = BackupState.Error(message, (1 shl BACKUP_BIT_NUMBER))
+                }
+            )
+            .addViewLifeCycle()
+    }
+
+    private fun exportDecryptedDB(uri: Uri) {
+        settingsInteractor.exportDB(uri)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

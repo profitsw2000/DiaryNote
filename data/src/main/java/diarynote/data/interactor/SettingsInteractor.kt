@@ -1,8 +1,10 @@
 package diarynote.data.interactor
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.webkit.MimeTypeMap
+import androidx.activity.result.contract.ActivityResultContracts
 import diarynote.core.R
 import diarynote.data.appsettings.accountSettingsIdList
 import diarynote.data.appsettings.createSettingsMenuList
@@ -89,6 +91,23 @@ class SettingsInteractor(
         }
     }
 
+    fun exportDB(uri: Uri): Completable {
+        //database?.close()
+        //database = null
+
+        return Completable.create { emitter ->
+            try {
+                context.contentResolver.openOutputStream(uri)?.use {
+                    AppDatabase.copyTo(context, it, passphraseGenerator)
+                }
+                emitter.onComplete()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emitter.onError(e)
+            }
+        }
+    }
+
     fun exportDB(uri: Uri, backupPassword: String): Completable {
         //database?.close()
         //database = null
@@ -96,11 +115,7 @@ class SettingsInteractor(
         return Completable.create { emitter ->
             try {
                 context.contentResolver.openOutputStream(uri)?.use {
-                    if (backupPassword.isNullOrEmpty()) {
-                        AppDatabase.copyTo(context, uri, it, passphraseGenerator)
-                    } else {
-                        AppDatabase.copyTo(context, uri, it, backupPassword, passphraseGenerator.getPassphrase())
-                    }
+                    AppDatabase.copyTo(context, it, backupPassword, passphraseGenerator)
                 }
                 emitter.onComplete()
             } catch (e: Exception) {

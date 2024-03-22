@@ -42,11 +42,7 @@ class BackupRestoreFragment() : Fragment() {
     private var backupPassword = ""
     private val createFile = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
         if (it != null) {
-            //val fileHelper = FileHelper()
-
             settingsViewModel.exportDB(it, backupPassword)
-/*            val filePath = fileHelper.getRealPathFromURI(requireContext(), it)
-            Log.d("VVV", "file path: $filePath")*/
         }
     }
 
@@ -128,7 +124,7 @@ class BackupRestoreFragment() : Fragment() {
         val dialogMessage: String = when(errorCode) {
             (1 shl BACKUP_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_save_error_dialog_message)
             (1 shl RESTORE_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_restore_error_dialog_message)
-            (1 shl INVALID_FILE_EXTENSION_BIT_NUMBER) and errorCode -> "Неверное расширение файла"
+            (1 shl INVALID_FILE_EXTENSION_BIT_NUMBER) and errorCode -> getString(diarynote.core.R.string.db_wrong_file_extension_error_message_text)
             else -> message
         }
 

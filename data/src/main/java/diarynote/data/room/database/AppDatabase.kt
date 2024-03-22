@@ -64,7 +64,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun exists(context: Context) = context.getDatabasePath(DB_NAME).exists()
 
-        fun copyTo(context: Context, uri: Uri, stream: OutputStream, passphraseGenerator: PassphraseGenerator) {
+        fun copyTo(context: Context, stream: OutputStream, passphraseGenerator: PassphraseGenerator) {
 
             //val fileHelper = FileHelper()
             val temp = File(context.cacheDir, "export.db")
@@ -81,36 +81,32 @@ abstract class AppDatabase : RoomDatabase() {
             temp.delete()
             //context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
             stream.close()
-
-/*            if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
-                Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
-                SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
-            }
-            //instance = null
-            create(context, passphraseGenerator)*/
-            //check, if DB is encrypted and decrypt it
-/*            if(SQLCipherUtils.getDatabaseState(context, fileHelper.getRealPathFromURI(context, uri)) == SQLCipherUtils.State.ENCRYPTED) {
-                //throw IOException()
-                SQLCipherUtils.decrypt(context, context.getDatabasePath(fileHelper.getRealPathFromURI(context, uri)), defaultPassword)
-            }*/
         }
 
-        fun copyTo(context: Context, uri: Uri, stream: OutputStream, backupPassword: String, defaultPassword: ByteArray) {
+        fun copyTo(context: Context, stream: OutputStream, backupPassword: String, passphraseGenerator: PassphraseGenerator) {
+
+            val tempEnc = File(context.cacheDir, "exportenc.db")
+            val tempDec = File(context.cacheDir, "exportdec.db")
+            tempEnc.delete()
+            tempDec.delete()
+
+            //Decrypt DB if it is to temp decrypted file
+            if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
+                Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
+                SQLCipherUtils.decryptTo(context, context.getDatabasePath(DB_NAME), tempDec, passphraseGenerator.getPassphrase())
+            }
+
+            //Encrypt temp decrypted file to temp encrypted with user password
+            if(SQLCipherUtils.getDatabaseState(tempDec) == SQLCipherUtils.State.UNENCRYPTED) {
+                Log.d("VVV", "copyTo: $backupPassword")
+                SQLCipherUtils.encryptTo(context, tempDec, tempEnc, backupPassword.toByteArray())
+            }
 
             //write DB to file
-            context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
+            tempEnc.inputStream().copyTo(stream)
+            tempEnc.delete()
+            tempDec.delete()
             stream.close()
-
-            //check, if DB is encrypted and decrypt it
-            if(SQLCipherUtils.getDatabaseState(context, File(uri.path).name) == SQLCipherUtils.State.ENCRYPTED) {
-                //throw IOException()
-                SQLCipherUtils.decrypt(context, context.getDatabasePath(File(uri.path).name), defaultPassword)
-            }
-            //encrypt DB with user password
-            if (SQLCipherUtils.getDatabaseState(context, File(uri.path).name) == SQLCipherUtils.State.UNENCRYPTED) {
-                SQLCipherUtils.encrypt(context, context.getDatabasePath(File(uri.path).name), backupPassword.toByteArray())
-            }
-
         }
 
         fun copyFrom(context: Context, stream: InputStream) {
