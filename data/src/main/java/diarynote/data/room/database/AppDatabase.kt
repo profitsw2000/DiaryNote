@@ -67,23 +67,27 @@ abstract class AppDatabase : RoomDatabase() {
         fun copyTo(context: Context, uri: Uri, stream: OutputStream, passphraseGenerator: PassphraseGenerator) {
 
             //val fileHelper = FileHelper()
+            val temp = File(context.cacheDir, "export.db")
+            temp.delete()
 
             //Decrypt DB if it is
             if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
                 Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
-                SQLCipherUtils.decrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
+                SQLCipherUtils.decryptTo(context, context.getDatabasePath(DB_NAME), temp, passphraseGenerator.getPassphrase())
             }
 
             //write DB to file
-            context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
+            temp.inputStream().copyTo(stream)
+            temp.delete()
+            //context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
             stream.close()
 
-            if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
+/*            if (SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.UNENCRYPTED) {
                 Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
                 SQLCipherUtils.encrypt(context, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
             }
             //instance = null
-            create(context, passphraseGenerator)
+            create(context, passphraseGenerator)*/
             //check, if DB is encrypted and decrypt it
 /*            if(SQLCipherUtils.getDatabaseState(context, fileHelper.getRealPathFromURI(context, uri)) == SQLCipherUtils.State.ENCRYPTED) {
                 //throw IOException()

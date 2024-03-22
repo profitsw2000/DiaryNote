@@ -37,7 +37,7 @@
             android:text="@string/backup_restore_action_explanation_text"/>
 
         <TextView
-            android:id="@+id/encrypt_data_text_style"
+            android:id="@+id/encrypt_data_text_view"
             style="@style/encrypt_data_switch_text_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
             android:minHeight="@dimen/switch_minimum_size"
             app:layout_constraintEnd_toEndOf="parent"
             android:checked="false"
-            app:layout_constraintStart_toEndOf="@id/encrypt_data_text_style"
-            app:layout_constraintTop_toTopOf="@id/encrypt_data_text_style"
-            app:layout_constraintBottom_toBottomOf="@+id/encrypt_data_text_style"/>
+            app:layout_constraintStart_toEndOf="@id/encrypt_data_text_view"
+            app:layout_constraintTop_toTopOf="@id/encrypt_data_text_view"
+            app:layout_constraintBottom_toBottomOf="@+id/encrypt_data_text_view"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buttons_constraint_layout"
@@ -96,7 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="warning_content_text_view,
-                                            buttons_constraint_layout" />
+                                            buttons_constraint_layout,
+                                            default_theme_pick_switch,
+                                            encrypt_data_text_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

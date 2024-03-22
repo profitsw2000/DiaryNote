@@ -184,4 +184,9 @@ class BackupRestoreFragment() : Fragment() {
         passwordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
 }
