@@ -80,7 +80,6 @@ abstract class AppDatabase : RoomDatabase() {
             //write DB to file
             temp.inputStream().copyTo(stream)
             temp.delete()
-            //context.getDatabasePath(DB_NAME).inputStream().copyTo(stream)
             stream.close()
         }
 
@@ -147,12 +146,6 @@ abstract class AppDatabase : RoomDatabase() {
                     throw IOException("Could not rename $dbFile to $dbBackUp")
                 }
             }
-
-
-/*            val dbFile = context.getDatabasePath(DB_NAME)
-
-            dbFile.delete()
-            stream.copyTo(dbFile.outputStream())*/
         }
 
         fun copyFromEncrypted(context: Context, stream: InputStream, passphraseGenerator: PassphraseGenerator, backupPassword: String) {
@@ -203,21 +196,6 @@ abstract class AppDatabase : RoomDatabase() {
                     throw IOException("Could not rename $dbFile to $dbBackUp")
                 }
             }
-
-/*            //encrypt decrypted temp file to database file with app passphrase
-            try {
-                if (SQLCipherUtils.getDatabaseState(tempDec) == SQLCipherUtils.State.UNENCRYPTED) {
-                    SQLCipherUtils.encryptTo(context, tempDec, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
-                } else throw IllegalStateException("Database restore error!")
-            } finally {
-                tempDec.delete()
-            }*/
-
-
-/*            val dbFile = context.getDatabasePath(DB_NAME)
-
-            dbFile.delete()
-            stream.copyTo(dbFile.outputStream())*/
         }
 
         private fun addMigrationAndEncrypt(

@@ -56,8 +56,8 @@ class SettingsInteractor(
     }
 
     fun importDecryptedDB(uri: Uri): Completable {
-/*        database?.close()
-        database = null*/
+        database?.close()
+        database = null
 
         return Completable.create { emitter ->
             try {
@@ -73,8 +73,8 @@ class SettingsInteractor(
     }
 
     fun importEncryptedDB(uri: Uri, backupPassword: String): Completable {
-/*        database?.close()
-        database = null*/
+        database?.close()
+        database = null
 
         return Completable.create { emitter ->
             try {
