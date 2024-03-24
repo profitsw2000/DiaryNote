@@ -18,7 +18,9 @@ class ViewModelCleanerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDefaultSettings()
-        startMainActivity()
+        requireActivity().finish()
+        System.exit(0)
+        //startMainActivity()
     }
 
     override fun onCreateView(
