@@ -40,7 +40,6 @@ class PasswordDialogFragment(
                 binding.passwordInputEditText.text.toString(),
                 binding.confirmPasswordInputEditText.text.toString()
             )
-            dismiss()
         }
         isCancelable = true
         //dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -62,6 +61,7 @@ class PasswordDialogFragment(
             onSetPasswordButtonClickListener.onClick(enteredPassword)
             binding.passwordTextInputLayout.error = null
             binding.confirmPasswordTextInputLayout.error = null
+            dismiss()
         }
     }
 }

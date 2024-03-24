@@ -25,6 +25,7 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.IllegalStateException
 
 
 @Database(
@@ -109,18 +110,114 @@ abstract class AppDatabase : RoomDatabase() {
             stream.close()
         }
 
-        fun copyFrom(context: Context, stream: InputStream) {
-            val dbFile = context.getDatabasePath(DB_NAME)
+        fun copyFromDecrypted(context: Context, stream: InputStream, passphraseGenerator: PassphraseGenerator) {
+
+            //create temp file and copy stream to it
+            val temp = File(context.cacheDir, "temp.db")
+            temp.delete()
+            stream.copyTo(temp.outputStream())
+            stream.close()
+
+            //encrypt temp file with app passphrase
+            try {
+                if (SQLCipherUtils.getDatabaseState(temp) == SQLCipherUtils.State.UNENCRYPTED) {
+                    SQLCipherUtils.encrypt(context, temp, passphraseGenerator.getPassphrase())
+                } else {
+                    temp.delete()
+                    throw IllegalStateException("Unencrypted database expected, but appears to be encrypted or doesn't exist!")
+                }
+            } catch (e: Exception) {
+                temp.delete()
+            }
+
+            //rename temp db file to original app db file, use backup file to prevent data lost
+            if (SQLCipherUtils.getDatabaseState(temp) == SQLCipherUtils.State.ENCRYPTED) {
+                val dbFile = context.getDatabasePath(DB_NAME)
+                val dbBackUp = context.getDatabasePath("backup.db")
+
+                if (dbFile.renameTo(dbBackUp)) {
+                    if (temp.renameTo(dbFile)) {
+                        dbBackUp.delete()
+                    } else {
+                        dbBackUp.renameTo(dbFile)
+                        throw IOException("Could not rename $temp to $dbFile")
+                    }
+                } else {
+                    temp.delete()
+                    throw IOException("Could not rename $dbFile to $dbBackUp")
+                }
+            }
+
+
+/*            val dbFile = context.getDatabasePath(DB_NAME)
 
             dbFile.delete()
-            stream.copyTo(dbFile.outputStream())
+            stream.copyTo(dbFile.outputStream())*/
         }
 
-        fun copyFrom(context: Context, stream: InputStream, userPassword: String) {
-            val dbFile = context.getDatabasePath(DB_NAME)
+        fun copyFromEncrypted(context: Context, stream: InputStream, passphraseGenerator: PassphraseGenerator, backupPassword: String) {
+
+            //create encrypted temp file and copy encrypted backup file to it
+            val tempEnc = File(context.cacheDir, "tempenc.db")
+            val temp = File(context.cacheDir, "tempdec.db")
+            tempEnc.delete()
+            temp.delete()
+            stream.copyTo(tempEnc.outputStream())
+            stream.close()
+
+            //decrypt encrypted temp file via user password to newly created temp decrypted file
+            try {
+                if (SQLCipherUtils.getDatabaseState(tempEnc) == SQLCipherUtils.State.ENCRYPTED) {
+                    SQLCipherUtils.decryptTo(context, tempEnc, temp, backupPassword.toByteArray())
+                } else throw IllegalStateException("Encrypted database expected, but appears to be unencrypted or doesn't exist!!")
+            } finally {
+                tempEnc.delete()
+            }
+
+            //encrypt temp file with app passphrase
+            try {
+                if (SQLCipherUtils.getDatabaseState(temp) == SQLCipherUtils.State.UNENCRYPTED) {
+                    SQLCipherUtils.encrypt(context, temp, passphraseGenerator.getPassphrase())
+                } else {
+                    temp.delete()
+                    throw IllegalStateException("Unencrypted database expected, but appears to be encrypted or doesn't exist!")
+                }
+            } catch (e: Exception) {
+                temp.delete()
+            }
+
+            //rename temp db file to original app db file, use backup file to prevent data lost
+            if (SQLCipherUtils.getDatabaseState(temp) == SQLCipherUtils.State.ENCRYPTED) {
+                val dbFile = context.getDatabasePath(DB_NAME)
+                val dbBackUp = context.getDatabasePath("backup.db")
+
+                if (dbFile.renameTo(dbBackUp)) {
+                    if (temp.renameTo(dbFile)) {
+                        dbBackUp.delete()
+                    } else {
+                        dbBackUp.renameTo(dbFile)
+                        throw IOException("Could not rename $temp to $dbFile")
+                    }
+                } else {
+                    temp.delete()
+                    throw IOException("Could not rename $dbFile to $dbBackUp")
+                }
+            }
+
+/*            //encrypt decrypted temp file to database file with app passphrase
+            try {
+                if (SQLCipherUtils.getDatabaseState(tempDec) == SQLCipherUtils.State.UNENCRYPTED) {
+                    SQLCipherUtils.encryptTo(context, tempDec, context.getDatabasePath(DB_NAME), passphraseGenerator.getPassphrase())
+                } else throw IllegalStateException("Database restore error!")
+            } finally {
+                tempDec.delete()
+            }*/
+
+
+/*            val dbFile = context.getDatabasePath(DB_NAME)
 
             dbFile.delete()
-            stream.copyTo(dbFile.outputStream())
+            stream.copyTo(dbFile.outputStream())*/
         }
 
         private fun addMigrationAndEncrypt(

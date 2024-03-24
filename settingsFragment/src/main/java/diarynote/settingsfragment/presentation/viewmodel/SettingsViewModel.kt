@@ -211,7 +211,7 @@ class SettingsViewModel(
      * @return число, содержащее код результата проверки
      */
     fun recoveryPasswordValidationCode(enteredPassword: String): Int {
-        return InputValidator().checkInputIsValid(enteredPassword, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN).toInt() shl PASSWORD_BIT_NUMBER
+        return (!InputValidator().checkInputIsValid(enteredPassword, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN)).toInt() shl PASSWORD_BIT_NUMBER
     }
 
     private fun invalidInput(currentPasswordIsValid: Boolean, passwordIsValid: Boolean, confirmed: Boolean) {
@@ -328,7 +328,7 @@ class SettingsViewModel(
 
     fun importDB(uri: Uri) {
         _backupLiveData.value = BackupState.Loading
-        settingsInteractor.importDB(uri)
+        settingsInteractor.importDecryptedDB(uri)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -403,8 +403,6 @@ class SettingsViewModel(
 
     //Check encryption of database
     fun checkPickedFile(uri: Uri) {
-        _backupLiveData.value = BackupState.Loading
-/*        if(MimeTypeMap.getFileExtensionFromUrl(uri.toString()) == "db") {*/
         settingsInteractor.checkPickedFile(uri)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -418,9 +416,6 @@ class SettingsViewModel(
                 }
             )
             .addViewLifeCycle()
-/*        } else {
-            _backupLiveData.value = BackupState.Error("", (1 shl INVALID_FILE_EXTENSION_BIT_NUMBER))
-        }*/
 
     }
 

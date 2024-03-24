@@ -98,14 +98,11 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun importDB(isEncrypted: Boolean, uri: Uri) {
+        settingsViewModel.setBackupIdle()
         if (isEncrypted) {
-            Log.d("VVV", "importDB: encrypted")
-            settingsViewModel.setBackupIdle()
-            //importEncryptedDB(uri)
+            importEncryptedDB(uri)
         } else {
-            Log.d("VVV", "importDB: decrypted")
-            settingsViewModel.setBackupIdle()
-            //settingsViewModel.importDB(uri)
+            settingsViewModel.importDB(uri)
         }
     }
 

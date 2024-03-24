@@ -55,11 +55,14 @@ class SettingsInteractor(
         }
     }
 
-    fun importDB(uri: Uri): Completable {
+    fun importDecryptedDB(uri: Uri): Completable {
+/*        database?.close()
+        database = null*/
+
         return Completable.create { emitter ->
             try {
                 context.contentResolver.openInputStream(uri)?.use {
-                    AppDatabase.copyFrom(context, it)
+                    AppDatabase.copyFromDecrypted(context, it, passphraseGenerator)
                 }
                 emitter.onComplete()
             } catch (e: Exception) {
@@ -70,17 +73,24 @@ class SettingsInteractor(
     }
 
     fun importEncryptedDB(uri: Uri, backupPassword: String): Completable {
-        SQLCipherUtils.decrypt(context, context.getDatabasePath(File(uri.path).name), backupPassword.toByteArray())
-        return importDB(uri)
+/*        database?.close()
+        database = null*/
+
+        return Completable.create { emitter ->
+            try {
+                context.contentResolver.openInputStream(uri)?.use {
+                    AppDatabase.copyFromEncrypted(context, it, passphraseGenerator, backupPassword)
+                }
+                emitter.onComplete()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emitter.onError(e)
+            }
+        }
     }
 
     //check database encryption
     fun checkPickedFile(uri: Uri): Single<Boolean> {
-/*        val fileHelper = FileHelper()
-        val file = File(fileHelper.getRealPathFromURI(context, uri))*/
-
-        database?.close()
-        database = null
 
         return Single.create { emitter ->
             try {
