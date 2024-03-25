@@ -53,6 +53,10 @@ class BackupRestoreFragment() : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -159,7 +163,10 @@ class BackupRestoreFragment() : Fragment() {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
-                    navigator.navigateToViewModelCleaner()
+                    //navigator.navigateToViewModelCleaner()
+                    settingsViewModel.setDefaultUserId()
+                    requireActivity().finish()
+                    System.exit(0)
                 }
             })
 

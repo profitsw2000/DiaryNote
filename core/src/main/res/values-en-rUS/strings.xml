@@ -132,7 +132,7 @@
     <string name="db_save_success_dialog_title">Database saving</string>
     <string name="db_save_success_dialog_message">Database was successfully saved!</string>
     <string name="db_restore_success_dialog_title">Database restoring</string>
-    <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
+    <string name="db_restore_success_dialog_message">Database was successfully restored. The app will be closed.</string>
     <string name="file_reading_error_toast_text">Error reading file</string>
     <string name="change_item_button_text">EDIT</string>
     <string name="encrypt_data_switch_text">Encrypt data</string>

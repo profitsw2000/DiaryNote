@@ -132,7 +132,7 @@
     <string name="db_save_success_dialog_title">Сохранение базы данных</string>
     <string name="db_save_success_dialog_message">Сохранение базы данных в файл произведено успешно!</string>
     <string name="db_restore_success_dialog_title">Восстановление базы данных</string>
-    <string name="db_restore_success_dialog_message">Восстановление базы данных из выбранного файла произведено успешно. Будет произведён выход из текущей учетной записи.</string>
+    <string name="db_restore_success_dialog_message">Восстановление базы данных из выбранного файла произведено успешно. Приложение будет закрыто.</string>
     <string name="file_reading_error_toast_text">Ошибка чтения файла</string>
     <string name="change_item_button_text">ИЗМЕНИТЬ</string>
     <string name="encrypt_data_switch_text">Шифровать данные</string>
