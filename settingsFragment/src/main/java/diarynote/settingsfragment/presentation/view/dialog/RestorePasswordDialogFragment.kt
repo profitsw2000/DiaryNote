@@ -6,18 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import diarynote.core.utils.PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentRestorePasswordDialogBinding
+import diarynote.settingsfragment.presentation.view.account.BACKUP_PASSWORD_KEY
+import diarynote.settingsfragment.presentation.view.account.BACKUP_PASSWORD_STRING
+import diarynote.settingsfragment.presentation.view.account.RESTORE_PASSWORD_KEY
+import diarynote.settingsfragment.presentation.view.account.RESTORE_PASSWORD_STRING
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.utils.OnSetPasswordButtonClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RestorePasswordDialogFragment(
-    private val onSetPasswordButtonClickListener: OnSetPasswordButtonClickListener
+    //private val onSetPasswordButtonClickListener: OnSetPasswordButtonClickListener
 ) : DialogFragment() {
 
     private var _binding: FragmentRestorePasswordDialogBinding? = null
@@ -44,7 +50,8 @@ class RestorePasswordDialogFragment(
         if((1 shl PASSWORD_BIT_NUMBER) and validationCode != 0) binding.passwordTextInputLayout.error = getString(
             diarynote.core.R.string.password_input_error_message, PASSWORD_MIN_LENGTH.toString())
         if(validationCode == 0) {
-            onSetPasswordButtonClickListener.onClick(enteredPassword)
+            //onSetPasswordButtonClickListener.onClick(enteredPassword)
+            setFragmentResult(RESTORE_PASSWORD_KEY, bundleOf(RESTORE_PASSWORD_STRING to enteredPassword))
             binding.passwordTextInputLayout.error = null
             dismiss()
         }

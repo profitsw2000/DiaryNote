@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.BACKUP_BIT_NUMBER
@@ -32,6 +33,10 @@ import java.io.File
 
 private const val DEFAULT_EXPORT_TITLE = "BackupDatabase.db"
 private const val DIALOG_FRAGMENT = "Dialog fragment"
+const val BACKUP_PASSWORD_KEY = "backup_password"
+const val BACKUP_PASSWORD_STRING = "backup_password_string"
+const val RESTORE_PASSWORD_KEY = "restore_password"
+const val RESTORE_PASSWORD_STRING = "restore_password_string"
 
 class BackupRestoreFragment() : Fragment() {
 
@@ -40,6 +45,7 @@ class BackupRestoreFragment() : Fragment() {
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val navigator: Navigator by inject()
     private var backupPassword = ""
+    private lateinit var uri: Uri
     private val createFile = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
         if (it != null) {
             settingsViewModel.exportDB(it, backupPassword)
@@ -49,12 +55,21 @@ class BackupRestoreFragment() : Fragment() {
     private val openFile = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
         if (it != null) {
             //check file for right extension and check if it encrypted or not
+            uri = it
             settingsViewModel.checkPickedFile(it)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(BACKUP_PASSWORD_KEY, this) { _, bundle ->
+            backupPassword = bundle.getString(BACKUP_PASSWORD_STRING) ?: ""
+            createFile.launch(DEFAULT_EXPORT_TITLE)
+        }
+        childFragmentManager.setFragmentResultListener(RESTORE_PASSWORD_KEY, this) { _, bundle ->
+            backupPassword = bundle.getString(RESTORE_PASSWORD_STRING) ?: ""
+            settingsViewModel.importEncryptedDB(uri, backupPassword)
+        }
     }
 
     override fun onCreateView(
@@ -111,12 +126,12 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun importEncryptedDB(uri: Uri) {
-        val restorePasswordDialog = RestorePasswordDialogFragment(object : OnSetPasswordButtonClickListener{
+        val restorePasswordDialog = RestorePasswordDialogFragment(/*object : OnSetPasswordButtonClickListener{
             override fun onClick(password: String) {
                 backupPassword = password
                 settingsViewModel.importEncryptedDB(uri, backupPassword)
             }
-        })
+        }*/)
         restorePasswordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
@@ -177,12 +192,12 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun showPasswordDialog() {
-        val passwordDialog = PasswordDialogFragment(object : OnSetPasswordButtonClickListener{
+        val passwordDialog = PasswordDialogFragment(/*object : OnSetPasswordButtonClickListener{
             override fun onClick(password: String) {
                 backupPassword = password
                 createFile.launch(DEFAULT_EXPORT_TITLE)
             }
-        })
+        }*/)
         passwordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
@@ -190,5 +205,12 @@ class BackupRestoreFragment() : Fragment() {
         _binding = null
         super.onDestroy()
     }
+
+/*    companion object {
+        const val BACKUP_PASSWORD_KEY = "backup_password"
+        const val BACKUP_PASSWORD_STRING = "backup_password_string"
+        const val RESTORE_PASSWORD_KEY = "restore_password"
+        const val RESTORE_PASSWORD_STRING = "restore_password_string"
+    }*/
 
 }

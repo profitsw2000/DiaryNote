@@ -39,7 +39,7 @@ object Versions {
     const val appcompat = "1.6.1"
     const val material = "1.11.0"
     const val constraintLayout = "2.1.4"
-    const val fragment ="1.3.0"
+    const val fragment ="1.6.2"
 
     //Kotlin
     const val core = "1.9.0"
@@ -94,7 +94,7 @@ object Design {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    const val fragment = "androidx.fragment:fragment:${Versions.fragment}"
+    const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
 }
 
 object Kotlin {

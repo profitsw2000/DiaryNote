@@ -10,19 +10,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import diarynote.core.utils.CONFIRM_PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_BIT_NUMBER
 import diarynote.core.utils.PASSWORD_MIN_LENGTH
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentPasswordDialogBinding
+import diarynote.settingsfragment.presentation.view.account.BACKUP_PASSWORD_KEY
+import diarynote.settingsfragment.presentation.view.account.BACKUP_PASSWORD_STRING
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.utils.OnSetPasswordButtonClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PasswordDialogFragment(
-    private val onSetPasswordButtonClickListener: OnSetPasswordButtonClickListener
+    //private val onSetPasswordButtonClickListener: OnSetPasswordButtonClickListener
 ) : DialogFragment() {
 
     private var _binding: FragmentPasswordDialogBinding? = null
@@ -58,7 +62,8 @@ class PasswordDialogFragment(
         else binding.confirmPasswordTextInputLayout.error = null
 
         if(validationCode == 0) {
-            onSetPasswordButtonClickListener.onClick(enteredPassword)
+            //onSetPasswordButtonClickListener.onClick(enteredPassword)
+            setFragmentResult(BACKUP_PASSWORD_KEY, bundleOf(BACKUP_PASSWORD_STRING to enteredPassword))
             binding.passwordTextInputLayout.error = null
             binding.confirmPasswordTextInputLayout.error = null
             dismiss()
