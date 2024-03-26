@@ -416,7 +416,6 @@ class SettingsViewModel(
                 }
             )
             .addViewLifeCycle()
-
     }
 
     fun getHelpItemsList(context: Context) {
