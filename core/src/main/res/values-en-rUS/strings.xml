@@ -67,6 +67,7 @@
     <string name="exit_note_creation_dialog_title_text">Quit</string>
     <string name="exit_note_creation_dialog_message_text">Skip note creation and quit?</string>
     <string name="exit_category_creation_dialog_message_text">Skip category creation and quit?</string>
+    <string name="exit_backup_restore_dialog_message_text">Backup/restore process is on. Are you sure you want to exit?</string>
     <string name="dialog_button_yes_text">Yes</string>
     <string name="dialog_button_no_text">No</string>
     <string name="delete_note_dialog_title_text">Delete note</string>

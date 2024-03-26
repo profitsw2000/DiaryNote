@@ -67,6 +67,7 @@
     <string name="exit_note_creation_dialog_title_text">Выход</string>
     <string name="exit_note_creation_dialog_message_text">Прекратить создание заметки и выйти?</string>
     <string name="exit_category_creation_dialog_message_text">Прекратить создание категории и выйти?</string>
+    <string name="exit_backup_restore_dialog_message_text">Процесс сохранения/восстановления еще не закончен. Вы действительно хотите выйти?</string>
     <string name="dialog_button_yes_text">Да</string>
     <string name="dialog_button_no_text">Нет</string>
     <string name="delete_note_dialog_title_text">Удаление заметки</string>

@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -62,14 +64,31 @@ class BackupRestoreFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         childFragmentManager.setFragmentResultListener(BACKUP_PASSWORD_KEY, this) { _, bundle ->
             backupPassword = bundle.getString(BACKUP_PASSWORD_STRING) ?: ""
             createFile.launch(DEFAULT_EXPORT_TITLE)
         }
+
         childFragmentManager.setFragmentResultListener(RESTORE_PASSWORD_KEY, this) { _, bundle ->
             backupPassword = bundle.getString(RESTORE_PASSWORD_STRING) ?: ""
             settingsViewModel.importEncryptedDB(uri, backupPassword)
         }
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitBackupRestoreFragment()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            exitBackupRestoreFragment()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
@@ -77,6 +96,7 @@ class BackupRestoreFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         _binding = FragmentBackupRestoreBinding.bind(inflater.inflate(R.layout.fragment_backup_restore, container, false))
         return binding.root
     }
@@ -126,12 +146,7 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun importEncryptedDB(uri: Uri) {
-        val restorePasswordDialog = RestorePasswordDialogFragment(/*object : OnSetPasswordButtonClickListener{
-            override fun onClick(password: String) {
-                backupPassword = password
-                settingsViewModel.importEncryptedDB(uri, backupPassword)
-            }
-        }*/)
+        val restorePasswordDialog = RestorePasswordDialogFragment()
         restorePasswordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
     }
 
@@ -178,7 +193,6 @@ class BackupRestoreFragment() : Fragment() {
         val dialoger = DialogerImpl(requireActivity(),
             object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
-                    //navigator.navigateToViewModelCleaner()
                     settingsViewModel.setDefaultUserId()
                     requireActivity().finish()
                     System.exit(0)
@@ -192,25 +206,30 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun showPasswordDialog() {
-        val passwordDialog = PasswordDialogFragment(/*object : OnSetPasswordButtonClickListener{
-            override fun onClick(password: String) {
-                backupPassword = password
-                createFile.launch(DEFAULT_EXPORT_TITLE)
-            }
-        }*/)
+        val passwordDialog = PasswordDialogFragment()
         passwordDialog.show(childFragmentManager, DIALOG_FRAGMENT)
+    }
+
+    private fun exitBackupRestoreFragment() {
+        if (settingsViewModel.backupLiveData.value == BackupState.Loading) {
+            val dialoger =
+                DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
+                    override fun onClick() {
+                        navigator.navigateUp()
+                    }
+                })
+
+            dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.exit_note_creation_dialog_title_text), getString(
+                diarynote.core.R.string.exit_backup_restore_dialog_message_text), getString(
+                diarynote.core.R.string.dialog_button_yes_text), getString(
+                diarynote.core.R.string.dialog_button_no_text))
+        } else {
+            navigator.navigateUp()
+        }
     }
 
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
     }
-
-/*    companion object {
-        const val BACKUP_PASSWORD_KEY = "backup_password"
-        const val BACKUP_PASSWORD_STRING = "backup_password_string"
-        const val RESTORE_PASSWORD_KEY = "restore_password"
-        const val RESTORE_PASSWORD_STRING = "restore_password_string"
-    }*/
-
 }
