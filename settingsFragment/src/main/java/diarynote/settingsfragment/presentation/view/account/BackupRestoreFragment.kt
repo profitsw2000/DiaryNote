@@ -64,23 +64,9 @@ class BackupRestoreFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        childFragmentManager.setFragmentResultListener(BACKUP_PASSWORD_KEY, this) { _, bundle ->
-            backupPassword = bundle.getString(BACKUP_PASSWORD_STRING) ?: ""
-            createFile.launch(DEFAULT_EXPORT_TITLE)
-        }
-
-        childFragmentManager.setFragmentResultListener(RESTORE_PASSWORD_KEY, this) { _, bundle ->
-            backupPassword = bundle.getString(RESTORE_PASSWORD_STRING) ?: ""
-            settingsViewModel.importEncryptedDB(uri, backupPassword)
-        }
-
-        val onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                exitBackupRestoreFragment()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        setBackupPasswordDialogListener()
+        setRestorePasswordDialogListener()
+        onBackPressedListener()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -134,6 +120,29 @@ class BackupRestoreFragment() : Fragment() {
             is BackupState.DbState -> importDB(backupState.isEncrypted, backupState.uri)
             else -> {}
         }
+    }
+
+    private fun setBackupPasswordDialogListener() {
+        childFragmentManager.setFragmentResultListener(BACKUP_PASSWORD_KEY, this) { _, bundle ->
+            backupPassword = bundle.getString(BACKUP_PASSWORD_STRING) ?: ""
+            createFile.launch(DEFAULT_EXPORT_TITLE)
+        }
+    }
+
+    private fun setRestorePasswordDialogListener() {
+        childFragmentManager.setFragmentResultListener(RESTORE_PASSWORD_KEY, this) { _, bundle ->
+            backupPassword = bundle.getString(RESTORE_PASSWORD_STRING) ?: ""
+            settingsViewModel.importEncryptedDB(uri, backupPassword)
+        }
+    }
+
+    private fun onBackPressedListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitBackupRestoreFragment()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun importDB(isEncrypted: Boolean, uri: Uri) {
