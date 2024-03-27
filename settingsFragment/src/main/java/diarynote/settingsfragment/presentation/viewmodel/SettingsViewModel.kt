@@ -63,8 +63,6 @@ class SettingsViewModel(
     private val userMapper: UserMapper
 ) : CoreViewModel() {
 
-    private val emptyUserModel = UserModel(0, "", "", "", "", "", "")
-
     private val _settingsLiveData = MutableLiveData<List<SettingsMenuItemModel>>()
     val settingsLiveData: LiveData<List<SettingsMenuItemModel>> by this::_settingsLiveData
 

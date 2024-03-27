@@ -25,9 +25,7 @@ import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.template.utils.OnSetPasswordButtonClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PasswordDialogFragment(
-    //private val onSetPasswordButtonClickListener: OnSetPasswordButtonClickListener
-) : DialogFragment() {
+class PasswordDialogFragment : DialogFragment() {
 
     private var _binding: FragmentPasswordDialogBinding? = null
     private val binding get() = _binding!!
@@ -46,7 +44,6 @@ class PasswordDialogFragment(
             )
         }
         isCancelable = true
-        //dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
 
@@ -62,7 +59,6 @@ class PasswordDialogFragment(
         else binding.confirmPasswordTextInputLayout.error = null
 
         if(validationCode == 0) {
-            //onSetPasswordButtonClickListener.onClick(enteredPassword)
             setFragmentResult(BACKUP_PASSWORD_KEY, bundleOf(BACKUP_PASSWORD_STRING to enteredPassword))
             binding.passwordTextInputLayout.error = null
             binding.confirmPasswordTextInputLayout.error = null

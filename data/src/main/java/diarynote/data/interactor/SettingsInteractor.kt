@@ -56,8 +56,6 @@ class SettingsInteractor(
     }
 
     fun importDecryptedDB(uri: Uri): Completable {
-/*        database?.close()
-        database = null*/
 
         return Completable.create { emitter ->
             try {
@@ -73,8 +71,6 @@ class SettingsInteractor(
     }
 
     fun importEncryptedDB(uri: Uri, backupPassword: String): Completable {
-/*        database?.close()
-        database = null*/
 
         return Completable.create { emitter ->
             try {
@@ -94,7 +90,13 @@ class SettingsInteractor(
 
         return Single.create { emitter ->
             try {
-                if(SQLCipherUtils.getDatabaseState(File(FileHelper().getRealPathFromURI(context, uri))) == SQLCipherUtils.State.ENCRYPTED) {
+                //create temp file and copy stream to it
+                val temp = File(context.cacheDir, "temp.db")
+                temp.delete()
+                context.contentResolver.openInputStream(uri)?.use {
+                    it.copyTo(temp.outputStream())
+                }
+                if(SQLCipherUtils.getDatabaseState(temp) == SQLCipherUtils.State.ENCRYPTED) {
                     emitter.onSuccess(true)
                 } else {
                     emitter.onSuccess(false)

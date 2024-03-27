@@ -140,4 +140,7 @@
     <string name="backup_encryption_password_dialog_explanation_text">Устанавливайте пароль для резервной копии только при крайней необходимости. Пароль должен содержать не менее 8 цифровых и/или буквенных символов. В случае утери пароля восстановление данных будет невозможно.</string>
     <string name="restore_encrypted_data_password_explanation_text">Данные резервной копии зашифрованы. Для восстановления данных введите пароль:</string>
     <string name="db_wrong_file_extension_error_message_text">Неверное расширение файла. Расширение файла должно быть .db</string>
+    <string name="set_password_button_dialog_text">Установить пароль</string>
+    <string name="set_password_dialog_title_text">Ввод пароля</string>
+    <string name="restore_button_dialog_text">Восстановить</string>
 </resources>

@@ -140,4 +140,7 @@
     <string name="backup_encryption_password_dialog_explanation_text">Set a backup password only if absolutely necessary. The password must contain at least 8 numeric and/or alphabetic characters. If you lose your password, data recovery will not be possible.</string>
     <string name="restore_encrypted_data_password_explanation_text">The backup data is encrypted. To restore data, enter the password:</string>
     <string name="db_wrong_file_extension_error_message_text">Wrong file extension. Should be .db</string>
+    <string name="set_password_button_dialog_text">Set password</string>
+    <string name="set_password_dialog_title_text">Enter password</string>
+    <string name="restore_button_dialog_text">Restore</string>
 </resources>
