@@ -45,8 +45,6 @@
     <dimen name="sub_settings_item_image_view_margin_end">32dp</dimen>
     <dimen name="general_settings_item_image_size">18dp</dimen>
     <dimen name="extra_large_vertical_margin_between_views">32dp</dimen>
-    <dimen name="large_vertical_margin_between_views">24dp</dimen>
-    <dimen name="standard_vertical_margin_between_views">16dp</dimen>
     <dimen name="developer_logo_text_size">24sp</dimen>
     <dimen name="sub_settings_content_padding_size">6dp</dimen>
     <!-- Variable res. -->
@@ -59,7 +57,7 @@
     <dimen name="standart_constraint_horizontal_padding">28dp</dimen>
     <dimen name="standart_constraint_vertical_padding">9dp</dimen>
     <dimen name="outlined_text_input_layout_error_text_size">10sp</dimen>
-    <dimen name="small_constraint_horizontal_padding">12dp</dimen>
+    <dimen name="small_constraint_horizontal_padding">10dp</dimen>
     <dimen name="extra_small_constraint_horizontal_spacing_between_views">6dp</dimen>
     <dimen name="action_explanations_standard_text_size">15sp</dimen>
     <dimen name="help_item_title_text_size">18sp</dimen>
@@ -70,4 +68,9 @@
     <dimen name="notes_activity_fragments_standart_padding">24dp</dimen>
     <dimen name="calendar_chip_horizontal_padding">18dp</dimen>
     <dimen name="custom_chip_text_size">13sp</dimen>
+    <dimen name="large_vertical_margin_between_views">18dp</dimen>
+    <dimen name="standard_vertical_margin_between_views">12dp</dimen>
+    <dimen name="notes_activity_fragment_title_text_size">22sp</dimen>
+    <dimen name="backup_password_dialog_explanation_text_size">13sp</dimen>
+    <dimen name="custom_dialog_corner_radius">18dp</dimen>
 </resources>

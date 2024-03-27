@@ -1,6 +1,7 @@
 package diarynote.categoriesfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -84,6 +85,7 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun handleError(message: String) = with(binding) {
+        Log.d("VVV", "handleError: $message")
         Snackbar.make(this.categoriesFragmentRootLayout, message, Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(diarynote.core.R.string.reload_notes_list_text)) { categoriesViewModel.getCategoriesList() }
             .show()

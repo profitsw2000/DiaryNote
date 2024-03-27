@@ -138,6 +138,7 @@ class CreateNoteFragment : Fragment() {
             is CategoriesState.Success -> loadingCategoriesSuccess(categoriesState)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
+            else -> {}
         }
     }
 

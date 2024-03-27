@@ -67,6 +67,7 @@
     <string name="exit_note_creation_dialog_title_text">Quit</string>
     <string name="exit_note_creation_dialog_message_text">Skip note creation and quit?</string>
     <string name="exit_category_creation_dialog_message_text">Skip category creation and quit?</string>
+    <string name="exit_backup_restore_dialog_message_text">Backup/restore process is on. Are you sure you want to exit?</string>
     <string name="dialog_button_yes_text">Yes</string>
     <string name="dialog_button_no_text">No</string>
     <string name="delete_note_dialog_title_text">Delete note</string>
@@ -124,7 +125,7 @@
     <string name="delete_account_dialog_title">Delete account</string>
     <string name="delete_account_dialog_content">Deleting account will delete all your notes and data. Do you really want to continue?</string>
     <string name="profile_photo_error_dialog_message_text">Failed to set profile photo</string>
-    <string name="backup_restore_action_explanation_text">Save the data of all local users to restore them when you reinstall the application or change the Android device.\n\nTo create a backup copy, save the data file on disk.\n\nTo restore data, select the file with the previously saved backup copy.\n\nRecovery operation will replaced all current data (notes, user information) with data from the backup file.</string>
+    <string name="backup_restore_action_explanation_text">Save the data of all local users to restore them when you reinstall the application or change the Android device.\n\nTo create a backup copy, save the data file on disk.\n\nTo restore data, select the file with the previously saved backup copy.\n\nRecovery operation will replaced all current data (notes, user information) with data from the backup file.\n\nIf necessary, use data encryption. To do this, enter the password when creating a backup copy (password - at least 8 digital and/or alphabetic characters)\nAttention: if you lose your password, data recovery will not be possible!</string>
     <string name="restore_button_text">Restore</string>
     <string name="create_copy_button_text">Create backup</string>
     <string name="db_save_error_dialog_message">Failed to save database to file</string>
@@ -132,7 +133,14 @@
     <string name="db_save_success_dialog_title">Database saving</string>
     <string name="db_save_success_dialog_message">Database was successfully saved!</string>
     <string name="db_restore_success_dialog_title">Database restoring</string>
-    <string name="db_restore_success_dialog_message">Database was successfully restored. You will be logged out of your current account.</string>
+    <string name="db_restore_success_dialog_message">Database was successfully restored. The app will be closed.</string>
     <string name="file_reading_error_toast_text">Error reading file</string>
     <string name="change_item_button_text">EDIT</string>
+    <string name="encrypt_data_switch_text">Encrypt data</string>
+    <string name="backup_encryption_password_dialog_explanation_text">Set a backup password only if absolutely necessary. The password must contain at least 8 numeric and/or alphabetic characters. If you lose your password, data recovery will not be possible.</string>
+    <string name="restore_encrypted_data_password_explanation_text">The backup data is encrypted. To restore data, enter the password:</string>
+    <string name="db_wrong_file_extension_error_message_text">Wrong file extension. Should be .db</string>
+    <string name="set_password_button_dialog_text">Set password</string>
+    <string name="set_password_dialog_title_text">Enter password</string>
+    <string name="restore_button_dialog_text">Restore</string>
 </resources>

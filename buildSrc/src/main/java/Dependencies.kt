@@ -4,7 +4,7 @@ object Config{
     const val application_id = "ru.profitsw2000.diarynote"
     const val compile_sdk = 34
     const val min_sdk = 23
-    const val target_sdk = 33
+    const val target_sdk = 34
     val java_version = JavaVersion.VERSION_17
 }
 
@@ -37,9 +37,9 @@ object Modules {
 object Versions {
     //Design
     const val appcompat = "1.6.1"
-    const val material = "1.6.1"
+    const val material = "1.11.0"
     const val constraintLayout = "2.1.4"
-    const val fragment ="1.3.0"
+    const val fragment ="1.6.2"
 
     //Kotlin
     const val core = "1.9.0"
@@ -67,6 +67,11 @@ object Versions {
     //Room
     const val room = "2.4.3"
 
+    //SQLCipher
+    const val sqlCipher = "4.5.3"
+    const val sqlite = "2.2.0"
+    const val cryptoSecurity = "1.0.0"
+
     //Paging
     const val paging = "3.2.1"
 
@@ -89,7 +94,7 @@ object Design {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    const val fragment = "androidx.fragment:fragment:${Versions.fragment}"
+    const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
 }
 
 object Kotlin {
@@ -130,6 +135,18 @@ object Room {
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     const val roomRxJava = "androidx.room:room-rxjava3:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+}
+
+object SqlCipher {
+    const val sqlCipher = "net.zetetic:android-database-sqlcipher:${Versions.sqlCipher}"
+}
+
+object Sqlite {
+    const val sqlite = "androidx.sqlite:sqlite:${Versions.sqlite}"
+}
+
+object CryptoSecurity {
+    const val cryptoSecurity = "androidx.security:security-crypto:${Versions.cryptoSecurity}"
 }
 
 object Paging {

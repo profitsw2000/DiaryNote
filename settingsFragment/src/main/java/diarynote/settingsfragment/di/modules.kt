@@ -13,5 +13,5 @@ val settingsModule = module{
     single { SettingsViewModel(get(), get(), get(), get()) }
     single<HelpRepositoryLocal> { HelpRepositoryLocalImpl() }
     single<HelpRepositoryRemote> { HelpRepositoryRemoteImpl() }
-    factory { SettingsInteractor(get(), get(), get(), get()) }
+    factory { SettingsInteractor(get(), get(), get(), get(), get()) }
 }
