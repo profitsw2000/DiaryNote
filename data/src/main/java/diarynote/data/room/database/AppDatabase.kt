@@ -1,16 +1,12 @@
 package diarynote.data.room.database
 
 import android.content.Context
-import android.net.Uri
-import android.util.Log
-import androidx.core.net.toFile
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import diarynote.core.utils.FileHelper
 import diarynote.data.room.dao.CategoryDao
 import diarynote.data.room.dao.NoteDao
 import diarynote.data.room.dao.UserDao
@@ -53,7 +49,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun create(context: Context, passphraseGenerator: PassphraseGenerator) {
             val factory = SupportFactory(passphraseGenerator.getPassphrase())
-            Log.d("VVV", "passphrase: ${passphraseGenerator.getPassphrase()}")
             if (instance == null) {
                 addMigrationAndEncrypt(context, passphraseGenerator.getPassphrase(), AppDatabase::class.java, DB_NAME)
                 instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
@@ -73,7 +68,6 @@ abstract class AppDatabase : RoomDatabase() {
 
             //Decrypt DB if it is
             if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
-                Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
                 SQLCipherUtils.decryptTo(context, context.getDatabasePath(DB_NAME), temp, passphraseGenerator.getPassphrase())
             }
 
@@ -92,13 +86,11 @@ abstract class AppDatabase : RoomDatabase() {
 
             //Decrypt DB if it is to temp decrypted file
             if(SQLCipherUtils.getDatabaseState(context, DB_NAME) == SQLCipherUtils.State.ENCRYPTED) {
-                Log.d("VVV", "copyTo: ${passphraseGenerator.getPassphrase()}")
                 SQLCipherUtils.decryptTo(context, context.getDatabasePath(DB_NAME), tempDec, passphraseGenerator.getPassphrase())
             }
 
             //Encrypt temp decrypted file to temp encrypted with user password
             if(SQLCipherUtils.getDatabaseState(tempDec) == SQLCipherUtils.State.UNENCRYPTED) {
-                Log.d("VVV", "copyTo: $backupPassword")
                 SQLCipherUtils.encryptTo(context, tempDec, tempEnc, backupPassword.toByteArray())
             }
 
