@@ -4,48 +4,44 @@ plugins {
 }
 
 android {
-    compileSdk 32
-
-    defaultConfig {
-        applicationId "ru.profitsw2000.diarynote"
-        minSdk 23
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    buildFeatures {
-        viewBinding true
-    }
+    namespace 'ru.profitsw2000.app'
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation Kotlin.core
+    implementation Design.appCompat
+    implementation Design.material
+    implementation Design.constraintLayout
+    implementation ViewModel.liveData
+    implementation ViewModel.viewModel
+    implementation Navigation.navigationFragment
+    implementation Navigation.navigationUI
+    implementation Navigation.navigationRuntime
+    //Koin
+    implementation Koin.koin
+    implementation Legacy.legacy
+    //Coil
+    implementation(Coil.coil)
+    implementation(Coil.coilSvg)
+    //Test
+    testImplementation TestImpl.jUnit
+    androidTestImplementation TestImpl.extJUnit
+    androidTestImplementation TestImpl.espresso
+
+    implementation project(path: Modules.core)
+    implementation project(path: Modules.data)
+    implementation project(path: Modules.signinscreen)
+    implementation project(path: Modules.registrationscreen)
+    implementation project(path: Modules.passwordrecovery)
+    implementation project(path: Modules.notesactivity)
+    implementation project(path: Modules.categoriesfragment)
+    implementation project(path: Modules.mainfragment)
+    implementation project(path: Modules.createnotescreen)
+    implementation project(path: Modules.readnotescreen)
+    implementation project(path: Modules.editnotescreen)
+    implementation project(path: Modules.addcategoryscreen)
+    implementation project(path: Modules.calendarfragment)
+    implementation project(path: Modules.settingsfragment)
+    implementation project(path: Modules.editcategoryscreen)
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings"
+    app:startDestination="@id/main_settings">
+
+    <fragment
+        android:id="@+id/main_settings"
+        android:name="diarynote.settingsfragment.presentation.view.SettingsFragment"
+        android:label="@string/settings_fragment_label_text"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settings_to_account_settings"
+            app:destination="@id/account_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_settings_to_theme_settings"
+            app:destination="@id/theme_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_settings_to_language_settings"
+            app:destination="@id/language_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_settings_to_help"
+            app:destination="@id/help"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_settings_to_about"
+            app:destination="@id/about"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_settings_to_general_settings"
+            app:destination="@id/general_settings"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <!--  Settings  -->
+    <include app:graph="@navigation/account_settings"/>
+
+    <fragment
+        android:id="@+id/theme_settings"
+        android:name="diarynote.settingsfragment.presentation.view.ThemeFragment"
+        android:label="@string/appearance_fragment_label_text"
+        tools:layout="@layout/fragment_theme"/>
+
+    <fragment
+        android:id="@+id/language_settings"
+        android:name="diarynote.settingsfragment.presentation.view.LanguageFragment"
+        android:label="@string/language_fragment_label_text"
+        tools:layout="@layout/fragment_language"/>
+
+    <fragment
+        android:id="@+id/general_settings"
+        android:name="diarynote.settingsfragment.presentation.view.GeneralSettingsFragment"
+        android:label="@string/general_settings_fragment_label_text"
+        tools:layout="@layout/fragment_general_settings"/>
+
+    <fragment
+        android:id="@+id/help"
+        android:name="diarynote.settingsfragment.presentation.view.HelpFragment"
+        android:label="@string/help_fragment_label_text"
+        tools:layout="@layout/fragment_help">
+        <action
+            android:id="@+id/action_help_to_help_item_description"
+            app:destination="@+id/help_item_description_fragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/about"
+        android:name="diarynote.settingsfragment.presentation.view.AboutFragment"
+        android:label="@string/about_fragment_label_text"
+        tools:layout="@layout/fragment_about"/>
+
+    <!-- Help settings -->
+    <fragment
+        android:id="@+id/help_item_description_fragment"
+        android:name="diarynote.settingsfragment.presentation.view.HelpItemDescriptionFragment"
+        android:label="@string/help_item_description_fragment_label_text"
+        tools:layout="@layout/fragment_help_item_description"/>
+
+</navigation>
