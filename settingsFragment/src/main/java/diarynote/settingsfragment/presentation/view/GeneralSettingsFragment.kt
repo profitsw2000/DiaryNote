@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.listener.OnDialogItemClickListener
 import diarynote.settingsfragment.R
@@ -17,6 +18,16 @@ class GeneralSettingsFragment : Fragment() {
     private var _binding: FragmentGeneralSettingsBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    //Adapters
+    private val firstFieldSearchPriorityAdapter by lazy {
+        ArrayAdapter.createFromResource(requireContext(), diarynote.core.R.array.note_search_fields_strings, R.layout.drop_down_item)
+    }
+    private val secondFieldSearchPriorityAdapter by lazy {
+        ArrayAdapter.createFromResource(requireContext(), diarynote.core.R.array.note_search_fields_strings, R.layout.drop_down_item)
+    }
+    private val thirdFieldSearchPriorityAdapter by lazy {
+        ArrayAdapter.createFromResource(requireContext(), diarynote.core.R.array.note_search_fields_strings, R.layout.drop_down_item)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +46,7 @@ class GeneralSettingsFragment : Fragment() {
     private fun initViews() {
         initPasswordRequiredField()
         initAccountQuitTimeField()
+        populateSearchPrioritySettingsForms()
     }
 
     private fun initPasswordRequiredField() = with(binding) {
@@ -53,6 +65,33 @@ class GeneralSettingsFragment : Fragment() {
         } else {
             subSettingsItemImageView.setImageResource(R.drawable.unchecked_item)
         }
+    }
+
+    private fun populateSearchPrioritySettingsForms() {
+        populateFirstSearchFieldForm()
+        populateSecondSearchFieldForm()
+        populateThirdSearchFieldForm()
+    }
+
+    private fun populateFirstSearchFieldForm() {
+        binding.firstItemToSearchPickerAutoCompleteTextView.setText(
+            settingsViewModel.getSearchPriorityList()[0]
+        )
+        binding.firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstFieldSearchPriorityAdapter)
+    }
+
+    private fun populateSecondSearchFieldForm() {
+        binding.secondItemToSearchPickerAutoCompleteTextView.setText(
+            settingsViewModel.getSearchPriorityList()[1]
+        )
+        binding.secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondFieldSearchPriorityAdapter)
+    }
+
+    private fun populateThirdSearchFieldForm() {
+        binding.thirdItemToSearchPickerAutoCompleteTextView.setText(
+            settingsViewModel.getSearchPriorityList()[2]
+        )
+        binding.thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdFieldSearchPriorityAdapter)
     }
 
     private fun initAccountQuitTimeField() = with(binding) {

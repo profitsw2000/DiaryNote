@@ -49,4 +49,10 @@
         <item>To change account information, open the Settings tab, select Account. On the opened tab, you can change your password, set/change your profile photo, change your login or email, add/change your username.</item>
     </string-array>
 
+    <string-array name="note_search_fields_strings">
+        <item>by title</item>
+        <item>by text</item>
+        <item>by tags</item>
+    </string-array>
+
 </resources>

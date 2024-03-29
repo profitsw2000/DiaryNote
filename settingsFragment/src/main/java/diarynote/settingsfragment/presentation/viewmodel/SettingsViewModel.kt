@@ -194,12 +194,15 @@ class SettingsViewModel(
     }
 
     fun setSearchPriorityList(prioritySearchList: List<Int>) {
-        sharedPreferences
-            .edit()
-            .putInt(TITLE_SEARCH_PRIORITY_KEY, prioritySearchList[0])
-            .putInt(TEXT_SEARCH_PRIORITY_KEY, prioritySearchList[1])
-            .putInt(TAGS_SEARCH_PRIORITY_KEY, prioritySearchList[2])
-            .apply()
+        //check all elements of list are unique
+        if (prioritySearchList.size == prioritySearchList.toSet().size) {
+            sharedPreferences
+                .edit()
+                .putInt(TITLE_SEARCH_PRIORITY_KEY, prioritySearchList[0])
+                .putInt(TEXT_SEARCH_PRIORITY_KEY, prioritySearchList[1])
+                .putInt(TAGS_SEARCH_PRIORITY_KEY, prioritySearchList[2])
+                .apply()
+        }
     }
 
     fun changeUserPassword(currentPassword: String,
