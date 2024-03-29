@@ -39,6 +39,9 @@ import diarynote.data.appsettings.LANGUAGE_ID_KEY
 import diarynote.data.appsettings.LANGUAGE_KEY
 import diarynote.data.appsettings.PASSWORD_REQUIRED_KEY
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
+import diarynote.data.appsettings.TAGS_SEARCH_PRIORITY_KEY
+import diarynote.data.appsettings.TEXT_SEARCH_PRIORITY_KEY
+import diarynote.data.appsettings.TITLE_SEARCH_PRIORITY_KEY
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
 import diarynote.data.interactor.SettingsInteractor
@@ -173,6 +176,29 @@ class SettingsViewModel(
         sharedPreferences
             .edit()
             .putInt(INACTIVE_TIME_PERIOD_INDEX_KEY, index)
+            .apply()
+    }
+
+    fun getSearchPriorityList() : List<Int> {
+        val titleSearchPriority = sharedPreferences.getInt(TITLE_SEARCH_PRIORITY_KEY, 1)
+        val textSearchPriority = sharedPreferences.getInt(TEXT_SEARCH_PRIORITY_KEY, 2)
+        val tagsSearchPriority = sharedPreferences.getInt(TAGS_SEARCH_PRIORITY_KEY, 0)
+
+        return if ((titleSearchPriority != textSearchPriority) &&
+            (titleSearchPriority != tagsSearchPriority) &&
+            (textSearchPriority != titleSearchPriority)) {
+            arrayListOf(1, 2, 0)
+        } else {
+            arrayListOf(titleSearchPriority, textSearchPriority, tagsSearchPriority)
+        }
+    }
+
+    fun setSearchPriorityList(prioritySearchList: List<Int>) {
+        sharedPreferences
+            .edit()
+            .putInt(TITLE_SEARCH_PRIORITY_KEY, prioritySearchList[0])
+            .putInt(TEXT_SEARCH_PRIORITY_KEY, prioritySearchList[1])
+            .putInt(TAGS_SEARCH_PRIORITY_KEY, prioritySearchList[2])
             .apply()
     }
 
