@@ -1,11 +1,17 @@
 package diarynote.core.utils
 
+private const val SEARCH_FIELDS_NUMBER = 3
+
 class SearchQueryBuilder(
     searchString: String,
     private val userId: Int,
     private val loadSize: Int,
-    private val offset: Int
+    private val offset: Int,
+    private val priorityList: List<Int>
 ) {
+    private val titleSearchPriority: Int = priorityList[0]
+    private val textSearchPriority: Int = priorityList[1]
+    private val tagSearchPriority: Int = priorityList[2]
     private val queryBegin = "SELECT DISTINCT " +
             "id,category,title,text,tags,image,date,edited,editDate,category_id,user_id FROM ("
     private val queryBase = "SELECT *, ? " +
@@ -39,9 +45,9 @@ class SearchQueryBuilder(
     }
 
     private fun getFullStringQueryWithArgs(searchQuery: String) : String {
-        args.addAll(listOf(0, userId, searchQuery,
-            1, userId, searchQuery,
-            2, userId, searchQuery)
+        args.addAll(listOf(tagSearchPriority, userId, searchQuery,
+            titleSearchPriority, userId, searchQuery,
+            textSearchPriority, userId, searchQuery)
         )
         return queryBase
     }
@@ -63,9 +69,9 @@ class SearchQueryBuilder(
     private fun getParticularWordQueryWithArgs(searchQuery: String,
                                                     wordNumber: Int,
                                                numberOfWords: Int) : String {
-        args.addAll(listOf((wordNumber + 3), userId, searchQuery,
-            (wordNumber + numberOfWords + 3), userId, searchQuery,
-            (wordNumber + numberOfWords*2 + 3), userId, searchQuery
+        args.addAll(listOf((wordNumber + numberOfWords*tagSearchPriority + SEARCH_FIELDS_NUMBER), userId, searchQuery,
+            (wordNumber + numberOfWords*titleSearchPriority + SEARCH_FIELDS_NUMBER), userId, searchQuery,
+            (wordNumber + numberOfWords*textSearchPriority + SEARCH_FIELDS_NUMBER), userId, searchQuery
             )
         )
         return queryBase
