@@ -81,7 +81,8 @@ class SearchNotesDataSource(
             searchString,
             userId,
             loadSize,
-            offset
+            offset,
+            arrayListOf(0, 1, 2)
         )
 
         val queryString: String = searchQueryBuilder.getSearchQueryPair().first

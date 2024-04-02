@@ -1,6 +1,7 @@
 package diarynote.settingsfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -73,25 +74,81 @@ class GeneralSettingsFragment : Fragment() {
         populateThirdSearchFieldForm()
     }
 
-    private fun populateFirstSearchFieldForm() {
-        binding.firstItemToSearchPickerAutoCompleteTextView.setText(
+    private fun populateFirstSearchFieldForm() = with(binding){
+        firstItemToSearchPickerAutoCompleteTextView.setText(
             settingsViewModel.getSearchPriorityList()[0]
         )
-        binding.firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstFieldSearchPriorityAdapter)
+        firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstFieldSearchPriorityAdapter)
     }
 
-    private fun populateSecondSearchFieldForm() {
-        binding.secondItemToSearchPickerAutoCompleteTextView.setText(
+    private fun populateSecondSearchFieldForm() = with(binding){
+        secondItemToSearchPickerAutoCompleteTextView.setText(
             settingsViewModel.getSearchPriorityList()[1]
         )
-        binding.secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondFieldSearchPriorityAdapter)
+        secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondFieldSearchPriorityAdapter)
     }
 
-    private fun populateThirdSearchFieldForm() {
-        binding.thirdItemToSearchPickerAutoCompleteTextView.setText(
+    private fun populateThirdSearchFieldForm() = with(binding){
+        thirdItemToSearchPickerAutoCompleteTextView.setText(
             settingsViewModel.getSearchPriorityList()[2]
         )
-        binding.thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdFieldSearchPriorityAdapter)
+        thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdFieldSearchPriorityAdapter)
+    }
+
+    private fun initFirstSearchFieldForm() = with(binding) {
+        firstItemToSearchPickerAutoCompleteTextView.setOnItemClickListener { adapterView, _, item, _ ->
+            val temp = firstItemToSearchPickerAutoCompleteTextView.text.toString()
+            val firstItem = adapterView.adapter.getItem(item).toString()
+            val secondItem = secondItemToSearchPickerAutoCompleteTextView.text.toString()
+            val thirdItem = thirdItemToSearchPickerAutoCompleteTextView.text.toString()
+            Log.d("VVV", "initFirstSearchFieldForm: $temp")
+
+            when {
+                firstItem == secondItem -> {
+                    firstItemToSearchPickerAutoCompleteTextView.setText(secondItem)
+
+                }
+                firstItem == thirdItem -> {
+
+                }
+            }
+        }
+    }
+
+    private fun initSecondSearchFieldForm() = with(binding) {
+        secondItemToSearchPickerAutoCompleteTextView.setOnItemClickListener { adapterView, _, item, _ ->
+            val temp = secondItemToSearchPickerAutoCompleteTextView.text.toString()
+            val firstItem = firstItemToSearchPickerAutoCompleteTextView.text.toString()
+            val secondItem = adapterView.adapter.getItem(item).toString()
+            val thirdItem = thirdItemToSearchPickerAutoCompleteTextView.text.toString()
+            Log.d("VVV", "initSecondSearchFieldForm: $temp")
+            when {
+                secondItem == firstItem -> {
+
+                }
+                secondItem == thirdItem -> {
+
+                }
+            }
+        }
+    }
+
+    private fun initThirdSearchFieldForm() = with(binding) {
+        thirdItemToSearchPickerAutoCompleteTextView.setOnItemClickListener { adapterView, _, item, _ ->
+            val temp = thirdItemToSearchPickerAutoCompleteTextView.text.toString()
+            val firstItem = firstItemToSearchPickerAutoCompleteTextView.text.toString()
+            val secondItem = secondItemToSearchPickerAutoCompleteTextView.text.toString()
+            val thirdItem = adapterView.adapter.getItem(item).toString()
+            Log.d("VVV", "initThirdSearchFieldForm: $temp")
+            when {
+                thirdItem == firstItem -> {
+
+                }
+                thirdItem == secondItem -> {
+
+                }
+            }
+        }
     }
 
     private fun initAccountQuitTimeField() = with(binding) {
