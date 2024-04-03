@@ -179,7 +179,7 @@ class SettingsViewModel(
             .apply()
     }
 
-    fun getSearchPriorityList() : List<Int> {
+    fun getSearchPriorityNumbersList() : List<Int> {
         val titleSearchPriority = sharedPreferences.getInt(TITLE_SEARCH_PRIORITY_KEY, 1)
         val textSearchPriority = sharedPreferences.getInt(TEXT_SEARCH_PRIORITY_KEY, 2)
         val tagsSearchPriority = sharedPreferences.getInt(TAGS_SEARCH_PRIORITY_KEY, 0)
@@ -187,9 +187,9 @@ class SettingsViewModel(
         return if ((titleSearchPriority != textSearchPriority) &&
             (titleSearchPriority != tagsSearchPriority) &&
             (textSearchPriority != titleSearchPriority)) {
-            arrayListOf(1, 2, 0)
-        } else {
             arrayListOf(titleSearchPriority, textSearchPriority, tagsSearchPriority)
+        } else {
+            arrayListOf(1, 2, 0)
         }
     }
 
@@ -203,6 +203,20 @@ class SettingsViewModel(
                 .putInt(TAGS_SEARCH_PRIORITY_KEY, prioritySearchList[2])
                 .apply()
         }
+    }
+
+    fun getSearchPriorityStringsList(fieldsList: List<String>): List<String> {
+        val searchPriorityStringsList = mutableListOf<String>()
+
+        for (j in 0..(fieldsList.size - 1)){
+            getSearchPriorityNumbersList().forEachIndexed { index, i ->
+                if (i == j) {
+                    searchPriorityStringsList.add(j, fieldsList[index])
+                    return@forEachIndexed
+                }
+            }
+        }
+        return searchPriorityStringsList
     }
 
     fun changeUserPassword(currentPassword: String,

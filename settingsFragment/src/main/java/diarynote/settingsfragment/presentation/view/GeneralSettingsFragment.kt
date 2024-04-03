@@ -14,11 +14,18 @@ import diarynote.settingsfragment.databinding.FragmentGeneralSettingsBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+private const val FIRST_SEARCH_FIELD_INDEX = 0
+private const val SECOND_SEARCH_FIELD_INDEX = 1
+private const val THIRD_SEARCH_FIELD_INDEX = 2
+
 class GeneralSettingsFragment : Fragment() {
 
     private var _binding: FragmentGeneralSettingsBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private val searchFieldsList by lazy {
+        requireContext().resources.getStringArray(diarynote.core.R.array.note_search_fields_strings)
+    }
     //Adapters
     private val firstFieldSearchPriorityAdapter by lazy {
         ArrayAdapter.createFromResource(requireContext(), diarynote.core.R.array.note_search_fields_strings, R.layout.drop_down_item)
@@ -76,21 +83,21 @@ class GeneralSettingsFragment : Fragment() {
 
     private fun populateFirstSearchFieldForm() = with(binding){
         firstItemToSearchPickerAutoCompleteTextView.setText(
-            settingsViewModel.getSearchPriorityList()[0]
+            settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[FIRST_SEARCH_FIELD_INDEX]
         )
         firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstFieldSearchPriorityAdapter)
     }
 
     private fun populateSecondSearchFieldForm() = with(binding){
         secondItemToSearchPickerAutoCompleteTextView.setText(
-            settingsViewModel.getSearchPriorityList()[1]
+            settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[SECOND_SEARCH_FIELD_INDEX]
         )
         secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondFieldSearchPriorityAdapter)
     }
 
     private fun populateThirdSearchFieldForm() = with(binding){
         thirdItemToSearchPickerAutoCompleteTextView.setText(
-            settingsViewModel.getSearchPriorityList()[2]
+            settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[THIRD_SEARCH_FIELD_INDEX]
         )
         thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdFieldSearchPriorityAdapter)
     }
