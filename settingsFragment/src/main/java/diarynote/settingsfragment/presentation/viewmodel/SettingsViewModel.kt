@@ -179,21 +179,24 @@ class SettingsViewModel(
             .apply()
     }
 
-    fun getSearchPriorityNumbersList() : List<Int> {
-        val titleSearchPriority = sharedPreferences.getInt(TITLE_SEARCH_PRIORITY_KEY, 1)
-        val textSearchPriority = sharedPreferences.getInt(TEXT_SEARCH_PRIORITY_KEY, 2)
-        val tagsSearchPriority = sharedPreferences.getInt(TAGS_SEARCH_PRIORITY_KEY, 0)
+    fun saveSearchPriorityList(
+        fieldsList: List<String>,
+        searchPriorityStringsList: List<String>
+    ) {
+        val searchPriorityNumbersList = mutableListOf<Int>()
 
-        return if ((titleSearchPriority != textSearchPriority) &&
-            (titleSearchPriority != tagsSearchPriority) &&
-            (textSearchPriority != titleSearchPriority)) {
-            arrayListOf(titleSearchPriority, textSearchPriority, tagsSearchPriority)
-        } else {
-            arrayListOf(1, 2, 0)
+        for (j in 0..(fieldsList.size - 1)){
+            searchPriorityStringsList.forEachIndexed { index, i ->
+                if (i == fieldsList[j]) {
+                    searchPriorityNumbersList.add(j, index)
+                    return@forEachIndexed
+                }
+            }
         }
+        setSearchPriorityNumbersList(searchPriorityNumbersList)
     }
 
-    fun setSearchPriorityList(prioritySearchList: List<Int>) {
+    private fun setSearchPriorityNumbersList(prioritySearchList: List<Int>) {
         //check all elements of list are unique
         if (prioritySearchList.size == prioritySearchList.toSet().size) {
             sharedPreferences
@@ -217,6 +220,20 @@ class SettingsViewModel(
             }
         }
         return searchPriorityStringsList
+    }
+
+    private fun getSearchPriorityNumbersList() : List<Int> {
+        val titleSearchPriority = sharedPreferences.getInt(TITLE_SEARCH_PRIORITY_KEY, 1)
+        val textSearchPriority = sharedPreferences.getInt(TEXT_SEARCH_PRIORITY_KEY, 2)
+        val tagsSearchPriority = sharedPreferences.getInt(TAGS_SEARCH_PRIORITY_KEY, 0)
+
+        return if ((titleSearchPriority != textSearchPriority) &&
+            (titleSearchPriority != tagsSearchPriority) &&
+            (textSearchPriority != titleSearchPriority)) {
+            arrayListOf(titleSearchPriority, textSearchPriority, tagsSearchPriority)
+        } else {
+            arrayListOf(1, 2, 0)
+        }
     }
 
     fun changeUserPassword(currentPassword: String,

@@ -117,7 +117,7 @@
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             app:layout_constraintStart_toStartOf="@id/search_priority_title_text_view"
             app:layout_constraintTop_toBottomOf="@+id/search_priority_title_text_view"
-            tools:text="1 - " />
+            android:text="1 - " />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/first_item_to_search_picker_text_input_layout"
@@ -147,7 +147,7 @@
             android:layout_marginTop="@dimen/extra_large_vertical_margin_between_views"
             app:layout_constraintStart_toStartOf="@id/search_priority_title_text_view"
             app:layout_constraintTop_toBottomOf="@+id/first_item_to_search_title_text_view"
-            tools:text="2 - " />
+            android:text="2 - " />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/second_item_to_search_picker_text_input_layout"
@@ -179,7 +179,7 @@
             android:layout_marginTop="@dimen/extra_large_vertical_margin_between_views"
             app:layout_constraintStart_toStartOf="@id/search_priority_title_text_view"
             app:layout_constraintTop_toBottomOf="@+id/second_item_to_search_title_text_view"
-            tools:text="3 - " />
+            android:text="3 - " />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/third_item_to_search_picker_text_input_layout"
