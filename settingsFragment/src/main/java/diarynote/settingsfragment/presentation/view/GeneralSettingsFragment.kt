@@ -147,7 +147,7 @@ class GeneralSettingsFragment : Fragment() {
                     thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
-                        listOf(pickedFirstItem, currentFirstItem, thirdItem)
+                        listOf(pickedFirstItem, secondItem, currentFirstItem)
                     )
                     populateFirstSearchFieldForm()
                     populateThirdSearchFieldForm()
