@@ -188,7 +188,7 @@ class SettingsViewModel(
         for (j in 0..(fieldsList.size - 1)){
             searchPriorityStringsList.forEachIndexed { index, i ->
                 if (i == fieldsList[j]) {
-                    searchPriorityNumbersList.add(j, index)
+                    searchPriorityNumbersList.add(index)
                     return@forEachIndexed
                 }
             }
