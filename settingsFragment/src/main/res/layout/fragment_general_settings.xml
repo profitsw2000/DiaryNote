@@ -111,51 +111,54 @@
 
         <TextView
             android:id="@+id/first_item_to_search_title_text_view"
-            style="@style/settings_menu_item_title_text_style"
+            style="@style/priority_search_number_item_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             app:layout_constraintStart_toStartOf="@id/search_priority_title_text_view"
             app:layout_constraintTop_toBottomOf="@+id/search_priority_title_text_view"
-            android:text="1 - " />
+            android:text="@string/first_priority_search_item_text" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/first_item_to_search_picker_text_input_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             app:layout_constraintBottom_toBottomOf="@id/first_item_to_search_title_text_view"
+            app:layout_constraintEnd_toEndOf="@+id/search_priority_title_text_view"
             app:layout_constraintStart_toEndOf="@+id/first_item_to_search_title_text_view"
             app:layout_constraintTop_toTopOf="@id/first_item_to_search_title_text_view">
 
             <AutoCompleteTextView
                 android:id="@+id/first_item_to_search_picker_auto_complete_text_view"
+                android:text="gj vcv"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:padding="0dp"
-                android:inputType="none" />
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/second_item_to_search_title_text_view"
-            style="@style/settings_menu_item_title_text_style"
+            style="@style/priority_search_number_item_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             android:layout_marginTop="@dimen/extra_large_vertical_margin_between_views"
             app:layout_constraintStart_toStartOf="@id/search_priority_title_text_view"
             app:layout_constraintTop_toBottomOf="@+id/first_item_to_search_title_text_view"
-            android:text="2 - " />
+            android:text="@string/second_priority_search_item_text" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/second_item_to_search_picker_text_input_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             app:layout_constraintBottom_toBottomOf="@id/second_item_to_search_title_text_view"
+            app:layout_constraintEnd_toEndOf="@+id/search_priority_title_text_view"
             app:layout_constraintStart_toEndOf="@+id/second_item_to_search_title_text_view"
             app:layout_constraintTop_toTopOf="@id/second_item_to_search_title_text_view">
 
@@ -163,31 +166,30 @@
                 android:id="@+id/second_item_to_search_picker_auto_complete_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:inputType="none"
                 android:padding="0dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/third_item_to_search_title_text_view"
-            style="@style/settings_menu_item_title_text_style"
+            style="@style/priority_search_number_item_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             android:layout_marginTop="@dimen/extra_large_vertical_margin_between_views"
             app:layout_constraintStart_toStartOf="@id/search_priority_title_text_view"
             app:layout_constraintTop_toBottomOf="@+id/second_item_to_search_title_text_view"
-            android:text="3 - " />
+            android:text="@string/third_priority_search_item_text" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/third_item_to_search_picker_text_input_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standart_constraint_horizontal_padding"
             app:layout_constraintBottom_toBottomOf="@id/third_item_to_search_title_text_view"
+            app:layout_constraintEnd_toEndOf="@+id/search_priority_title_text_view"
             app:layout_constraintStart_toEndOf="@+id/third_item_to_search_title_text_view"
             app:layout_constraintTop_toTopOf="@id/third_item_to_search_title_text_view">
 
@@ -195,10 +197,8 @@
                 android:id="@+id/third_item_to_search_picker_auto_complete_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:inputType="none"
                 android:padding="0dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,7 +211,7 @@
             android:layout_marginTop="@dimen/large_vertical_margin_between_views"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/third_item_to_search_title_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/third_item_to_search_picker_text_input_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

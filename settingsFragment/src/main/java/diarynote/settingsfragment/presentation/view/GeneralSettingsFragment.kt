@@ -63,8 +63,7 @@ class GeneralSettingsFragment : Fragment() {
     private fun initPasswordRequiredField() = with(binding) {
         setPasswordRequiredImage()
         usePasswordConstraintLayout.setOnClickListener {
-            settingsViewModel.isPasswordRequired()?.let {
-                    it1 -> settingsViewModel.setPasswordRequired(!it1)
+            settingsViewModel.isPasswordRequired().let { it1 -> settingsViewModel.setPasswordRequired(!it1)
             }
             setPasswordRequiredImage()
         }
@@ -129,10 +128,6 @@ class GeneralSettingsFragment : Fragment() {
 
             when {
                 pickedFirstItem == secondItem -> {
-/*                    secondItemToSearchPickerAutoCompleteTextView.setText(currentFirstItem)
-                    secondSearchPriorityFormAdapter.clear()
-                    secondSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
-                    secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
                         listOf(pickedFirstItem, currentFirstItem, thirdItem)
@@ -141,10 +136,6 @@ class GeneralSettingsFragment : Fragment() {
                     populateSecondSearchFieldForm()
                 }
                 pickedFirstItem == thirdItem -> {
-/*                    thirdItemToSearchPickerAutoCompleteTextView.setText(currentFirstItem)
-                    thirdSearchPriorityFormAdapter.clear()
-                    thirdSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
-                    thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
                         listOf(pickedFirstItem, secondItem, currentFirstItem)
@@ -165,10 +156,6 @@ class GeneralSettingsFragment : Fragment() {
 
             when {
                 pickedSecondItem == firstItem -> {
-/*                    firstItemToSearchPickerAutoCompleteTextView.setText(currentSecondItem)
-                    firstSearchPriorityFormAdapter.clear()
-                    firstSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
-                    firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
                         listOf(currentSecondItem, pickedSecondItem, thirdItem)
@@ -177,10 +164,6 @@ class GeneralSettingsFragment : Fragment() {
                     populateSecondSearchFieldForm()
                 }
                 pickedSecondItem == thirdItem -> {
-/*                    thirdItemToSearchPickerAutoCompleteTextView.setText(currentSecondItem)
-                    thirdSearchPriorityFormAdapter.clear()
-                    thirdSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
-                    thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
                         listOf(firstItem, pickedSecondItem, currentSecondItem)
@@ -201,10 +184,6 @@ class GeneralSettingsFragment : Fragment() {
 
             when {
                 pickedThirdItem == firstItem -> {
-/*                    firstItemToSearchPickerAutoCompleteTextView.setText(currentThirdItem)
-                    firstSearchPriorityFormAdapter.clear()
-                    firstSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
-                    firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
                         listOf(currentThirdItem, secondItem, pickedThirdItem)
@@ -213,10 +192,6 @@ class GeneralSettingsFragment : Fragment() {
                     populateThirdSearchFieldForm()
                 }
                 pickedThirdItem == secondItem -> {
-/*                    secondItemToSearchPickerAutoCompleteTextView.setText(currentThirdItem)
-                    secondSearchPriorityFormAdapter.clear()
-                    secondSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
-                    secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondSearchPriorityFormAdapter)*/
                     settingsViewModel.saveSearchPriorityList(
                         searchFieldsList.toList(),
                         listOf(firstItem, currentThirdItem, pickedThirdItem)
@@ -269,5 +244,10 @@ class GeneralSettingsFragment : Fragment() {
                 settingsViewModel.getCurrentInactiveTimePeriodIndex()
             )
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

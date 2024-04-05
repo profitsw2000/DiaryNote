@@ -6,6 +6,10 @@
         <item name="android:textSize">8sp</item>
     </style>
 
+    <style name="settings_input_layout_text_appearance" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="bold_text_style">
         <item name="android:textStyle">bold</item>
     </style>
@@ -100,6 +104,10 @@
 
     <style name="settings_menu_item_title_text_style" parent="quarter_transparent_text_style">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="priority_search_number_item_text_style" parent="quarter_transparent_text_style">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="input_form_title_text_style" parent="semi_transparent_bold_text_style">
@@ -201,6 +209,10 @@
 
     <style name="customTextInputLayoutOutlinedStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="errorTextAppearance">@style/input_layout_error_text_style</item>
+    </style>
+
+    <style name="settingsExposedDropdownMenuStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:textAppearance">@style/settings_input_layout_text_appearance</item>
     </style>
     
     <style name="customEditTextInputOutlinedStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
