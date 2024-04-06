@@ -53,9 +53,17 @@ class GeneralSettingsFragment : Fragment() {
         initViews()
     }
 
+    override fun onStart() {
+        super.onStart()
+        initSearchPriorityForms()
+    }
+
     private fun initViews() {
         initPasswordRequiredField()
         initAccountQuitTimeField()
+    }
+
+    private fun initSearchPriorityForms() {
         populateSearchPrioritySettingsForms()
         initSearchFieldForms()
     }
@@ -94,6 +102,11 @@ class GeneralSettingsFragment : Fragment() {
             settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[FIRST_SEARCH_FIELD_INDEX],
             false
         )
+/*        val adapter = ArrayAdapter<String>(requireContext(), R.layout.drop_down_item)
+        adapter.add("dgffgdf")
+        adapter.add("hkukfgh")
+        adapter.add("qwwesdc")*/
+
         firstSearchPriorityFormAdapter.clear()
         firstSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
         firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstSearchPriorityFormAdapter)
