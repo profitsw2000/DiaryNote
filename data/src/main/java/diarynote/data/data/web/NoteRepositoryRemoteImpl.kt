@@ -81,7 +81,8 @@ class NoteRepositoryRemoteImpl() : NoteRepositoryRemote{
         noteMapper: NoteMapper,
         dataSourceType: DataSourceType,
         userId: Int,
-        searchString: String
+        searchString: String,
+        prioritySearchList: List<Int>
     ): LiveData<PagedList<NoteModel>> {
         TODO("Not yet implemented")
     }

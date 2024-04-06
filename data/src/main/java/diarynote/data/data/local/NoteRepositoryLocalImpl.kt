@@ -113,11 +113,12 @@ class NoteRepositoryLocalImpl(
         noteMapper: NoteMapper,
         dataSourceType: DataSourceType,
         userId: Int,
-        searchString: String
+        searchString: String,
+        prioritySearchList: List<Int>
     ): LiveData<PagedList<NoteModel>> {
 
         notesDataSourceFactory = NotesDataSourceFactory(
-            compositeDisposable, noteMapper, dataSourceType, database, userId, searchString
+            compositeDisposable, noteMapper, dataSourceType, database, userId, searchString, prioritySearchList
         )
 
         return getPagedList(notesDataSourceFactory)

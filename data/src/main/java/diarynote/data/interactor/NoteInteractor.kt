@@ -169,6 +169,7 @@ class NoteInteractor(
         dataSourceType: DataSourceType,
         userId: Int,
         searchString: String,
+        prioritySearchList: List<Int>,
         remote: Boolean
     ): LiveData<PagedList<NoteModel>> {
 
@@ -177,14 +178,16 @@ class NoteInteractor(
             noteMapper = noteMapper,
             dataSourceType = dataSourceType,
             userId = userId,
-            searchString = searchString
+            searchString = searchString,
+            prioritySearchList = prioritySearchList
         ) else (
             noteRepositoryLocal.getSearchNotesPagedList(
                 compositeDisposable = compositeDisposable,
                 noteMapper = noteMapper,
                 dataSourceType = dataSourceType,
                 userId = userId,
-                searchString = searchString
+                searchString = searchString,
+                prioritySearchList = prioritySearchList
             )
         )
     }
