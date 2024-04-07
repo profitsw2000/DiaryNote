@@ -65,7 +65,8 @@ interface NoteRepository {
         noteMapper: NoteMapper,
         dataSourceType: DataSourceType,
         userId: Int,
-        searchString: String
+        searchString: String,
+        prioritySearchList: List<Int>
     ): LiveData<PagedList<NoteModel>>
 
     fun updateNote(noteEntity: NoteEntity): Completable

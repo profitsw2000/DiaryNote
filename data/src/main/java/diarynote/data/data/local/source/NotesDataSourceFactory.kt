@@ -18,6 +18,7 @@ class NotesDataSourceFactory(
     private val userId: Int,
     private val categoryId: Int?,
     private val searchString: String?,
+    private val prioritySearchList: List<Int>?,
     private val fromDate: Date?,
     private val toDate: Date?
 ) : DataSource.Factory<Int, NoteModel>() {
@@ -28,7 +29,7 @@ class NotesDataSourceFactory(
         dataSourceType: DataSourceType,
         database: AppDatabase,
         userId: Int
-    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, null, null)
+    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, null, null, null)
 
     constructor(
         compositeDisposable: CompositeDisposable,
@@ -37,7 +38,7 @@ class NotesDataSourceFactory(
         database: AppDatabase,
         userId: Int,
         categoryId: Int?
-    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, categoryId, null, null, null)
+    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, categoryId, null, null,null, null)
 
     constructor(
         compositeDisposable: CompositeDisposable,
@@ -45,8 +46,9 @@ class NotesDataSourceFactory(
         dataSourceType: DataSourceType,
         database: AppDatabase,
         userId: Int,
-        searchString: String?
-    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, searchString, null, null)
+        searchString: String?,
+        prioritySearchList: List<Int>
+    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, searchString, prioritySearchList, null, null)
 
     constructor(
         compositeDisposable: CompositeDisposable,
@@ -55,7 +57,7 @@ class NotesDataSourceFactory(
         database: AppDatabase,
         userId: Int,
         fromDate: Date?
-    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, fromDate, null)
+    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, null, fromDate, null)
 
     constructor(
         compositeDisposable: CompositeDisposable,
@@ -65,7 +67,7 @@ class NotesDataSourceFactory(
         userId: Int,
         fromDate: Date?,
         toDate: Date?
-    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, fromDate, toDate)
+    ) : this (compositeDisposable, noteMapper, dataSourceType, database, userId, null, null, null, fromDate, toDate)
 
     val userNotesLiveDataSource = MutableLiveData<UserNotesDataSource>()
     val categoryNotesLiveDataSource = MutableLiveData<CategoryNotesDataSource>()
@@ -158,13 +160,14 @@ class NotesDataSourceFactory(
         userId: Int,
         searchString: String?
     ) : DataSource<Int, NoteModel> {
-        if (searchString != null) {
+        if (searchString != null && prioritySearchList != null) {
             val searchNotesDataSource = SearchNotesDataSource(
                 noteMapper = noteMapper,
                 compositeDisposable = compositeDisposable,
                 database = database,
                 userId = userId,
-                searchString = searchString
+                searchString = searchString,
+                prioritySearchList
             )
             searchNotesLiveDataSource.postValue(searchNotesDataSource)
             return searchNotesDataSource

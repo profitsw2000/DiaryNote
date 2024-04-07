@@ -17,7 +17,8 @@ class SearchNotesDataSource(
     private val compositeDisposable: CompositeDisposable,
     private val database: AppDatabase,
     private val userId: Int,
-    private val searchString: String
+    private val searchString: String,
+    private val prioritySearchList: List<Int>
 ) : PositionalDataSource<NoteModel>()  {
 
     val notesState: MutableLiveData<NotesState> = MutableLiveData()
@@ -81,7 +82,8 @@ class SearchNotesDataSource(
             searchString,
             userId,
             loadSize,
-            offset
+            offset,
+            prioritySearchList
         )
 
         val queryString: String = searchQueryBuilder.getSearchQueryPair().first

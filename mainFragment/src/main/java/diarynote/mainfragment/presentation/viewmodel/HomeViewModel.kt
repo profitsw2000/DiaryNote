@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import diarynote.core.viewmodel.CoreViewModel
+import diarynote.data.appsettings.TAGS_SEARCH_PRIORITY_KEY
+import diarynote.data.appsettings.TEXT_SEARCH_PRIORITY_KEY
+import diarynote.data.appsettings.TITLE_SEARCH_PRIORITY_KEY
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.NoteMapper
@@ -56,9 +59,24 @@ class HomeViewModel(
             DataSourceType.SearchNotesDataSource,
             getCurrentUserId(sharedPreferences),
             search,
+            getSearchPriorityNumbersList(),
             false
         )
         _notesState = noteInteractor.getNotesState(DataSourceType.SearchNotesDataSource, false)
+    }
+
+    private fun getSearchPriorityNumbersList() : List<Int> {
+        val titleSearchPriority = sharedPreferences.getInt(TITLE_SEARCH_PRIORITY_KEY, 1)
+        val textSearchPriority = sharedPreferences.getInt(TEXT_SEARCH_PRIORITY_KEY, 2)
+        val tagsSearchPriority = sharedPreferences.getInt(TAGS_SEARCH_PRIORITY_KEY, 0)
+
+        return if ((titleSearchPriority != textSearchPriority) &&
+            (titleSearchPriority != tagsSearchPriority) &&
+            (textSearchPriority != titleSearchPriority)) {
+            arrayListOf(titleSearchPriority, textSearchPriority, tagsSearchPriority)
+        } else {
+            arrayListOf(1, 2, 0)
+        }
     }
 
     private fun getCurrentUserId(sharedPreferences: SharedPreferences): Int {

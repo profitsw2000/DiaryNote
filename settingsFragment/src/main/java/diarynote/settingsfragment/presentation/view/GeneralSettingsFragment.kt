@@ -1,10 +1,12 @@
 package diarynote.settingsfragment.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.listener.OnDialogItemClickListener
 import diarynote.settingsfragment.R
@@ -12,11 +14,30 @@ import diarynote.settingsfragment.databinding.FragmentGeneralSettingsBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+private const val FIRST_SEARCH_FIELD_INDEX = 0
+private const val SECOND_SEARCH_FIELD_INDEX = 1
+private const val THIRD_SEARCH_FIELD_INDEX = 2
+
 class GeneralSettingsFragment : Fragment() {
 
     private var _binding: FragmentGeneralSettingsBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private val searchFieldsList by lazy {
+        requireContext().resources.getStringArray(diarynote.core.R.array.note_search_fields_strings)
+    }
+    //Adapters
+    private val firstSearchPriorityFormAdapter by lazy {
+        ArrayAdapter<String>(requireContext(), R.layout.drop_down_item)
+    }
+
+    private val secondSearchPriorityFormAdapter by lazy {
+        ArrayAdapter<String>(requireContext(), R.layout.drop_down_item)
+    }
+
+    private val thirdSearchPriorityFormAdapter by lazy {
+        ArrayAdapter<String>(requireContext(), R.layout.drop_down_item)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,26 +53,162 @@ class GeneralSettingsFragment : Fragment() {
         initViews()
     }
 
+    override fun onStart() {
+        super.onStart()
+        initSearchPriorityForms()
+    }
+
     private fun initViews() {
         initPasswordRequiredField()
         initAccountQuitTimeField()
     }
 
+    private fun initSearchPriorityForms() {
+        populateSearchPrioritySettingsForms()
+        initSearchFieldForms()
+    }
+
     private fun initPasswordRequiredField() = with(binding) {
         setPasswordRequiredImage()
         usePasswordConstraintLayout.setOnClickListener {
-            settingsViewModel.isPasswordRequired()?.let {
-                    it1 -> settingsViewModel.setPasswordRequired(!it1)
+            settingsViewModel.isPasswordRequired().let { it1 -> settingsViewModel.setPasswordRequired(!it1)
             }
             setPasswordRequiredImage()
         }
     }
 
+    private fun initSearchFieldForms() {
+        initFirstSearchFieldForm()
+        initSecondSearchFieldForm()
+        initThirdSearchFieldForm()
+    }
+
     private fun setPasswordRequiredImage() = with(binding) {
-        if (settingsViewModel.isPasswordRequired() == true) {
+        if (settingsViewModel.isPasswordRequired()) {
             subSettingsItemImageView.setImageResource(R.drawable.checked_item)
         } else {
             subSettingsItemImageView.setImageResource(R.drawable.unchecked_item)
+        }
+    }
+
+    private fun populateSearchPrioritySettingsForms() {
+        populateFirstSearchFieldForm()
+        populateSecondSearchFieldForm()
+        populateThirdSearchFieldForm()
+    }
+
+    private fun populateFirstSearchFieldForm() = with(binding){
+        firstItemToSearchPickerAutoCompleteTextView.setText(
+            settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[FIRST_SEARCH_FIELD_INDEX],
+            false
+        )
+
+        firstSearchPriorityFormAdapter.clear()
+        firstSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
+        firstItemToSearchPickerAutoCompleteTextView.setAdapter(firstSearchPriorityFormAdapter)
+    }
+
+    private fun populateSecondSearchFieldForm() = with(binding){
+        secondItemToSearchPickerAutoCompleteTextView.setText(
+            settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[SECOND_SEARCH_FIELD_INDEX],
+            false
+        )
+        secondSearchPriorityFormAdapter.clear()
+        secondSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
+        secondItemToSearchPickerAutoCompleteTextView.setAdapter(secondSearchPriorityFormAdapter)
+    }
+
+    private fun populateThirdSearchFieldForm() = with(binding){
+        thirdItemToSearchPickerAutoCompleteTextView.setText(
+            settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[THIRD_SEARCH_FIELD_INDEX],
+            false
+        )
+        thirdSearchPriorityFormAdapter.clear()
+        thirdSearchPriorityFormAdapter.addAll(searchFieldsList.toList())
+        thirdItemToSearchPickerAutoCompleteTextView.setAdapter(thirdSearchPriorityFormAdapter)
+    }
+
+    private fun initFirstSearchFieldForm() = with(binding) {
+        firstItemToSearchPickerAutoCompleteTextView.setOnItemClickListener { adapterView, _, item, _ ->
+            val currentFirstItem = settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[FIRST_SEARCH_FIELD_INDEX]
+            val pickedFirstItem = adapterView.adapter.getItem(item).toString()
+            val secondItem = secondItemToSearchPickerAutoCompleteTextView.text.toString()
+            val thirdItem = thirdItemToSearchPickerAutoCompleteTextView.text.toString()
+
+            when {
+                pickedFirstItem == secondItem -> {
+                    settingsViewModel.saveSearchPriorityList(
+                        searchFieldsList.toList(),
+                        listOf(pickedFirstItem, currentFirstItem, thirdItem)
+                    )
+                    populateFirstSearchFieldForm()
+                    populateSecondSearchFieldForm()
+                }
+                pickedFirstItem == thirdItem -> {
+                    settingsViewModel.saveSearchPriorityList(
+                        searchFieldsList.toList(),
+                        listOf(pickedFirstItem, secondItem, currentFirstItem)
+                    )
+                    populateFirstSearchFieldForm()
+                    populateThirdSearchFieldForm()
+                }
+            }
+        }
+    }
+
+    private fun initSecondSearchFieldForm() = with(binding) {
+        secondItemToSearchPickerAutoCompleteTextView.setOnItemClickListener { adapterView, _, item, _ ->
+            val currentSecondItem = settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[SECOND_SEARCH_FIELD_INDEX]
+            val firstItem = firstItemToSearchPickerAutoCompleteTextView.text.toString()
+            val pickedSecondItem = adapterView.adapter.getItem(item).toString()
+            val thirdItem = thirdItemToSearchPickerAutoCompleteTextView.text.toString()
+
+            when {
+                pickedSecondItem == firstItem -> {
+                    settingsViewModel.saveSearchPriorityList(
+                        searchFieldsList.toList(),
+                        listOf(currentSecondItem, pickedSecondItem, thirdItem)
+                    )
+                    populateFirstSearchFieldForm()
+                    populateSecondSearchFieldForm()
+                }
+                pickedSecondItem == thirdItem -> {
+                    settingsViewModel.saveSearchPriorityList(
+                        searchFieldsList.toList(),
+                        listOf(firstItem, pickedSecondItem, currentSecondItem)
+                    )
+                    populateSecondSearchFieldForm()
+                    populateThirdSearchFieldForm()
+                }
+            }
+        }
+    }
+
+    private fun initThirdSearchFieldForm() = with(binding) {
+        thirdItemToSearchPickerAutoCompleteTextView.setOnItemClickListener { adapterView, _, item, _ ->
+            val currentThirdItem = settingsViewModel.getSearchPriorityStringsList(searchFieldsList.toList())[THIRD_SEARCH_FIELD_INDEX]
+            val firstItem = firstItemToSearchPickerAutoCompleteTextView.text.toString()
+            val secondItem = secondItemToSearchPickerAutoCompleteTextView.text.toString()
+            val pickedThirdItem = adapterView.adapter.getItem(item).toString()
+
+            when {
+                pickedThirdItem == firstItem -> {
+                    settingsViewModel.saveSearchPriorityList(
+                        searchFieldsList.toList(),
+                        listOf(currentThirdItem, secondItem, pickedThirdItem)
+                    )
+                    populateFirstSearchFieldForm()
+                    populateThirdSearchFieldForm()
+                }
+                pickedThirdItem == secondItem -> {
+                    settingsViewModel.saveSearchPriorityList(
+                        searchFieldsList.toList(),
+                        listOf(firstItem, currentThirdItem, pickedThirdItem)
+                    )
+                    populateSecondSearchFieldForm()
+                    populateThirdSearchFieldForm()
+                }
+            }
         }
     }
 
@@ -96,5 +253,10 @@ class GeneralSettingsFragment : Fragment() {
                 settingsViewModel.getCurrentInactiveTimePeriodIndex()
             )
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

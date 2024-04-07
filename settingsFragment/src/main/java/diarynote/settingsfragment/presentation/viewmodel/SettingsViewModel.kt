@@ -39,6 +39,9 @@ import diarynote.data.appsettings.LANGUAGE_ID_KEY
 import diarynote.data.appsettings.LANGUAGE_KEY
 import diarynote.data.appsettings.PASSWORD_REQUIRED_KEY
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
+import diarynote.data.appsettings.TAGS_SEARCH_PRIORITY_KEY
+import diarynote.data.appsettings.TEXT_SEARCH_PRIORITY_KEY
+import diarynote.data.appsettings.TITLE_SEARCH_PRIORITY_KEY
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.domain.ROOM_ERROR_CODE
 import diarynote.data.interactor.SettingsInteractor
@@ -174,6 +177,63 @@ class SettingsViewModel(
             .edit()
             .putInt(INACTIVE_TIME_PERIOD_INDEX_KEY, index)
             .apply()
+    }
+
+    fun saveSearchPriorityList(
+        fieldsList: List<String>,
+        searchPriorityStringsList: List<String>
+    ) {
+        val searchPriorityNumbersList = mutableListOf<Int>()
+
+        for (j in 0..(fieldsList.size - 1)){
+            searchPriorityStringsList.forEachIndexed { index, i ->
+                if (i == fieldsList[j]) {
+                    searchPriorityNumbersList.add(index)
+                    return@forEachIndexed
+                }
+            }
+        }
+        setSearchPriorityNumbersList(searchPriorityNumbersList)
+    }
+
+    private fun setSearchPriorityNumbersList(prioritySearchList: List<Int>) {
+        //check all elements of list are unique
+        if (prioritySearchList.size == prioritySearchList.toSet().size) {
+            sharedPreferences
+                .edit()
+                .putInt(TITLE_SEARCH_PRIORITY_KEY, prioritySearchList[0])
+                .putInt(TEXT_SEARCH_PRIORITY_KEY, prioritySearchList[1])
+                .putInt(TAGS_SEARCH_PRIORITY_KEY, prioritySearchList[2])
+                .apply()
+        }
+    }
+
+    fun getSearchPriorityStringsList(fieldsList: List<String>): List<String> {
+        val searchPriorityStringsList = mutableListOf<String>()
+
+        for (j in 0..(fieldsList.size - 1)){
+            getSearchPriorityNumbersList().forEachIndexed { index, i ->
+                if (i == j) {
+                    searchPriorityStringsList.add(j, fieldsList[index])
+                    return@forEachIndexed
+                }
+            }
+        }
+        return searchPriorityStringsList
+    }
+
+    private fun getSearchPriorityNumbersList() : List<Int> {
+        val titleSearchPriority = sharedPreferences.getInt(TITLE_SEARCH_PRIORITY_KEY, 1)
+        val textSearchPriority = sharedPreferences.getInt(TEXT_SEARCH_PRIORITY_KEY, 2)
+        val tagsSearchPriority = sharedPreferences.getInt(TAGS_SEARCH_PRIORITY_KEY, 0)
+
+        return if ((titleSearchPriority != textSearchPriority) &&
+            (titleSearchPriority != tagsSearchPriority) &&
+            (textSearchPriority != titleSearchPriority)) {
+            arrayListOf(titleSearchPriority, textSearchPriority, tagsSearchPriority)
+        } else {
+            arrayListOf(1, 2, 0)
+        }
     }
 
     fun changeUserPassword(currentPassword: String,
@@ -435,10 +495,6 @@ class SettingsViewModel(
 
     fun setBackupIdle() {
         _backupLiveData.value = BackupState.Idle
-    }
-
-    fun clearDisposable() {
-        viewLifeCycleCompositeDisposable.clear()
     }
 
     private fun Boolean.toInt() = if (this) 1 else 0

@@ -102,6 +102,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="priority_search_number_item_text_style" parent="quarter_transparent_text_style">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="input_form_title_text_style" parent="semi_transparent_bold_text_style">
         <item name="android:textSize">16sp</item>
     </style>

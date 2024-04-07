@@ -220,6 +220,7 @@ class BackupRestoreFragment() : Fragment() {
     }
 
     private fun exitBackupRestoreFragment() {
+        settingsViewModel.setBackupIdle()
         if (settingsViewModel.backupLiveData.value == BackupState.Loading) {
             val dialoger =
                 DialogerImpl(requireActivity(), object : OnDialogPositiveButtonClickListener {
@@ -232,8 +233,7 @@ class BackupRestoreFragment() : Fragment() {
                 diarynote.core.R.string.exit_backup_restore_dialog_message_text), getString(
                 diarynote.core.R.string.dialog_button_yes_text), getString(
                 diarynote.core.R.string.dialog_button_no_text))
-            settingsViewModel.setBackupIdle()
-            settingsViewModel.clearDisposable()
+            //settingsViewModel.clearDisposable()
         } else {
             navigator.navigateUp()
         }

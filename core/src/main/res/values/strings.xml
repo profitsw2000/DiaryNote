@@ -143,4 +143,8 @@
     <string name="set_password_button_dialog_text">Установить пароль</string>
     <string name="set_password_dialog_title_text">Ввод пароля</string>
     <string name="restore_button_dialog_text">Восстановить</string>
+    <string name="first_priority_search_item_text">1 -</string>
+    <string name="second_priority_search_item_text">2 -</string>
+    <string name="third_priority_search_item_text">3 -</string>
+    <string name="notes_search_priority_settings_title_text">Приоритет поиска заметок:</string>
 </resources>

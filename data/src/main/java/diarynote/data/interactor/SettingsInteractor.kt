@@ -88,6 +88,8 @@ class SettingsInteractor(
     //check database encryption
     fun checkPickedFile(uri: Uri): Single<Boolean> {
 
+        database?.close()
+
         return Single.create { emitter ->
             try {
                 //create temp file and copy stream to it
