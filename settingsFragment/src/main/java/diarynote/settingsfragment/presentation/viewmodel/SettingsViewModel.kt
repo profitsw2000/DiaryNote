@@ -497,10 +497,6 @@ class SettingsViewModel(
         _backupLiveData.value = BackupState.Idle
     }
 
-    fun clearDisposable() {
-        //viewLifeCycleCompositeDisposable.clear()
-    }
-
     private fun Boolean.toInt() = if (this) 1 else 0
 
 }

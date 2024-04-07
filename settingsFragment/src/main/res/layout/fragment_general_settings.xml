@@ -113,7 +113,7 @@
                 app:layout_constraintWidth_percent="0.8"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Приоритет поиска заметок:"/>
+                android:text="@string/notes_search_priority_settings_title_text"/>
 
             <TextView
                 android:id="@+id/first_item_to_search_title_text_view"
@@ -139,7 +139,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/first_item_to_search_picker_auto_complete_text_view"
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
+                    android:layout_height="@dimen/notes_search_priority_edit_text_height"
                     android:padding="0dp"
                     android:inputType="none"/>
 
@@ -170,7 +170,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/second_item_to_search_picker_auto_complete_text_view"
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
+                    android:layout_height="@dimen/notes_search_priority_edit_text_height"
                     android:padding="0dp"
                     android:inputType="none"/>
 
@@ -201,7 +201,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/third_item_to_search_picker_auto_complete_text_view"
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
+                    android:layout_height="@dimen/notes_search_priority_edit_text_height"
                     android:padding="0dp"
                     android:inputType="none"/>
 
