@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_theme_picker_title_text">Default theme</string>
+    <string name="default_theme_picker_content_text">Use phone language</string>
+    <string name="pick_theme_title_text">Select app theme</string>
+    <string name="light_theme_pick_button_text">Light</string>
+    <string name="dark_theme_pick_button_text">Dark</string>
+    <string name="delete_account_warning_text">Delete of your account will delete all your data - notes, account info and settings. If you need to save data for later use, this can be done using the Backup menu item in the Account section.\n\nAttention! You will not be able to recover data once it is deleted.</string>
+    <string name="delete_account_action_text">DELETE ACCOUNT</string>
+</resources>

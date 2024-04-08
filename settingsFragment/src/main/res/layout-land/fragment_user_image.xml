@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_image_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/standart_constraint_horizontal_padding"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.view.account.UserImageFragment">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/profile_photo_image_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/deep_purple_100"
+        app:layout_constraintDimensionRatio="1:1"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/person_icon"/>
+
+    <ImageView
+        android:id="@+id/profile_photo_image_view_background"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/profile_photo_image_view"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_photo_image_view"
+        android:layout_marginEnd="@dimen/standard_vertical_margin_between_views"
+        android:layout_marginBottom="@dimen/standard_vertical_margin_between_views"
+        android:src="@drawable/photo_icon_48"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/main_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="profile_photo_image_view,
+                                        profile_photo_image_view_background" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
