@@ -38,8 +38,8 @@ dependencies {
     implementation(Room.roomKtx)
     implementation(Room.roomRxJava)
     kapt(Room.roomCompiler)
-    //Picasso
-    implementation(Picasso.picasso)
+    //Coil
+    implementation(Coil.coil)
     //Test
     testImplementation(TestImpl.jUnit)
     androidTestImplementation(TestImpl.extJUnit)
