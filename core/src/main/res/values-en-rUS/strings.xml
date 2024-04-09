@@ -75,10 +75,12 @@
     <string name="delete_note_success_dialog_message_text">Note deleted successfully!</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Files access permission</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">To add a category icon, you have to allow read access to your files</string>
+    <string name="read_external_storage_permission_to_add_user_image_dialog_message_text">To add user image, you have to allow read access to your files</string>
     <string name="permission_dialog_allow_button_text">Allow</string>
     <string name="permission_dialog_deny_button_text">Deny</string>
     <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Files access denied</string>
     <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Adding a custom icon for a created category is not available. You have to allow access to files.</string>
+    <string name="user_photo_read_external_storage_permission_denied_explanation_dialog_message_text">Adding user image is not available. You have to allow access to files.</string>
     <string name="edit_note_dialog_title_text">Edit note</string>
     <string name="edit_note_dialog_message_text">Are you sure you want to edit this note?</string>
     <string name="edit_category_dialog_title_text">Edit category</string>

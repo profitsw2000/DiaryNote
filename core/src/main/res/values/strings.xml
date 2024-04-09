@@ -75,10 +75,12 @@
     <string name="delete_note_success_dialog_message_text">Удаление заметки произведено успешно!</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Доступ к файлам</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">Для добавления иконки категории необходимо разрешить доступ к чтению ваших файлов</string>
+    <string name="read_external_storage_permission_to_add_user_image_dialog_message_text">Для добавления фото пользователя необходимо разрешить доступ к чтению ваших файлов</string>
     <string name="permission_dialog_allow_button_text">Разрешить</string>
     <string name="permission_dialog_deny_button_text">Отклонить</string>
     <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Отказ доступа к файлам</string>
     <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Добавление пользовательской иконки для создаваемой категории недоступно. Необходимо разрешить доступ к файлам.</string>
+    <string name="user_photo_read_external_storage_permission_denied_explanation_dialog_message_text">Добавление фото пользователя недоступно. Необходимо разрешить доступ к файлам.</string>
     <string name="edit_note_dialog_title_text">Редактирование заметки</string>
     <string name="edit_note_dialog_message_text">Вы действительно хотите изменить данную заметку?</string>
     <string name="edit_category_dialog_title_text">Редактирование категории</string>
