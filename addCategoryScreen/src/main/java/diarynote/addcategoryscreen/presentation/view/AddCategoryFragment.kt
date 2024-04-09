@@ -18,8 +18,6 @@ import diarynote.addcategoryscreen.R
 import diarynote.addcategoryscreen.data.colorCodeList
 import diarynote.addcategoryscreen.data.iconCodeList
 import diarynote.addcategoryscreen.databinding.FragmentAddCategoryBinding
-import diarynote.addcategoryscreen.presentation.view.adapter.ColorListAdapter
-import diarynote.addcategoryscreen.presentation.view.adapter.IconListAdapter
 import diarynote.addcategoryscreen.presentation.viewmodel.AddCategoryViewModel
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.CATEGORY_NAME_LENGTH_ERROR
@@ -30,6 +28,8 @@ import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
 import diarynote.data.model.state.CopyFileState
 import diarynote.navigator.Navigator
+import diarynote.template.presentation.adapter.ColorListAdapter
+import diarynote.template.presentation.adapter.IconListAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

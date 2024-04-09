@@ -6,6 +6,7 @@
     android:layout_height="@dimen/item_picker_recycler_view_size"
     app:cardCornerRadius="@dimen/item_picker_recycler_view_corner_radius"
     app:strokeWidth="0dp"
+    app:strokeColor="?attr/colorOnSecondary"
     android:layout_marginRight="@dimen/horizontal_categories_list_interval_size"
     app:cardBackgroundColor="@color/yellow">
 

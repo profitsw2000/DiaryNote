@@ -47,7 +47,7 @@ class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() 
 
         holder.cardView.setCardBackgroundColor(data[position])
         if (clickedPosition == position) {
-            holder.cardView.strokeWidth = 10
+            holder.cardView.strokeWidth = 3
         } else {
             holder.cardView.strokeWidth = 0
         }
