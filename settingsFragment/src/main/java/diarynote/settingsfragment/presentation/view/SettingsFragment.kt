@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.squareup.picasso.Picasso
+import coil.ImageLoader
+import coil.request.ImageRequest
 import diarynote.data.appsettings.SETTINGS_ABOUT_ID
 import diarynote.data.appsettings.SETTINGS_ACCOUNT_ID
 import diarynote.data.appsettings.SETTINGS_GENERAL_ID
@@ -32,6 +33,7 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
     private val navigator: Navigator by inject()
+    private val imageLoader: ImageLoader by inject()
     private val adapter= SettingsAdapter(object : OnSettingsMenuItemClickListener{
         override fun onItemClick(itemId: Int) {
             openFragmentById(itemId)
@@ -122,7 +124,12 @@ class SettingsFragment : Fragment() {
         val imageFile = File(imagePath)
 
         if (imagePath != "" && imageFile.exists()) {
-            Picasso.get().load(imageFile).into(accountIconImageView)
+            val request = ImageRequest.Builder(requireContext())
+                .data(imagePath)
+                .target(accountIconImageView)
+                .error(diarynote.core.R.drawable.person_icon)
+                .build()
+            imageLoader.enqueue(request)
         }
     }
 

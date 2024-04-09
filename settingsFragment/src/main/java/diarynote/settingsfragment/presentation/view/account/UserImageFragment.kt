@@ -11,8 +11,10 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
+//import com.squareup.picasso.Picasso
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.ROOM_UPDATE_BIT_NUMBER
@@ -23,6 +25,7 @@ import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentUserImageBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.data.model.state.UserState
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -32,6 +35,7 @@ class UserImageFragment : Fragment() {
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
     private lateinit var userModel: UserModel
+    private val imageLoader: ImageLoader by inject()
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
             val imagePath = context?.let { it1 -> FileHelper().getRealPathFromURI(it1, it) }
@@ -143,7 +147,12 @@ class UserImageFragment : Fragment() {
         setProgressBarVisible(false)
         this@UserImageFragment.userModel = userModel
         if (userModel.imagePath != "" && file.exists()) {
-            Picasso.get().load(file).into(profilePhotoImageView)
+            val request = ImageRequest.Builder(requireContext())
+                .data(userModel.imagePath)
+                .target(profilePhotoImageView)
+                .error(diarynote.core.R.drawable.person_icon)
+                .build()
+            imageLoader.enqueue(request)
         }
     }
 

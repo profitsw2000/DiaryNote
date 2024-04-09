@@ -81,6 +81,7 @@ class CategoriesFragment : Fragment() {
             is CategoriesState.Success -> setList(categoriesState.categoryModelList)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
+            else -> {}
         }
     }
 
