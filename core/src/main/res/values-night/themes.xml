@@ -112,6 +112,7 @@
         <item name="chipStyle">@style/customMainChipStyle</item>
         <item name="materialCalendarStyle">@style/customCalendarStyle</item>
         <item name="switchStyle">@style/customSwitchStyle</item>
+        <item name="circularProgressIndicatorStyle">@style/progressBarStyle</item>
         <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
 
         <!-- Action Bar -->

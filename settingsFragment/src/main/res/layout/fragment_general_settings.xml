@@ -140,6 +140,7 @@
                     android:id="@+id/first_item_to_search_picker_auto_complete_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/notes_search_priority_edit_text_height"
+                    app:dropDownBackgroundTint="@color/white"
                     android:padding="0dp"
                     android:inputType="none"/>
 
