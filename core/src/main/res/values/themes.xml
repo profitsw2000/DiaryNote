@@ -29,6 +29,7 @@
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
         <item name="colorSurfaceInverse">@color/white</item>
         <item name="colorOnSurfaceInverse">@color/grey_600</item>
+        <item name="colorSurfaceContainer">@color/deep_purple_50</item>        <!-- Outlined Box ExposedDropdownMenu -->
         <item name="colorSurfaceContainerHigh">@color/deep_purple_100</item>            <!-- Dialog -->
 
         <!-- Error brand color. -->
