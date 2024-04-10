@@ -107,7 +107,7 @@ class CategoriesListAdapter(
             val request = ImageRequest.Builder(imageView.context)
                 .data(categoryModel.imagePath)
                 .target(imageView)
-                .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+                .error(diarynote.core.R.drawable.error_icon_24)
                 .build()
             imageLoader.enqueue(request)
         }
