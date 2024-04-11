@@ -29,7 +29,7 @@ class EditCategoryViewModel(
     val copyFileLiveData: LiveData<CopyFileState?> by this::_copyFileLiveData
 
     fun editCategory(categoryModel: CategoryModel) {
-        if (categoryModel.categoryName.length < 2) {
+        if (categoryModel.categoryName.length < 2 || categoryModel.categoryName.length > 20) {
             _categoryLiveData.value = CategoriesState.Error(CATEGORY_NAME_LENGTH_ERROR)
         } else {
             updateCategory(categoryModel)

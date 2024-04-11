@@ -91,7 +91,7 @@
     <string name="add_category_icon_title_text">Иконка</string>
     <string name="add_category_success_dialog_title_text">Добавление категории</string>
     <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
-    <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>
+    <string name="category_input_layout_error_text">Название категории не менее 2 и не более 20 символов</string>
     <string name="edit_category_success_dialog_title_text">Изменение категории</string>
     <string name="edit_category_success_dialog_content_text">Изменение категории завершено успешно</string>
     <string name="no_notes_by_this_category_message_text">По выбранной категории заметок нет</string>
