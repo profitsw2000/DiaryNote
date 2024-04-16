@@ -26,16 +26,37 @@
 ## Технологии, используемые в проекте
 
 + Jetpack Navigation
+  Version: 2.6.0-alpha04
 
 + RxJava3
+  Version: 3.1.5
 
 + Room
+  Version: 2.4.3
 
 + SQLCipher
+  Version: 4.5.3
 
 + Paging 3
+  Version: 3.2.1
 
 + Koin
+  Version: 3.2.0
 
 + Coil
+  Version: 2.5.0
 
+## Установка
+
+Для установки приложения скопируйте ссылку и импортируйте её в Android Studio
+```bash
+git clone https://github.com/profitsw2000/DiaryNote.git
+```
+
+## Иллюстрации
+
+![Главный экран](./screenshots/dn_main.png)
+
+## Функциональность
++Создание и поиск заметок по ключевым словам
++Создание категорий и  заметок с 
