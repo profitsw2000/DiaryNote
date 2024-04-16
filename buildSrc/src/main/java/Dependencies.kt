@@ -75,12 +75,6 @@ object Versions {
     //Paging
     const val paging = "3.2.1"
 
-/*    //Picasso
-    const val picasso = "2.8"
-
-    //Glide
-    const val glide = "4.16.0"*/
-
     //Coil
     const val coil = "2.5.0"
 

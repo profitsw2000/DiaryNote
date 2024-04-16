@@ -5,5 +5,5 @@ Android application to keep your diary. User friendly interface to make notes, s
 
 ## Languages
 
-- [English](readme/README.en.MD)
-- [Русский](readme/README.ru.MD)
+- [English]
+- [Русский]
