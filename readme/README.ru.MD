@@ -114,5 +114,6 @@ git clone https://github.com/profitsw2000/DiaryNote.git
 ## Разработчик
 
 Приложение разработано profitsw2000.
+
 Почта: profitsw2000@gmail.com
 
