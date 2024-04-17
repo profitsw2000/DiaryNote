@@ -70,13 +70,12 @@ git clone https://github.com/profitsw2000/DiaryNote.git
 ## Illustration
 
 <img src="./screenshots/dn_sign_in.png" width = 300>
-<img src="./screenshots/dn_sign_in.png)" width = 300>
-<img src="./screenshots/dn_main.png)" width = 300>
-<img src="./screenshots/dn_categories.png)" width = 300>
-<img src="./screenshots/dn_calendar.png)" width = 300>
-<img src="./screenshots/dn_settings.png)" width = 300>
-<img src="./screenshots/dn_note_creation.png)" width = 300>
-<img src="./screenshots/dn_main_dark_theme.png)" width = 300>
+<img src="./screenshots/dn_main.png" width = 300>
+<img src="./screenshots/dn_categories.png" width = 300>
+<img src="./screenshots/dn_calendar.png" width = 300>
+<img src="./screenshots/dn_settings.png" width = 300>
+<img src="./screenshots/dn_note_creation.png" width = 300>
+<img src="./screenshots/dn_main_dark_theme.png" width = 300>
 
 ## Features
 
