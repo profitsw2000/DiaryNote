@@ -69,6 +69,7 @@ git clone https://github.com/profitsw2000/DiaryNote.git
 
 ## Иллюстрации
 
+<img src="./screenshots/dn_sign_in.png" width = 100>
 ![Login screen](./screenshots/dn_sign_in.png){:height="700px" width="400px"}
 ![Main screen](./screenshots/dn_main.png)
 ![Categories screen](./screenshots/dn_categories.png)
