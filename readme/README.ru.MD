@@ -32,25 +32,32 @@
 ## Технологии, используемые в проекте
 
 + Jetpack Navigation
-  Version: 2.6.0-alpha04
+
+  Версия: 2.6.0-alpha04
 
 + RxJava3
-  Version: 3.1.5
+
+  Версия: 3.1.5
 
 + Room
-  Version: 2.4.3
+
+  Версия: 2.4.3
 
 + SQLCipher
-  Version: 4.5.3
+
+  Версия: 4.5.3
 
 + Paging 3
-  Version: 3.2.1
+
+  Версия: 3.2.1
 
 + Koin
-  Version: 3.2.0
+
+  Версия: 3.2.0
 
 + Coil
-  Version: 2.5.0
+
+  Версия: 2.5.0
 
 ## Установка
 
@@ -62,13 +69,13 @@ git clone https://github.com/profitsw2000/DiaryNote.git
 
 ## Иллюстрации
 
-![Login screen](./screenshots/dn_sign_in.png)
-![Main screen](./screenshots/dn_main.png)
-![Categories screen](./screenshots/dn_categories.png)
-![Calendar screen](./screenshots/dn_calendar.png)
-![Settings screen](./screenshots/dn_settings.png)
-![Note creation screen](./screenshots/dn_note_creation.png)
-![Main screen Dark theme](./screenshots/dn_main_dark_theme.png)
+![Login screen](./screenshots/dn_sign_in.png | width=100)
+![Main screen](./screenshots/dn_main.png | width=100)
+![Categories screen](./screenshots/dn_categories.png | width=100)
+![Calendar screen](./screenshots/dn_calendar.png | width=100)
+![Settings screen](./screenshots/dn_settings.png | width=100)
+![Note creation screen](./screenshots/dn_note_creation.png | width=100)
+![Main screen Dark theme](./screenshots/dn_main_dark_theme.png | width=100)
 
 ## Функциональность
 
