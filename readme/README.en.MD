@@ -89,10 +89,10 @@ git clone https://github.com/profitsw2000/DiaryNote.git
 
 ## Sources
 This application is largely created thanks to information taken from the following sites:
-+ [CommonsWare](commonsware.com)
-+ [STARTANDROID](startandroid.ru)
-+ [Material Design](m3.material.io)
-+ [AndroidDevelopers](developer.android.com)
++ [CommonsWare](https://commonsware.com)
++ [STARTANDROID](https://startandroid.ru)
++ [Material Design](https://m3.material.io)
++ [AndroidDevelopers](https://developer.android.com)
 
 ## App status
 

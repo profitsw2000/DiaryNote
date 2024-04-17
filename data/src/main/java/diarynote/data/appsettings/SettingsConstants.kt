@@ -24,6 +24,7 @@ const val LANGUAGE_KEY = "language"
 const val LANGUAGE_ID_KEY = "language_id"
 const val RUSSIAN_LANGUAGE_ABBR = "ru"
 const val ENGLISH_LANGUAGE_ABBR = "en"
+const val UNKNOWN_LANGUAGE_ABBR = "unknown"
 
 
 const val USE_PASSWORD_ID = 1
