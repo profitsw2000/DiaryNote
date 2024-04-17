@@ -10,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Анализатор спектра\.android\avd\3.2_HVGA_slider_ADP1_API_30.avd" />
+                  <value value="C:\Users\User\.android\avd\Note_9_Pro.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-02T06:01:19.025270800Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-17T17:38:50.986741200Z" />
         </State>
       </entry>
     </value>

@@ -7,6 +7,7 @@ import diarynote.data.appsettings.CURRENT_THEME_KEY
 import diarynote.data.appsettings.DEFAULT_THEME_KEY
 import diarynote.data.appsettings.ENGLISH_LANGUAGE_ABBR
 import diarynote.data.appsettings.ENGLISH_LANGUAGE_ID
+import diarynote.data.appsettings.LANGUAGE_ID_KEY
 import diarynote.data.appsettings.LANGUAGE_KEY
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
@@ -26,16 +27,6 @@ class NoteViewModel(
     }
 
     fun getCurrentLanguage() : String? {
-        var appLanguage = sharedPreferences.getString(LANGUAGE_KEY, UNKNOWN_LANGUAGE_ABBR)
-
-        if (appLanguage == UNKNOWN_LANGUAGE_ABBR) {
-            if (Locale.getDefault().language == RUSSIAN_LANGUAGE_ABBR) {
-                appLanguage = RUSSIAN_LANGUAGE_ABBR
-            } else {
-                appLanguage = ENGLISH_LANGUAGE_ABBR
-            }
-        }
-
-        return appLanguage
+        return sharedPreferences.getString(LANGUAGE_KEY, RUSSIAN_LANGUAGE_ABBR)
     }
 }

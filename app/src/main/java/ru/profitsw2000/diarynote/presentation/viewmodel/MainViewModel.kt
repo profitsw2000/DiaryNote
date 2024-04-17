@@ -47,9 +47,11 @@ class MainViewModel(
         if (appLanguage == UNKNOWN_LANGUAGE_ABBR) {
             if (Locale.getDefault().language == RUSSIAN_LANGUAGE_ABBR) {
                 appLanguage = RUSSIAN_LANGUAGE_ABBR
+                setCurrentLanguage(RUSSIAN_LANGUAGE_ABBR)
                 setCurrentLanguageId(RUSSIAN_LANGUAGE_ID)
             } else {
                 appLanguage = ENGLISH_LANGUAGE_ABBR
+                setCurrentLanguage(ENGLISH_LANGUAGE_ABBR)
                 setCurrentLanguageId(ENGLISH_LANGUAGE_ID)
             }
         }
@@ -61,6 +63,13 @@ class MainViewModel(
         sharedPreferences
             .edit()
             .putInt(LANGUAGE_ID_KEY, languageId)
+            .apply()
+    }
+
+    private fun setCurrentLanguage(language: String) {
+        sharedPreferences
+            .edit()
+            .putString(LANGUAGE_KEY, language)
             .apply()
     }
 

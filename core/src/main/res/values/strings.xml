@@ -149,4 +149,7 @@
     <string name="second_priority_search_item_text">2 -</string>
     <string name="third_priority_search_item_text">3 -</string>
     <string name="notes_search_priority_settings_title_text">Приоритет поиска заметок:</string>
+    <string name="note_title_field_text">Название</string>
+    <string name="note_description_field_text">Описание</string>
+    <string name="tags_field_text">Тэги</string>
 </resources>
