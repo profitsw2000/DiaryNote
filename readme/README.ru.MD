@@ -62,7 +62,13 @@ git clone https://github.com/profitsw2000/DiaryNote.git
 
 ## Иллюстрации
 
-![Главный экран](./screenshots/dn_main.png)
+![Login screen](./screenshots/dn_sign_in.png)
+![Main screen](./screenshots/dn_main.png)
+![Categories screen](./screenshots/dn_categories.png)
+![Calendar screen](./screenshots/dn_calendar.png)
+![Settings screen](./screenshots/dn_settings.png)
+![Note creation screen](./screenshots/dn_note_creation.png)
+![Main screen Dark theme](./screenshots/dn_main_dark_theme.png)
 
 ## Функциональность
 
