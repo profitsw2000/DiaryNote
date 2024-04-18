@@ -14,6 +14,7 @@ dependencies {
     implementation(project(Modules.core))
     implementation(project(Modules.data))
     implementation(project(Modules.navigator))
+    implementation(project(Modules.template))
 
     //Kotlin
     implementation(Kotlin.core)
@@ -37,10 +38,6 @@ dependencies {
     implementation(Room.roomKtx)
     implementation(Room.roomRxJava)
     kapt(Room.roomCompiler)
-    //Picasso
-    implementation(Picasso.picasso)
-    //Glide
-    implementation(Glide.glide)
     //Coil
     implementation(Coil.coil)
     implementation(Coil.coilSvg)

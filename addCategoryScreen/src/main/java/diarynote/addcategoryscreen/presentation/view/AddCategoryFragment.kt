@@ -2,8 +2,6 @@ package diarynote.addcategoryscreen.presentation.view
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -13,32 +11,27 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import coil.ImageLoader
 import diarynote.addcategoryscreen.R
-import diarynote.addcategoryscreen.data.colorCodeList
-import diarynote.addcategoryscreen.data.iconCodeList
 import diarynote.addcategoryscreen.databinding.FragmentAddCategoryBinding
-import diarynote.addcategoryscreen.presentation.view.adapter.ColorListAdapter
-import diarynote.addcategoryscreen.presentation.view.adapter.IconListAdapter
 import diarynote.addcategoryscreen.presentation.viewmodel.AddCategoryViewModel
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.CATEGORY_NAME_LENGTH_ERROR
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.core.utils.listener.OnItemClickListener
-import diarynote.data.domain.NOTE_MODEL_BUNDLE
+import diarynote.data.hardcodeddata.colorCodeList
+import diarynote.data.hardcodeddata.iconCodeList
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.state.CategoriesState
 import diarynote.data.model.state.CopyFileState
 import diarynote.navigator.Navigator
+import diarynote.template.presentation.adapter.ColorListAdapter
+import diarynote.template.presentation.adapter.IconListAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
-import java.io.IOException
-import java.util.jar.Manifest
 
 class AddCategoryFragment : Fragment() {
 

@@ -52,9 +52,9 @@ class SignInFragment : CoreFragment(R.layout.fragment_sign_in) {
             controller.openRegistrationFragment()
         }
 
-        forgotPasswordTextView.setOnClickListener {
+/*        forgotPasswordTextView.setOnClickListener {
             controller.openPasswordRecoveryFragment()
-        }
+        }*/
 
         passwordInputEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) passwordTextInputLayout.error = null

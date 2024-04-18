@@ -59,6 +59,14 @@ class MainFragment : Fragment() {
         observeData()
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        with(binding) {
+            searchNoteTextInputLayout.hint = getString(diarynote.core.R.string.search_field_hint_text_input_layout)
+            searchNoteTextInputLayout.helperText = getString(diarynote.core.R.string.helper_text_text_input_layout)
+        }
+    }
+
     private fun initViews() {
         with(binding) {
             mainNotesListRecyclerView.adapter = adapter

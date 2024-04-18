@@ -15,10 +15,10 @@ import diarynote.core.utils.*
 import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.createnotescreen.R
 import diarynote.createnotescreen.databinding.FragmentCreateNoteBinding
-import diarynote.createnotescreen.model.CategoriesState
-import diarynote.createnotescreen.model.NotesState
 import diarynote.createnotescreen.presentation.viewmodel.CreateNoteViewModel
 import diarynote.data.model.CategoryModel
+import diarynote.data.model.state.CategoriesState
+import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
 import diarynote.template.presentation.adapter.HorizontalCategoryListAdapter
 import diarynote.template.utils.OnHorizontalCategoryListItemClickListener

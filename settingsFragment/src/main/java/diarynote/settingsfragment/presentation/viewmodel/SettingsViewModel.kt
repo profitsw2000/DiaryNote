@@ -51,6 +51,7 @@ import diarynote.data.model.SettingsMenuItemModel
 import diarynote.data.model.UserModel
 import diarynote.data.room.entity.UserEntity
 import diarynote.data.model.state.BackupState
+import diarynote.data.model.state.CopyFileState
 import diarynote.data.model.state.HelpState
 import diarynote.data.model.state.UserState
 import diarynote.data.room.utils.SQLCipherUtils
@@ -77,6 +78,9 @@ class SettingsViewModel(
 
     private val _helpLiveData = MutableLiveData<HelpState?>()
     val helpLiveData: LiveData<HelpState?> by this::_helpLiveData
+
+    private val _copyFileLiveData = MutableLiveData<CopyFileState?>()
+    val copyFileLiveData: LiveData<CopyFileState?> by this::_copyFileLiveData
 
     fun getSettingsMenuItemList(context: Context) {
         _settingsLiveData.value = settingsInteractor.getSettingsMenuItemsList(context,false)
@@ -321,6 +325,19 @@ class SettingsViewModel(
             )
         } else {
             invalidUserInfoInput(!nameIsValid, !surnameIsValid, !loginIsValid, !emailIsValid)
+        }
+    }
+
+    fun copyFile(sourcePath: String, targetPath: String) {
+        val sourceFile = File(sourcePath)
+        val targetFile = File(targetPath)
+
+        _copyFileLiveData.value = CopyFileState.Copying
+        try {
+            sourceFile.copyTo(targetFile, true)
+            _copyFileLiveData.value = CopyFileState.Success(targetPath)
+        } catch (exception: Exception) {
+            _copyFileLiveData.value = CopyFileState.Error(exception.message.toString())
         }
     }
 

@@ -7,7 +7,7 @@ val baseCategoriesList = listOf(
     CategoryEntity(
         id = 0,
         color = R.color.yellow,
-        categoryName = "Без категории",
+        categoryName = "Uncategorized",
         categoryImage = 0,
         imagePath = "",
         0

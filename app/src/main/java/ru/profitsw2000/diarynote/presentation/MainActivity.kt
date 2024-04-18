@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import diarynote.core.common.Controller
 import diarynote.data.appsettings.APP_THEME_DARK
 import diarynote.data.appsettings.APP_THEME_LIGHT
+import diarynote.data.appsettings.UNKNOWN_LANGUAGE_ABBR
 import diarynote.notesactivity.presentation.view.NoteActivity
 import diarynote.passwordrecovery.presentation.view.PasswordRecoveryFragment
 import diarynote.registrationscreen.presentation.view.RegistrationFragment
@@ -87,8 +88,10 @@ class MainActivity : AppCompatActivity(), Controller {
 
     private fun setLanguage() {
         val languageToLoad = mainViewModel.getCurrentLanguage()
-        val locale = Locale(languageToLoad)
-        Locale.setDefault(locale)
+        val locale = languageToLoad?.let { Locale(it) }
+        if (locale != null) {
+            Locale.setDefault(locale)
+        }
 
         val config = baseContext.resources.configuration
         config.setLocale(locale)

@@ -6,16 +6,22 @@ import diarynote.data.appsettings.APP_THEME_LIGHT
 import diarynote.data.appsettings.CURRENT_THEME_KEY
 import diarynote.data.appsettings.DAY_INACTIVE_INDEX
 import diarynote.data.appsettings.DEFAULT_THEME_KEY
+import diarynote.data.appsettings.ENGLISH_LANGUAGE_ABBR
+import diarynote.data.appsettings.ENGLISH_LANGUAGE_ID
 import diarynote.data.appsettings.HOUR_INACTIVE_INDEX
 import diarynote.data.appsettings.INACTIVE_TIME_PERIOD_INDEX_KEY
+import diarynote.data.appsettings.LANGUAGE_ID_KEY
 import diarynote.data.appsettings.LANGUAGE_KEY
 import diarynote.data.appsettings.LAST_ENTRANCE_TIME_KEY
 import diarynote.data.appsettings.MONTH_INACTIVE_INDEX
 import diarynote.data.appsettings.PASSWORD_REQUIRED_KEY
 import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ABBR
+import diarynote.data.appsettings.RUSSIAN_LANGUAGE_ID
+import diarynote.data.appsettings.UNKNOWN_LANGUAGE_ABBR
 import diarynote.data.appsettings.WEEK_INACTIVE_INDEX
 import diarynote.data.domain.CURRENT_USER_ID
 import java.util.Calendar
+import java.util.Locale
 
 private const val HOUR_IN_MILLIS: Long = 1000*60*60
 private const val DAY_IN_MILLIS: Long = HOUR_IN_MILLIS*24
@@ -36,7 +42,35 @@ class MainViewModel(
     }
 
     fun getCurrentLanguage(): String? {
-        return sharedPreferences.getString(LANGUAGE_KEY, RUSSIAN_LANGUAGE_ABBR)
+        var appLanguage = sharedPreferences.getString(LANGUAGE_KEY, UNKNOWN_LANGUAGE_ABBR)
+
+        if (appLanguage == UNKNOWN_LANGUAGE_ABBR) {
+            if (Locale.getDefault().language == RUSSIAN_LANGUAGE_ABBR) {
+                appLanguage = RUSSIAN_LANGUAGE_ABBR
+                setCurrentLanguage(RUSSIAN_LANGUAGE_ABBR)
+                setCurrentLanguageId(RUSSIAN_LANGUAGE_ID)
+            } else {
+                appLanguage = ENGLISH_LANGUAGE_ABBR
+                setCurrentLanguage(ENGLISH_LANGUAGE_ABBR)
+                setCurrentLanguageId(ENGLISH_LANGUAGE_ID)
+            }
+        }
+
+        return appLanguage
+    }
+
+    private fun setCurrentLanguageId(languageId: Int) {
+        sharedPreferences
+            .edit()
+            .putInt(LANGUAGE_ID_KEY, languageId)
+            .apply()
+    }
+
+    private fun setCurrentLanguage(language: String) {
+        sharedPreferences
+            .edit()
+            .putString(LANGUAGE_KEY, language)
+            .apply()
     }
 
     fun isPasswordRequired(): Boolean {

@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
-import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.core.viewmodel.CoreViewModel
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
@@ -13,6 +12,7 @@ import diarynote.data.mappers.CategoryMapper
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.CategoryModel
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.CategoriesState
 import diarynote.data.model.state.CategoryDeleteState
 import diarynote.data.model.type.DataSourceType
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

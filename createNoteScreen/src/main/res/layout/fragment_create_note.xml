@@ -40,7 +40,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
             style="@style/create_note_fragment_input_field_title_style"
-            android:text="Название"/>
+            android:text="@string/note_title_field_text"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/customTextInputOutlinedStyle"
@@ -73,7 +73,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
             style="@style/create_note_fragment_input_field_title_style"
-            android:text="Описание"/>
+            android:text="@string/note_description_field_text"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/customTextInputOutlinedStyle"
@@ -109,7 +109,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginVertical="@dimen/extra_small_constraint_vertical_spacing_between_views"
             style="@style/create_note_fragment_input_field_title_style"
-            android:text="Тэги"/>
+            android:text="@string/tags_field_text"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/customTextInputOutlinedStyle"

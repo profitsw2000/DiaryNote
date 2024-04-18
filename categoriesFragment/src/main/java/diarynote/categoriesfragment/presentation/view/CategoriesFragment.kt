@@ -11,13 +11,13 @@ import coil.ImageLoader
 import com.google.android.material.snackbar.Snackbar
 import diarynote.categoriesfragment.R
 import diarynote.categoriesfragment.databinding.FragmentCategoriesBinding
-import diarynote.categoriesfragment.model.CategoriesState
 import diarynote.categoriesfragment.presentation.view.adapter.CategoriesListAdapter
 import diarynote.categoriesfragment.presentation.viewmodel.CategoriesViewModel
 import diarynote.data.domain.CATEGORY_ID_BUNDLE
 import diarynote.data.domain.CATEGORY_MODEL_BUNDLE
 import diarynote.data.domain.CATEGORY_NAME_BUNDLE
 import diarynote.data.model.CategoryModel
+import diarynote.data.model.state.CategoriesState
 import diarynote.navigator.Navigator
 import diarynote.template.utils.OnCategoryItemClickListener
 import org.koin.android.ext.android.inject
@@ -81,6 +81,7 @@ class CategoriesFragment : Fragment() {
             is CategoriesState.Success -> setList(categoriesState.categoryModelList)
             is CategoriesState.Loading -> showProgressBar()
             is CategoriesState.Error -> handleError(categoriesState.message)
+            else -> {}
         }
     }
 

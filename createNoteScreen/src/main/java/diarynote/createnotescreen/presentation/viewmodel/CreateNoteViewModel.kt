@@ -6,14 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import diarynote.core.utils.*
 import diarynote.core.viewmodel.CoreViewModel
-import diarynote.createnotescreen.model.CategoriesState
-import diarynote.createnotescreen.model.NotesState
 import diarynote.data.domain.CURRENT_USER_ID
 import diarynote.data.interactor.CategoryInteractor
 import diarynote.data.interactor.NoteInteractor
 import diarynote.data.mappers.CategoryMapper
 import diarynote.data.mappers.NoteMapper
 import diarynote.data.model.NoteModel
+import diarynote.data.model.state.CategoriesState
+import diarynote.data.model.state.NotesState
 import diarynote.navigator.Navigator
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers

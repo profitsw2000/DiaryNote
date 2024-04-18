@@ -93,7 +93,7 @@ class IconListAdapter (
             val request = ImageRequest.Builder(holder.imageView.context)
                 .data(pickedIconPath)
                 .target(holder.imageView)
-                .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+                .error(diarynote.core.R.drawable.error_icon_24)
                 .build()
             imageLoader.enqueue(request)
         }

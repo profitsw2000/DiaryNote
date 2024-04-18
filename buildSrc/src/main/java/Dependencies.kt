@@ -75,12 +75,6 @@ object Versions {
     //Paging
     const val paging = "3.2.1"
 
-    //Picasso
-    const val picasso = "2.8"
-
-    //Glide
-    const val glide = "4.16.0"
-
     //Coil
     const val coil = "2.5.0"
 
@@ -154,14 +148,14 @@ object Paging {
     const val pagingKtx = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
     const val pagingRxJava = "androidx.paging:paging-rxjava3:${Versions.paging}"
 }
-
+/*
 object Picasso {
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 }
 
 object Glide {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
-}
+}*/
 
 object Coil {
     const val coil = "io.coil-kt:coil:${Versions.coil}"

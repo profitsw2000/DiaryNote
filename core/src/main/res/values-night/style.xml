@@ -60,11 +60,13 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="horizontal_category_list_item_name_text_style">
+    <style name="horizontal_category_list_item_name_text_style" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:alpha">0.1</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="horizontal_category_list_selected_item_name_text_style">
+    <style name="horizontal_category_list_selected_item_name_text_style" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
     </style>
 

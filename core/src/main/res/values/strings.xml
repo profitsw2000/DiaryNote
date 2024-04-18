@@ -67,6 +67,7 @@
     <string name="exit_note_creation_dialog_title_text">Выход</string>
     <string name="exit_note_creation_dialog_message_text">Прекратить создание заметки и выйти?</string>
     <string name="exit_category_creation_dialog_message_text">Прекратить создание категории и выйти?</string>
+    <string name="exit_category_editing_dialog_message_text">Прекратить редактирование категории и выйти?</string>
     <string name="exit_backup_restore_dialog_message_text">Процесс сохранения/восстановления еще не закончен. Вы действительно хотите выйти?</string>
     <string name="dialog_button_yes_text">Да</string>
     <string name="dialog_button_no_text">Нет</string>
@@ -75,10 +76,12 @@
     <string name="delete_note_success_dialog_message_text">Удаление заметки произведено успешно!</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_title_text">Доступ к файлам</string>
     <string name="read_external_storage_permission_to_add_category_icon_dialog_message_text">Для добавления иконки категории необходимо разрешить доступ к чтению ваших файлов</string>
+    <string name="read_external_storage_permission_to_add_user_image_dialog_message_text">Для добавления фото пользователя необходимо разрешить доступ к чтению ваших файлов</string>
     <string name="permission_dialog_allow_button_text">Разрешить</string>
     <string name="permission_dialog_deny_button_text">Отклонить</string>
     <string name="read_external_storage_permission_denied_explanation_dialog_title_text">Отказ доступа к файлам</string>
     <string name="read_external_storage_permission_denied_explanation_dialog_message_text">Добавление пользовательской иконки для создаваемой категории недоступно. Необходимо разрешить доступ к файлам.</string>
+    <string name="user_photo_read_external_storage_permission_denied_explanation_dialog_message_text">Добавление фото пользователя недоступно. Необходимо разрешить доступ к файлам.</string>
     <string name="edit_note_dialog_title_text">Редактирование заметки</string>
     <string name="edit_note_dialog_message_text">Вы действительно хотите изменить данную заметку?</string>
     <string name="edit_category_dialog_title_text">Редактирование категории</string>
@@ -89,7 +92,7 @@
     <string name="add_category_icon_title_text">Иконка</string>
     <string name="add_category_success_dialog_title_text">Добавление категории</string>
     <string name="add_category_success_dialog_content_text">Добавление категории завершено успешно</string>
-    <string name="category_input_layout_error_text">Название категории не менее 2 символов</string>
+    <string name="category_input_layout_error_text">Название категории не менее 2 и не более 20 символов</string>
     <string name="edit_category_success_dialog_title_text">Изменение категории</string>
     <string name="edit_category_success_dialog_content_text">Изменение категории завершено успешно</string>
     <string name="no_notes_by_this_category_message_text">По выбранной категории заметок нет</string>
@@ -147,4 +150,7 @@
     <string name="second_priority_search_item_text">2 -</string>
     <string name="third_priority_search_item_text">3 -</string>
     <string name="notes_search_priority_settings_title_text">Приоритет поиска заметок:</string>
+    <string name="note_title_field_text">Название</string>
+    <string name="note_description_field_text">Описание</string>
+    <string name="tags_field_text">Тэги</string>
 </resources>

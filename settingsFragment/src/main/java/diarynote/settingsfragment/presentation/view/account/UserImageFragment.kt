@@ -1,23 +1,31 @@
 package diarynote.settingsfragment.presentation.view.account
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
+//import com.squareup.picasso.Picasso
 import diarynote.core.common.dialog.data.DialogerImpl
 import diarynote.core.utils.FileHelper
 import diarynote.core.utils.ROOM_UPDATE_BIT_NUMBER
+import diarynote.core.utils.listener.OnDialogPositiveButtonClickListener
 import diarynote.data.model.UserModel
+import diarynote.data.model.state.CopyFileState
 import diarynote.settingsfragment.R
 import diarynote.settingsfragment.databinding.FragmentUserImageBinding
 import diarynote.settingsfragment.presentation.viewmodel.SettingsViewModel
 import diarynote.data.model.state.UserState
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -27,16 +35,30 @@ class UserImageFragment : Fragment() {
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModel()
     private lateinit var userModel: UserModel
+    private val imageLoader: ImageLoader by inject()
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
             val imagePath = context?.let { it1 -> FileHelper().getRealPathFromURI(it1, it) }
             if (imagePath != null) {
-                settingsViewModel.changeUserImagePath(imagePath, userModel)
+                //copy file and change user path
+                settingsViewModel.copyFile(
+                    imagePath,
+                    getAppFileFullPath(getFileNameFromFullPath(imagePath))
+                )
             } else {
                 showErrorDialog()
             }
         }
     }
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+                isGranted: Boolean ->
+            if (isGranted) {
+                chooseImage()
+            } else {
+                showExplanationDialog()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +73,12 @@ class UserImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         observeData()
+        observeCopyFileData()
     }
 
     private fun initViews() = with(binding) {
         profilePhotoImageViewBackground.setOnClickListener {
-            chooseImage()
+            getExternalStorageReadPermission()
         }
     }
 
@@ -64,11 +87,27 @@ class UserImageFragment : Fragment() {
         settingsViewModel.userLiveData.observe(viewLifecycleOwner, observer)
     }
 
+    private fun observeCopyFileData() {
+        val observer = Observer<CopyFileState?> { renderCopyFileData(it) }
+        settingsViewModel.copyFileLiveData.observe(viewLifecycleOwner, observer)
+    }
+
     private fun renderData(userState: UserState?) {
         when(userState) {
             is UserState.Error -> handleError(userState.errorCode, userState.message)
             UserState.Loading -> setProgressBarVisible(true)
             is UserState.Success -> handleSuccess(userState.userModel)
+            else -> {}
+        }
+    }
+
+    private fun renderCopyFileData(copyFileState: CopyFileState?) {
+        when(copyFileState) {
+            is CopyFileState.Error -> Toast.makeText(requireActivity(),
+                getString(diarynote.core.R.string.file_reading_error_toast_text), Toast.LENGTH_SHORT).show()
+            is CopyFileState.Success -> {
+                settingsViewModel.changeUserImagePath(copyFileState.filePath, userModel)
+            }
             else -> {}
         }
     }
@@ -108,13 +147,76 @@ class UserImageFragment : Fragment() {
         setProgressBarVisible(false)
         this@UserImageFragment.userModel = userModel
         if (userModel.imagePath != "" && file.exists()) {
-            Picasso.get().load(file).into(profilePhotoImageView)
+            val request = ImageRequest.Builder(requireContext())
+                .data(userModel.imagePath)
+                .target(profilePhotoImageView)
+                .error(diarynote.core.R.drawable.person_icon)
+                .build()
+            imageLoader.enqueue(request)
         }
     }
 
     private fun chooseImage() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-/*        val mimeType = "image/.svg"
-        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))*/
+    }
+
+    private fun getExternalStorageReadPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED -> chooseImage()
+
+            //////////////////////////////////////////////////////////////////
+
+            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> showRationaleDialog()
+
+            //////////////////////////////////////////////////////////////////
+
+            else -> requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun showRationaleDialog() {
+        val dialoger = DialogerImpl(
+            requireActivity(),
+            onDialogPositiveButtonClickListener = object : OnDialogPositiveButtonClickListener {
+                override fun onClick() {
+                    requestPermissionLauncher.launch(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                }
+            }
+        )
+
+        dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.read_external_storage_permission_to_add_category_icon_dialog_title_text),
+            getString(diarynote.core.R.string.read_external_storage_permission_to_add_user_image_dialog_message_text),
+            getString(diarynote.core.R.string.permission_dialog_allow_button_text),
+            getString(diarynote.core.R.string.permission_dialog_deny_button_text)
+        )
+    }
+
+    private fun showExplanationDialog() {
+        val dialoger = DialogerImpl(requireActivity())
+
+        dialoger.showAlertDialog(
+            getString(diarynote.core.R.string.read_external_storage_permission_denied_explanation_dialog_title_text),
+            getString(diarynote.core.R.string.user_photo_read_external_storage_permission_denied_explanation_dialog_message_text),
+            getString(diarynote.core.R.string.dialog_button_ok_text)
+        )
+    }
+
+    private fun getFileNameFromFullPath(fullFilePath: String): String {
+        val splittedPathList = fullFilePath.split("/")
+        return splittedPathList.last()
+    }
+
+    private fun getAppFileFullPath(fileName: String): String {
+        return "${requireActivity().filesDir.absolutePath}/img/$fileName"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

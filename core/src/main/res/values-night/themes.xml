@@ -88,6 +88,8 @@
         <item name="colorOnSurfaceVariant">@color/grey_600</item>
         <item name="colorSurfaceInverse">@color/white</item>
         <item name="colorOnSurfaceInverse">@color/grey_600</item>
+        <item name="colorSurfaceContainer">@color/deep_purple_50</item>          <!-- Outlined Box ExposedDropdownMenu -->
+        <item name="colorSurfaceContainerLow">@color/red_A700</item>
         <item name="colorSurfaceContainerHigh">@color/deep_purple_100</item>            <!-- Dialog -->
 
         <!-- Error brand color. -->
@@ -100,7 +102,7 @@
         <item name="colorOutline">@color/deep_purple_A400</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/deep_purple_50</item>
 
         <!-- Background color. -->
         <item name="android:colorBackground">@color/white</item>
@@ -112,6 +114,7 @@
         <item name="chipStyle">@style/customMainChipStyle</item>
         <item name="materialCalendarStyle">@style/customCalendarStyle</item>
         <item name="switchStyle">@style/customSwitchStyle</item>
+        <item name="circularProgressIndicatorStyle">@style/progressBarStyle</item>
         <!--    <item name="materialAlertDialogTheme">@style/dialogStyle</item>   -->
 
         <!-- Action Bar -->

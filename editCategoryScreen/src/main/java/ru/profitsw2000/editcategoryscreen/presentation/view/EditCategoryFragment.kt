@@ -223,7 +223,7 @@ class EditCategoryFragment : Fragment() {
             })
 
         dialoger.showTwoButtonDialog(getString(diarynote.core.R.string.exit_note_creation_dialog_title_text), getString(
-            diarynote.core.R.string.exit_category_creation_dialog_message_text), getString(
+            diarynote.core.R.string.exit_category_editing_dialog_message_text), getString(
             diarynote.core.R.string.dialog_button_yes_text), getString(
             diarynote.core.R.string.dialog_button_no_text))
     }

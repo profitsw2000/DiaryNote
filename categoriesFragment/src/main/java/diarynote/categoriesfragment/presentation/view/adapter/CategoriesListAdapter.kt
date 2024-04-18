@@ -39,20 +39,6 @@ class CategoriesListAdapter(
             root.setOnClickListener {
                 onCategoryItemClickListener.onItemClick(data[categoryViewHolder.adapterPosition])
             }
-/*            root.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
-                val deleteItem = contextMenu.add("Удалить")
-                val editItem = contextMenu.add("Редактировать")
-
-                deleteItem.setOnMenuItemClickListener {
-                    Toast.makeText(parent.context, "Delete ${data[categoryViewHolder.adapterPosition].categoryName} clicked!!", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                editItem.setOnMenuItemClickListener {
-                    Toast.makeText(parent.context, "Edit ${data[categoryViewHolder.adapterPosition].categoryName} clicked!!", Toast.LENGTH_SHORT).show()
-                    true
-                }
-            }*/
         }
 
         return categoryViewHolder
@@ -107,7 +93,7 @@ class CategoriesListAdapter(
             val request = ImageRequest.Builder(imageView.context)
                 .data(categoryModel.imagePath)
                 .target(imageView)
-                .error(diarynote.core.R.drawable.bottom_nav_categories_icon)
+                .error(diarynote.core.R.drawable.error_icon_24)
                 .build()
             imageLoader.enqueue(request)
         }
