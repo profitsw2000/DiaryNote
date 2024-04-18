@@ -2,7 +2,9 @@ package diarynote.template.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import diarynote.template.R
 import diarynote.template.databinding.CategoryColorPickerRecyclerviewItemBinding
 
 class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() {
@@ -47,7 +49,8 @@ class ColorListAdapter () : RecyclerView.Adapter<ColorListAdapter.ViewHolder>() 
 
         holder.cardView.setCardBackgroundColor(data[position])
         if (clickedPosition == position) {
-            holder.cardView.strokeWidth = 3
+            holder.cardView.strokeWidth =
+                holder.cardView.resources.getDimension(diarynote.core.R.dimen.picked_item_stroke_width).toInt()
         } else {
             holder.cardView.strokeWidth = 0
         }
