@@ -45,7 +45,7 @@ object Versions {
     const val core = "1.9.0"
 
     //Lifecycle
-    const val viewModel = "2.6.2"
+    const val viewModel = "2.8.7"//"2.8.7"//"2.6.2"
 
     //Navigation
     const val navigation = "2.6.0-alpha04"
@@ -65,7 +65,7 @@ object Versions {
     const val gson = "2.9.0"
 
     //Room
-    const val room = "2.4.3"
+    const val room = "2.6.1"//"2.7.0-rc01"//"2.4.3"
 
     //SQLCipher
     const val sqlCipher = "4.5.3"
