@@ -1,6 +1,7 @@
 package diarynote.addcategoryscreen.presentation.view
 
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -47,7 +48,12 @@ class AddCategoryFragment : Fragment() {
     private val iconListAdapter = IconListAdapter(
         onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(position: Int) {
-                if (position == (iconData.size - 1)) getExternalStorageReadPermission()
+                val permissionString = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                else
+                    android.Manifest.permission.READ_MEDIA_IMAGES
+                if (position == (iconData.size - 1)) getExternalStorageReadPermission(permissionString)
+                else imagePath = ""
             }
         },
         imageLoader = imageLoader
@@ -220,7 +226,7 @@ class AddCategoryFragment : Fragment() {
     }
 
     private fun chooseImage() {
-        val mimeType = "image/*"
+        val mimeType = "image/png"
         pickSvgFile.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
     }
 
@@ -233,30 +239,34 @@ class AddCategoryFragment : Fragment() {
         return "${requireActivity().filesDir.absolutePath}/icons/$fileName"
     }
 
-    private fun getExternalStorageReadPermission() {
+    private fun getExternalStorageReadPermission(permissionString: String) {
         when {
             ContextCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
+                permissionString
             ) == PackageManager.PERMISSION_GRANTED -> chooseImage()
 
             //////////////////////////////////////////////////////////////////
 
-            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> showRationaleDialog()
+            shouldShowRequestPermissionRationale(permissionString) -> showRationaleDialog()
 
             //////////////////////////////////////////////////////////////////
 
-            else -> requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            else -> requestPermissionLauncher.launch(permissionString)
         }
     }
 
     private fun showRationaleDialog() {
+        val permissionString = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        else
+            android.Manifest.permission.READ_MEDIA_IMAGES
         val dialoger = DialogerImpl(
             requireActivity(),
             onDialogPositiveButtonClickListener = object : OnDialogPositiveButtonClickListener {
                 override fun onClick() {
                     requestPermissionLauncher.launch(
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                        permissionString
                     )
                 }
             }

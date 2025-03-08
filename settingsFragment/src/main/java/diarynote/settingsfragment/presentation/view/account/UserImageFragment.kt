@@ -1,6 +1,7 @@
 package diarynote.settingsfragment.presentation.view.account
 
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ import diarynote.data.model.state.UserState
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
+import java.util.jar.Manifest
 
 class UserImageFragment : Fragment() {
 
@@ -77,8 +79,12 @@ class UserImageFragment : Fragment() {
     }
 
     private fun initViews() = with(binding) {
+        val permissionString = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        else
+            android.Manifest.permission.READ_MEDIA_IMAGES
         profilePhotoImageViewBackground.setOnClickListener {
-            getExternalStorageReadPermission()
+            getExternalStorageReadPermission(permissionString)
         }
     }
 
@@ -160,20 +166,20 @@ class UserImageFragment : Fragment() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
-    private fun getExternalStorageReadPermission() {
+    private fun getExternalStorageReadPermission(permissionString: String) {
         when {
             ContextCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
+                permissionString
             ) == PackageManager.PERMISSION_GRANTED -> chooseImage()
 
             //////////////////////////////////////////////////////////////////
 
-            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> showRationaleDialog()
+            shouldShowRequestPermissionRationale(permissionString) -> showRationaleDialog()
 
             //////////////////////////////////////////////////////////////////
 
-            else -> requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            else -> requestPermissionLauncher.launch(permissionString)
         }
     }
 
